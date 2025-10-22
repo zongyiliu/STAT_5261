@@ -1,1 +1,560 @@
-l
+\documentclass[letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage[version=4]{mhchem}
+\usepackage{stmaryrd}
+\usepackage[dvipsnames]{xcolor}
+\colorlet{LightRubineRed}{RubineRed!70}
+\colorlet{Mycolor1}{green!10!orange}
+\definecolor{Mycolor2}{HTML}{00F9DE}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{lipsum}
+\usepackage{fancyvrb}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage[export]{adjustbox}
+\graphicspath{ {./images/} }
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{hyperref} 
+\usepackage{xcolor} % For custom colors
+\lstset{
+	language=Python,             % Choose the language (e.g., Python, C, R)
+	basicstyle=\ttfamily\small, % Font size and type
+	keywordstyle=\color{blue}, % Keywords color
+	commentstyle=\color{gray}, % Comments color
+	stringstyle=\color{red}, % String color
+	numbers=left,            % Line numbers
+	numberstyle=\tiny\color{gray}, % Line number style
+	stepnumber=1,            % Numbering step
+	breaklines=true,         % Auto line break
+	backgroundcolor=\color{black!5}, % Light gray background
+	frame=single,            % Frame around the code
+}
+\usepackage{float}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+	\usepackage[]{amssymb} %gives us the character \varnothing
+	\usepackage{ctex} 
+	
+	\title{Lec 3, MATH 5261}
+	\author{Zongyi Liu}
+	\date{Wed, Sept 24, 2025}
+	\begin{document}
+		\maketitle
+		
+		\tableofcontents
+		
+		\section{引入}
+		\begin{itemize}
+			\item 資產 (asset) 是一種可以買賣的投資工具. 它的報酬是從買入到賣出期間價值增加的百分比. 所謂報酬率 (return rate) 是指單位時間內的報酬. 
+			\item 投資組合 (portfolio) 是一組資產股份的集合, 投資組合中各資產的價值比例稱為權重 (weight).
+			\item 投資組合的報酬是從買入到賣出期間價值增加的百分比.
+			\item 這裡的基本假設是 $R_{i}$ 是一個隨機變量, 其期望為 $\mu_{i}$, 標準差為 $\sigma_{i}$.
+		\end{itemize}
+		
+		$$
+		\mu_{i}=E\left (R_{i}\right) \quad \sigma_{i}=\sqrt{\operatorname{Var}\left (R_{i}\right)}
+		$$
+		
+		\begin{itemize}
+			\item 我們稱 $\mu_{i}$ 為期望報酬, 在當前語境下稱 $\sigma_{i}$ 為資產 $i$ 的風險. 
+			\item 我們還用來表示資產 $i$ 和資產 $j$ 報酬之間的協方差與相關係數.
+		\end{itemize}
+		
+		$$
+		\sigma_{i j}=E\left (\left (R_{i}-\mu_{i}\right)\left (R_{j}-\mu_{j}\right)\right) \quad \rho_{i j}=\frac{\sigma_{i j}}{\sigma_{i} \sigma_{j}}
+		$$
+		
+		\begin{itemize}
+			\item 現在我們考慮一個由上述資產組成的投資組合. 
+			\item 由於這些資產的單位大小差異很大, 我們不關心具體的單位數量, 而是關注投資組合中各資產價值所佔的百分比. 
+			\item 假設投資組合的總價值為 $V_{0}$, 其中資產 $i$ 的價值為 $V_{i}, \; i=1, 2, \ldots, m$. 那麼資產 $i$ 在投資組合中的權重為: 
+		\end{itemize}
+		
+		$$
+		w_{i}=\frac{V_{i}}{V_{0}}
+		$$
+		
+		我們以列向量表示這個投資組合的權重: 
+		
+		$$
+		w=\left (w_{1}, w_{2}, \ldots, v_{m}\right)
+		$$
+		
+		則: 
+		
+		$$
+		\sum_{i=1}^{m} w_{i}=\sum_{i=1}^{m} \frac{V_{i}}{V_{0}}=1
+		$$
+		
+		\begin{itemize}
+			\item 一般而言, 權重是時間的函數, 因為不同資產的報酬率是不同的. 
+			\item 在本章中, 我們只考慮兩個時刻: 投資組合被買入的時刻和被賣出的時刻. 
+			\item 記 $R$ 為投資組合的報酬: 
+		\end{itemize}
+		
+		$$
+		R=\frac{\text { 在售出時的portfolio價值 -初始portfolio價值 }}{\text { 初始portfolio價值 }}
+		$$
+		
+		\begin{itemize}
+			\item 一個簡單的算術推導給出了投資組合報酬, 資產報酬與權重之間的關係: 
+		\end{itemize}
+		
+		$$
+		R=\sum_{i=1}^{m} w_{i} R_{i}
+		$$
+		
+		\begin{itemize}
+			\item 通過改變權重, 可以得到不同風險—收益平衡的投資組合.   
+			\item 有些人願意承擔高風險以期獲得高回報, 而也有些人追求安全, 因此願意接受帶有小風險的中等回報.   
+			\item 在數學上, 我們將尋找在給定期望收益下使風險最小的最優權重, 或者在給定風險下使期望收益最大的最優權重.   
+			\item 這兩個問題是對偶的. 由於均值是權重的線性函數, 而方差是權重的二次函數, 如我們將看到的, 這個問題是可以顯式解出的.   
+			\item 當權重 $w_{i}$ 為正時, 表示買入 (做多)資產 $i$, 買入數量價值為 $V_{0} w_{i}$.   
+			當 $w_{i}<0$ 時, 則表示賣出 (做空)該資產, 賣出數量價值為 $\left|V_{0} w_{i}\right|$, 從而產生現金用以購買其他資產.   
+			
+			\item 這樣一來, 就欠下了一定份額的資產 $i$, 必須在投資組合出售時以相同數量的單位歸還.   
+			
+			\item 僅包含少數資產的投資組合可能承受較高程度的風險, 其表現為相對較大的標準差. 一般而言, 透過在投資組合中納入更多資產, 可以降低投資組合收益的變異, 此過程稱為分散化 (diversification).   
+			
+			\item 範例: 考慮以下簡單但具有啟發性的情形. 假設共有 $m$ 個資產, 每個資產的收益期望為 $\mu$, 方差為 $\sigma^{2}$. 再假設這些資產彼此互不相關. 若將投資等分配置於這些資產上, 即對所有 $i=1, 2, \ldots, m$ 取 $w_{i}=1/m$, 則整體期望收益率仍為 $\mu$. 然而整體風險將變為: 
+			
+		\end{itemize}
+		
+		$$
+		\operatorname{Var}[R]=\sigma^{2} / m
+		$$
+		
+		這個隨著 $m$ 的增加迅速降低.
+		
+		\section{在預期收益和風險之間的權衡 (Tradeoff Between ER and Risk)}
+		投資者常問的一個關鍵問題是: 「我們應該如何投資我們的財富?」  投資組合理論基於以下兩個原則對這個問題給出了回答: 
+		
+		\begin{enumerate}
+			\item 最大化期望收益.
+			\item 最小化風險, 這裡的風險被定義為收益的標準差. 
+		\end{enumerate}
+		
+		然而這些目標在某種程度上是相互衝突的, 因為: 
+		
+		\begin{itemize}
+			\item 一般而言, 風險更高的資產具有更高的期望收益.
+			\item 投資者要求為承擔風險獲得補償. 風險資產的期望收益與無風險收益率之間的差額被稱為風險溢酬 (risk premium). 
+			\item 在期望收益與風險之間存在最優的權衡方案.
+		\end{itemize}
+		
+		在本節中我們尋求: 
+		
+		\begin{itemize}
+			\item 在風險的上界尋求最大化收益. 
+			\item 或者在預期收益的下界最小化風險. 
+		\end{itemize}
+		
+		
+		這裡的一個關鍵概念是透過分散化來降低風險, 我們先從一個簡單的例子開始: 一個有風險資產與一個無風險資產. 
+		
+		\begin{itemize}
+			\item 假設我們有一個有風險資產 (它可以是一個投資組合, 例如共同基金), 其中: \\
+			$\diamond$ 期望收益為 0.15\\
+			$\diamond$ 收益的標準差為 0.25
+			\item 一個無風險資產 (例如 30 天期國庫券), 其中: \\
+			$\diamond$ 期望收益為 0.06\\
+			$\diamond$ 收益的標準差依無風險的定義為 0
+		\end{itemize}
+		
+		\subsection{案例}
+		問題: 構造一個投資組合.
+		
+		\begin{itemize}
+			\item 假設我們將財富的一部分 $w$ 投資於有風險資產.
+			\item 並將剩餘的部分 $1-w$ 投資於無風險資產.
+			\item 那麼, 我們投資的期望收益可以表示為: 
+		\end{itemize}
+		
+		
+		$$
+		\mu_{R}=E (R)=0.15 w+0.06 (1-w)=.06+.09 w
+		$$
+		
+		它的方差是: 
+		
+		$$
+		\sigma_{R}^{2}=\operatorname{Var} (R)=w^{2} (.25)^{2}+ (1-w)^{2} (0)^{2}=w^{2} (.25)^{2} .
+		$$
+		
+		所以它的標準差是: 
+		
+		$$
+		\sigma_{R}=.25 w
+		$$
+		
+		我們需要選擇 $w$.
+		
+		\begin{itemize}
+			\item 為此我們可以選擇期望報酬 $E (R)$ 或想要的風險程度 $\sigma_{R}$. 
+			\item 一旦選定了 $\mathrm{E} (\mathrm{R})$ 或 $\sigma_{R}$, 就可以確定 $w$. 
+			\item 問題: 假設你想要期望報酬為 $0.10$, 那麼 $w$ 應該是多少?
+		\end{itemize}
+		
+		答案: $.10=0.06 w+0.09 (1-w)=4/9$
+		
+		\begin{itemize}
+			\item 問題, 假設想要 $\sigma_{R}=.05$, 那麼 $w$ 應該是多少?
+		\end{itemize}
+		
+		答案: $.05=w (.25) \Longrightarrow w=0.2$
+		
+		
+		總體而言, 如果
+		
+		\begin{itemize}
+			\item 風險資產與無風險資產的期望報酬分別為 $\mu_{1}$ 和 $\mu_{f}$. 
+			\item 若風險資產的標準差為 $\sigma_{1}$, 則: \\
+			$\diamond$ 投資組合的期望報酬為 $w \mu_{1}+ (1-w) \mu_{f}$\\
+			$\diamond$ 投資組合報酬的標準差為 $w \sigma_{1}$. 
+		\end{itemize}
+		
+		雖然 $\sigma$ 是風險的一種衡量方式, 但更直接的風險衡量是實際的金錢損失. 接下來我們選擇 $w$ 來控制最大損失的規模. 假設: 
+		$$
+		R \sim N\left (\mu_{R} = w \mu_{1} + (1-w)\mu_{f}, \; \sigma_{R}^{2} = w^{2}\sigma_{1}^{2}\right), 
+		$$
+		並且我們希望選擇 $w$ 使得: 
+		$$
+		P\left (R < r_{0}\right) = \alpha
+		$$
+		對某個給定的 $r_{0}$ 成立 (也就是說, 損失超過 $-r_{0} \times$ 投資金額的概率為 $\alpha$). 由於: 
+		
+		$$
+		P\left (R<r_{0}\right)=\Phi\left (\frac{r_{0}-\left (w \mu_{1}+ (1-w) \mu_{f}\right)}{w \sigma_{1}}\right)
+		$$
+		
+		所以我們有: 
+		
+		$$
+		\frac{r_{0}-\left (w \mu_{1}+ (1-w) \mu_{f}\right)}{w \sigma_{1}}=\Phi^{-1} (\alpha)
+		$$
+		
+		因而: 
+		
+		$$
+		w=\frac{r_{0}-\mu_{f}}{\sigma_{1} \Phi^{-1} (\alpha)+\left (\mu_{1}-\mu_{f}\right)}
+		$$
+		
+		\subsection{案例}
+		假設 $r_{0}=-0.15, \mu_{1}=0.06, \mu_{2}=0.15, \sigma_{1}=0.25$ 以及 $\alpha=0.01$, 則: 
+		
+		$$
+		w=\frac{-0.15-0.06}{0.25 \Phi^{-1} (0.01)+ (0.15-0.06)}=0.4264
+		$$
+		
+		\begin{itemize}
+			\item 假設某公司計畫投資 $\$1, 000, 000$, 並且有資本準備金可承擔 $\$150, 000$ 的損失, 但不能承擔更多. \\
+			- 因此公司希望能確保若發生損失, 其幅度不超過 $15\%$ ($\$150, 000$ 為 $\$1, 000, 000$ 的 $15\%$). 也就是說, $R$ 大於 $-15\%$. \\
+			- 唯一能保證的方法是不投資於有風險資產 (或者投資於有風險資產不超過 $\$150, 000$). \\
+			- 公司選擇 $w$ 使得 $P (R < -0.15)$ 很小. 例如 $P (R < -0.15) = 0.01$. \\
+			- 數值 $\$150, 000$ 被稱為風險值 (value at risk, $=\mathrm{VaR}$), 而 $1 - 0.01 = 0.99$ 被稱為信賴係數 (confidence coefficient). \\
+			- 我們說該投資組合在 $0.99$ 的置信水準下, 其 VaR 為 $\$150, 000$. 
+		\end{itemize}
+		
+		
+		\subsection{賣空 (Selling Short)}
+		賣空是在股票價格下跌時獲利的一種方式. 
+		
+		\begin{itemize}
+			\item 要賣空一支股票, 就是在並未持有該股票的情況下賣出它. 
+			\item 假設某支股票的價格為 $\$ 25 $ 每股, 並且你做空 100 股. 
+			\item 這會使你獲得 $\$ 2, 500$. 
+			\item 如果股價下跌至每股 $\$ 17$, 你可以以 $\$ 1, 700$ 買回這 100 股並了結 (平掉)你的空頭頭寸. 你賺了 $\$ 800$ (扣除交易成本後). 如果股價上漲, 你將會虧損. 
+			\item 假設你有 $\$ 100$, 並且有兩種風險資產. \\
+			$\diamond$ 用你的資金, 你可以買入價值 $\$ 150$ 的風險資產 1, 並做空價值 $\$ 50$ 的風險資產 2. \\
+			$\diamond$ 淨成本將恰好是 $\$ 100$. \\
+			$\diamond$ 你的投資組合的回報將是
+		\end{itemize}
+		
+		$$
+		\frac{3}{2} R_{1}+\left (-\frac{1}{2}\right) R_{2}
+		$$
+		
+		$\diamond$ 你的投資 $w_{1}=3 / 2$ and $w_{2}=-1 / 2$.
+		
+		\subsection{總結}
+		\begin{itemize}
+			\item 由一個無風險資產與一個有風險資產組成的模型雖然非常簡單, 但並非毫無用處.   
+			\item 一般而言, 尋找最優投資組合可以分為兩個步驟完成.   
+		\end{itemize}
+		
+		\begin{enumerate}
+			\item 找出僅包含有風險資產的投資組合. 這個投資組合稱為「切點投資組合」 (tangency portfolio).   
+			\item 找出無風險資產與第一步中確定的切點投資組合的適當配比 (第二步我們現在已經知道如何操作, 見上文).   
+		\end{enumerate}
+		
+		
+		\begin{itemize}
+			\item 我們需要學習的是如何對多個有風險資產進行最優配置. 當只有兩個有風險資產時, 這一點更容易理解. 因此, 我們從兩個有風險資產的情況開始.   
+			
+		\end{itemize}
+		
+		\section{兩個含風險資產}
+		假設  
+		
+		\begin{itemize}
+			\item 我們有兩個有風險資產, 其收益分別為 $R_{1}$ 和 $R_{2}$;  
+			\item 我們將它們按比例 $w$ 和 $1-w$ 配置, 則投資組合的收益為 $R_{P}=w R_{1}+ (1-w) R_{2}$;  
+			\item 投資組合的期望收益為: 
+		\end{itemize}
+		
+		
+		$$
+		E\left (R_{P}\right)=\mu_{R_{P}}=w \mu_{1}+ (1-w) \mu_{2}
+		$$
+		
+		\begin{itemize}
+			\item 若 $\rho_{12}$ 為相關係數, 使得 $\sigma_{R_{1}, R_{2}}=\rho_{12} \sigma_{1} \sigma_{2}$, 則投資組合收益的方差為  
+		\end{itemize}
+		
+		$$
+		\sigma_{R_{P}}^{2}=w^{2} \sigma_{1}^{2}+ (1-w)^{2} \sigma_{2}^{2}+2 w (1-w) \rho_{12} \sigma_{1} \sigma_{2}
+		$$
+		
+		\subsection{將兩個風險資產結合 (Combining Two Risky Assets)}
+		\begin{itemize}
+			\item 我們將兩個資產分別繪製在座標點 $ (\sigma_{1}, R_{1})$ 和 $ (\sigma_{2}, R_{2})$.   
+			\item 這條曲線是點集 $ (\sigma_{P}, 0.08+0.06w)$, 其中 $0 \leq w \leq 1$.   
+			\item 投資組合 MV 的波動率小於任一單一資產.   
+		\end{itemize}
+		
+		\begin{figure}[h]
+			\begin{center}
+				\includegraphics[width=0.5\textwidth]{2025_09_25_65047f35d79cedef5f1bg-20}
+				\caption{Fig. 16.1. 期望收益與風險關係圖.   
+					$F=$ 無風險資產;  
+					$T=$ 切點投資組合;  
+					$R_{1}=$ 第一個有風險資產;
+					$R_{2}=$ 第二個有風險資產;  
+					$MV=$ 最小方差投資組合.   
+					有效前緣 (efficient frontier)是紅色曲線.   
+					所有連接 $R_{2}$ 與 $R_{1}$ 的曲線上的點在 $0 \leq w \leq 1$ 的情況下都是可行的, 但黑色曲線上的那些點是次優的.   
+					$P$ 表示有效前緣上一個典型的投資組合}
+			\end{center}
+		\end{figure}
+		
+		\subsection{案例}
+		範例: 若 $\mu_{1}=0.14, \mu_{2}=0.08, \sigma_{1}=0.2, \sigma_{2}=0.15$ 且 $\rho_{12}=0$, 則  
+		
+		$$
+		\mu_{R_{P}}=0.14w+0.08 (1-w)
+		$$
+		
+		以及  
+		
+		$$
+		\sigma_{R_{P}}^{2}=w^{2}\sigma_{1}^{2}+ (1-w)^{2}\sigma_{2}^{2} 
+		= (0.2)^{2}w^{2}+ (0.15)^{2} (1-w)^{2}, 
+		$$  
+		
+		因為 $\rho_{12}=0$. 利用微積分可以證明, 使投資組合風險最小化時的權重為  
+		
+		$$
+		w=0.025/0.125=0.36. 
+		$$  
+		
+		對於該投資組合, 有 $\mu_{R_{P}}=0.1016$, 而 $\sigma_{R_{P}}=0.12$. 
+		
+		說明: 為了找到最小方差 (MVP)投資組合, 我們需要尋找使 $\sigma_{R_{P}}^{2}$ 最小的 $w$. 為此, 我們運用微積分: 
+		
+		$$
+		\begin{aligned}
+			\frac{d \sigma_{R_{P}}^{2}}{d w} & = 2w \sigma_{1}^{2} - 2 (1-w)\sigma_{2}^{2} \\
+			& = 2w\left (\sigma_{1}^{2} + \sigma_{2}^{2}\right) - 2\sigma_{2}^{2} = 0
+		\end{aligned}
+		$$
+		
+		由此得到
+		
+		$$
+		w = \frac{\sigma_{2}^{2}}{\sigma_{1}^{2} + \sigma_{2}^{2}} \, .
+		$$
+		
+		更一般地, 對於 $n$ 個互不相關的資產收益 $R_{1}, \ldots, R_{n}$, 其 MVP 權重為
+		
+		$$
+		\left (
+		\frac{1/\sigma_{1}^{2}}{\, 1/\sigma_{1}^{2} + \ldots + 1/\sigma_{n}^{2}\, }, \;
+		\ldots, \;
+		\frac{1/\sigma_{n}^{2}}{\, 1/\sigma_{1}^{2} + \ldots + 1/\sigma_{n}^{2}\, }
+		\right).
+		$$
+		
+		\paragraph{兩個有風險資產}
+		對於若干 $w$ 值所對應的 $\mu_{R_{P}}$ 與 $\sigma_{R_{P}}$. 
+		
+		\begin{center}
+			\begin{tabular}{rcc}
+				$w$ & $\mu_{R_{P}}$ & $\sigma_{R_{P}}$ \\
+				\hline
+				0.00 & 0.080 & 0.150 \\
+				0.25 & 0.095 & 0.123 \\
+				0.50 & 0.110 & 0.125 \\
+				0.75 & 0.125 & 0.155 \\
+				1.00 & 0.140 & 0.200 \\
+			\end{tabular}
+		\end{center}
+		
+		\section{馬爾科維茨最優投資組合問題 (Markowitz Optimal Portfolio Problem)}
+		\begin{itemize}
+			\item 目標: 在收益達到固定值的同時最小化風險. 
+		\end{itemize}
+		
+		考慮如下最優化問題: 
+		
+		$$
+		\min _{w}\left\{\sigma_{R_{P}}^{2}\right\}
+		$$
+		
+		受限於以下兩個條件: 
+		
+		$$
+		\begin{aligned}
+			& \sum_{i} \mu_{i} w_{i}=\mu \\
+			& \sum_{i} w_{i}=1
+		\end{aligned}
+		$$
+		
+		在這裡, $\mu$ 是一個預先設定的值. 因此, Markowitz 問題的解是 $\mu$ 的函數. 注意, 當 $\mu = \mu_{MVP}$ 時, 最小方差投資組合 (MVP)就是 Markowitz 問題的解. 若允許賣空, 則可以利用拉格朗日乘子法來求解 Markowitz 問題. 
+		
+		
+		\subsection{對於三個獨立有風險資產的馬爾科維茨問題 (Markowitz Problem for Three independent Risky Assets)}
+		令 $\sigma_{12}=\sigma_{13}=\sigma_{23}=0, ;\sigma_{1}=\sigma_{2}=\sigma_{3}=1$, 並且 $\mu_{1}=1, ;\mu_{2}=2, ;\mu_{3}=3$. 對於這個例子, 馬爾科維茨問題變為: 
+		
+		$$
+		\begin{gathered}
+			\min _{w}\left\{w_{1}^{2}+w_{2}^{2}+w_{3}^{2}\right\}, \quad \text { s.t. } \\
+			w_{1}+2 w_{2}+3 w_{3}=\mu, \quad w_{1}+w_{2}+w_{3}=1 .
+		\end{gathered}
+		$$
+		
+		通過拉格朗日乘子法, 我們得到如下的線性系統: 
+		
+		$$
+		\begin{gathered}
+			w_{1}-\lambda_{1}-\lambda_{2}=0, \\
+			w_{2}-2 \lambda_{1}-\lambda_{2}=0, \\
+			w_{3}-3 \lambda_{1}-\lambda_{2}=0, \\
+			w_{1}+2 w_{2}+3 w_{3}=\mu, \quad \text { 以及 } w_{1}+w_{2}+w_{3}=1 .
+		\end{gathered}
+		$$
+		
+		最後的五個等式引出如下的最優化解: 
+		
+		
+		$$
+		w_{1}=\frac{4}{3}-\frac{\mu}{2}, \quad w_{2}=\frac{1}{3}, \quad w_{3}=\frac{\mu}{2}-\frac{2}{3}
+		$$
+		
+		則這個有效投資組合的標準差變為了: 
+		
+		$$
+		\sigma_{\min }=\sqrt{\frac{7}{3}-2 \mu+\frac{\mu^{2}}{2}}=\sqrt{\frac{1}{3}+\frac{1}{2} (\mu-2)^{2}}
+		$$
+		
+		這是 $\mu$ 的函數, 此處有 $\mu=2$, 它給出了 MVP.
+		
+		$\left (\sigma_{\min}, \mu\right)$ 的轨迹称为有效前沿 (efficient frontier), 其绘制如下. 若允许卖空, 所有可能的 $\sigma$ 与 $\mu$ 的组合位于实心蓝色曲线的右侧. $ (\sigma_{MVP}, \mu_{MVP})$ 是有效前沿的左端点. 当不允许卖空时, 前沿由 $4/3 \leq \mu \leq 8/3$ 所分割. \\
+		
+		
+		\includegraphics[max width=0.5\textwidth, center]{2025_09_25_65047f35d79cedef5f1bg-27}
+		
+		\subsection{估計均值, 標準差和協方差 (Estimating means, standard deviations, and covariances)}
+		\begin{itemize}
+			\item 對於 $\mu_{1}$ 和 $\sigma_{1}$ 值可以通過過去在第一個風險資產上的收益率得到. 
+			\item 若 $R_{i, 1}, \ldots, R_{i, n}, \; i=1, 2$ 表示兩個資產的收益時間序列, 則 $\bar{R}_{i}, \; i=1, 2$ (樣本均值)以及 $s_{i}, \; i=1, 2$ (樣本標準差)是對 $\mu_{i}, \; i=1, 2$ 與 $\sigma_{i}, \; i=1, 2$ 的估計. 
+			\item 協方差 $\sigma_{12}$ 可以用樣本協方差來估計.
+		\end{itemize}
+		
+		$$
+		s_{12}=\frac{1}{n} \sum_{t=1}^{n}\left (R_{1 t}-\bar{R}_{1}\right)\left (R_{2 t}-\bar{R}_{2}\right)
+		$$
+		
+		\begin{itemize}
+			\item 相關係數 $\rho_{12}$ 可以用樣本相關係數來估計. 
+		\end{itemize}
+		
+		$$
+		\hat{\rho}_{12}=\frac{s_{12}}{s_{1} s_{2}}
+		$$
+		
+		\section{有效邊界 (Efficient Frontier)}
+		我們可以將這個概念推廣到多資產的投資組合: 
+		
+		\begin{itemize}
+			\item 將各資產以所有可能的權重 (總和為 1)進行組合
+			\item 將期望收益與標準差繪製出來, 標準差作為橫軸
+			\item 所有可能的組合構成一團點雲, 看起來像一條拋物線
+			\item 只有這團點雲的上邊界才是有效邊界 (efficient frontier)
+		\end{itemize}
+		
+		
+		\includegraphics[max width=0.5\textwidth, center]{2025_09_25_65047f35d79cedef5f1bg-29}
+		
+		\subsection{性質 (Properties)}
+		\begin{itemize}
+			\item 對於給定的波動率, 至多存在一個具有最高收益的投資組合 (綠色).
+			\item 對於給定的收益, 至多存在一個具有最低波動率的投資組合 (橙色).
+			\item 這些就是有效投資組合 (efficient portfolios).
+		\end{itemize}
+		
+
+		\includegraphics[max width=0.5\textwidth, center]{2025_09_25_65047f35d79cedef5f1bg-30}
+		
+		\subsection{切點投資組合 (Tangency Portfolio)}
+		\begin{itemize}
+			\item 加入無風險資產.
+			\item 繪製一條通過無風險資產並且與有效前緣相切的直線.
+			\item 我們將該切點組合記為 $P$.
+		\end{itemize}
+		
+		\includegraphics[max width=0.5\textwidth, center]{2025_09_25_65047f35d79cedef5f1bg-31}
+		
+		\section{將兩個風險資產和一個無風險資產結合 (Combining two risky assets with a risk free asset)}
+		兩種有風險資產下的切點投資組合: 
+		
+		\begin{itemize}
+			\item 有效前緣上的每一個點 $\left (\sigma_{R}, \mu_{R}\right)$ 對應某個 $w$ 的取值.
+			\item 若固定 $w$, 則得到一個由兩種有風險資產組成的固定投資組合.
+			\item 接下來將該有風險資產組合與無風險資產混合.
+			\item 連接無風險資產與某個有風險資產組合的直線斜率稱為夏普比率 (Sharpe ratio):
+		\end{itemize}
+
+		$$
+		\frac{E\left (R_{P}\right)-\mu_{f}}{\sigma_{R_{P}}}
+		$$
+		
+		\begin{itemize}
+			\item 夏普比率 (Sharpe ratio)$=$ 「報酬風險比」$=$ 「超額期望報酬」與標準差的比值. 夏普比率越大越好.
+			\item 點 T 具有最高的夏普比率, 稱為切點投資組合 (tangency portfolio)
+			\item 有效投資組合由切點投資組合與無風險資產組成
+			\item 所有有效投資組合對兩種風險資產的配置比例相同, 即切點投資組合
+		\end{itemize}
+		
+		
+	\end{document}
