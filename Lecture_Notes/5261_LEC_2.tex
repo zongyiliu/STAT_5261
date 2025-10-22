@@ -1,1 +1,1267 @@
+\documentclass[letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage[version=4]{mhchem}
+\usepackage{stmaryrd}
+\usepackage[dvipsnames]{xcolor}
+\colorlet{LightRubineRed}{RubineRed!70}
+\colorlet{Mycolor1}{green!10!orange}
+\definecolor{Mycolor2}{HTML}{00F9DE}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{lipsum}
+\usepackage{fancyvrb}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage[export]{adjustbox}
+\graphicspath{ {./images/} }
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{hyperref} 
+\usepackage{xcolor} % For custom colors
+\lstset{
+	language=Python,            % Choose the language (e.g., Python, C, R) 
+	basicstyle=\ttfamily\small, % Font size and type
+	keywordstyle=\color{blue}, % Keywords color
+	commentstyle=\color{gray}, % Comments color
+	stringstyle=\color{red}, % String color
+	numbers=left,           % Line numbers
+	numberstyle=\tiny\color{gray}, % Line number style
+	stepnumber=1,           % Numbering step
+	breaklines=true,        % Auto line break
+	backgroundcolor=\color{black!5}, % Light gray background
+	frame=single,           % Frame around the code
+}
+\usepackage{float}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+	\usepackage[]{amssymb} %gives us the character \varnothing
+	\usepackage{ctex} 
+	
+	\title{Lect 2, MATH 5261 \\
+		\small{Returns\\
+			收益
+		}
+	}
+	
+	\author{Zongyi Liu}
+	\date{Thu, Sept 16, 2025}
+	
+	\begin{document}
+		\maketitle
 
+\tableofcontents
+\section*{Introduction}
+\begin{itemize}
+	\item 當你持有一家公司的股票時, 你擁有該公司部分的所有權，這表示你同時分享其獲利與虧損（但不承擔債務責任）。然而，沒有任何報酬是保證的。
+	\item 當你購買債券時，實際上是向公司提供貸款。該公司有義務（除非發生違約）在貸款契約所指定的若干年後（稱為到期日，maturity）償還本金（稱為票面價值，par），並定期支付稱為息票（coupon）的利息。
+	\item 息票與股票股利類似，但不同之處在於：息票是契約上明定的支付，而股票股利則取決於公司管理層的決策。
+	\item 投資者將因此獲得一筆固定的收入流。
+	\item 因此債券被稱為固定收益證券（fixed-income securities）。
+\end{itemize}
+
+\section*{Zero Coupon Bonds (3.2)}
+\begin{itemize}
+	\item 零息債券（zero-coupon bonds）在到期前不支付任何利息或本金。
+	\item 票面價值（par value 或 face value）是債券在到期時支付給持有人的金額。
+	\item 若債券的殖利率為正，零息債券的售價將低於票面價值。
+	\item 任何以低於票面價值出售的債券稱為折價債券（discount bond）。
+	\item 零息債券亦稱為純折價債券（pure discount bond）。
+\end{itemize}
+
+\section*{Borrowers, Maturity}
+\begin{itemize}
+	\item 借款人（亦稱發行人，issuer）可以是企業或政府（例如美國財政部，其發行的債券稱為「國庫券」（Treasuries））。
+	\item 債券表面上看似無風險，但實際上並非如此。
+	\item 發行人（借款人）可能無法履行其支付義務，這種情況稱為信用風險（credit risk）。
+	\item 為補償該額外風險，貸款人要求高於一般市場利率的額外報酬，稱為信用利差（credit spread）。
+\end{itemize}
+
+
+\section*{現價}
+\begin{itemize}
+	\item 債券（以及任何金融商品）的定價皆基於一個簡單的原理——現值評價（present valuation）。
+	\item 若未來有一筆承諾支付的金額，那麼我今天應該願意支付多少？
+	\item 回答此問題的一種方式是考慮替代方案：在當前的市場利率下，今天需要投資多少金額，經過複利後，才能在相同的未來日期獲得相同的支付金額？
+
+	\item 我們已經看到，總報酬（gross return）等於期末價值除以期初價值，且總報酬等於 \(1+\) 淨報酬（net return）。
+	\item 由於今日的 \(x\) 元在以年化利率 \(r\) 投資一年後將變為 \(x(1+r)\)，因此，一年後可收取 1,000 元的現值（present value）為：
+\end{itemize}
+
+
+$$
+\frac{1000}{1+r}=1000 \times(1+r)^{-1}
+$$
+
+\begin{itemize}
+	\item 用於現值評價的利率稱為折現率（discount rate）。
+	\item 折現因子 \((1 + r)^{-1}\) 一般為時間的函數（在上述例子中默認為一年期）。
+	\item 折現函數取決於當前距離到期的時間 \(T\)，我們將其記為 \(D(T)\)。
+	\item 請注意，折現率可為無風險利率（risk-free rate），或為無風險利率加上先前討論的信用利差（credit spread）。
+\end{itemize}
+
+\section*{Zero Coupon Bonds}
+\begin{itemize}
+	\item 我們剛提到，一年後可收取 1,000 元的現值（present value）為 \(\dfrac{1000}{1 + r}\)。
+	\item 一般公式：零息債券（zero-coupon bond）的價格可表示為：
+\end{itemize}
+
+$$
+\operatorname{PRICE}=\frac{\operatorname{PAR}}{(1+r)^{T}}=\operatorname{PAR}(1+r)^{-T}
+$$
+
+若假設 \( T \) 為距到期的年數（time to maturity in years).
+
+
+\begin{itemize}
+  \item 使零息債券折現後的票面價值（PAR）等於其當前市場價格的年利率 \( r \)，稱為該債券的到期收益率（yield to maturity，簡稱 YTM）。
+\end{itemize}
+
+\section*{PV of a Zero Coupon Bond (3.2)}
+\begin{itemize}
+	\item 對於一張期限為 10 年、票面價值為 \$1000、利率 \( r = 4\% \) 的零息債券，其（合理）市場價格（即現值，PV）為：
+\end{itemize}
+
+
+$$
+\frac{1000}{(1+0.04)^{10}}
+$$
+
+如果利息是年複利如下:
+
+\begin{itemize}
+  \item 當利率為 \( r = 6\% \) 且按年複利計算時，票面價值為 \$1000、期限為 20 年的零息債券，其價格為：
+  
+\end{itemize}
+
+$$
+\frac{1000}{(1+r)^{20}}=\frac{1000}{1.06^{20}}=311.80
+$$
+
+\section*{Credit Spread}
+\begin{itemize}
+	\item 以上（以及以下的內容）均假設不存在違約風險。
+	\item 但若同樣的 20 年期零息債券以 \$290 的價格出售，則其信用利差（credit spread）\( c \) 為多少？
+\end{itemize}
+
+
+$$
+\frac{1000}{(1+(r+c))^{20}}=290
+$$
+
+\begin{itemize}
+  \item 有大量研究（包含數學與統計研究）試圖將信用利差 \(c\) 與發行人的違約機率及回收率建立關聯。
+\end{itemize}
+
+\section*{Semi-Annual Compounding (3.2)}
+\begin{itemize}
+	\item 若假設利率 \( r \) 為年利率並採半年複利計算，則其價格為：
+\end{itemize}
+
+$$
+\operatorname{PRICE}=\operatorname{PAR}(1+r / 2)^{-2 T}
+$$
+
+\begin{itemize}
+	\item 對於一張期限為 \( T \) 年、每年複利 \( n \) 次的零息債券，其價格為：
+\end{itemize}
+
+$$
+\text { Price }=\operatorname{PAR}(1+r / n)^{-n T}
+$$
+
+\begin{itemize}
+	\item 若利率為 \( r = 6\% \)，且每半年複利一次，則該 20 年期債券的現值（present value）為：
+\end{itemize}
+
+
+$$
+\frac{1000}{(1+r / 2)^{40}}=\frac{1000}{1.03^{40}}=306.56
+$$
+
+
+\begin{itemize}
+	\item 若利率 \( r = 6\% \) 採連續複利（continuously compounded），則該 20 年期債券的現值（present value）為：
+\end{itemize}
+
+$$
+\frac{1000}{e^{20 r}}=\frac{1000}{e^{20(0.06)}}=301.19
+$$
+
+\section*{Sensitivity of the Price of a Zero to Rate Increases (3.2.1)}
+\begin{itemize}
+	\item 假設你剛以 \$306.56 購入一張票面價值為 \$1000、期限為 20 年的零息債券。
+	\item 你假設半年複利，計算得到的利率為 \(6\%\)。
+	\item 六個月後，市場利率上升至 \(7\%\)，此時該債券的現值（present value）為：
+\end{itemize}
+
+$$
+\frac{1000}{1.035^{39}}=261.41
+$$
+
+\begin{itemize}
+	\item 你的投資價值下跌了 \(306.56 - 261.41 = 45.15\)。
+	\item 若你繼續持有該債券 19.5 年，最終仍可獲得 \$1000；然而，若你現在出售，將損失 \$45.15，其報酬率為：
+\end{itemize}
+
+$$
+\frac{-45.15}{306.56}=-14.73 \%
+$$
+
+半年期報酬率為 \(-14.73\%\)，折合年化報酬率約為 \(-29.46\%\)。
+
+\begin{itemize}
+  \item 當利率上升時，債券的價值會下降.
+\end{itemize}
+
+\section*{Sensitivity of the Price of a Zero to Interest Rate Drops (3.2.1)}
+
+\begin{itemize}
+	\item 假設採用半年複利。
+	\item 你剛以 \$306.56 購入該零息債券。
+	\item 六個月後，市場利率下降至 \(5\%\)，此時該債券的現值（present value）為：
+\end{itemize}
+
+$$
+\frac{1000}{1.025^{39}}=381.74
+$$
+
+\begin{itemize}
+	\item 你的投資價值上升了 \(381.74 - 306.56 = 75.18\)。
+	\item 若你繼續持有該債券 19.5 年，最終仍可獲得 \$1000；若你現在出售，將實現 \$75.18 的利潤，其報酬率為：
+\end{itemize}
+
+$$
+\frac{75.18}{306.56}=24.5 \%
+$$
+
+半年期報酬率為 \(24.5\%\)，折合年化報酬率（依債券慣例）約為 \(49\%\)。
+
+\begin{itemize}
+	\item 當利率下降時，債券的價值會上升。
+\end{itemize}
+
+\section{附息債券}
+
+這裡討論的是附息債券 (Coupon Bonds), 大多數債券會定期支付固定利息（稱為息票，coupon）。
+
+\begin{itemize}
+	\item 考慮一張期限為 20年, 票面價值為 \$1000, 年息票率 \(6\%\) 的債券，並採半年付息。
+	\item 這表示每期息票支付金額為 \(6\% / 2 \times \$1000 = \$30\)。
+	\item 債券持有人將收到共 40 期、每期 \$30 的息票支付。
+	\item 並在 20 年後收回票面價值 \$1000。
+	\item 息票與票面價值的比率稱為息票率（coupon rate）或票面收益率（coupon yield）。
+	\item 息票與債券當前市場價格的比率稱為當期收益率（current yield）。
+\end{itemize}
+
+
+\section*{附息債券與多張零息債券的等價關係}
+
+附息債券與多張零息債券的等價關係（亦稱為「複製原理」（replication））是金融學中的一項基本原理， 它允許我們利用其他金融工具的價格來推導某一金融資產的定價。
+
+以三張零息債券複製一張面值為 \$1000, 年息票率 10\%, 期限三年的債券如下：
+
+
+\begin{figure}[h]
+\begin{center}
+  \includegraphics[width=0.6\textwidth]{2025_10_20_1725dd1e33e7a5fec5b4g-15}
+\caption{三種債券的收益結果}
+\end{center}
+\end{figure}
+
+\subsection{現價}
+\begin{itemize}
+	\item 每筆現金流會根據其發生的期數進行折現。
+	\item 假設每半年利率為常數 \( r \)。
+	\item 第一筆金額為 \( C \) 的息票，其現值為 \(\dfrac{C}{1 + r}\)；第二筆息票的現值為 \(\dfrac{C}{(1 + r)^{2}}\)，以此類推。
+	\item 其一般公式為：
+\end{itemize}
+
+$$
+\text {債券價格}=\sum_{t=1}^{2 T} \frac{C}{(1+r)^{t}}+\frac{P A R}{(1+r)^{2 T}}
+$$
+
+其中 \(\mathrm{PAR}\) 表示票面價值（par value），\(\mathrm{T}\) 表示到期時間（maturity，以年為單位）.
+
+\section*{Coupon Bonds}
+教科書同時給出了一個相當特殊的債券定價表達式：
+
+$$
+\text { 債券價格 }=\frac{C}{r}+\left\{\mathrm{PAR}-\frac{C}{r}\right\}(1+r)^{-2 T}
+$$
+
+此公式的推導基於以下關係（當 \( a \neq 1 \) 時）：
+
+\[
+1 + a + a^{2} + \ldots + a^{n} = \frac{1 - a^{n+1}}{1 - a}
+\]
+
+其中 \( a = \frac{1}{1 + r} \)。
+
+此公式在實務中並不常用，因為金融從業人員通常會使用專門的軟體進行計算。  
+但更重要的是——這裡有一條在金融業生存的建議： 一個人人皆知但不夠優雅的公式，永遠比一個漂亮但鮮為人知的公式更實用。原因之一是，你得花額外的時間向所有人證明你的公式是正確的。
+
+
+\section*{息票利率的折現}
+
+\begin{itemize}
+	\item 假設以息票利率（coupon rate）進行折現 (discount)。
+	\item 當以年利率 \(6\%\)（即半年利率 \(3\%\)）進行折現時，所有支付的現值總和等於 \$1000：
+\end{itemize}
+
+$$
+\sum_{t=1}^{40} \frac{30}{1.03^{t}}+\frac{1000}{1.03^{40}}=1000
+$$
+
+\begin{itemize}
+	\item 換句話說，若當前市場利率（用於計算現值）等於息票收益率，且採半年複利折現，則債券的合理價值必定等於票面金額。
+	\item 6個月後，若折現率保持不變，則該債券（包含現已到期的第一期息票支付）的價值為：
+\end{itemize}
+
+
+$$
+\sum_{t=0}^{39} \frac{30}{1.03^{t}}+\frac{1000}{1.03^{39}}=1030
+$$
+
+\begin{itemize}
+	\item 在上述表達式中，雖然仍包含 40 期息票，但第一次的時間為零，因為第一期息票現已到期。
+	\item 我們可以輕易驗證，上述表達式等於：
+\end{itemize}
+
+
+$$
+\left(\sum_{t=1}^{40} \frac{30}{1.03^{t}}+\frac{1000}{1.03^{40}}\right) \times 1.03=1030
+$$
+
+\begin{itemize}
+	\item 稍微想一想這些結果的一致性：在債券發行時，\$30 的息票於 6 個月後到期，與其他所有支付一樣被折現；但現在它已到期，因此不再折現。
+	\item 息票剛支付完的瞬間，尚餘 39 期息票未到期；在相同的折現率下，債券的現值又回到 \$1{,}000。
+\end{itemize}
+
+\section{現值對利率上升的敏感}
+
+\begin{itemize}
+	\item 假設在債券發行6個月後，市場利率（或折現率）上升至 \(7\%\)。
+	\item 則六個月後，該債券的價值為：
+\end{itemize}
+
+
+$$
+\sum_{t=0}^{39} \frac{30}{1.035^{t}}+\frac{1000}{1.035^{39}}=924.48
+$$
+
+年化收益為:
+
+$$
+2\left(\frac{924.48-1000}{1000}\right)=-15.1 \%
+$$
+
+\begin{itemize}
+	\item 當利率上升時，債券的價值會下降。
+	\item 若6個月後利率下降至 \(5\%\)，則該投資的價值為：
+\end{itemize}
+
+$$
+\sum_{t=0}^{39} \frac{30}{1.025^{t}}+\frac{1000}{1.025^{39}}=1153.70
+$$
+
+由此導致了一個年化收益如下:
+
+$$
+2\left(\frac{1153.70-1000}{1000}\right)=30.7 \%
+$$
+
+\begin{itemize}
+	\item 當利率下降時，債券的價值會上升。
+\end{itemize}
+
+\section*{到期收益率（Yield to Maturity, YTM）}
+
+\begin{itemize}
+	\item 假設一張債券的剩餘到期時間為 \(T = 30\) 年，並採用年複利計算。
+	\item 年息票金額為 \(C = 40\,\$\)，票面價值（PAR）為 \(1000\,\$\)。
+	\item 假設目前市場價格為 \$1200，比票面價值高出 \$200。（到期時，你只會收到投資的 \$1200 中的 \$1000。）
+	\item 我們已知 \(40 / 1000 = 4\%\) 為息票率（coupon rate）。
+	\item 但你投入 \$1200 只收到 \$40 的息票，因此當期收益率為每半年 \(3.33\%\)，或年化 \(6.66\%\)。
+	\item 到期收益率（YTM）是使債券的現值等於實際市場價格的那個折現率。
+\end{itemize}
+
+
+$$
+\textbackslash sum\_\{t=1\}\^{}\{30\} \textbackslash frac\{40\}\{(1+Y T M)\^{}\{t\}\}+\textbackslash frac\{1000\}\{(1+Y T M)\^{}\{30\}\}=\text{現價}
+$$
+
+在此例中，YTM 為每半年 \(0.0324\)，年化約為 \(6.48\%\)。
+
+
+\section*{General Formula (3.4.2)}
+\begin{itemize}
+	\item 假設一張附息債券每半年支付一次息票金額 \(C\)，票面價值為 \(\mathrm{PAR}\)，距離到期尚有 \(T\) 年。
+	\item 設 \(r_{1}, r_{2}, \ldots, r_{2T}\) 為對應於未來 \(1/2,\,1,\,1.5,\,\ldots,\,T\) 年之半年期即期利率（half-year spot rates）。
+	\item 到期收益率（YTM）定義為使下式成立的單一期限利率 \(y\) ：
+\end{itemize}
+
+$$
+\begin{aligned}
+\frac{C}{1+r_{1}} & +\frac{C}{\left(1+r_{2}\right)^{2}}+\ldots+\frac{C}{\left(1+r_{2 T-1}\right)^{2 T-1}}+\frac{C}{\left(1+r_{2 T}\right)^{2 T}}+\frac{P A R}{\left(1+r_{2 T}\right)^{2 T}} \\
+& =\frac{C}{1+y}+\frac{C}{(1+y)^{2}}+\ldots+\frac{C}{(1+y)^{2 T-1}}+\frac{C}{(1+y)^{2 T}}+\frac{P A R}{(1+y)^{2 T}}
+\end{aligned}
+$$
+
+\includegraphics[max width=0.6\textwidth, center]{2025_10_20_1725dd1e33e7a5fec5b4g-24}
+\captionof{figure}{債券價格與到期收益率（YTM）的關係如下圖所示。紅色的水平線代表債券價格 \$1,200；價格–收益率曲線與此線相交於 0.0324, 如紅色垂直線所示。因此，0.0324 即為該債券的每半年到期收益率。}
+
+
+若價格（price）大於票面價值（par），則有
+\[
+\frac{1}{\text{price}} < \frac{1}{\text{par}},
+\]
+因此，當期收益率（current yield）小於息票率（coupon rate）。
+
+
+  \includegraphics[width=0.6\textwidth, center]{2025_10_20_1725dd1e33e7a5fec5b4g-25}
+  \captionof{figure}{par $=1000$, coupon payment \$=40, \textbackslash mathrm\{\~{}T}=30\$\}
+
+Comparison of the three rates or yields
+
+一項關鍵特性，如前圖所示：  
+\[
+\text{價格} > \text{票面價值 (par)} \Longrightarrow \text{息票率（coupon rate）} > \text{當期收益率（current yield）}
+\]
+
+反之：  
+\[
+\text{價格} < \text{票面價值} \Longrightarrow \text{息票率} < \text{當期收益率}
+\]
+
+更廣義地說，如前圖所示：
+
+
+price $>$ par $\Longrightarrow$ coupon rate $>$ current yield $>$ yield to maturity
+
+
+Reciprocally:
+
+
+price $<$ par $\Longrightarrow$ coupon rate $<$ current yield $<$ yield to maturity
+
+\subsection{Spot Rates}
+我們已經看到，對於每半年支付一次息票（這是大多數債券的情況）的附息債券，其價格與其到期收益率（YTM）\( y \) 的關係如下：
+
+\[
+\text{bond price} = \sum_{t=1}^{2T} \frac{C}{(1 + y)^t} + \frac{\mathrm{PAR}}{(1 + y)^{2T}}
+\]
+
+對於零息債券（zero-coupon bond），當 \( C = 0 \) 時，上式化簡為：
+
+\[
+\text{PRICE} = \text{PAR} \, (1 + y)^{-2T}
+\]
+
+這表示，對於無信用風險的零息債券，其到期收益率（YTM）即為今日對應於期限 \( T \) 年的即期利率（interest rate），  
+亦即「當下」（on the spot）的借貸利率。
+
+
+\begin{itemize}
+  \item Zero-coupon bonds allow to derive a "pure" or "clean" discount rates / YTMs unencumbered of intermediate coupon payments
+  \item Their YTMs are called spot rates
+  \item But interest rates vary depending on the time horizon (maturities), and through time
+  \item More precisely, the YTM of a zero coupon bond of maturity $n$ years is called the $n$-year spot rate
+  \item In the textbook, it is denoted as $y_{n}$
+  \item The present value (or net present value) of a payment of $\$ 1$ to be made $n$ years from now is $\frac{\$ 1}{\left(1+y_{n}\right)^{n}}$, assuming an annual rate
+\end{itemize}
+
+\subsection{YTM vs Spot rates}
+\begin{itemize}
+	\item 但這僅適用於零息債券（zero-coupon bonds）。
+	\item 否則，附息債券的到期收益率（YTM）僅針對特定債券：它是那個單一的利率，使得以該利率折現所有現金流（息票與最終本金支付）後，其現值等於當前市場價格。
+	\item 相對地，即期利率（spot rates）是「通用」的，但適用於不同期限的當前時點；市場上存在這些利率的報價。
+	\item 附息債券可視為多張零息債券的組合，每張具有不同的到期日，因此需以不同的即期利率進行折現。
+\end{itemize}
+
+\section*{Spot rates to Price Bonds}
+假設：
+
+\begin{itemize}
+	\item 半年期即期利率為每年 \(5\%\)；
+	\item 一年期即期利率為每年 \(6\%\)。
+\end{itemize}
+
+我們可以將一張每半年支付 \$40 息票的債券視為由兩張零息債券所組成：
+
+\begin{itemize}
+	\item 一張期限 \(T = \tfrac{1}{2}\) 年、票面價值為 \$40 的零息債券；
+	\item 一張期限 \(T = 1\) 年、票面價值為 \$1040 的零息債券；
+	\item 該附息債券的價格等於這兩張零息債券價格的總和，其表達式為：
+\end{itemize}
+
+
+$$
+\frac{40}{1+0.025}+\frac{1040}{(1+0.03)^{2}}=1019 .
+$$
+
+\begin{itemize}
+	\item 該附息債券的到期收益率（YTM）為使下式成立的 \( y \) 值：
+\end{itemize}
+
+
+$$
+\frac{40}{1+y}+\frac{1040}{(1+y)^{2}}=1019 .
+$$
+
+在此中 $y=0.0299$.
+
+\section*{YTM vs Spot rates}
+例子：一張期限為 4 年, 票面價值 \$100, 每年支付 \$5 息票的債券：
+
+
+\begin{center}
+\begin{tabular}{|l|l|l|l|l|l|}
+\hline
+Years & 0 & 1 & 2 & 3 & 4 \\
+\hline
+Coupon &  & 5 & 5 & 5 & 5 \\
+\hline
+Par &  & 0 & 0 & 0 & 100 \\
+\hline
+Spot rates &  & 4\% & 4.30\% & 4.20\% & 3.59\% \\
+\hline
+PV of coupon &  & 4.81 & 4.60 & 4.42 & 91.18 \\
+\hline
+Bond price & 105.00 &  &  &  &  \\
+\hline
+Years & 0 & 1 & 2 & 3 & 4 \\
+\hline
+Coupon &  & 5 & 5 & 5 & 5 \\
+\hline
+Par &  & 0 & 0 & 0 & 100 \\
+\hline
+YTM &  & 3.63\% & 3.63\% & 3.63\% & 3.63\% \\
+\hline
+PV of coupon &  & 4.82 & 4.66 & 4.49 & 91.04 \\
+\hline
+Bond price & 105.02 &  &  &  &  \\
+\hline
+\end{tabular}
+\end{center}
+
+\section*{Spot rates - Example}
+另一個例子：已知即期利率 \(r_{1} = 8\%\)、\(r_{2} = 10\%\)，那麼一張票面利率為 \(5\%\) 的兩年期債券應該定價多少？假設按年複利計算。
+
+例題解答：已知即期利率 \(r_{1} = 8\%\)、\(r_{2} = 10\%\)，則票面利率為 \(5\%\) 的兩年期債券價格應為（假設年複利）：
+
+
+$$
+\text { PRICE }=\frac{50}{1+0.08}+\frac{1050}{(1+0.10)^{2}}=914.06
+$$
+
+\section*{Term Structure and Yield Curve}
+\begin{itemize}
+	\item 即使你的本金能保證收回，借出資金的時間越長，所期望的利率也應該越高。
+	\item 若將同一發行人提供的利率作為到期期限的函數繪圖，此圖稱為收益率曲線（term structure）。
+\end{itemize}
+
+\includegraphics[max width=0.6\textwidth, center]{2025_10_20_1725dd1e33e7a5fec5b4g-35}
+\captionof{figure}{在特例中，若利率來自美國國庫券（Treasuries），則該收益率結構稱為收益率曲線（yield curve）}
+
+\section*{Example}
+債券的利率取決於其到期期限——也就是你必須等待多長時間才能收回投資。  在 2001 年 3 月 28 日，美國國庫券（Treasuries）的利率如下：
+
+
+\begin{itemize}
+  \item $4.23 \%$ for 3 -month bills
+  \item $4.81 \%$ on 10 -year notes
+  \item $5.46 \%$ on 30 -year bonds
+\end{itemize}
+
+在2006年3月22日如下:
+
+\begin{itemize}
+  \item $4.69 \%$ on 3 -month
+  \item $4.86 \%$ on 10 -year
+  \item $4.73 \%$ on 30 -year
+\end{itemize}
+
+
+\section*{Forward Rates (3.5.2)}
+對於所有到期時間長達 \( n \) 年的債券，其期限結構（term structure）可以用下列任一組參數描述：
+
+\begin{itemize}
+	\item 遠期利率（forward rates）\( r_{1}, r_{2}, \ldots, r_{n} \)，其中 \( r_{k} \) 表示你現在可以鎖定的、在未來第 \( k \) 年借出（此處假設為一年期）的利率。
+	\item 在此記號下，\( r_{1} \) 即為下一年的即期利率（spot rate）。
+	\item 注意，若你將資金借出兩年，則應該對以下兩種情況無差別：  
+	第一種是兩年間均獲得利率 \( y_{2} \)；  
+	第二種是第一年獲得 \( r_{1} \)，第二年獲得 \( r_{2} \)。
+	\item 這是金融學中的一項核心原理，稱為「套利原理」（arbitrage argument）。
+	\item 由此可知，\$1 的現值可表示為 \(\dfrac{\$1}{(1 + y_{2})^{2}}\)，也可表示為 \(\dfrac{\$1}{(1 + r_{1})(1 + r_{2})}\)。
+	\item 因此有：
+	\[
+	(1 + y_{2})^{2} = (1 + r_{1})(1 + r_{2})
+	\]
+\end{itemize}
+
+
+\begin{figure}[h]
+\begin{center}
+\caption{Forward Rates (3.5.2)}
+  \includegraphics[width=0.6\textwidth]{2025_10_20_1725dd1e33e7a5fec5b4g-38}
+\end{center}
+\end{figure}
+
+\section*{Term Structure of Interest Rates (3.5.2)}
+對於所有到期時間長達 \( n \) 年的債券，其期限結構（term structure）可由以下任一組數據描述：
+
+\begin{itemize}
+	\item 不同到期期限（1 年、2 年、⋯、\( n \) 年）的零息債券價格，分別記為 \( P(1), P(2), \ldots, P(n) \)；
+	\item 不同到期期限（1 年、2 年、⋯、\( n \) 年）的即期利率（即零息債券的收益率），分別記為 \( y_{1}, y_{2}, \ldots, y_{n} \)；
+	\item 遠期利率（forward rates）\( r_{1}, r_{2}, \ldots, r_{n} \)，其中 \( r_{k} \) 表示你現在可以鎖定的、在未來第 \( k \) 年借出資金時適用的利率。
+\end{itemize}
+
+
+\section*{Finding Prices from Forward Rates (3.5.2)}
+\begin{itemize}
+	\item 考慮一張票面價值為 \$1000、到期時間為 2 年的零息債券。
+	\item 一年後，其現值（present value，即價格）將等於票面金額以當時適用於下一年的利率折現所得：
+\end{itemize}
+
+
+$$
+\frac{1000}{1+r_{2}}
+$$
+
+\begin{itemize}
+	\item 上述為該債券在一年後的價值。然而，若要計算其今日的價值，需再以當前利率進行折現，因此今日價格為：
+\end{itemize}
+
+$$
+P(2)=\frac{1000}{\left(1+r_{1}\right)\left(1+r_{2}\right)}
+$$
+
+\begin{itemize}
+  \item 整體而言, 一個現價 $\$ 1000$ 在$n$分期支付的債券從現在開始是:
+\end{itemize}
+
+$$
+P(n)=\frac{1000}{\left(1+r_{1}\right)\left(1+r_{2}\right) \ldots\left(1+r_{n}\right)}
+$$
+
+其中 \( r_{1}, r_{2}, \ldots, r_{n} \) 分別表示在第 \(1, 2, \ldots, n\) 期內適用的遠期利率（forward interest rates）。
+
+
+\section*{Term Structure of Interest Rates (3.5.2)}
+\begin{itemize}
+	\item 上述各組數據（零息債券價格、即期利率與遠期利率）皆可由其他任意一組推導而得。
+	\item 我們將從遠期利率計算到期收益率（YTM）；
+	\item 從即期利率計算遠期利率；
+	\item 從遠期利率計算債券價格；
+	\item 並從價格計算到期收益率（YTM）。
+\end{itemize}
+
+
+\section*{Finding YTMs from Forward Rates (3.5.2)}
+\begin{itemize}
+	\item 到期收益率 \( y_{n} \) 是使下式成立的唯一利率：
+\end{itemize}
+$$
+\frac{1}{\left(1+r_{1}\right)\left(1+r_{2}\right) \ldots\left(1+r_{n}\right)}=\frac{1}{\left(1+y_{n}\right)^{n}}
+$$
+
+所以我們有:
+
+$$
+y_{n}=\sqrt[n]{\left(1+r_{1}\right)\left(1+r_{2}\right) \ldots\left(1+r_{n}\right)}-1
+$$
+
+$\left(1+y_{n}\right.$ 是$\left.\left(1+r_{1}\right),\left(1+r_{2}\right), \ldots,\left(1+r_{n}\right)\right)$的幾何平均 
+
+
+\begin{itemize}
+  \item $r_{1}=y_{1}$
+  \item 以及
+\end{itemize}
+
+$$
+r_{n}=\frac{\left(1+y_{n}\right)^{n}}{\left(1+y_{n-1}\right)^{n-1}}-1
+$$
+
+\section*{通過向前利率求價格}
+
+\begin{center}
+\begin{tabular}{cc}
+Example : &  \\
+Year (i) & Forward interest rate $\left(r_{i}\right)$ \\
+\hline
+1 & $6 \%$ \\
+2 & $7 \%$ \\
+3 & $8 \%$ \\
+\end{tabular}
+\end{center}
+
+
+\begin{itemize}
+	\item 一張期限為一年、票面價值 \$1000 的零息債券，其售價為：
+\end{itemize}
+
+$$
+P(1)=\frac{1000}{1+r_{1}}=\frac{1000}{1+0.06}=943.40
+$$
+
+\begin{itemize}
+	\item 一張期限為兩年的零息債券，其售價為：
+\end{itemize}
+
+$$
+P(2)=\frac{1000}{\left(1+r_{1}\right)\left(1+r_{2}\right)}=\frac{1000}{(1+0.06)(1+0.07)}=881.68
+$$
+
+\begin{itemize}
+  \item 一張期限為三年的零息債券，其售價為：
+\end{itemize}
+
+$$
+P(3)=\frac{1000}{\left(1+r_{1}\right)\left(1+r_{2}\right)\left(1+r_{3}\right)}=\frac{1000}{(1+0.06)(1+0.07)(1+0.08)}=816.37
+$$
+
+\section*{Finding YTMs from Prices and Forward Rates (Example 3.3)}
+範例：由價格求得到期收益率（YTM）——使用在範例 3.2中推導出的價格，以及先前相同的遠期利率。
+
+
+\begin{center}
+\begin{tabular}{cc}
+Year (i) & Forward interest rate $\left(r_{i}\right)$ \\
+\hline
+1 & $6 \%$ \\
+2 & $7 \%$ \\
+3 & $8 \%$ \\
+\end{tabular}
+\end{center}
+
+\begin{itemize}
+  \item 我們有:
+\end{itemize}
+
+$$
+P(1)=\frac{1000}{1+r_{1}}=\frac{1000}{1+0.06}=943.40
+$$
+
+\begin{itemize}
+	\item 解出到期收益率 \( y_{1} \) 得 \( 0.06 \)。
+	\item 接著求 \( y_{2} \)： 
+\end{itemize}
+
+$$
+P(2)=\frac{1000}{\left(1+y_{2}\right)^{2}}=881.68
+$$
+
+thus
+
+$$
+y_{2}=\sqrt{\frac{1000}{P(2)}}-1=0.0650
+$$
+
+\begin{itemize}
+  \item 取得 $y_{3}$ :
+\end{itemize}
+
+$$
+P(3)=\frac{1000}{\left(1+y_{3}\right)^{3}}=816.37
+$$
+
+因而有:
+
+$$
+y_{3}=\sqrt[3]{\frac{1000}{P(3)}}-1=0.070
+$$
+
+\begin{itemize}
+  \item In general, YTMs equal :
+\end{itemize}
+
+$$
+y_{n}=\sqrt[n]{\frac{1000}{P(n)}}-1
+$$
+
+\begin{itemize}
+  \item We are applying what we saw earlier to Example 3.3 of the Textbook
+  \item We saaw that the yield to maturity rate $y_{n}$ of a zero satisfies
+\end{itemize}
+
+$$
+\frac{1}{\left(1+r_{1}\right)\left(1+r_{2}\right) \ldots\left(1+r_{n}\right)}=\frac{1}{(1+y)^{n}}
+$$
+
+we have
+
+$$
+y_{n}=\sqrt[n]{\left(1+r_{1}\right)\left(1+r_{2}\right) \ldots\left(1+r_{n}\right)}-1
+$$
+
+\begin{itemize}
+  \item $1+y_{n}$ is the geometric mean of $\left(1+r_{1}\right),\left(1+r_{2}\right), \ldots,\left(1+r_{n}\right)$
+  \item In our example, we have
+\end{itemize}
+
+$$
+y_{1}=r_{1}=0.06, \quad y_{2}=\sqrt{\left(1+r_{1}\right)\left(1+r_{2}\right)}-1=\sqrt{(1.06)(1.07)}-1=0.06499
+$$
+
+and
+
+$$
+y_{3}=\sqrt{\left(1+r_{1}\right)\left(1+r_{2}\right)\left(+r_{3}\right)}-1=\sqrt{(1.06)(1.07)(1.08)}-1=0.0700
+$$
+
+\section*{Term Structure of Interest Rates}
+In summary, we can derive the following equations relating YTMs, prices and forward rates:
+
+\begin{itemize}
+  \item the yield to maturity from bond prices:
+\end{itemize}
+
+$$
+y_{n}=\sqrt[n]{\frac{1000}{P(n)}}-1
+$$
+
+\begin{itemize}
+  \item the yield to maturity from forward rates
+\end{itemize}
+
+$$
+y_{n}=\sqrt[n]{\left(1+r_{1}\right)\left(1+r_{2}\right) \ldots\left(1+r_{n}\right)}-1
+$$
+
+\begin{itemize}
+  \item bond prices from yields to maturity
+\end{itemize}
+
+$$
+P(n)=\frac{1000}{\left(1+y_{n}\right)^{n}}
+$$
+
+\begin{itemize}
+  \item $r_{n}$ from the prices of zero coupon bonds
+\end{itemize}
+
+$$
+r_{n}=\frac{P(n-1)}{P(n)}-1
+$$
+
+Finding yields and forward rates from prices (Example 3.4)
+
+Suppose that one-, two-, and three-year par- $\$ 1,000$ zeros are priced as given in this table
+
+\begin{center}
+\begin{tabular}{cc}
+Maturity (years) & Price \\
+\hline
+1 & $\$ 920$ \\
+2 & $\$ 830$ \\
+3 & $\$ 760$ \\
+\end{tabular}
+\end{center}
+
+Finding YTMs from prices (Example 3.4)
+
+Yields to maturity :
+
+$$
+\begin{aligned}
+& y_{1}=\frac{1000}{920}-1=0.087 \\
+& y_{2}=\left\{\frac{1000}{830}\right\}^{1 / 2}-1=0.0976 \\
+& y_{3}=\left\{\frac{1000}{760}\right\}^{1 / 3}-1=0.096
+\end{aligned}
+$$
+
+Forward rates from YTMs (Example 3.4)
+
+Forward rates :
+
+$$
+\begin{aligned}
+& r_{1}=y_{1}=0.087 \\
+& r_{2}=\frac{\left(1+y_{2}\right)^{2}}{\left(1+y_{1}\right)}-1=\frac{(1.0976)^{2}}{1.0876}-1=0.108, \text { and } \\
+& r_{3}=\frac{\left(1+y_{3}\right)^{3}}{\left(1+y_{2}\right)^{2}}-1=\frac{(1.096)^{3}}{(1.0976)^{2}}-1=0.092 .
+\end{aligned}
+$$
+
+Forward rates from prices (Example 3.5)
+
+Forward rates :
+
+$$
+\begin{aligned}
+& r_{1}=\frac{1000}{920}-1=0.087 \\
+& r_{2}=\frac{920}{830}-1=0.108 \\
+& r_{3}=\frac{830}{760}-1=0.092
+\end{aligned}
+$$
+
+\section*{Continuous Compounding (3.6)}
+Continuous compounding simplifies the relationships between forward rates, yields to maturity of zeros (spot rates) and prices of zeros.
+
+\begin{itemize}
+  \item Prices from forward rates
+\end{itemize}
+
+$$
+P(1)=\frac{1000}{\exp \left(r_{1}\right)}=1000 e^{-r_{1}}
+$$
+
+and in general
+
+$$
+P(n)=\frac{1000}{e^{r_{1}+r_{2}+\ldots+r_{n}}}
+$$
+
+\begin{itemize}
+  \item Forward rates from prices
+\end{itemize}
+
+$$
+\frac{P(n-1)}{P(n)}=\frac{e^{r_{1}+r_{2}+\ldots+r_{n}}}{e^{r_{1}+r_{2}+\ldots+r_{n-1}}},
+$$
+
+therefore
+
+$$
+r_{n}=\log \left\{\frac{P(n-1)}{P(n)}\right\}
+$$
+
+\section*{Continuous Compounding (3.6)}
+\begin{itemize}
+  \item The yield to maturity of an $n$-year zero-coupon bond solves the equation
+\end{itemize}
+
+$$
+P(n)=\frac{1000}{e^{n y_{n}}}
+$$
+
+\begin{itemize}
+  \item That is, the discount function is
+\end{itemize}
+
+$$
+e^{-n y_{n}}
+$$
+
+\begin{itemize}
+  \item Hence, we get the yield to maturity from forward rates :
+\end{itemize}
+
+$$
+y_{n}=\left(r_{1}+r_{2}+\ldots+r_{n}\right) / n
+$$
+
+\begin{itemize}
+  \item $r_{1}, r_{2}, \ldots, r_{n}$ are found from $y_{1}, y_{2}, \ldots, y_{n}$ by
+\end{itemize}
+
+$$
+r_{1}=y_{1} \quad \text { and } \quad r_{n}=n y_{n}-(n-1) y_{n-1}
+$$
+
+for $n>1$.
+
+Continuously compounded forward rates and yields from prices (Example 3.6)
+
+Using the same prices as before
+
+\begin{center}
+\begin{tabular}{cc}
+Maturity (years) & Price \\
+\hline
+1 & $\$ 920$ \\
+2 & $\$ 830$ \\
+3 & $\$ 760$ \\
+\end{tabular}
+\end{center}
+
+We derive the continuously compounded rates as follows:
+
+$$
+\begin{aligned}
+& r_{1}=\log \left\{\frac{1000}{920}\right\}=0.083 \\
+& r_{2}=\log \left\{\frac{920}{830}\right\}=0.103 \\
+& r_{3}=\log \left\{\frac{830}{760}\right\}=0.088
+\end{aligned}
+$$
+
+\section*{Continuous Forward Rates (3.7)}
+We have assumed that forward interest rates
+
+\begin{itemize}
+  \item are constant within each year.
+  \item have a fixed starting time with all maturities some integer number of years from this date.
+\end{itemize}
+
+\section*{Continuous Compounding (3.7)}
+\begin{itemize}
+  \item To be realistic, we assume that there is a forward rate function $r(t)$
+  \item We just saw the discount function as a function of the YTM :
+\end{itemize}
+
+$$
+e^{-n y_{n}}
+$$
+
+\begin{itemize}
+  \item It is then natural that the continuous version is:
+\end{itemize}
+
+$$
+D(T)=e^{-\int_{0}^{T} r(t) d t}
+$$
+
+\begin{itemize}
+  \item Of course, the price of the bond is still $P(T)=\operatorname{PAR} \times D(T)$
+\end{itemize}
+
+\section*{Continuous Compounding (3.7)}
+\begin{itemize}
+  \item The yield to maturity of a zero-coupon bond with maturity $T$ is defined as
+\end{itemize}
+
+$$
+y_{T}=\frac{1}{T} \int_{0}^{T} r(t) d t
+$$
+
+\begin{itemize}
+  \item As a consequence the price is
+\end{itemize}
+
+$$
+P(T)=\operatorname{PAR} \quad e^{-T_{y_{T}}}
+$$
+
+\begin{itemize}
+  \item You can imagine that practitioners like this one number $y_{T}$ and prefer the above expression to
+\end{itemize}
+
+$$
+P(T)=\operatorname{PAR} \quad e^{-\int_{0}^{T} r(t) d t}
+$$
+
+\section*{The Case of Piecewise Constant}
+\begin{itemize}
+  \item The book discusses a special case, without much explanation, of piecewise constant forward rates
+  \item The example works only if each rate applies to a full year
+  \item Otherwise, the integral would be slightly more complicated\\
+if $r(t)=r_{k}$ for $k-1 \leq t \leq k$ then
+\end{itemize}
+
+$$
+\int_{0}^{T} r(t) d t=r_{1}+r_{2}+\ldots+r_{T}
+$$
+
+so that the price is
+
+$$
+P(T)=\operatorname{PAR} \times e^{-\left(r_{1}+r_{2}+\ldots+r_{T}\right)}
+$$
+
+\section*{Linear Forward Rates (3.7, Example 3.7)}
+Example: Suppose the forward rate is
+
+$$
+r(t)=0.03+0.0005 t
+$$
+
+find $r(10), y_{10}$ and the price $P(10)$ of a zero with PAR 1,000 dollars and maturity 10 years Answer :
+
+\begin{itemize}
+  \item Forward rate, 10 years from now : $r(10)=0.03+0.0005(10)=0.035$
+  \item YTM :
+\end{itemize}
+
+$$
+y_{10}=\frac{1}{10} \int_{0}^{10}(0.03+0.0005 t) d t=\frac{1}{10}\left(0.03(10)+0.0005 \frac{100}{2}\right)=0.0325
+$$
+
+\begin{itemize}
+  \item The price is par times the discount function for the yield to maturity we just computed :
+\end{itemize}
+
+$$
+P(10)=1000 e^{-10(0.0325)}=772.5
+$$
+
+\section*{Duration of a Coupon Bond (3.8.1)}
+The intuition of duration, and more precisely modified duration, is that we are interested in one number that quantifies risk (i.e., sensitivity of price) to changes in interest rates and thus yield :
+
+$$
+\% \text { Change in price }=\text { DURATION } \times \text { change in yield }
+$$
+
+where:
+
+$$
+\% \text { Change in price }=\frac{\text { change in bond price }}{\text { bond price }}
+$$
+
+Then
+
+$$
+\text { DURATION }=\frac{-1}{\text { bond price }} \times \frac{\text { change in bond price }}{\text { change in yield }}
+$$
+
+\begin{itemize}
+  \item Note that the change in yield is an absolute change in interest rate
+  \item The bond price and the change in bond price are in dollars
+  \item Hence (modified) duration is unit-less
+\end{itemize}
+
+\section*{Duration (3.8)}
+We know go back to the general case of continuous interest rates (not piecewise or linear)
+
+\begin{itemize}
+  \item Bonds are risky because bond prices are sensitive to interest rates. This problem is called interest-rate risk.
+  \item We saw that, for a zero, the discount function is
+\end{itemize}
+
+$$
+D(T)=\exp \left(-\int_{0}^{T} r(t) d t\right)=\exp \left(-T_{y T}\right)
+$$
+
+\begin{itemize}
+  \item Suppose that $y_{T}$ changes by a small amount
+\end{itemize}
+
+$$
+\frac{d D(T)}{d y_{T}}=\frac{d}{d y_{T}} \exp \left(-T y_{T}\right)=-T \exp \left(-T_{y_{T}}\right)=-T D(T)
+$$
+
+\begin{itemize}
+  \item We also had $P(T)=P A R \times D(T)$, so
+\end{itemize}
+
+$$
+\frac{d P(T)}{d y_{T}}=P A R \times(-T D(T))
+$$
+
+\section*{Duration (3.8)}
+\begin{itemize}
+  \item Reshuffling :
+\end{itemize}
+
+$$
+\frac{d P(T)}{P A R \times D(T)}=-T d y_{T}
+$$
+
+\begin{itemize}
+  \item In other words:
+\end{itemize}
+
+$$
+\frac{d P(T)}{P(T)}=-T d y_{T}
+$$
+
+\begin{itemize}
+  \item So a percentage change in the price of a zero bond is approximately equal to negative the maturity times the change (assumed small) in yield
+  \item The minus sign on the right-hand side shows us something we already knew, that bond prices move in the opposite direction to interest rates
+  \item Also, the relative change in the bond price is proportional to T , which quantifies the principle that longer-term bonds have higher interest-rate risks than short-term bonds
+\end{itemize}
+
+\section*{Duration (3.8)}
+bonds are risky because bond prices are sensitive to interest rates. This problem is called interestrate risk. How sensitive is a bond price to changes in yield? Duration is the value so that :
+
+$$
+\frac{\text { change in bond price }}{\text { bond price }}=\text { DUR } \times \text { change in yield }
+$$
+
+\begin{itemize}
+  \item What is the duration of a zero?
+  \item The discount function is
+\end{itemize}
+
+$$
+D(T)=\exp \left(-\int_{0}^{T} r(t) d t\right)=\exp \left(-T y_{T}\right)
+$$
+
+\section*{Duration (3.8)}
+\begin{itemize}
+  \item Suppose that $y_{T}$ changes to $y_{T}+\delta$
+\end{itemize}
+
+$$
+\frac{d}{d y_{T}} \exp \left(-T y_{T}\right) \approx-T \exp \left(-T y_{T}\right)=-T D(T)
+$$
+
+\begin{itemize}
+  \item Thus
+\end{itemize}
+
+$$
+\frac{d P(T)}{d y_{T}}=\operatorname{PAR} \frac{d}{d y_{T}} \exp \left(-T y_{T}\right) \approx-\operatorname{PAR} T D(T)
+$$
+
+\begin{itemize}
+  \item Reshuffling...
+\end{itemize}
+
+$$
+\frac{d P(T)}{\operatorname{PAR} D(T)}=-T d y_{T}
+$$
+
+\begin{itemize}
+  \item Therefore
+\end{itemize}
+
+$$
+\frac{\text { change in bond price }}{\text { bond price }} \approx-T \times \text { change in yield } \delta
+$$
+
+\begin{itemize}
+  \item The minus sign on the right hand side shows us that the bond prices move in the opposite direction to interest rates.
+\end{itemize}
+
+\section*{Duration of a Coupon Bond (3.8.1)}
+\begin{itemize}
+  \item The original definition of duration, called Macaulay duration, relies on the property that a coupon bond is a bundle of zeros of different maturities
+  \item The Macaulay duration of a coupon bond is the weighted average of these maturities in proportion to the PV of each cash flow
+  \item Hence the Macaulay duration is a time, typically years
+  \item Caveat! The textbook mixes up the two durations
+  \item For a coupon bond with current value $V$ and $n$ cash flows (coupons and final payment of par), each with present value today equal to $P V_{i}$, the bond's Macaulay duration equals
+\end{itemize}
+
+$$
+\text { MacaulayDuration }=\sum_{i=1}^{n} T_{i} \frac{P V_{i}}{V}
+$$
+
+\section*{Time Decay a.k.a Pull to Par}
+\begin{itemize}
+  \item Rate changes are not the only risk to a bond
+  \item Time decay is also a "risk," although a deterministic one
+  \item The effect of time on bond price boils down to a "pull to par"
+  \item Assume all forward rates are $5 \%$
+\end{itemize}
+
+\section*{Wrap up}
+\begin{itemize}
+  \item We discussed bonds with or without coupons
+  \item We learned about present value, discount functions, and how a complex stream of cash flows can be "present valued"
+  \item We saw that the discount rate that makes the present value equate the market price is the yield to maturity
+  \item We saw that bonds lose value when interest rates increase
+  \item We discussed the relationship between coupon rate, current yield and yield to maturity
+  \item We discussed term structures and the yield curve, and how the yield curve can be described equivalently by a set of spot rates, a set of forward rates, and a set of prices for zero-coupon bonds
+  \item We saw that the sensitivity of a bond's price to changes in interest rates could be captured by one number : duration
+\end{itemize}
+
+\end{document}
