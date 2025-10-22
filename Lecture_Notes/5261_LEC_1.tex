@@ -419,7 +419,7 @@
 			T=100
 			x = 0 : T
 			y=c (0, cumsum (rnorm (T) ) ) 
-			plot (x, y, lty=1, type=”l”, xlab=””, ylab=””) 
+			plot (x, y, lty=1, type="I", xlab="", ylab="") 
 		\end{verbatim}
 		
 		
@@ -456,7 +456,8 @@
 		\end{itemize}
 		
 		\subsection{收益的分佈}
-		對數報酬是否服從常態分布？檢驗方法包括: 
+		\subsubsection{三種常見檢測}
+		對數報酬是否服從常態分布? 檢驗方法包括: 
 		
 		\begin{itemize}
 			\item 常態圖 (normal plot): 若資料點大致呈一直線, 則近似常態. 
@@ -487,6 +488,7 @@
 		\(\hat{F}\) 是真實分布的估計量. 
 		常態性檢定透過比較 \(\hat{F} (x) \) 與 \(\Phi ( (x - \hat{\mu}) / \hat{\sigma}) \) 來進行. 
 		
+		\subsubsection{四種額外檢測}
 		三種常用的常態性檢定方法, 皆比較 \(\hat{F} (x) \) 與 \(\Phi ( (x - \hat{\mu}) / \hat{\sigma}) \), 包括: 
 		
 		\begin{itemize}
