@@ -39,7 +39,7 @@
 \usepackage{hyperref} 
 \usepackage{xcolor} % For custom colors
 \lstset{
-	language=Python,            % Choose the language  (e.g., Python, C, R) 
+	language=Python,            % Choose the language   (e.g., Python, C, R) 
 	basicstyle=\ttfamily\small, % Font size and type
 	keywordstyle=\color{blue}, % Keywords color
 	commentstyle=\color{gray}, % Comments color
@@ -57,7 +57,7 @@
 	\usepackage{ctex} 
 	
 	\title{Lecture 5, MATH 5261 \\
-		\small{Capital Asset Pricing Model (CAPM)\\
+		\small{Capital Asset Pricing Model  (CAPM) \\
 			資本資產定價模型
 		}
 	}
@@ -72,7 +72,7 @@
 	
 	\section{關鍵詞}
 	\begin{itemize}
-		\item 請手寫:
+		\item 請手寫: 
 	\end{itemize}
 
 
@@ -80,20 +80,20 @@
 \section{模型}
 \subsection{引入}
 \begin{itemize}
-	\item 在本章中，我們假設一個理想化的開放市場架構，其中所有風險資產（例如所有可交易股票）皆可被所有投資者持有；
-	\item 此外，市場中存在一種無風險資產（可在無限數量下借入或貸出），其利率為 $\mu_{f}$；
-	\item 我們假設所有投資者皆能獲得完全資訊，包括股票之間的共變異數、變異數以及期望報酬率；
-	\item 同時假設每位投資者皆為風險厭惡的理性投資者，並採用相同的馬可維茲（Markowitz）平均—變異投資組合理論；
-	\item 經過一點思考可知，既然每位投資者擁有相同的可選資產、相同的資訊以及相同的決策方法，那麼所有人都會位於相同的有效邊界上，並因此選擇由無風險資產與唯一的切點投資組合（tangent portfolio, T）所組成的投資組合；
-	\item 換言之，所有人都設定相同的最佳化問題，進行相同的計算，獲得相同的解答，並依此選擇投資組合；
-	\item 這個所有人共用的切點投資組合稱為「市場投資組合」（market portfolio），記作 $M$；
-	\item 由於市場已達均衡狀態，我們可以不再透過馬可維茲最佳化方法，而直接根據資本價值比重來計算市場投資組合的權重；
-	\item 在市場均衡下，任一資產於市場投資組合中的權重等於該資產的總資本價值（即其流通股份總價值）除以整個市場（所有資產合計）的總資本價值；
-	\item 例如，若資產 $i$ 代表公司 A 的股票，該公司流通股份數為 $S_{i}=10{,}000$，每股價格 $P_{i}=\$20.00$，則該資產的資本價值為
-	$$V_{i} = S_{i} P_{i} = (10{,}000)(\$20) = \$200{,}000。$$
-	\item 對市場中所有 $n$ 家公司的每項資產皆計算此資本價值，並將其加總可得市場總資本價值：
-	$$V = V_{1} + V_{2} + \ldots + V_{n},$$
-	\item 其權重為：
+	\item 在本章中, 我們假設一個理想化的開放市場架構, 其中所有風險資產 (例如所有可交易股票) 皆可被所有投資者持有; 
+	\item 此外, 市場中存在一種無風險資產 (可在無限數量下借入或貸出), 其利率為 $\mu_{f}$; 
+	\item 我們假設所有投資者皆能獲得完全資訊, 包括股票之間的共變異數、變異數以及期望報酬率; 
+	\item 同時假設每位投資者皆為風險厭惡的理性投資者, 並採用相同的馬可維茲 (Markowitz) 平均—變異投資組合理論; 
+	\item 經過一點思考可知, 既然每位投資者擁有相同的可選資產、相同的資訊以及相同的決策方法, 那麼所有人都會位於相同的有效邊界上, 並因此選擇由無風險資產與唯一的切點投資組合 (tangent portfolio, T) 所組成的投資組合; 
+	\item 換言之, 所有人都設定相同的最佳化問題, 進行相同的計算, 獲得相同的解答, 並依此選擇投資組合; 
+	\item 這個所有人共用的切點投資組合稱為「市場投資組合」 (market portfolio), 記作 $M$; 
+	\item 由於市場已達均衡狀態, 我們可以不再透過馬可維茲最佳化方法, 而直接根據資本價值比重來計算市場投資組合的權重; 
+	\item 在市場均衡下, 任一資產於市場投資組合中的權重等於該資產的總資本價值 (即其流通股份總價值) 除以整個市場 (所有資產合計) 的總資本價值; 
+	\item 例如, 若資產 $i$ 代表公司 A 的股票, 該公司流通股份數為 $S_{i}=10{, }000$, 每股價格 $P_{i}=\$20.00$, 則該資產的資本價值為
+	$$V_{i} = S_{i} P_{i} =  (10{, }000)  (\$20) = \$200{, }000. $$
+	\item 對市場中所有 $n$ 家公司的每項資產皆計算此資本價值, 並將其加總可得市場總資本價值: 
+	$$V = V_{1} + V_{2} + \ldots + V_{n}, $$
+	\item 其權重為: 
 \end{itemize}
 
 
@@ -101,40 +101,40 @@ $$
 \omega_{i}=\frac{S_{i} P_{i}}{\sum_{j=1}^{n} S_{j} P_{j}}=V_{i} / V
 $$
 
-這即是資產 $i$ 在市場投資組合中的權重。
+這即是資產 $i$ 在市場投資組合中的權重. 
 
 \begin{itemize}
-	\item 基本概念是：需求旺盛的資產價格會上升，並帶來較高的期望報酬率（反之亦然）；
-	\item 隨著時間推移，資產之間的反覆交易會不斷調整其價格，最終形成一個均衡，使市場投資組合的最適權重 $w_{i}$ 由供需關係所決定；
-	\item 因此，最終我們無需再使用最佳化方法或任何詳細資料（例如共變異數、變異數、期望報酬率，甚至無風險利率 $\mu_{f}$），只需知道各資產的資本價值 $V_{i}$，即可確定市場投資組合。
+	\item 基本概念是: 需求旺盛的資產價格會上升, 並帶來較高的期望報酬率 (反之亦然); 
+	\item 隨著時間推移, 資產之間的反覆交易會不斷調整其價格, 最終形成一個均衡, 使市場投資組合的最適權重 $w_{i}$ 由供需關係所決定; 
+	\item 因此, 最終我們無需再使用最佳化方法或任何詳細資料 (例如共變異數、變異數、期望報酬率, 甚至無風險利率 $\mu_{f}$), 只需知道各資產的資本價值 $V_{i}$, 即可確定市場投資組合. 
 \end{itemize}
 
 
 \section{引入}
 \subsection{資本資產定價模型}
 \begin{itemize}
-	\item 注意，所有權重皆滿足 $\omega_{i} > 0, \forall i$（即市場投資組合中不存在放空行為）；
-	\item 這意味著，即使我們事先在模型中排除了資產放空的可能性，最終仍會得到相同的市場均衡投資組合 $M$；
-	\item 另外，由於公開市場上所有風險資產皆具有非零資本價值，因此所有風險資產都包含在該投資組合中（儘管部分資產的權重可能極小）；
-	\item 上述這個投資組合理論的均衡模型稱為「資本資產定價模型」（Capital Asset Pricing Model, CAPM）。
+	\item 注意, 所有權重皆滿足 $\omega_{i} > 0, \forall i$ (即市場投資組合中不存在放空行為); 
+	\item 這意味著, 即使我們事先在模型中排除了資產放空的可能性, 最終仍會得到相同的市場均衡投資組合 $M$; 
+	\item 另外, 由於公開市場上所有風險資產皆具有非零資本價值, 因此所有風險資產都包含在該投資組合中 (儘管部分資產的權重可能極小); 
+	\item 上述這個投資組合理論的均衡模型稱為「資本資產定價模型」 (Capital Asset Pricing Model, CAPM) . 
 \end{itemize}
 
-CAPM 模型具有多種應用：
+CAPM 模型具有多種應用: 
 
 \begin{itemize}
-	\item 它為被稱為「指數化投資」（indexing）的被動投資策略提供了理論依據。所謂指數化投資，即持有與廣泛市場指數（如 S\&P 500）相似的投資組合；
-	\item 個人投資者只需購買指數型基金即可達成該策略。
+	\item 它為被稱為「指數化投資」 (indexing) 的被動投資策略提供了理論依據. 所謂指數化投資, 即持有與廣泛市場指數 (如 S\&P 500) 相似的投資組合; 
+	\item 個人投資者只需購買指數型基金即可達成該策略. 
 \end{itemize}
 
 \section{資本市場線}
 \begin{itemize}
-	\item 資本市場線（CML）描述了有效投資組合的超額期望報酬與其風險之間的關係；
+	\item 資本市場線 (CML) 描述了有效投資組合的超額期望報酬與其風險之間的關係; 
 \end{itemize}
 
 「超額期望報酬」$=$ 期望報酬 $-$ 無風險利率
 
 \begin{itemize}
-	\item 資本市場線的方程式為：
+	\item 資本市場線的方程式為: 
 \end{itemize}
 
 
@@ -144,21 +144,21 @@ CAPM 模型具有多種應用：
 \end{equation*}
 
 
-此處有:
+此處有: 
 
 \begin{itemize}
-	\item $R$：某一給定有效投資組合的報酬率；
-	\item $R_{M}$：市場投資組合的報酬率；
-	\item $\mu_{R} = E(R)$：投資組合 $R$ 的期望報酬率；
-	\item $\mu_{M} = E(R_{M})$：市場投資組合的期望報酬率；
-	\item $\mu_{f}$：無風險資產的報酬率；
-	\item $\sigma_{R}$：投資組合 $R$ 的報酬率標準差；
-	\item $\sigma_{M}$：市場投資組合的報酬率標準差。
+	\item $R$: 某一給定有效投資組合的報酬率; 
+	\item $R_{M}$: 市場投資組合的報酬率; 
+	\item $\mu_{R} = E (R) $: 投資組合 $R$ 的期望報酬率; 
+	\item $\mu_{M} = E (R_{M}) $: 市場投資組合的期望報酬率; 
+	\item $\mu_{f}$: 無風險資產的報酬率; 
+	\item $\sigma_{R}$: 投資組合 $R$ 的報酬率標準差; 
+	\item $\sigma_{M}$: 市場投資組合的報酬率標準差. 
 \end{itemize}
 
 
 \begin{itemize}
-  \item 在此中:
+  \item 在此中: 
 \end{itemize}
 
 $$
@@ -168,10 +168,10 @@ $$
 $\mu_{f}, \mu_{M}$ and $\sigma_{M}$ are constant.
 
 \begin{itemize}
-	\item 變動的量為 $\sigma_{R}$ 與 $\mu_{R}$。\\
-	$\diamond$ 當我們改變有效投資組合 $R$ 時，這兩個值也會改變；\\
-	$\diamond$ 可以將資本市場線（CML）視為描述 $\mu_{R}$ 隨 $\sigma_{R}$ 變化的關係。
-	\item 資本市場線的斜率為：
+	\item 變動的量為 $\sigma_{R}$ 與 $\mu_{R}$. \\
+	$\diamond$ 當我們改變有效投資組合 $R$ 時, 這兩個值也會改變; \\
+	$\diamond$ 可以將資本市場線 (CML) 視為描述 $\mu_{R}$ 隨 $\sigma_{R}$ 變化的關係. 
+	\item 資本市場線的斜率為: 
 \end{itemize}
 
 
@@ -179,11 +179,11 @@ $$
 \frac{\mu_{M}-\mu_{f}}{\sigma_{M}}
 $$
 
-可將其解釋為「風險溢酬」（risk premium）與市場投資組合報酬率標準差之比。
+可將其解釋為「風險溢酬」 (risk premium) 與市場投資組合報酬率標準差之比. 
 
 \begin{itemize}
-	\item 這即是夏普（Sharpe）的「報酬－風險比率」（reward-to-risk ratio）；
-	\item 式（1）可改寫為：
+	\item 這即是夏普 (Sharpe) 的「報酬－風險比率」 (reward-to-risk ratio); 
+	\item 式 (1) 可改寫為: 
 \end{itemize}
 
 
@@ -191,84 +191,84 @@ $$
 \frac{\mu_{R}-\mu_{f}}{\sigma_{R}}=\frac{\mu_{M}-\mu_{f}}{\sigma_{M}}
 $$
 
-任何有效投資組合的報酬－風險比率等於市場投資組合的報酬－風險比率。
+任何有效投資組合的報酬－風險比率等於市場投資組合的報酬－風險比率. 
 
 \begin{itemize}
-	\item 假設 $\mu_{f} = 0.06,\ \mu_{M} = 0.15,$ 且 $\sigma_{M} = 0.22$，則資本市場線（CML）的斜率為：
+	\item 假設 $\mu_{f} = 0.06, \ \mu_{M} = 0.15, $ 且 $\sigma_{M} = 0.22$, 則資本市場線 (CML) 的斜率為: 
 \end{itemize}
 
 
 $$
-(0.15-0.06) / 0.22=9 / 22 .
+ (0.15-0.06) / 0.22=9 / 22 .
 $$
 \begin{itemize}
-	\item 資本市場線（CML）的推導：
+	\item 資本市場線 (CML) 的推導: 
 \end{itemize}
 
-考慮一個有效投資組合，其將比例 $w$ 投資於市場投資組合，則有：
+考慮一個有效投資組合, 其將比例 $w$ 投資於市場投資組合, 則有: 
 
 $$
-R=\omega R_{M}+(1-\omega) \mu_{f}=\mu_{f}+\omega\left(R_{M}-\mu_{f}\right)
+R=\omega R_{M}+ (1-\omega) \mu_{f}=\mu_{f}+\omega\left (R_{M}-\mu_{f}\right) 
 $$
 
-此外有:
+此外有: 
 
 $$
-\mu_{R}=\mu_{f}+\omega\left(\mu_{M}-\mu_{f}\right) \quad \text { and } \quad \sigma_{R}=\omega \sigma_{M} .
+\mu_{R}=\mu_{f}+\omega\left (\mu_{M}-\mu_{f}\right) \quad \text { and } \quad \sigma_{R}=\omega \sigma_{M} .
 $$
 
-這引出了:
+這引出了: 
 
 $$
 \omega=\sigma_{R} / \sigma_{M} .
 $$
 
-因此有:
+因此有: 
 
 $$
-\mu_{R}=\mu_{f}+\frac{\sigma_{R}}{\sigma_{M}}\left(\mu_{M}-\mu_{f}\right)
+\mu_{R}=\mu_{f}+\frac{\sigma_{R}}{\sigma_{M}}\left (\mu_{M}-\mu_{f}\right) 
 $$
 
 由此得出 CML. 
 
 
 \begin{itemize}
-	\item 資本資產定價模型（CAPM）認為，最優的投資方式是：
+	\item 資本資產定價模型 (CAPM) 認為, 最優的投資方式是: 
 \end{itemize}
 
 \begin{enumerate}
-	\item 決定你可承受的風險程度 $\sigma_{R}$，其中 $0 \leq \sigma_{R} \leq \sigma_{M}$。
-	（若 $\sigma_{R}>\sigma_{M}$，則可通過借錢融資購買風險資產實現。）
-	\item 計算 $\omega=\sigma_{R} / \sigma_{M}$。
-	\item 將投資比例 $\omega$ 投入指數型基金。
-	\item 將剩餘比例 $1-\omega$ 投入無風險的國庫券。
+	\item 決定你可承受的風險程度 $\sigma_{R}$, 其中 $0 \leq \sigma_{R} \leq \sigma_{M}$. 
+	 (若 $\sigma_{R}>\sigma_{M}$, 則可通過借錢融資購買風險資產實現. ) 
+	\item 計算 $\omega=\sigma_{R} / \sigma_{M}$. 
+	\item 將投資比例 $\omega$ 投入指數型基金. 
+	\item 將剩餘比例 $1-\omega$ 投入無風險的國庫券. 
 \end{enumerate}
 
-另一種等價的方式：
+另一種等價的方式: 
 
 \begin{enumerate}
-	\item 選擇你期望獲得的報酬 $\mu_{R}-\mu_{f}$。
-	\item 計算 $\omega=\frac{\mu_{R}-\mu_{f}}{\mu_{M}-\mu_{f}}$。
-	\item 執行與上面第 3 和第 4 步相同的操作。
+	\item 選擇你期望獲得的報酬 $\mu_{R}-\mu_{f}$. 
+	\item 計算 $\omega=\frac{\mu_{R}-\mu_{f}}{\mu_{M}-\mu_{f}}$. 
+	\item 執行與上面第 3 和第 4 步相同的操作. 
 \end{enumerate}
 
 
 \begin{itemize}
-	\item 資本資產定價模型（CAPM）將有效投資組合的超額報酬與其風險聯繫起來。
-	\item 而證券市場線（SML）則將資產的超額報酬與其「$\beta$」——即其對市場投資組合回歸線的斜率——聯繫起來。
-	\item 我們將使用 CAPM 來證明：
+	\item 資本資產定價模型 (CAPM) 將有效投資組合的超額報酬與其風險聯繫起來. 
+	\item 而證券市場線 (SML) 則將資產的超額報酬與其「$\beta$」——即其對市場投資組合回歸線的斜率——聯繫起來. 
+	\item 我們將使用 CAPM 來證明: 
 \end{itemize}
 
 
 $$
-\mu_{j}-\mu_{f}=\beta_{j}\left(\mu_{M}-\mu_{f}\right)
+\mu_{j}-\mu_{f}=\beta_{j}\left (\mu_{M}-\mu_{f}\right) 
 $$
 
 \begin{itemize}
-	\item 證券市場線（SML）表明，資產的風險溢酬等於其 $\beta$ 值與市場風險溢酬的乘積。
-	\item $\beta_{j}$ 同時衡量第 $j$ 個資產的風險程度與承擔該風險所獲得的報酬。它反映該資產的「進取性」或對市場波動的敏感程度。
-	\item 假設證券以 $j$ 為索引，並定義 $\sigma_{j M}$ 為第 $j$ 個證券與市場投資組合之間的共變數。
-	\item 我們將證明：
+	\item 證券市場線 (SML) 表明, 資產的風險溢酬等於其 $\beta$ 值與市場風險溢酬的乘積. 
+	\item $\beta_{j}$ 同時衡量第 $j$ 個資產的風險程度與承擔該風險所獲得的報酬. 它反映該資產的「進取性」或對市場波動的敏感程度. 
+	\item 假設證券以 $j$ 為索引, 並定義 $\sigma_{j M}$ 為第 $j$ 個證券與市場投資組合之間的共變數. 
+	\item 我們將證明: 
 \end{itemize}
 
 
@@ -277,61 +277,61 @@ $$
 $$
 
 \begin{itemize}
-	\item 根據定義，$\beta_{M}=1$。
-	\item 若 $\beta_{j}=1$，則該資產的風險與市場相同（即平均風險）。
-	\item 若 $\beta_{j}>1$，則該資產屬於進取型資產。
-	\item 若 $\beta_{j}<1$，則該資產屬於保守型（非進取型）資產。
-	\item 另一種理解 $\beta$ 意義的方式是基於線性迴歸分析。
-	\item 對應於證券市場線（SML）的計量經濟學模型為：
+	\item 根據定義, $\beta_{M}=1$. 
+	\item 若 $\beta_{j}=1$, 則該資產的風險與市場相同 (即平均風險) . 
+	\item 若 $\beta_{j}>1$, 則該資產屬於進取型資產. 
+	\item 若 $\beta_{j}<1$, 則該資產屬於保守型 (非進取型) 資產. 
+	\item 另一種理解 $\beta$ 意義的方式是基於線性迴歸分析. 
+	\item 對應於證券市場線 (SML) 的計量經濟學模型為: 
 \end{itemize}
 
 
 $$
-R_{j, t}-\mu_{f, t}=\beta_{j}\left(R_{M, t}-\mu_{f, t}\right)+\epsilon_{j, t}
+R_{j, t}-\mu_{f, t}=\beta_{j}\left (R_{M, t}-\mu_{f, t}\right) +\epsilon_{j, t}
 $$
 
-其中 $\epsilon_{j, t}$ 服從 $N\left(0, \sigma_{\epsilon, j}^{2}\right)$。
+其中 $\epsilon_{j, t}$ 服從 $N\left (0, \sigma_{\epsilon, j}^{2}\right) $. 
 
 \begin{itemize}
-	\item 現在可以利用迴歸分析來估計 $\beta_{j}$。
-	\item 假設我們擁有第 $j$ 個資產與市場投資組合的雙變量時間序列 $\left(R_{j, t}, R_{M, t}\right),\ t=1,2,\ldots,n$，則 $\beta_{j}$ 的估計量為：
+	\item 現在可以利用迴歸分析來估計 $\beta_{j}$. 
+	\item 假設我們擁有第 $j$ 個資產與市場投資組合的雙變量時間序列 $\left (R_{j, t}, R_{M, t}\right), \ t=1, 2, \ldots, n$, 則 $\beta_{j}$ 的估計量為: 
 \end{itemize}
 
 
 $$
-\hat{\beta}_{j}=\frac{\sum_{t=1}^{n}\left(R_{j, t}-\mu_{f, t}\right)\left(R_{M, t}-\mu_{f, t}\right)}{\sum_{t=1}^{n}\left(R_{M, t}-\mu_{f, t}\right)^{2}}
+\hat{\beta}_{j}=\frac{\sum_{t=1}^{n}\left (R_{j, t}-\mu_{f, t}\right) \left (R_{M, t}-\mu_{f, t}\right) }{\sum_{t=1}^{n}\left (R_{M, t}-\mu_{f, t}\right) ^{2}}
 $$
 
 \section*{Derivation of the Security Market Line}
-證券市場線（SML）的推導 : 考慮一個投資組合 $P$，其中權重 $\omega$ 分配給風險資產 $j$（其報酬為 $R_{j}$），權重 $(1-\omega)$ 分配給市場投資組合。
+證券市場線 (SML) 的推導: 考慮一個投資組合 $P$, 其中權重 $\omega$ 分配給風險資產 $j$ (其報酬為 $R_{j}$), 權重 $ (1-\omega) $ 分配給市場投資組合. 
 
 \begin{itemize}
-	\item 該投資組合的報酬為：
+	\item 該投資組合的報酬為: 
 \end{itemize}
 
 
 $$
-R_{P}=\omega R_{j}+(1-\omega) R_{M}
+R_{P}=\omega R_{j}+ (1-\omega) R_{M}
 $$
 
 \begin{itemize}
-	\item 其期望報酬為：
+	\item 其期望報酬為: 
 \end{itemize}
 
 $$
-\mu_{P}=\omega \mu_{j}+(1-\omega) \mu_{M}
+\mu_{P}=\omega \mu_{j}+ (1-\omega) \mu_{M}
 $$
 
 \begin{itemize}
-  \item 風險為:
+  \item 風險為: 
 \end{itemize}
 
 $$
-\sigma_{P}=\sqrt{\omega^{2} \sigma_{j}^{2}+(1-\omega)^{2} \sigma_{M}^{2}+2 \omega(1-\omega) \sigma_{j M}}
+\sigma_{P}=\sqrt{\omega^{2} \sigma_{j}^{2}+ (1-\omega) ^{2} \sigma_{M}^{2}+2 \omega (1-\omega) \sigma_{j M}}
 $$
 
 \begin{itemize}
-  \item 故而我們有:
+  \item 故而我們有: 
 \end{itemize}
 
 $$
@@ -349,51 +349,51 @@ $$
 
 
 \begin{itemize}
-  \item 因而有:
+  \item 因而有: 
 \end{itemize}
 
 $$
-\frac{d \mu_{P}}{d \sigma_{P}}=\frac{\left(\mu_{j}-\mu_{M}\right) \sigma_{P}}{\omega \sigma_{j}^{2}-(1-\omega) \sigma_{M}^{2}+(1-2 \omega) \sigma_{j M}}
+\frac{d \mu_{P}}{d \sigma_{P}}=\frac{\left (\mu_{j}-\mu_{M}\right) \sigma_{P}}{\omega \sigma_{j}^{2}- (1-\omega) \sigma_{M}^{2}+ (1-2 \omega) \sigma_{j M}}
 $$
 
-以及:
+以及: 
 
 $$
-\left.\frac{d \mu_{P}}{d \sigma_{P}}\right|_{\omega=0}=\frac{\left(\mu_{j}-\mu_{M}\right) \sigma_{M}}{\sigma_{j M}-\sigma_{M}^{2}}
+\left.\frac{d \mu_{P}}{d \sigma_{P}}\right|_{\omega=0}=\frac{\left (\mu_{j}-\mu_{M}\right) \sigma_{M}}{\sigma_{j M}-\sigma_{M}^{2}}
 $$
 
 \begin{itemize}
-  \item 因此有:
+  \item 因此有: 
 \end{itemize}
 
 $$
-\frac{\left(\mu_{j}-\mu_{M}\right) \sigma_{M}}{\sigma_{j M}-\sigma_{M}^{2}}=\frac{\mu_{P}-\mu_{f}}{\sigma_{M}}
+\frac{\left (\mu_{j}-\mu_{M}\right) \sigma_{M}}{\sigma_{j M}-\sigma_{M}^{2}}=\frac{\mu_{P}-\mu_{f}}{\sigma_{M}}
 $$
 
-這等同於:
+這等同於: 
 
 $$
 \begin{aligned}
-\mu_{j}-\mu_{f} & =\frac{\sigma_{j M}}{\sigma_{M}^{2}}\left(\mu_{M}-\mu_{f}\right) \\
-& =\beta_{j}\left(\mu_{M}-\mu_{f}\right)
+\mu_{j}-\mu_{f} & =\frac{\sigma_{j M}}{\sigma_{M}^{2}}\left (\mu_{M}-\mu_{f}\right) \\
+& =\beta_{j}\left (\mu_{M}-\mu_{f}\right) 
 \end{aligned}
 $$
 
 \begin{itemize}
-	\item 另一種理解證券市場線（SML）的方法如下。
-	\item 注意到，一個投資組合的期望報酬為：
+	\item 另一種理解證券市場線 (SML) 的方法如下. 
+	\item 注意到, 一個投資組合的期望報酬為: 
 \end{itemize}
 
 
 $$
 \begin{aligned}
-\mu_{p} & =\left(1-\sum_{i=1}^{N} \omega_{i}\right) \mu_{f}+\sum_{i=1}^{N} \omega_{i} \mu_{i} \\
-& =\mu_{f}+\sum_{i=1}^{N} \omega_{i}\left(\mu_{i}-\mu_{f}\right)
+\mu_{p} & =\left (1-\sum_{i=1}^{N} \omega_{i}\right) \mu_{f}+\sum_{i=1}^{N} \omega_{i} \mu_{i} \\
+& =\mu_{f}+\sum_{i=1}^{N} \omega_{i}\left (\mu_{i}-\mu_{f}\right) 
 \end{aligned}
 $$
 
 \begin{itemize}
-	\item 風險資產 $i$ 對投資組合期望報酬的邊際貢獻為：
+	\item 風險資產 $i$ 對投資組合期望報酬的邊際貢獻為: 
 \end{itemize}
 
 
@@ -401,23 +401,23 @@ $$
 \frac{\partial \mu_{p}}{\partial w_{i}}=\mu_{i}-\mu_{f}
 $$
 
-$x$ 對 $A$ 的邊際貢獻，指的是當 $x$ 發生微小變化時，$A$ 所產生的增量變化.
+$x$ 對 $A$ 的邊際貢獻, 指的是當 $x$ 發生微小變化時, $A$ 所產生的增量變化.
 
 
 \begin{itemize}
-	\item 另外注意，風險資產 $i$ 對投資組合波動率的邊際貢獻為：
+	\item 另外注意, 風險資產 $i$ 對投資組合波動率的邊際貢獻為: 
 \end{itemize}
 
 $$
 \begin{aligned}
 \frac{\partial \sigma_{p}}{\partial w_{i}} & =\frac{1}{2 \sigma_{p}} \frac{\partial \sigma_{p}^{2}}{\partial w_{i}} \\
-& =\frac{\operatorname{Cov}\left(R_{i}, R_{p}\right)}{\sigma_{p}} \\
+& =\frac{\operatorname{Cov}\left (R_{i}, R_{p}\right) }{\sigma_{p}} \\
 & =\frac{\sigma_{i p}}{\sigma_{p}}
 \end{aligned}
 $$
 
 \begin{itemize}
-	\item 風險資產 $i$ 在投資組合 $P$ 中的（邊際）報酬－風險比（Return to Risk Ratio, RRR）定義為：
+	\item 風險資產 $i$ 在投資組合 $P$ 中的 (邊際) 報酬－風險比 (Return to Risk Ratio, RRR) 定義為: 
 \end{itemize}
 
 $$
@@ -426,16 +426,16 @@ $$
 
 
 \begin{itemize}
-	\item 命題：對於市場（切線）投資組合，所有風險資產的報酬－風險比必須相同。也就是說：
+	\item 命題: 對於市場 (切線) 投資組合, 所有風險資產的報酬－風險比必須相同. 也就是說: 
 \end{itemize}
 
 
 $$
-R R R_{i}=\frac{\mu_{i}-\mu_{f}}{\left(\sigma_{i M} / \sigma_{M}\right)}=R R R_{M}=\frac{\mu_{M}-\mu_{f}}{\sigma_{M}}
+R R R_{i}=\frac{\mu_{i}-\mu_{f}}{\left (\sigma_{i M} / \sigma_{M}\right) }=R R R_{M}=\frac{\mu_{M}-\mu_{f}}{\sigma_{M}}
 $$
 
 \begin{itemize}
-  \item 注意到:
+  \item 注意到: 
 \end{itemize}
 
 $$
@@ -443,91 +443,91 @@ $$
 $$
 
 \begin{itemize}
-	\item 因為在市場投資組合中，必須滿足以下關係：
+	\item 因為在市場投資組合中, 必須滿足以下關係: 
 \end{itemize}
 
 $$
-\frac{\mu_{1}-\mu_{f}}{\left(\sigma_{1 M} / \sigma_{M}\right)}=\frac{\mu_{2}-\mu_{f}}{\left(\sigma_{2 M} / \sigma_{M}\right)}=\ldots=\frac{\mu_{N}-\mu_{f}}{\left(\sigma_{N M} / \sigma_{M}\right)}
+\frac{\mu_{1}-\mu_{f}}{\left (\sigma_{1 M} / \sigma_{M}\right) }=\frac{\mu_{2}-\mu_{f}}{\left (\sigma_{2 M} / \sigma_{M}\right) }=\ldots=\frac{\mu_{N}-\mu_{f}}{\left (\sigma_{N M} / \sigma_{M}\right) }
 $$
 
-然後有:
+然後有: 
 
 $$
 \begin{aligned}
-\frac{\omega_{1}\left(\mu_{1}-\mu_{f}\right)}{\omega_{1}\left(\sigma_{1 M} / \sigma_{M}\right)}=\frac{\omega_{2}\left(\mu_{2}-\mu_{f}\right)}{\omega_{2}\left(\sigma_{2 M} / \sigma_{M}\right)}=\ldots=\frac{\omega_{N}\left(\mu_{N}-\mu_{f}\right)}{\omega_{N}\left(\sigma_{N M} / \sigma_{M}\right)} & =\frac{\sum_{i=1}^{N} w_{i}\left(\mu_{i}\right.}{\sum_{i=1}^{N} w_{i}\left(\sigma_{i n}\right.} \\
+\frac{\omega_{1}\left (\mu_{1}-\mu_{f}\right) }{\omega_{1}\left (\sigma_{1 M} / \sigma_{M}\right) }=\frac{\omega_{2}\left (\mu_{2}-\mu_{f}\right) }{\omega_{2}\left (\sigma_{2 M} / \sigma_{M}\right) }=\ldots=\frac{\omega_{N}\left (\mu_{N}-\mu_{f}\right) }{\omega_{N}\left (\sigma_{N M} / \sigma_{M}\right) } & =\frac{\sum_{i=1}^{N} w_{i}\left (\mu_{i}\right.}{\sum_{i=1}^{N} w_{i}\left (\sigma_{i n}\right.} \\
 & =\frac{\mu_{M}-\mu_{f}}{\sigma_{M}}
 \end{aligned}
 $$
 
-這意味著, 與證券市場線（SML）等價的模型為：
+這意味著, 與證券市場線 (SML) 等價的模型為: 
 
 $$
 \frac{\mu_{j}-\mu_{f}}{\sigma_{j}}=\rho_{j M} \frac{\mu_{M}-\mu_{f}}{\sigma_{M}}
 $$
 
-由於 $\rho_{j M}$ 總是小於 1，上述等式意味著理論上你的投資組合在夏普比率（Sharpe ratio）或報酬－風險比方面不可能優於市場投資組合；只有當你的報酬與市場報酬完全線性相關，或當你複製了市場投資組合時，你的夏普比率才會與市場相同。  
-這一理論結果支持了對那些試圖複製市場投資組合的指數型基金的投資。
+由於 $\rho_{j M}$ 總是小於 1, 上述等式意味著理論上你的投資組合在夏普比率 (Sharpe ratio) 或報酬－風險比方面不可能優於市場投資組合; 只有當你的報酬與市場報酬完全線性相關, 或當你複製了市場投資組合時, 你的夏普比率才會與市場相同.   
+這一理論結果支持了對那些試圖複製市場投資組合的指數型基金的投資. 
 
-以下是一個關於石油鑽探公司的例子，摘自 David Luenberger 的著作。  
+以下是一個關於石油鑽探公司的例子, 摘自 David Luenberger 的著作.   
 
-例子：一家石油鑽探公司目前每股價格為 \$875。假設一年後的預期股價為 \$1,000，且其報酬率的標準差為 $40\%$。此外，無風險利率為 $10\%$，市場投資組合的預期報酬率為 $17\%$，標準差為 $12\%$。
-由於 $\rho_{j M}$ 總是小於 1，上述等式意味著理論上你的投資組合在夏普比率（Sharpe ratio）或報酬－風險比方面不可能優於市場投資組合；只有當你的報酬與市場報酬完全線性相關，或當你複製了市場投資組合時，你的夏普比率才會與市場相同。  
-這一理論結果支持了對那些試圖複製市場投資組合的指數型基金的投資。
+例子: 一家石油鑽探公司目前每股價格為 \$875. 假設一年後的預期股價為 \$1, 000, 且其報酬率的標準差為 $40\%$. 此外, 無風險利率為 $10\%$, 市場投資組合的預期報酬率為 $17\%$, 標準差為 $12\%$. 
+由於 $\rho_{j M}$ 總是小於 1, 上述等式意味著理論上你的投資組合在夏普比率 (Sharpe ratio) 或報酬－風險比方面不可能優於市場投資組合; 只有當你的報酬與市場報酬完全線性相關, 或當你複製了市場投資組合時, 你的夏普比率才會與市場相同.   
+這一理論結果支持了對那些試圖複製市場投資組合的指數型基金的投資. 
 
-以下是一個關於石油鑽探公司的例子，摘自盧訥貝格爾 (David Luenberger) 的著作。  
+以下是一個關於石油鑽探公司的例子, 摘自盧訥貝格爾  (David Luenberger) 的著作.   
 
-例子： 一家石油鑽探公司目前每股價格為 \$875。假設一年後的預期股價為 \$1,000，且其報酬率的標準差為 $40\%$。此外無風險利率為 $10\%$，市場投資組合的預期報酬率為 $17\%$，標準差為 $12\%$。
+例子:  一家石油鑽探公司目前每股價格為 \$875. 假設一年後的預期股價為 \$1, 000, 且其報酬率的標準差為 $40\%$. 此外無風險利率為 $10\%$, 市場投資組合的預期報酬率為 $17\%$, 標準差為 $12\%$. 
 
 
 \begin{enumerate}
-	\item 對石油鑽探公司的投資是否是筆好投資？
-	\item 若 $\beta_{\text{oil}}=0.6$，則該公司的當前價格是否為公平價格？
+	\item 對石油鑽探公司的投資是否是筆好投資? 
+	\item 若 $\beta_{\text{oil}}=0.6$, 則該公司的當前價格是否為公平價格? 
 \end{enumerate}
 
 $$
 \mu_{\text{oil}}=\frac{1000-875}{875}=14\%
 $$
 
-由於 $\sigma_{\text{oil}}=40\%$，證券市場線（SML）蘊含：
+由於 $\sigma_{\text{oil}}=40\%$, 證券市場線 (SML) 蘊含: 
 
 
 $$
 \mu=0.10+\frac{0.17-0.10}{012} \times 0.40=33 \%
 $$
-因此，該石油鑽探公司的預期報酬率遠低於資本市場線（CML），因此這項投資並不是一個好的選擇。
+因此, 該石油鑽探公司的預期報酬率遠低於資本市場線 (CML), 因此這項投資並不是一個好的選擇. 
 
-我們將使用證券市場線（SML）作為定價工具。假設已知該石油鑽探公司的 $\beta$ 值為 0.6。  
-假設要決定其公平價格 $P_{0}$，而不是給定 $\$875$。  
-則根據 SML，有：
+我們將使用證券市場線 (SML) 作為定價工具. 假設已知該石油鑽探公司的 $\beta$ 值為 0.6.   
+假設要決定其公平價格 $P_{0}$, 而不是給定 $\$875$.   
+則根據 SML, 有: 
 
 $$
-\frac{1000-P_{0}}{P_{0}} = 0.10 + 0.6 \times (0.17 - 0.10) = 0.142
+\frac{1000-P_{0}}{P_{0}} = 0.10 + 0.6 \times  (0.17 - 0.10) = 0.142
 $$
 
-因此 $P_{0} = 875.66$。  
-由此可見，該價格是正確的，儘管這筆投資本身並非一個好選擇。
+因此 $P_{0} = 875.66$.   
+由此可見, 該價格是正確的, 儘管這筆投資本身並非一個好選擇. 
 
-註：此處的公平價格是由 $\beta$ 值決定的。
+註: 此處的公平價格是由 $\beta$ 值決定的. 
 
 \section{資本市場線與證券市場線的比較}
 \begin{itemize}
-	\item 資本市場線（CML）僅適用於有效投資組合的報酬 $R$，其內容為：
+	\item 資本市場線 (CML) 僅適用於有效投資組合的報酬 $R$, 其內容為: 
 \end{itemize}
 
 $$
-\mu_{R}-\mu_{f}=\frac{\sigma_{R}}{\sigma_{M}}\left(\mu_{M}-\mu_{F}\right)
+\mu_{R}-\mu_{f}=\frac{\sigma_{R}}{\sigma_{M}}\left (\mu_{M}-\mu_{F}\right) 
 $$
 
 \begin{itemize}
-  \item  證券市場線（SML）應用於任意資產, 有:
+  \item  證券市場線 (SML) 應用於任意資產, 有: 
 \end{itemize}
 
 $$
-\mu_{j}-\mu_{f}=\beta_{j}\left(\mu_{M}-\mu_{F}\right)
+\mu_{j}-\mu_{f}=\beta_{j}\left (\mu_{M}-\mu_{F}\right) 
 $$
 
 \begin{itemize}
-  \item 對於一個含有收益 $R$ 的有效投資組合:
+  \item 對於一個含有收益 $R$ 的有效投資組合: 
 \end{itemize}
 
 $$
@@ -536,15 +536,15 @@ $$
 
 \section{證券市場線}
 \begin{itemize}
-  \item Let $\mu_{j, t}=E\left(R_{j, t}\right)$ and $\mu_{M, t}=E\left(R_{M, t}\right)$. Then
+  \item Let $\mu_{j, t}=E\left (R_{j, t}\right) $ and $\mu_{M, t}=E\left (R_{M, t}\right) $. Then
 \end{itemize}
 
 $$
-\mu_{j, t}=\mu_{f, t}+\beta_{j}\left(\mu_{M, t}-\mu_{f, t}\right)
+\mu_{j, t}=\mu_{f, t}+\beta_{j}\left (\mu_{M, t}-\mu_{f, t}\right) 
 $$
 
 \begin{itemize}
-  \item 此外有:
+  \item 此外有: 
 \end{itemize}
 
 $$
@@ -556,21 +556,21 @@ $$
 $$
 
 \begin{itemize}
-\item 第 \( j \) 個資產的總風險是:
+\item 第 \( j \) 個資產的總風險是: 
 \end{itemize}
 
 $$
 \sigma_{j}=\sqrt{\beta_{j}^{2} \sigma_{M}^{2}+\sigma_{\epsilon, j}^{2}}
 $$
 
-$\beta_{j}^{2} \sigma_{M}^{2}$ 稱為市場風險或系統性風險的組成部分，而 $\sigma_{\epsilon, j}^{2}$ 稱為獨特的、非市場的或非系統性風險的組成部分。
+$\beta_{j}^{2} \sigma_{M}^{2}$ 稱為市場風險或系統性風險的組成部分, 而 $\sigma_{\epsilon, j}^{2}$ 稱為獨特的、非市場的或非系統性風險的組成部分. 
 
 
 \section{Reducing unique risk by diversification}
 \begin{itemize}
-	\item 市場組成部分無法透過分散化降低。
-	\item 獨特組成部分可以透過分散化降低。
-	\item 假設有 $N$ 個資產，其報酬分別為 $R_{1, t}, R_{2, t}, \ldots, R_{N, t}$。若我們以權重 $\omega_{1}, \omega_{2}, \ldots, \omega_{N}$ 組成一個投資組合，則該投資組合的報酬為
+	\item 市場組成部分無法透過分散化降低. 
+	\item 獨特組成部分可以透過分散化降低. 
+	\item 假設有 $N$ 個資產, 其報酬分別為 $R_{1, t}, R_{2, t}, \ldots, R_{N, t}$. 若我們以權重 $\omega_{1}, \omega_{2}, \ldots, \omega_{N}$ 組成一個投資組合, 則該投資組合的報酬為
 \end{itemize}
 
 
@@ -579,22 +579,22 @@ R_{P, t}=\omega_{1} R_{1, t}+\omega_{2} R_{2, t}+\ldots+\omega_{N} R_{N, t} .
 $$
 
 \begin{itemize}
-	\item 設 $R_{M, t}$ 為市場投資組合的報酬。根據特徵線模型（characteristic line model）
+	\item 設 $R_{M, t}$ 為市場投資組合的報酬. 根據特徵線模型 (characteristic line model) 
 \end{itemize}
 
 
 $$
-R_{j, t}=\mu_{f, t}+\beta_{j}\left(R_{M, t}-\mu_{f, t}\right)+\epsilon_{j, t}
+R_{j, t}=\mu_{f, t}+\beta_{j}\left (R_{M, t}-\mu_{f, t}\right) +\epsilon_{j, t}
 $$
 
-因而有:
+因而有: 
 
 $$
-R_{P, t}=\mu_{f, t}+\left(\sum_{i=1}^{N} \beta_{j} \omega_{j}\right)\left(R_{M, t}-\mu_{f, t}\right)+\sum_{i=1}^{N} \omega_{j} \epsilon_{j, t}
+R_{P, t}=\mu_{f, t}+\left (\sum_{i=1}^{N} \beta_{j} \omega_{j}\right) \left (R_{M, t}-\mu_{f, t}\right) +\sum_{i=1}^{N} \omega_{j} \epsilon_{j, t}
 $$
 
 \begin{itemize}
-	\item 因此，投資組合的貝他值為:
+	\item 因此, 投資組合的貝他值為: 
 \end{itemize}
 
 
@@ -602,14 +602,14 @@ $$
 \beta_{P}=\sum_{i=1}^{N} \omega_{j} \beta_{j}
 $$
 
-它的$\epsilon$ 是:
+它的$\epsilon$ 是: 
 
 $$
 \epsilon_{P, t}=\sum_{i=1}^{N} \omega_{j} \epsilon_{j, t}
 $$
 
 \begin{itemize}
-	\item 假設 $\epsilon_{1, t}, \epsilon_{2, t}, \ldots, \epsilon_{N, t}$ 彼此不相關，則可得
+	\item 假設 $\epsilon_{1, t}, \epsilon_{2, t}, \ldots, \epsilon_{N, t}$ 彼此不相關, 則可得
 \end{itemize}
 
 
@@ -617,7 +617,7 @@ $$
 \sigma_{\epsilon, P}^{2}=\sum_{i=1}^{N} \omega_{j}^{2} \sigma_{\epsilon, j}^{2}
 $$
 
-且有:
+且有: 
 
 $$
 \sigma_{P}=\sqrt{\beta_{P}^{2} \sigma_{M}^{2}+\sigma_{\epsilon, P}^{2}}
@@ -625,60 +625,60 @@ $$
 
 
 \begin{itemize}
-	\item 範例：假設對所有 $j$，都有 $w_{j} = 1 / N$。則
+	\item 範例: 假設對所有 $j$, 都有 $w_{j} = 1 / N$. 則
 \end{itemize}
 
 $$
 \beta_{P}=\frac{\sum_{j=1}^{N} \beta_{j}}{N}
 $$
 
-以及:
+以及: 
 
 $$
-\sigma_{\epsilon, P}^{2}=\frac{1}{N^{2}} \sum_{j=1}^{N} \sigma_{\epsilon, j}^{2}=\frac{\bar{\sigma}_{\epsilon}^{2}}{N},
+\sigma_{\epsilon, P}^{2}=\frac{1}{N^{2}} \sum_{j=1}^{N} \sigma_{\epsilon, j}^{2}=\frac{\bar{\sigma}_{\epsilon}^{2}}{N}, 
 $$
 
-其中，$\bar{\sigma}_{\epsilon}^{2}$ 為各 $\sigma_{\epsilon, j}^{2}$ 的平均值。若對所有 $j$ 都有 $\sigma_{\epsilon, j}^{2} = \sigma_{\epsilon}^{2}$，則
+其中, $\bar{\sigma}_{\epsilon}^{2}$ 為各 $\sigma_{\epsilon, j}^{2}$ 的平均值. 若對所有 $j$ 都有 $\sigma_{\epsilon, j}^{2} = \sigma_{\epsilon}^{2}$, 則
 
 
 $$
 \sigma_{\epsilon, P}=\frac{\sigma_{\epsilon}}{\sqrt{N}}
 $$
 
-例如，假設 $\sigma_{\epsilon} = 5\%$，則：
+例如, 假設 $\sigma_{\epsilon} = 5\%$, 則: 
 
 
 \begin{itemize}
-	\item 若 $N = 20$，則 $\sigma_{\epsilon, P} = \frac{0.05}{\sqrt{20}} \approx 1.12\%$。
-	\item 若 $N = 100$，則 $\sigma_{\epsilon, P} = \frac{0.05}{\sqrt{100}} = 0.5\%$。
-	\item 紐約證券交易所（NYSE）約有 1600 檔股票。若 $N = 1600$，則 $\sigma_{\epsilon, P} = \frac{0.05}{\sqrt{1600}} = 0.0125\%$。
+	\item 若 $N = 20$, 則 $\sigma_{\epsilon, P} = \frac{0.05}{\sqrt{20}} \approx 1.12\%$. 
+	\item 若 $N = 100$, 則 $\sigma_{\epsilon, P} = \frac{0.05}{\sqrt{100}} = 0.5\%$. 
+	\item 紐約證券交易所 (NYSE) 約有 1600 檔股票. 若 $N = 1600$, 則 $\sigma_{\epsilon, P} = \frac{0.05}{\sqrt{1600}} = 0.0125\%$. 
 \end{itemize}
 
 
 \section{Beta 值的估計與 CAPM 的檢驗}
 \begin{itemize}
-	\item 證券特徵線（security characteristic line）
+	\item 證券特徵線 (security characteristic line) 
 \end{itemize}
 
 $$
-R_{j, t}=\mu_{f, t}+\beta_{j}\left(R_{M, t}-\mu_{f, t}\right)+\epsilon_{j, t},
+R_{j, t}=\mu_{f, t}+\beta_{j}\left (R_{M, t}-\mu_{f, t}\right) +\epsilon_{j, t}, 
 $$
 
-設 $R_{j, t}^{*} = R_{j, t} - \mu_{f, t}$（第 $j$ 個資產的超額報酬），
-並設 $R_{M, t}^{*} = R_{M, t} - \mu_{f, t}$（市場投資組合的超額報酬），
-則證券特徵線可寫為：
+設 $R_{j, t}^{*} = R_{j, t} - \mu_{f, t}$ (第 $j$ 個資產的超額報酬), 
+並設 $R_{M, t}^{*} = R_{M, t} - \mu_{f, t}$ (市場投資組合的超額報酬), 
+則證券特徵線可寫為: 
 
 $$
 R_{j, t}^{*} = \beta_{j} R_{M, t}^{*} + \epsilon_{j, t}
 $$
 
-此方程為一個無截距項的迴歸模型。
+此方程為一個無截距項的迴歸模型. 
 
 \section*{應用}
 \begin{enumerate}
-	\item 若資產 $A$ 的貝塔值為 $\beta_{A}=1.50$ 且 $\mu_{A}=14\%$，而 $\mu_{M}=10\%$、$\mu_{f}=6\%$，則該資產的定價是否合理？如果不合理，是被低估還是被高估？
-	\item 假設在一個有效市場中，某證券 $A$ 的波動率為 $\sigma_{A}=0.25$，與市場投資組合的相關係數為 $\rho_{AM}=0.75$。若 $\sigma_{M}=0.20$，請計算 $\beta_{A}$。
-	\item 假設無風險利率為 $\mu_{f}=6\%$，市場的平均報酬率為 $\mu_{M}=8\%$。若：
+	\item 若資產 $A$ 的貝塔值為 $\beta_{A}=1.50$ 且 $\mu_{A}=14\%$, 而 $\mu_{M}=10\%$、$\mu_{f}=6\%$, 則該資產的定價是否合理? 如果不合理, 是被低估還是被高估? 
+	\item 假設在一個有效市場中, 某證券 $A$ 的波動率為 $\sigma_{A}=0.25$, 與市場投資組合的相關係數為 $\rho_{AM}=0.75$. 若 $\sigma_{M}=0.20$, 請計算 $\beta_{A}$. 
+	\item 假設無風險利率為 $\mu_{f}=6\%$, 市場的平均報酬率為 $\mu_{M}=8\%$. 若: 
 \end{enumerate}
 
 
@@ -690,10 +690,10 @@ $$
 \end{array}
 $$
 
-哪一個資產的表現最好?
+哪一個資產的表現最好? 
 
 \begin{enumerate}
-	\item 假設一個有效市場包含兩種風險性資產 $A$ 與 $B$，其貝塔值與特質風險如下：
+	\item 假設一個有效市場包含兩種風險性資產 $A$ 與 $B$, 其貝塔值與特質風險如下: 
 \end{enumerate}
 
 
@@ -708,53 +708,53 @@ B & 1.05 & $15 \%$ \\
 \end{tabular}
 \end{center}
 
-假設：\\
-$\diamond$ 各 $\epsilon_{j}$ 之間的成對相關皆為零，\\
-$\diamond$ 市場波動率為 $\sigma_{M}=15\%$，\\
-$\diamond$ 投資組合的權重為 $\omega_{A}=0.30$、$\omega_{B}=0.70$。\\
+假設: \\
+$\diamond$ 各 $\epsilon_{j}$ 之間的成對相關皆為零, \\
+$\diamond$ 市場波動率為 $\sigma_{M}=15\%$, \\
+$\diamond$ 投資組合的權重為 $\omega_{A}=0.30$、$\omega_{B}=0.70$. \\
 
-1. 若 $\beta_{P}$ 為你的投資組合之貝塔值，則它等於多少？你的投資組合的總風險（標準差）為何？\\
-2. 你的投資組合總風險中，有多少比例是由市場（系統性）風險所造成的？
+1. 若 $\beta_{P}$ 為你的投資組合之貝塔值, 則它等於多少? 你的投資組合的總風險 (標準差) 為何? \\
+2. 你的投資組合總風險中, 有多少比例是由市場 (系統性) 風險所造成的? 
 
 
 \begin{itemize}
-  \item 一個更普遍的模型是:
+  \item 一個更普遍的模型是: 
 \end{itemize}
 
 $$
 R_{j, t}^{*}=\alpha_{j}+\beta_{j} R_{M, t}^{*}+\epsilon_{j, t}
 $$
 
-CAPM 模型指出 $\alpha_{j}=0$，但若允許 $\alpha_{j} \neq 0$，則表示我們承認資產可能存在錯誤定價的可能性。
+CAPM 模型指出 $\alpha_{j}=0$, 但若允許 $\alpha_{j} \neq 0$, 則表示我們承認資產可能存在錯誤定價的可能性. 
 
 \begin{itemize}
-	\item 給定一組時間序列 $R_{j, t}$、$R_{M, t}$ 與 $\mu_{f, t}$，其中 $t=1,2,\ldots,n$，\\
-	$\diamond$ 我們可以計算 $R_{j, t}^{*}$ 與 $R_{M, t}^{*}$，並且\\
-	$\diamond$ 將 $R_{j, t}^{*}$ 對 $R_{M, t}^{*}$ 進行迴歸，以估計 $\alpha_{j}$、$\beta_{j}$ 與 $\sigma_{\epsilon, j}^{2}$。\\
-	$\diamond$ 當我們檢定虛無假設 $\alpha_{j}=0$ 時，即是在檢驗第 $j$ 個資產是否依據 CAPM 模型出現錯誤定價。
+	\item 給定一組時間序列 $R_{j, t}$、$R_{M, t}$ 與 $\mu_{f, t}$, 其中 $t=1, 2, \ldots, n$, \\
+	$\diamond$ 我們可以計算 $R_{j, t}^{*}$ 與 $R_{M, t}^{*}$, 並且\\
+	$\diamond$ 將 $R_{j, t}^{*}$ 對 $R_{M, t}^{*}$ 進行迴歸, 以估計 $\alpha_{j}$、$\beta_{j}$ 與 $\sigma_{\epsilon, j}^{2}$. \\
+	$\diamond$ 當我們檢定虛無假設 $\alpha_{j}=0$ 時, 即是在檢驗第 $j$ 個資產是否依據 CAPM 模型出現錯誤定價. 
 \end{itemize}
 
 
 \section{資產定價}
 \begin{itemize}
-	\item 考慮一項資產 $j$，其在時間 $t=0$ 的價格為 $P_{0}$，在時間 $t=1$ 的報酬（隨機變數）為 $P_{1}$，其期望報酬為 $E\left(P_{1}\right)$。
-	\item 根據定義：
+	\item 考慮一項資產 $j$, 其在時間 $t=0$ 的價格為 $P_{0}$, 在時間 $t=1$ 的報酬 (隨機變數) 為 $P_{1}$, 其期望報酬為 $E\left (P_{1}\right) $. 
+	\item 根據定義: 
 \end{itemize}
 
 
 $$
-\mu_{j}=\frac{E\left(P_{1}\right)-P_{0}}{P_{0}}
+\mu_{j}=\frac{E\left (P_{1}\right) -P_{0}}{P_{0}}
 $$
 
 \begin{itemize}
-  \item  解 $P_{0}$ 而有:
+  \item  解 $P_{0}$ 而有: 
 \end{itemize}
 
 $$
-P_{0}=\frac{E\left(P_{1}\right)}{1+\mu_{j}}
+P_{0}=\frac{E\left (P_{1}\right) }{1+\mu_{j}}
 $$
 
-此式表示若以 $\mu_{j}$ 為貼現率，則價格可視為貼現後的報酬（即現值）。
+此式表示若以 $\mu_{j}$ 為貼現率, 則價格可視為貼現後的報酬 (即現值) . 
 
 
 \begin{itemize}
@@ -762,38 +762,38 @@ $$
 \end{itemize}
 
 $$
-\mu_{j}=\mu_{f}+\beta_{j}\left(\mu_{M}-\mu_{f}\right)
+\mu_{j}=\mu_{f}+\beta_{j}\left (\mu_{M}-\mu_{f}\right) 
 $$
 
-根據 SML 的公式, 我們得到:
+根據 SML 的公式, 我們得到: 
 
 $$
-P_{0}=\frac{E\left(P_{1}\right)}{1+\mu_{f}+\beta_{j}\left(\mu_{M}-\mu_{f}\right)}
+P_{0}=\frac{E\left (P_{1}\right) }{1+\mu_{f}+\beta_{j}\left (\mu_{M}-\mu_{f}\right) }
 $$
 
 \section*{市場投資組合}
 \begin{itemize}
-	\item 在現實的開放市場中，資產數量極為龐大，任何金融分析師若嘗試實際建構「市場投資組合」，都將是一項極為艱鉅且不切實際的任務。
-	\item 因此，人們創立了所謂的「指數型基金」（或共同基金），以期近似市場投資組合。
-	\item 此類指數為由市場中最具代表性的資產所組成的較小型投資組合，用以捕捉整體市場 $M$ 的本質。
-	\item 最知名的此類指數為「標準普爾 500 指數」（S\&P 500），其由 500 支股票組成。
-	\item 因此，特定資產的貝塔值可透過以 S\&P 取代市場組合 $M$，並蒐集兩者過去的報酬率資料來進行估計。
+	\item 在現實的開放市場中, 資產數量極為龐大, 任何金融分析師若嘗試實際建構「市場投資組合」, 都將是一項極為艱鉅且不切實際的任務. 
+	\item 因此, 人們創立了所謂的「指數型基金」 (或共同基金), 以期近似市場投資組合. 
+	\item 此類指數為由市場中最具代表性的資產所組成的較小型投資組合, 用以捕捉整體市場 $M$ 的本質. 
+	\item 最知名的此類指數為「標準普爾 500 指數」 (S\&P 500), 其由 500 支股票組成. 
+	\item 因此, 特定資產的貝塔值可透過以 S\&P 取代市場組合 $M$, 並蒐集兩者過去的報酬率資料來進行估計. 
 \end{itemize}
 
 \section*{因子模型}
 \begin{itemize}
-	\item 證券特徵線（Security Characteristic Line）是一種迴歸模型：
+	\item 證券特徵線 (Security Characteristic Line) 是一種迴歸模型: 
 \end{itemize}
 
 
 $$
-R_{j, t}=\mu_{f, t}+\beta_{j}\left(R_{M, t}-\mu_{f, t}\right)+\epsilon_{j, t}
+R_{j, t}=\mu_{f, t}+\beta_{j}\left (R_{M, t}-\mu_{f, t}\right) +\epsilon_{j, t}
 $$
 
-變數 $R_{M, t}-\mu_{f, t}$ 有時被稱為「因子」（factor），且它是資產報酬之間相關性的唯一來源。
+變數 $R_{M, t}-\mu_{f, t}$ 有時被稱為「因子」 (factor), 且它是資產報酬之間相關性的唯一來源. 
 
 \begin{itemize}
-	\item 多因子模型（multi-factor model）為：
+	\item 多因子模型 (multi-factor model) 為: 
 \end{itemize}
 
 
@@ -802,40 +802,40 @@ R_{j, t}-\mu_{f, t}=\beta_{0, j}+\beta_{1, j} F_{1, t}+\ldots+\beta_{p, j} F_{j,
 $$
 
 \begin{itemize}
-	\item $F_{1, t}, F_{2, t}, \ldots, F_{p, t}$ 為時間 $t$ 時的 $p$ 個因子值。所謂「因子」可為任何可被測量且被認為會影響資產報酬的變數。
+	\item $F_{1, t}, F_{2, t}, \ldots, F_{p, t}$ 為時間 $t$ 時的 $p$ 個因子值. 所謂「因子」可為任何可被測量且被認為會影響資產報酬的變數. 
 \end{itemize}
 
 \begin{itemize}
-	\item 範例：
-	\item 市場投資組合的報酬率（市場模型，例如 CAPM）\\
-	$\diamond$ 國內生產總值（GDP）的成長率
+	\item 範例: 
+	\item 市場投資組合的報酬率 (市場模型, 例如 CAPM) \\
+	$\diamond$ 國內生產總值 (GDP) 的成長率
 	\item 短期國庫券的利率
-	\item 當納入足夠多的因子時，$\epsilon_{j t}$ 應在不同資產 $j$ 之間互不相關。
+	\item 當納入足夠多的因子時, $\epsilon_{j t}$ 應在不同資產 $j$ 之間互不相關. 
 \end{itemize}
 
 \section*{計算資產報酬的期望值、變異數與共變異數}
-為了簡化說明，以下假設只有兩個因子，即 $p=2$，在此情況下：
+為了簡化說明, 以下假設只有兩個因子, 即 $p=2$, 在此情況下: 
 
 $$
 R_{j, t}-\mu_{f, t}=\beta_{0, j}+\beta_{1, j} F_{1, j}+\beta_{2, j} F_{2, j}+\epsilon_{j, t}
 $$
 
-因而有:
+因而有: 
 
 $$
-E\left(R_{j, t}\right)=\mu_{f}+\beta_{0, j}+\beta_{1, j} E\left(F_{1}\right)+\beta_{2, j} E\left(F_{2}\right)
+E\left (R_{j, t}\right) =\mu_{f}+\beta_{0, j}+\beta_{1, j} E\left (F_{1}\right) +\beta_{2, j} E\left (F_{2}\right) 
 $$
 
 $$
-\operatorname{Var}\left(R_{j, t}\right)=\beta_{1, j}^{2} \operatorname{Var}\left(F_{1}\right)+\beta_{2, j}^{2} \operatorname{Var}\left(F_{2}\right)+2 \beta_{1, j} \beta_{2, j} \operatorname{Cov}\left(F_{1}, F_{2}\right)+\sigma_{\epsilon}^{2}
+\operatorname{Var}\left (R_{j, t}\right) =\beta_{1, j}^{2} \operatorname{Var}\left (F_{1}\right) +\beta_{2, j}^{2} \operatorname{Var}\left (F_{2}\right) +2 \beta_{1, j} \beta_{2, j} \operatorname{Cov}\left (F_{1}, F_{2}\right) +\sigma_{\epsilon}^{2}
 $$
 
-以及:
+以及: 
 
 $$
 \begin{aligned}
-\operatorname{Cov}\left(R_{j, t}, R_{j^{\prime}, t}\right) & =\beta_{1, j} \beta_{j^{\prime}, t} \operatorname{Var}\left(F_{1}\right)+\beta_{2, j} \beta_{2, j^{\prime}} \operatorname{Var}\left(F_{2}\right) \\
-& +\left(\beta_{1, j} \beta_{2, j^{\prime}}+\beta_{2, j} \beta_{1, j^{\prime}}\right) \operatorname{Cov}\left(F_{1}, F_{2}\right)+\sigma_{\epsilon}^{2}
+\operatorname{Cov}\left (R_{j, t}, R_{j^{\prime}, t}\right) & =\beta_{1, j} \beta_{j^{\prime}, t} \operatorname{Var}\left (F_{1}\right) +\beta_{2, j} \beta_{2, j^{\prime}} \operatorname{Var}\left (F_{2}\right) \\
+& +\left (\beta_{1, j} \beta_{2, j^{\prime}}+\beta_{2, j} \beta_{1, j^{\prime}}\right) \operatorname{Cov}\left (F_{1}, F_{2}\right) +\sigma_{\epsilon}^{2}
 \end{aligned}
 $$
 
