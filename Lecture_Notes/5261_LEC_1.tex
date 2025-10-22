@@ -1,1 +1,510 @@
-
+\documentclass[letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage[version=4]{mhchem}
+\usepackage{stmaryrd}
+\usepackage[dvipsnames]{xcolor}
+\colorlet{LightRubineRed}{RubineRed!70}
+\colorlet{Mycolor1}{green!10!orange}
+\definecolor{Mycolor2}{HTML}{00F9DE}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{lipsum}
+\usepackage{fancyvrb}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage[export]{adjustbox}
+\graphicspath{ {./images/} }
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{hyperref} 
+\usepackage{xcolor} % For custom colors
+\lstset{
+	language=Python,            % Choose the language (e.g., Python, C, R) 
+	basicstyle=\ttfamily\small, % Font size and type
+	keywordstyle=\color{blue}, % Keywords color
+	commentstyle=\color{gray}, % Comments color
+	stringstyle=\color{red}, % String color
+	numbers=left,           % Line numbers
+	numberstyle=\tiny\color{gray}, % Line number style
+	stepnumber=1,           % Numbering step
+	breaklines=true,        % Auto line break
+	backgroundcolor=\color{black!5}, % Light gray background
+	frame=single,           % Frame around the code
+}
+\usepackage{float}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+	\usepackage[]{amssymb} %gives us the character \varnothing
+	\usepackage{ctex} 
+	
+	\title{Lect 1, MATH 5261 \\
+		\small{Returns\\
+			收益
+		}
+	}
+	
+	\author{Zongyi Liu}
+	\date{Thu, Sept 16, 2025}
+	
+	\begin{document}
+		\maketitle
+		
+		\tableofcontents
+		
+		\section{引入}
+		\subsection{收益的意義}
+		\begin{itemize}
+			\item 投資的目標是獲取利潤. 
+			\item 投資的收益 (或在收益為負時的損失) 取決於資產價格的變化以及持有資產的數量. 
+			\item 作為投資者, 你關心的是相對於初始投資規模而言較高的收益. 
+			\item 報酬率衡量的正是這一點, 因為資產 (例如股票, 債券或股票與債券組合) 的報酬率, 是價格變動相對於初始價格的比例. 
+		\end{itemize}
+		
+		
+		\subsection{收益公式}
+		\begin{itemize}
+			\item 設 $P_{t}$ 為資產在時間 $t$ 的價格. 假設期間未發放股息, 則淨報酬定義為: 
+		\end{itemize}
+		
+		$$
+		R_{t}=\frac{P_{t}-P_{t-1}}{P_{t-1}}=\frac{P_{t}}{P_{t-1}}-1
+		$$
+		
+		\begin{itemize}
+			\item 簡單總報酬 (simple gross return) 定義為: 
+		\end{itemize}
+		
+		$$
+		\frac{P_{t}}{P_{t-1}}=1+R_{t}
+		$$
+		
+		\begin{itemize}
+			\item 範例: 若 $P_{t-1}=10$ 且 $P_{t}=10.3$, 則: 
+		\end{itemize}
+		
+		$$
+		1+R_{t}=\frac{P_{t}}{P_{t-1}}=\frac{10.3}{10}=1.03
+		$$
+		
+		得 $R_{t}=0.03$ 或 $R_{t}=3 \%$.
+		
+		\begin{itemize}
+			\item 最近連續 $k$ 期 ($t-k, \, t-k+1, \, \ldots, \, t$) 的總報酬定義為: 
+		\end{itemize}
+		$$
+		\begin{aligned}
+			1+R_{t} (k) & =\frac{P_{t}}{P_{t-k}} \\
+			& =\frac{P_{t}}{P_{t-1}} \frac{P_{t-1}}{P_{t-2}} \ldots \frac{P_{t-k+1}}{P_{t-k}} \\
+			& =\left (1+R_{t}\right) \left (1+R_{t-1}\right) \ldots\left (1+R_{t-k+1}\right) 
+		\end{aligned}
+		$$
+		
+		\subsection{收益的性質}
+		注意到, 收益都是: 
+		
+		\begin{itemize}
+			\item 無尺度 (scale-free), 意即它們不依賴於貨幣單位 (如美元, 分等). 
+			\item 但在時間上並非無單位 (not unit-less in time), 因為它們依賴於時間單位 $t$ (例如小時, 天等). 
+		\end{itemize}
+		
+		\subsection{案例}
+		\begin{center}
+			\begin{tabular}{lllll}
+				時間 & $\mathrm{t}-3$ & $\mathrm{t}-2$ & $\mathrm{t}-1$ & t \\
+				\hline
+				P & 200 & 210 & 206 & 212 \\
+				$1+\mathrm{R}$ &  & 1.05 & 0.981 & 1.03 \\
+				$1+\mathrm{R} (2) $ &  &  & 1.03 & 1.01 \\
+				$1+\mathrm{R} (3) $ &  &  &  & 1.06 \\
+				\hline
+				$1+\mathrm{R}$ &  &  &  &  \\
+				\hline
+			\end{tabular}
+		\end{center}
+		
+		$$
+		1.05=210 / 200 \quad 0.981=206 / 210 \quad 1.03=212 / 206
+		$$
+		
+		$1+\mathrm{R} (2) $
+		
+		$$
+		1.03=206 / 210 \quad 1.01=212 / 210
+		$$
+		
+		$1+\mathrm{R} (3) $
+		
+		$$
+		1.06=212 / 200
+		$$
+		
+		\begin{itemize}
+			\item 對數價格 (log prices) 被定義為: 
+		\end{itemize}
+		
+		$$
+		p_{t}=\log \left (P_{t}\right) 
+		$$
+		
+		其中 $\log (x) $ 為 $x$ 的自然對數. 
+		
+		\begin{itemize}
+			\item 連續複利報酬 (或稱對數報酬) 定義為總報酬的對數: 
+		\end{itemize}
+		
+		$$
+		r_{t}=\log \left (1+R_{t}\right) =\log \left (\frac{P_{t}}{P_{t-1}}\right) =p_{t}-p_{t-1}
+		$$
+		
+		\begin{itemize}
+			\item 注意到有: 
+		\end{itemize}
+		
+		$$
+		P_{t}=P_{t-1} e^{r_{t}}
+		$$
+		
+		\begin{itemize}
+			\item 此外: 
+		\end{itemize}
+		
+		$$
+		\begin{aligned}
+			r_{t} (k) & =\log \left (1+R_{t} (k) \right) \\
+			& =\log \left (\left (1+R_{t}\right) \left (1+R_{t-1}\right) \ldots\left (1+R_{t-k+1}\right) \right) \\
+			& =\log \left (1+R_{t}\right) +\log \left (1+R_{t-1}\right) +\ldots+\log \left (1+R_{t-k+1}\right) \\
+			& =r_{t}+r_{t-1}+\ldots+r_{t-k+1}
+		\end{aligned}
+		$$
+		
+		\subsection{對數收益}
+		由於當 $x$ 很小時, $\log (1+x) \approx x$, 因此對數報酬大約等於淨報酬. 在此情況下, $r_{t} = \log (1+R_{t}) \approx R_{t}$. 
+		
+		\begin{figure}[h]
+			\begin{center}
+				
+				\caption{Figure - graphs of $f (x) =x$ (black) and $g (x) =\log (1+x) $ (red) }
+				\includegraphics[width=0.5\textwidth]{2025_10_19_52d7c6626a2b8229e644g-08}
+				
+			\end{center}
+		\end{figure}
+		
+		\section{收益模型}
+		\subsection{正態模型}
+		在時間 $t-1$, $P_{t}$ 和 $R_{t}$ 不僅未知, 而且我們也不知道它們的機率分布. 
+		一個常見的模型假設報酬率是獨立, 同分布且服從常態分布的. 
+		也就是說, 若 $R_{1}, R_{2}, \ldots, R_{t}$ 為同一資產的報酬率, 則: 
+		
+		\begin{itemize}
+			\item $R_{1}, R_{2}, \ldots, R_{t}$ 彼此獨立；
+			\item 同分布；
+			\item 且服從常態分布. 
+		\end{itemize}
+		
+		
+		此模型存在兩個問題: 
+		
+		\begin{enumerate}
+			\item 該模型暗示可能出現無限損失, 但實際上損失通常是有限的 ($R_{t} \geq -1$), 因為你不可能損失超過原始投資金額. 
+			\item 此外, 
+		\end{enumerate}
+		
+		$$
+		1+R_{t} (k) =\prod_{i=0}^{k-1}\left (1+R_{t-i}\right) 
+		$$
+		
+		報酬率的乘積並不服從常態分布. 在某些條件下, 獨立常態分布隨機變數的「和」仍為常態分布, 但它們的「乘積」則不是. 
+		
+		
+		\subsection{對數-正態模型}
+		\subsubsection{性質}
+		在此中我們假設: 
+		
+		$$
+		r_{t}=\log \left (1+R_{t}\right) 
+		$$
+		
+		是 IID 正態分佈, 即: 
+		
+		$$
+		\log \left (1+R_{t}\right) \sim N\left (\mu, \sigma^{2}\right) 
+		$$
+		
+		因此有: 
+		
+		\begin{enumerate}
+			\item $1 + R_{t} = \exp (\text{常態隨機變數}) \geq 0$
+			\item $R_{t} \geq -1$
+		\end{enumerate}
+		
+		\begin{itemize}
+			\item 注意到: 
+		\end{itemize}
+		
+		$$
+		\begin{aligned}
+			1+R_{t} (k) & =\prod_{i=0}^{k-1}\left (1+R_{t-i}\right) \\
+			& =\exp \left (r_{t}\right) \exp \left (r_{t-1}\right) \ldots \exp \left (r_{t-k+1}\right) \\
+			& =\exp \left (r_{t}+r_{t-1}+\ldots+r_{t-k+1}\right) 
+		\end{aligned}
+		$$
+		
+		因此: 
+		
+		$$
+		\log \left (1+R_{t} (k) \right) =\sum_{i=0}^{k-1} r_{t-i}
+		$$
+		
+		又由於獨立常態變數的「和」仍為常態分布, 單期對數報酬若為常態, 則多期對數報酬亦為常態. 
+		
+		\textbf{範例}: 設簡單總報酬 $ (1+R) $ 服從對數常態. $\mathrm{Lognormal} (0, \, 0.01) $, 即
+		\[
+		\log (1+R) \sim N\!\left (\mu=0, \ \sigma^2=0.01\right).
+		\]
+		求 $P (R \le 0.05) $. 
+		
+		\textbf{解}: 
+		
+		$$
+		\begin{aligned}
+			P (R \leq 0.05) & =P (1+R \leq 1.05) \\
+			& =P (\log (1+R) \leq \log (1.05) ) \\
+			& =P (N (0, 0.01) \leq \log (1.05) \\
+			& =\Phi ( (\log (1.05) -0) / 0.1) =0.68719
+		\end{aligned}
+		$$
+		
+		第 $k$ 期報酬的公式. 假設: 
+		
+		\begin{itemize}
+			\item $1+R_{t} (k) =\left (1+R_{t}\right) \left (1+R_{t-1}\right) \ldots\left (1+R_{1}\right) $
+			\item $\log \left (1+R_{i}\right) \sim N\left (\mu, \sigma^{2}\right) $
+			\item  $\left\{R_{i}\right\}$ 是獨立的, 則: 
+		\end{itemize}
+		
+		$$
+		\log \left (1+R_{t} (k) \right) \sim N\left (k \mu, k \sigma^{2}\right) 
+		$$
+		
+		以及: 
+		
+		$$
+		P\left (R_{t} (k) <x\right) =\Phi\left (\frac{\log (1+x) -k \mu}{\sqrt{k} \sigma}\right) 
+		$$
+		
+		\textbf{範例}: 再次假設 $ (1+R) $ 服從對數常態分布 $ (0, 0.01) $. 求兩期簡單總報酬小於 $1.05$ 的機率
+		
+		\textbf{答案}: 兩期的總報酬服從對數常態分布 $ (0, 0.02) $. 因此: 
+		
+		
+		$$
+		\begin{aligned}
+			P (R \leq 0.05) & =P (1+R \leq 1.05) \\
+			& =P (\log (1+R) \leq \log (1.05) ) \\
+			& =P (N (0, 0.01) \leq \log (1.05) \\
+			& =\Phi ( (\log (1.05) -0) / \sqrt{0.02}) =0.6349
+		\end{aligned}
+		$$
+		
+		
+		\subsubsection{對數-正態密度}
+		\begin{figure}[h]
+			\begin{center}
+				
+				
+				\includegraphics[width=0.5\textwidth]{2025_10_19_52d7c6626a2b8229e644g-16}
+				\caption{Figure - graphs of lognormal (0, 1) (black), lognormal (1, 1) (red) and lognormal ( $0, 1.2$ ) (blue) }
+			\end{center}
+		\end{figure}
+		
+		\subsubsection{股利的調整}
+		此處討論股利的調整 (Adjustment for Dividends), 許多股票會支付股利, 在計算報酬時必須將其納入考量. 若在時間 \( t \) 之前支付股利 \( D_t \), 則在時間 \( t \) 的總報酬 (gross return) 定義為: 
+		
+		
+		$$
+		1+R_{t}=\frac{P_{t}+D_{t}}{P_{t-1}}
+		$$
+		
+		淨收益為: 
+		
+		$$
+		R_{t}=\frac{P_{t}+D_{t}-P_{t-1}}{P_{t-1}}
+		$$
+		
+		以及: 
+		
+		$$
+		r_{t}=\log \left (1+R_{t}\right) =\log \left (P_{t}+D_{t}\right) -\log \left (P_{t-1}\right) 
+		$$
+		
+		多期的總報酬 (multiple-period gross returns) 為各單期報酬的乘積.
+		
+		$$
+		\begin{aligned}
+			1+R_{t} (k) & =\left (\frac{\left.P_{t}+D_{t}\right) }{P_{t-1}}\right) \left (\frac{P_{t-1}+D_{t-1}}{P_{t-2}}\right) \ldots\left (\frac{P_{t-k+1}+D_{t-k+1}}{P_{t-k}}\right) \\
+			& =\left (1+R_{t}\right) \left (1+R_{t-1}\right) \ldots\left (1+R_{t-k+1}\right) 
+		\end{aligned}
+		$$
+		
+		
+		類似地, $k$ 期的對數報酬是各單期報酬之對數的總和
+		
+		$$
+		\begin{aligned}
+			\log \left (1+R_{t} (k) \right) & =\log \left (\frac{\left.P_{t}+D_{t}\right) }{P_{t-1}}\right) +\log \left (\frac{P_{t-1}+D_{t-1}}{P_{t-2}}\right) +\ldots \\
+			& +\log \left (\frac{P_{t-k+1}+D_{t-k+1}}{P_{t-k}}\right) \\
+			& =\log \left (1+R_{t}\right) +\log \left (1+R_{t-1}\right) +\ldots+\log \left (1+R_{t-k+1}\right) 
+		\end{aligned}
+		$$
+		
+		\subsection{隨機漫步}
+		\subsubsection{引入}
+		設 \( Z_{1}, Z_{2}, \ldots, Z_{n} \) 為具有平均數 \(\mu\) 與標準差 \(\sigma\) 的獨立同分布 (IID) 隨機變數. 令 \( Z_{0} \) 為任意起始點, 並定義: 
+		
+		$$
+		S_{0}=Z_{0}, \quad \text { and } \quad S_{t}=Z_{0}+Z_{1}+\ldots+Z_{t}, t \geq 1 .
+		$$
+		
+		過程 \( S_{0}, S_{1}, \ldots \) 稱為隨機漫步 (random walk), 而 \( Z_{1}, Z_{2}, \ldots \) 稱為其步長 (steps). 
+		在給定 \( S_{0} \) 的條件下, \( S_{t} \) 的期望與變異數分別為: 
+		
+		\begin{itemize}
+			\item $E\left (S_{t} \mid Z_{0}\right) =Z_{0}+t \mu$
+			\item $\operatorname{Var}\left (S_{t} \mid Z_{0}\right) =\sigma^{2} t$
+			\item $S D\left (S_{t} \mid Z_{0}\right) =\sigma \sqrt{t}$
+		\end{itemize}
+		
+		\begin{itemize}
+			\item 參數 \(\mu\) 稱為漂移 (drift), 它決定隨機漫步的大致方向. 
+			\item 參數 \(\sigma\) 為波動率 (volatility), 決定隨機漫步相對於條件平均值 \( S_{0} + \mu t \) 的波動程度. 
+			\item 由於在給定 \( S_{0} \) 的情況下, \( S_{t} \) 的標準差為 \(\sigma \sqrt{t}\), 因此 \( (S_{0} + \mu t) \pm \sigma \sqrt{t}\) 表示平均值加減一個標準差. 對於正態隨機漫步 (即 \( Z_i \) 為正態分布) 而言, 這對應於條件平均值的 68\% 信賴區間. 
+			\item 該區間的寬度與 \(\sqrt{t}\) 成正比, 如下一張圖所示. 
+		\end{itemize}
+		
+		
+		\includegraphics[max width=0.7\textwidth, center]{2025_10_19_52d7c6626a2b8229e644g-21}
+		\captionof{figure}{對於具有 \( S_{0} = 0, \mu = 0.5, \sigma = 1 \) 的隨機漫步, 其平均值與機率界限如下圖所示. 
+			在任意時間點, 位於機率界限 (虛線曲線) 之間的機率為 \(68\%\). 此處的 \( Z_i \) 服從正態分布.}
+		
+		\begin{figure}[h]
+			\begin{center}
+				\includegraphics[width=0.7\textwidth]{2025_10_19_52d7c6626a2b8229e644g-22}
+				\caption{ 具有參數 \( (\mu, \sigma) = (0, 1) ,  (0, 2) ,  (1, 1) \) 與 \( (1, 2) \) 的隨機漫步}
+			\end{center}
+		\end{figure}
+		
+		\subsubsection{R指令}
+		生成這些圖片的R指令為: 
+		
+		\begin{verbatim}
+			T=100
+			x = 0 : T
+			y=c (0, cumsum (rnorm (T) ) ) 
+			plot (x, y, lty=1, type=”l”, xlab=””, ylab=””) 
+		\end{verbatim}
+		
+		
+		\subsubsection{幾何隨機漫步}
+		如下關係式: 
+		
+		\[
+		\frac{P_{t}}{P_{t-k}} = 1 + R_{t} (k) = \exp \left ( r_{t} + r_{t-1} + \ldots + r_{t-k+1} \right) 
+		\]
+		
+		若取 \( k = t \), 則有
+		
+		\[
+		P_{t} = P_{0} \exp \left ( r_{t} + r_{t-1} + \ldots + r_{1} \right) 
+		\]
+		
+		若 \( r_{1}, r_{2}, \ldots, r_{t} \) 為獨立同分布的 \( N (\mu, \sigma^{2}) \), 即總報酬為對數常態且彼此獨立, 則有: 
+		
+		
+		\begin{itemize}
+			\item \(\log \left (1 + R_{t} (k) \right) = r_{1} + r_{2} + \ldots + r_{t-k+1}\) 是一個隨機漫步.
+			\item \(\{ P_{t}, \, t = 1, 2, \ldots, k \}\) 為隨機漫步的指數形式. 
+			\item 此類過程稱為幾何隨機漫步 (geometric random walk).
+			\item \(1 + R_{t} (k) = \exp \left ( r_{t} + r_{t-1} + \ldots + r_{1} \right) \) 服從對數常態分布 (lognormal), 且具有偏態 (skewed). 
+		\end{itemize}
+		
+		
+		飄移 $\mu$ 的作用: 
+		
+		\begin{itemize}
+			\item 幾何隨機漫步並不意味著無法獲利. 
+			\item 由於 \(\mu\) 為正值, 該過程具有向上的漂移 (upward drift). 
+			\item 美國整體股市的對數報酬率平均約為 \(10\%\), 標準差約為 \(20\%\). 
+		\end{itemize}
+		
+		\subsection{收益的分佈}
+		對數報酬是否服從常態分布？檢驗方法包括: 
+		
+		\begin{itemize}
+			\item 常態圖 (normal plot): 若資料點大致呈一直線, 則近似常態. 
+			\item 樣本偏態 (skewness) 與峰度 (kurtosis): 檢查其數值是否接近常態分布的理論值. 偏態與峰度衡量分配形狀, 且與平均數與變異數無關. 任何常態分布的偏態係數皆為 0, 峰度為 3. 
+		\end{itemize}
+		
+		設 \( r_{1}, r_{2}, \ldots, r_{T} \) 為某資產的對數報酬, 令 \(\hat{\mu}\) 為樣本平均值, \(\hat{\sigma}\) 為樣本標準差. 則樣本偏態 (sample skewness) 定義為: 
+		
+		$$
+		\hat{S}=\frac{1}{T} \sum_{t=1}^{T}\left (\frac{r_{t}-\hat{\mu}}{\hat{\sigma}}\right) ^{3}
+		$$
+		
+		樣本峰度則為: 
+		
+		$$
+		\hat{K}=\frac{1}{T} \sum_{t=1}^{T}\left (\frac{r_{t}-\hat{\mu}}{\hat{\sigma}}\right) ^{4}
+		$$
+		
+		超額峰度 (excess kurtosis) 定義為 \(\hat{K} - 3\). 它衡量與常態分布峰度 3 的偏離程度. 偏態與超額峰度的數值若接近 0, 則表示資料分布接近常態. 
+		
+		
+		常態性檢定 (testing for normality):  令 \(\hat{F}\) 為經驗累積分布函數 (empirical CDF). 
+		
+		$$
+		\hat{F} (x) =\frac{1}{T} \sum_{t=1}^{T} I\left (r_{t} \leq t\right) 
+		$$
+		
+		\(\hat{F}\) 是真實分布的估計量. 
+		常態性檢定透過比較 \(\hat{F} (x) \) 與 \(\Phi ( (x - \hat{\mu}) / \hat{\sigma}) \) 來進行. 
+		
+		三種常用的常態性檢定方法, 皆比較 \(\hat{F} (x) \) 與 \(\Phi ( (x - \hat{\mu}) / \hat{\sigma}) \), 包括: 
+		
+		\begin{itemize}
+			\item 安德森–達令檢定 (Anderson–Darling test) 
+			\item 夏皮羅–威爾克檢定 (Shapiro–Wilks test) 
+			\item 柯莫哥洛夫–史密諾夫檢定 (Kolmogorov–Smirnov test) 
+		\end{itemize}
+		
+		我們將在未來進一步討論這些檢定. 
+		
+		柯爾莫哥洛夫–史密諾夫檢定 (Kolmogorov–Smirnov test) 是基於: 
+		
+		
+		$$
+		\sup _{x}|\hat{F} (x) -\Phi ( (x-\hat{\mu}) / \hat{\sigma}) |
+		$$
+		
+		這是 $\hat{F} (x) $ 和 $\Phi ( (x-\hat{\mu}) / \hat{\sigma}) $ 之間的最大距離. 
+		
+		
+	\end{document}
