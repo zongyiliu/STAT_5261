@@ -56,13 +56,22 @@
 	\usepackage[]{amssymb} %gives us the character \varnothing
 	\usepackage{ctex} 
 	
-	\title{Lec 3, MATH 5261}
+	\title{Lecture 3, MATH 5261 \\
+		\small{Portfolio Selection (I) \\
+			投資組合選擇 (一)
+		}
+	}
 	\author{Zongyi Liu}
-	\date{Wed, Sept 24, 2025}
+	\date{Fri, Sept 19, 2025}
 	\begin{document}
 		\maketitle
 		
 		\tableofcontents
+		
+		\section{關鍵詞}
+		\begin{itemize}
+			\item 請手寫: 
+		\end{itemize}
 		
 		\section{引入}
 		\begin{itemize}
@@ -147,7 +156,7 @@
 		
 		這個隨著 $m$ 的增加迅速降低.
 		
-		\section{在預期收益和風險之間的權衡 (Tradeoff Between ER and Risk)}
+		\section{在預期收益和風險之間的權衡}
 		投資者常問的一個關鍵問題是: 「我們應該如何投資我們的財富?」  投資組合理論基於以下兩個原則對這個問題給出了回答: 
 		
 		\begin{enumerate}
@@ -225,7 +234,7 @@
 		答案: $.05=w (.25) \Longrightarrow w=0.2$
 		
 		
-		總體而言, 如果
+		總體而言, 如果:
 		
 		\begin{itemize}
 			\item 風險資產與無風險資產的期望報酬分別為 $\mu_{1}$ 和 $\mu_{f}$. 
@@ -277,7 +286,7 @@
 		\end{itemize}
 		
 		
-		\subsection{賣空 (Selling Short)}
+		\subsection{賣空}
 		賣空是在股票價格下跌時獲利的一種方式. 
 		
 		\begin{itemize}
@@ -336,7 +345,7 @@
 		\sigma_{R_{P}}^{2}=w^{2} \sigma_{1}^{2}+ (1-w)^{2} \sigma_{2}^{2}+2 w (1-w) \rho_{12} \sigma_{1} \sigma_{2}
 		$$
 		
-		\subsection{將兩個風險資產結合 (Combining Two Risky Assets)}
+		\subsection{將兩個風險資產結合}
 		\begin{itemize}
 			\item 我們將兩個資產分別繪製在座標點 $ (\sigma_{1}, R_{1})$ 和 $ (\sigma_{2}, R_{2})$.   
 			\item 這條曲線是點集 $ (\sigma_{P}, 0.08+0.06w)$, 其中 $0 \leq w \leq 1$.   
@@ -389,7 +398,7 @@
 		\end{aligned}
 		$$
 		
-		由此得到
+		由此得到:
 		
 		$$
 		w = \frac{\sigma_{2}^{2}}{\sigma_{1}^{2} + \sigma_{2}^{2}} \, .
@@ -420,7 +429,7 @@
 			\end{tabular}
 		\end{center}
 		
-		\section{馬爾科維茨最優投資組合問題 (Markowitz Optimal Portfolio Problem)}
+		\section{馬爾科維茨最優投資組合問題}
 		\begin{itemize}
 			\item 目標: 在收益達到固定值的同時最小化風險. 
 		\end{itemize}
@@ -443,7 +452,7 @@
 		在這裡, $\mu$ 是一個預先設定的值. 因此, Markowitz 問題的解是 $\mu$ 的函數. 注意, 當 $\mu = \mu_{MVP}$ 時, 最小方差投資組合 (MVP)就是 Markowitz 問題的解. 若允許賣空, 則可以利用拉格朗日乘子法來求解 Markowitz 問題. 
 		
 		
-		\subsection{對於三個獨立有風險資產的馬爾科維茨問題 (Markowitz Problem for Three independent Risky Assets)}
+		\subsection{對於三個獨立有風險資產}
 		令 $\sigma_{12}=\sigma_{13}=\sigma_{23}=0, ;\sigma_{1}=\sigma_{2}=\sigma_{3}=1$, 並且 $\mu_{1}=1, ;\mu_{2}=2, ;\mu_{3}=3$. 對於這個例子, 馬爾科維茨問題變為: 
 		
 		$$
@@ -484,7 +493,7 @@
 		
 		\includegraphics[max width=0.5\textwidth, center]{2025_09_25_65047f35d79cedef5f1bg-27}
 		
-		\subsection{估計均值, 標準差和協方差 (Estimating means, standard deviations, and covariances)}
+		\subsection{估計均值, 標準差和協方差}
 		\begin{itemize}
 			\item 對於 $\mu_{1}$ 和 $\sigma_{1}$ 值可以通過過去在第一個風險資產上的收益率得到. 
 			\item 若 $R_{i, 1}, \ldots, R_{i, n}, \; i=1, 2$ 表示兩個資產的收益時間序列, 則 $\bar{R}_{i}, \; i=1, 2$ (樣本均值)以及 $s_{i}, \; i=1, 2$ (樣本標準差)是對 $\mu_{i}, \; i=1, 2$ 與 $\sigma_{i}, \; i=1, 2$ 的估計. 
@@ -503,7 +512,7 @@
 		\hat{\rho}_{12}=\frac{s_{12}}{s_{1} s_{2}}
 		$$
 		
-		\section{有效邊界 (Efficient Frontier)}
+		\section{有效邊界}
 		我們可以將這個概念推廣到多資產的投資組合: 
 		
 		\begin{itemize}
@@ -516,7 +525,7 @@
 		
 		\includegraphics[max width=0.5\textwidth, center]{2025_09_25_65047f35d79cedef5f1bg-29}
 		
-		\subsection{性質 (Properties)}
+		\subsection{性質}
 		\begin{itemize}
 			\item 對於給定的波動率, 至多存在一個具有最高收益的投資組合 (綠色).
 			\item 對於給定的收益, 至多存在一個具有最低波動率的投資組合 (橙色).
@@ -526,7 +535,7 @@
 
 		\includegraphics[max width=0.5\textwidth, center]{2025_09_25_65047f35d79cedef5f1bg-30}
 		
-		\subsection{切點投資組合 (Tangency Portfolio)}
+		\subsection{切點投資組合}
 		\begin{itemize}
 			\item 加入無風險資產.
 			\item 繪製一條通過無風險資產並且與有效前緣相切的直線.
@@ -535,7 +544,7 @@
 		
 		\includegraphics[max width=0.5\textwidth, center]{2025_09_25_65047f35d79cedef5f1bg-31}
 		
-		\section{將兩個風險資產和一個無風險資產結合 (Combining two risky assets with a risk free asset)}
+		\section{將兩個風險資產和一個無風險資產結合}
 		兩種有風險資產下的切點投資組合: 
 		
 		\begin{itemize}
