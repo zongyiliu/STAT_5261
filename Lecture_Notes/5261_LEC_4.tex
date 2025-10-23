@@ -1,1 +1,885 @@
-
+\documentclass[letterpaper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage[version=4]{mhchem}
+\usepackage{stmaryrd}
+\usepackage[dvipsnames]{xcolor}
+\colorlet{LightRubineRed}{RubineRed!70}
+\colorlet{Mycolor1}{green!10!orange}
+\definecolor{Mycolor2}{HTML}{00F9DE}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{lipsum}
+\usepackage{fancyvrb}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage[export]{adjustbox}
+\graphicspath{ {./images/} }
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{hyperref} 
+\usepackage{xcolor} % For custom colors
+\lstset{
+	language=Python,                % Choose the language (e.g., Python, C, R) 
+	basicstyle=\ttfamily\small, % Font size and type
+	keywordstyle=\color{blue},  % Keywords color
+	commentstyle=\color{gray},  % Comments color
+	stringstyle=\color{red},    % String color
+	numbers=left,               % Line numbers
+	numberstyle=\tiny\color{gray}, % Line number style
+	stepnumber=1,               % Numbering step
+	breaklines=true,            % Auto line break
+	backgroundcolor=\color{black!5}, % Light gray background
+	frame=single,               % Frame around the code
+}
+\usepackage{float}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+	\usepackage[]{amssymb} %gives us the character \varnothing
+	\usepackage{ctex} 
+	
+	\title{Lecture 4, MATH 5261 \\
+		\small{Portfolio Selection (II) \\
+			投資組合選擇 (二) 
+		}
+	}
+	\author{Zongyi Liu}
+	\date{Fri, Sept 26, 2025}
+	\begin{document}
+		\maketitle
+		
+		\tableofcontents
+		
+		
+		\section{尋找切線投資組合}
+		令
+		
+		$$
+		V_{1}=\mu_{1}-\mu_{f}, \quad V_{2}=\mu_{2}-\mu_{f}
+		$$
+		
+		表示超額報酬 (excess returns). 令
+		
+		$$
+		w_{T}=\frac{V_{1} \sigma_{2}^{2}-V_{2} \rho_{12} \sigma_{1} \sigma_{2}}{V_{1} \sigma_{2}^{2}+V_{2} \sigma_{1}^{2}-\left (V_{1}+V_{2}\right) \rho_{12} \sigma_{1} \sigma_{2}}
+		$$
+		
+		切線投資組合 (tangency portfolio) 的資金配置如下: 
+		
+		\begin{itemize}
+			\item 將 $w_{T}$ 的比例投資於第一種風險資產; 
+			\item 將 $1 - w_{T}$ 的比例投資於第二種風險資產. \\
+		\end{itemize}
+		
+		設 $R_{T}$, $\mu_{T}$ 與 $\sigma_{T}$ 分別表示切點投資組合 (tangency portfolio) 的報酬率, 期望報酬率與標準差. 
+		
+		\textbf{例子: }假設 $\mu_{1} = 0.14, \ \mu_{2} = 0.08, \ \sigma_{1} = 0.2, \ \sigma_{2} = 0.15$, 且 $\sigma_{12} = 0$. 又假設無風險利率 $\mu_{f} = 0.06$. 則: 
+		
+		
+		$$
+		V_{1}=0.14-0.06=0.08, V_{2}=0.08-0.06=0.02
+		$$
+		
+		以及: 
+		
+		$$
+		w_{T}=\frac{0.08 (0.15) ^{2}-0}{0.08 (0.15) ^{2}+0.02 (0.20) ^{2}-0}=0.693
+		$$
+		
+		因而有: 
+		
+		$$
+		\mu_{T}=0.693 (0.14) + (1-0.693) (0.08) =0.122
+		$$
+		
+		以及: 
+		
+		$$
+		\sigma_{T}=\sqrt{ (0.693) ^{2} (0.2) ^{2}+ (1-0.693) ^{2} (0.15) ^{2}}=0.146
+		$$
+		
+		$R_{P}$ 是一個投資組合的報酬率, 此投資組合將 $w$ 的比例配置於切點投資組合, 而將 $1 - w$ 的比例配置於無風險資產. 則: 
+		
+		
+		$$
+		R_{P}=w R_{T}+ (1-w) \mu_{f}
+		$$
+		
+		以及: 
+		
+		$$
+		\mu_{R_{P}}=w \mu_{T}+ (1-w) \mu_{f}, \quad \sigma_{R_{P}}=w \sigma_{T} .
+		$$
+		
+		最適投資為何, 當 $\sigma_{R_{P}} = 0.05$ 時？\\
+		答: 由於 $\sigma_{R_{P}} = w \sigma_{T}$, 且有: 
+		
+		
+		$$
+		w=\frac{\sigma_{R_{P}}}{\sigma_{T}}=\frac{0.05}{0.146}=0.343
+		$$
+		
+		因此應將 34.3\% 投資於切點投資組合, 而其餘的 65.7\% 則投資於無風險資產. 這 34\% 應在兩種風險資產之間作如下配置: 
+		
+		
+		\begin{itemize}
+			\item $0.693 (0.343) =23.7\%$ 應投資於第一種風險資產; 
+			\item $ (1-0.693) (0.343) =10.5\%$ 應投資於第二種風險資產. \\
+			因此資產配置如下: 
+			\item $65.7\%$ 無風險資產; 
+			\item $23.7\%$ 第一種風險資產; 
+			\item $10.5\%$ 第二種風險資產. 
+		\end{itemize}
+		
+		
+		現在假設你希望得到 $10\%$ 的期望報酬. 請比較
+		
+		\begin{enumerate}
+			\item 僅由風險資產組成的最佳投資組合
+			\item 由風險資產與無風險資產組成的最佳投資組合
+		\end{enumerate}
+		
+		解答: 1. 僅含風險資產的最佳投資組合, 我們有: 
+		
+		
+		$$
+		0.10=w \mu_{1}+ (1-w) \mu_{2}=w (0.14) + (1-w) (0.08) =0.08+ (0.14-0.08) w
+		$$
+		
+		因此: 
+		
+		$$
+		w= (0.10-0.08) / (0.14-0.08) =0.02 / 0.06=1 / 3
+		$$
+		
+		由於這是唯一一個期望報酬率為 $\mu_{R}=0.10$ 的風險資產投資組合, 因此它自動是最佳的. 直接計算 $\sigma_{R}$ 可得
+		
+		
+		$$
+		\sigma_{R}=\sqrt{w^{2} \sigma_{1}^{2}+ (1-w) ^{2} \sigma_{2}^{2}}=\sqrt{ (1 / 9) (.2) ^{2}+4 / 9 (.15) ^{2}}=.120
+		$$
+		
+		\begin{enumerate}
+			\setcounter{enumi}{1}
+			\item 兩種風險資產與無風險資產的最優投資組合. 我們有: 
+		\end{enumerate}
+		
+		$$
+		\begin{aligned}
+			0.10=E (R) & =w \mu_{T}+ (1-w) \mu_{f} \\
+			& =\frac{\sigma_{R}}{\sigma_{T}} \mu_{T}+\left (1-\frac{\sigma_{R}}{\sigma_{T}}\right) \mu_{f} \\
+			& =\sigma_{R} \frac{0.122}{0.146}+\left (1-\frac{\sigma_{R}}{0.146}\right) (0.06) \\
+			& =0.06+0.425 \sigma_{R}
+		\end{aligned}
+		$$
+		
+		這引出了: 
+		
+		$$
+		\sigma_{R}=0.04 / 0.425=0.094
+		$$
+		
+		因此有: 
+		
+		$$
+		w=\sigma_{R} / \sigma_{T}=0.094 / 0.146=0.644
+		$$
+		
+		結論: 若將無風險資產與兩種風險資產結合, 則在維持 $\mu_{R}=0.10$ 的情況下, $\sigma_{R}$ 由 0.120 降至 0.094. 風險的降低幅度為 $28\%$. 
+		
+		
+		\section{ $\rho_{12}$ 的作用}
+		$\rho_{12}$ 的作用如下: 
+		
+		\begin{itemize}
+			\item 資產間的相關性只影響風險, 而不影響期望報酬. 
+			\item 兩種風險資產之間的正相關是不利的. 當相關性為正時, 兩種資產往往同向波動, 這會增加投資組合的波動性. 
+			\item 負相關是有利的. 若兩種資產呈負相關, 則其中一種資產報酬為負時, 另一種通常會為正. 
+		\end{itemize}
+		
+		\begin{figure}[h]
+			\begin{center}
+				\caption{correlation=0.7}
+				\includegraphics[width=0.5\textwidth]{2025_09_25_65047f35d79cedef5f1bg-41(3) }
+			\end{center}
+		\end{figure}
+		
+		\begin{figure}[h]
+			\begin{center}
+				\caption{correlation=0.0}
+				\includegraphics[width=0.5\textwidth]{2025_09_25_65047f35d79cedef5f1bg-41}
+			\end{center}
+		\end{figure}
+		
+		\begin{figure}[h]
+			\begin{center}
+				\caption{correlation=0.3}
+				\includegraphics[width=0.5\textwidth]{2025_09_25_65047f35d79cedef5f1bg-41(2) }
+			\end{center}
+		\end{figure}
+		
+		\begin{figure}[h]
+			\begin{center}
+				\caption{correlation=-0.7}
+				\includegraphics[width=0.5\textwidth]{2025_09_25_65047f35d79cedef5f1bg-41(1) }
+			\end{center}
+		\end{figure}
+		
+		\section{N 個風險資產的效率投資組合}
+		假設我們有 $N$ 個風險資產, 第 $i$ 個風險資產的報酬率為 $\mu_{i}$. 定義如下: 
+		
+		
+		$$
+		\mathbf{R}=\left (\begin{array}{c}
+			R_{1} \\
+			R_{2} \\
+			\vdots \\
+			R_{N}
+		\end{array}\right) 
+		$$
+		
+		為報酬率的隨機向量. 則有: 
+		
+		$$
+		E (R) =\boldsymbol{\mu}=\left (\begin{array}{c}
+			E\left (R_{1}\right) \\
+			E\left (R_{2}\right) \\
+			\vdots \\
+			E\left (R_{N}\right) 
+		\end{array}\right) 
+		$$
+		
+		假設投資組合的期望報酬有一個目標值 $\mu_{P}$. 
+		
+		\begin{itemize}
+			\item 當 $N = 2$ 時, 如先前所示, 目標值 $\mu_{P}$ 僅能由一個投資組合達成, 而其唯一的權重值可由下式求得. 
+			\item 當 $N \geq 3$ 時, 將會有無限多個投資組合能達成該目標期望報酬 $\mu_{P}$. 
+			\item 其中變異數最小的投資組合稱為「有效」 (efficient) 投資組合. 
+			\item 我們接下來的目標是找出這個有效投資組合. 
+			
+			\item 設 $\sigma_{i} = \sqrt{\Omega_{ii}}$ 為 $R_{i}$ 的標準差; 
+			\item 設 $\Omega_{ij}$ 為 $R_{i}$ 與 $R_{j}$ 之間的共變數. 
+		\end{itemize}
+		
+		$$
+		\rho_{i j}=\frac{\Omega_{i j}}{\sigma_{i} \sigma_{j}}
+		$$
+		
+		設其為 $R_{i}$ 與 $R_{j}$ 之間的相關係數. 
+		
+		令
+		
+		$$
+		\Omega=\operatorname{COV} (\mathbf{R}) 
+		$$
+		
+		設其為隨機向量 $\mathbf{R}$ 的共變異數矩陣. 令: 
+		
+		$$
+		\mathbf{w}=\left (\begin{array}{c}
+			w_{1} \\
+			w_{2} \\
+			\vdots \\
+			w_{N}
+		\end{array}\right) 
+		$$
+		
+		設其為投資組合權重的向量, 並令: 
+		
+		$$
+		\mathbf{1}=\left (\begin{array}{c}
+			1 \\
+			1 \\
+			\vdots \\
+			1
+		\end{array}\right) 
+		$$
+		
+		設其為一個 $N \times 1$ 的全 1 向量. 我們假設 $\mathbf{1}^{T} \mathbf{w} = 1$. 
+		
+		
+		\section{最小方差投資組合}
+		\begin{itemize}
+			\item 為了求得最小方差投資組合 (Minimum Variance Portfolio, MVP) , 我們需要解以下問題: 
+		\end{itemize}
+		
+		$$
+		\min \frac{1}{2} \mathbf{w}^{T} \Omega \mathbf{w}
+		$$
+		
+		subject to $\mathbf{w}^{T} \mathbf{1}=1$.
+		
+		\begin{itemize}
+			\item 與此情況對應的拉格朗日函數 (Lagrangian) 為: 
+		\end{itemize}
+		
+		
+		$$
+		L (\mathbf{w}, \lambda) =\frac{1}{2} \mathbf{w}^{T} \Omega \mathbf{w}+\lambda\left (1-\mathbf{w}^{T} \mathbf{1}\right) 
+		$$
+		
+		\begin{itemize}
+			\item 為了求得解 (記為$\mathbf{w}_{mvp}$) , 我們必須解以下方程: 
+		\end{itemize}
+		
+		
+		
+		\begin{align*}
+			\mathbf{0} & =\frac{\partial}{\partial \mathbf{w}} L\left (\mathbf{w}, \delta_{1}, \delta_{2}\right) =\Omega \mathbf{w}-\lambda \mathbf{1}  \tag{1}\\
+			1 & =\mathbf{1}^{T} \mathbf{w} \tag{2}
+		\end{align*}
+		
+		
+		此處有: 
+		
+		$$
+		\frac{\partial}{\partial \mathbf{w}} L (\mathbf{w}, \lambda) =\left (\begin{array}{c}
+			\frac{\partial}{\partial w_{1}} L (\mathbf{w}, \lambda) \\
+			\frac{\partial}{\partial w_{2}} L (\mathbf{w}, \lambda) \\
+			\vdots \\
+			\frac{\partial}{\partial w_{N}} L (\mathbf{w}, \lambda) 
+		\end{array}\right) 
+		$$
+		
+		\begin{itemize}
+			\item 其解為: 
+		\end{itemize}
+		
+		$$
+		\mathbf{w}_{m v p}=\frac{\Omega^{-1} \mathbf{1}}{\mathbf{1}^{T} \Omega^{-1} \mathbf{1}}
+		$$
+		
+		它的收益為: 
+		
+		$$
+		R=\mathbf{w}_{m v p}^{T} \mathbf{R}
+		$$
+		
+		\begin{itemize}
+			\item 其期望值與變異數為: 
+		\end{itemize}
+		
+		$$
+		\mu_{m v p}=\frac{\mathbf{1}^{T} \Omega^{-1} \boldsymbol{\mu}}{\mathbf{1}^{T} \Omega^{-1} \mathbf{1}} \quad \sigma_{m v p}^{2}=\frac{1}{\mathbf{1}^{T} \Omega^{-1} \mathbf{1}}
+		$$
+		
+		\section{有效風險資產投資組合}
+		\begin{itemize}
+			\item 為了求得期望報酬為 $\mu_{p}$ 的有效投資組合, 我們需要解以下問題: 
+		\end{itemize}
+		
+		
+		$$
+		\min \frac{1}{2} \mathbf{w}^{T} \Omega \mathbf{w}
+		$$
+		
+		受限於 $\mathbf{w}^{T} \mathbf{1}=1$ 和 $\mathbf{w}^{T} \boldsymbol{\mu}=\mu_{p}$.
+		
+		\begin{itemize}
+			\item 與此情況對應的拉格朗日函數 (Lagrangian) 為: 
+		\end{itemize}
+		
+		$$
+		L\left (\mathbf{w}, \lambda_{1}, \lambda_{2}\right) =\frac{1}{2} \mathbf{w}^{T} \Omega \mathbf{w}+\lambda_{1}\left (1-\mathbf{w}^{T} \mathbf{1}\right) +\lambda_{2}\left (\mu_{p}-\mathbf{w}^{T} \boldsymbol{\mu}\right) 
+		$$
+		
+		\begin{itemize}
+			\item 為了求得解 (記為$\mathbf{w}_{mvp}$) , 我們必須解以下方程: 
+		\end{itemize}
+		
+		
+		\begin{align*}
+			\mathbf{0} & =\frac{\partial}{\partial \mathbf{w}} L\left (\mathbf{w}, \lambda_{1}, \lambda_{2}\right) =\Omega \mathbf{w}-\lambda_{1} \mathbf{1}-\lambda_{2} \boldsymbol{\mu}  \tag{3}\\
+			1 & =\mathbf{1}^{T} \mathbf{w}  \tag{4}\\
+			\mu_{p} & =\mathbf{w}^{T} \boldsymbol{\mu} \tag{5}
+		\end{align*}
+		
+		
+		此處有: 
+		
+		$$
+		\frac{\partial}{\partial \mathbf{w}} L\left (\mathbf{w}, \lambda_{1}, \lambda_{2}\right) =\left (\begin{array}{c}
+			\frac{\partial}{\partial w_{1}} L\left (\mathbf{w}, \lambda_{1}, \lambda_{2}\right) \\
+			\frac{\partial}{\partial w_{2}} L\left (\mathbf{w}, \lambda_{1}, \lambda_{2}\right) \\
+			\vdots \\
+			\frac{\partial}{\partial w_{N}} L\left (\mathbf{w}, \lambda_{1}, \lambda_{2}\right) 
+		\end{array}\right) 
+		$$
+		
+		\begin{itemize}
+			\item 解如下: 
+		\end{itemize}
+		
+		$$
+		\begin{aligned}
+			\mathbf{w}^{*} & =\lambda_{1} \Omega^{-1} \mathbf{1}+\lambda_{2} \Omega^{-1} \boldsymbol{\mu} \\
+			& =\lambda_{1} \mathbf{1}^{T} \Omega^{-1} \mathbf{1} \frac{\Omega^{-1} \mathbf{1}}{\mathbf{1}^{T} \Omega^{-1} \mathbf{1}}+\lambda_{2} \mathbf{1}^{T} \Omega^{-1} \boldsymbol{\mu} \frac{\Omega^{-1} \boldsymbol{\mu}}{\mathbf{1}^{T} \Omega^{-1} \boldsymbol{\mu}} \\
+			& =\theta \mathbf{w}_{1}+ (1-\theta) \mathbf{w}_{2}
+		\end{aligned}
+		$$
+		
+		此處有 $\theta=\lambda_{1} \mathbf{1}^{T} \Omega^{-1} \mathbf{1}, 1-\theta=\lambda_{2} \mathbf{1}^{T} \Omega^{-1} \boldsymbol{\mu}$ 以及: 
+		
+		$$
+		\mathbf{w}_{1}=\frac{\Omega^{-1} \mathbf{1}}{\mathbf{1}^{T} \Omega^{-1} \mathbf{1}}
+		$$
+		
+		以及: 
+		
+		$$
+		\mathbf{w}_{2}=\frac{\Omega^{-1} \boldsymbol{\mu}}{\mathbf{1}^{T} \Omega^{-1} \boldsymbol{\mu}}
+		$$
+		
+		注意到 $\mathbf{w}^{* T} \mathbf{1}=1$ 意味著: 
+		
+		$$
+		\lambda_{1} \mathbf{1}^{T} \Omega^{-1} \mathbf{1}+\lambda_{2} \mathbf{1}^{T} \Omega^{-1} \boldsymbol{\mu}=1
+		$$
+		
+		\begin{itemize}
+			\item 另注意 $\mathbf{w}_{1} = \mathbf{w}_{mvp}$, 且 $\mathbf{w}_{2}^{T} \mathbf{1} = 1$. 
+			\item 假設拉格朗日乘數法 (Lagrange multiplier approach) 給出了正確的結果, 若要有效投資並達到期望報酬 $\mu_{p}$, 則應將資金的比例 $\theta$ 投資於最小變異投資組合 (MVP) , 而比例 $ (1 - \theta) $ 投資於權重為 $\mathbf{w}_{2}$ 的投資組合. 
+			\item 比例 $\theta$ 可由下列方程決定: 
+		\end{itemize}
+		
+		
+		$$
+		\mu_{p}=\theta \mathbf{w}_{1}^{T} \boldsymbol{\mu}+ (1-\theta) \mathbf{w}_{2}^{T} \boldsymbol{\mu}
+		$$
+		
+		\begin{itemize}
+			\item 這給出了: 
+		\end{itemize}
+		
+		$$
+		\theta=\frac{\mu_{p}-\mathbf{w}_{2}^{T} \boldsymbol{\mu}}{\mathbf{w}_{1}^{T} \boldsymbol{\mu}-\mathbf{w}_{2}^{T} \boldsymbol{\mu}}
+		$$
+		
+		\begin{itemize}
+			\item 接下來我們將證明此解即為期望報酬為 $\mu_{p}$ 的有效投資組合. 
+		\end{itemize}
+		
+		
+		利用上述的 $\theta$ 值, 我們得到: 
+		
+		$$
+		\begin{aligned}
+			\mathbf{w}^{*} & =\theta \mathbf{w}_{1}+ (1-\theta) \mathbf{w}_{2} \\
+			& =\mathbf{w}_{2}+\theta\left (\mathbf{w}_{1}-\mathbf{w}_{2}\right) \\
+			& =\mathbf{w}_{2}+\frac{\mu_{p}-\mathbf{w}_{2}^{T} \boldsymbol{\mu}}{\mathbf{w}_{1}^{T} \boldsymbol{\mu}-\mathbf{w}_{2}^{T} \boldsymbol{\mu}}\left (\mathbf{w}_{1}-\mathbf{w}_{2}\right) \\
+			& =\frac{\left (\mathbf{w}_{1}^{T} \boldsymbol{\mu}\right) \mathbf{w}_{2}-\left (\mathbf{w}_{2}^{T} \boldsymbol{\mu}\right) \mathbf{w}_{1}}{\boldsymbol{\mu}^{T} \Delta \mathbf{w}}+\mu_{p} \frac{\mathbf{w}_{1}-\mathbf{w}_{2}}{\boldsymbol{\mu}^{T} \Delta \mathbf{w}} \\
+			& =\mathbf{e}_{1}+\mu_{p} \mathbf{e}_{2}
+		\end{aligned}
+		$$
+		
+		有: 
+		
+		$$
+		\Delta \mathbf{w}=\mathbf{w}_{1}-\mathbf{w}_{2}
+		$$
+		
+		以及: 
+		
+		$$
+		\mathbf{e}_{1}=\frac{\left (\mathbf{w}_{1}^{T} \boldsymbol{\mu}\right) \mathbf{w}_{2}-\left (\mathbf{w}_{2}^{T} \boldsymbol{\mu}\right) \mathbf{w}_{1}}{\boldsymbol{\mu}^{T} \Delta \mathbf{w}} \quad \text { 以及 } \quad \mathbf{e}_{2}=\frac{\mathbf{w}_{1}-\mathbf{w}_{2}}{\boldsymbol{\mu}^{T} \Delta \mathbf{w}}
+		$$
+		
+		\begin{itemize}
+			\item 注意到有: 
+		\end{itemize}
+		
+		$$
+		\mathbf{e}_{1}^{T} \mathbf{1}=1, \quad \mathbf{e}_{1}^{T} \mu=0, \quad \mathbf{e}_{2}^{T} \mathbf{1}=0, \quad \mathbf{e}_{2}^{T} \boldsymbol{\mu}=1
+		$$
+		
+		\begin{itemize}
+			\item 接下來我們將說明, 若 $\mathbf{w}$ 滿足以下條件: 
+		\end{itemize}
+		
+		$$
+		\mathbf{w}^{T} \mathbf{1}=1 \quad \text { 以及 } \quad \mathrm{E}\left (\mathbf{w}^{\mathrm{T}} \mathbf{R}\right) =\mu_{\mathrm{p}}
+		$$
+		
+		則
+		
+		$$
+		\operatorname{Var}\left (\mathbf{w}^{* T} \mathbf{R}\right) \leq \operatorname{Var}\left (\mathbf{w}^{T} \mathbf{R}\right) 
+		$$
+		
+		也就是說, 我們利用拉格朗日乘數法所得到的解, 正是期望報酬為 $\mu_{p}$ 的有效投資組合.
+		
+		\begin{itemize}
+			\item Let $\tilde{\mathbf{w}}=\mathbf{w}-\mathbf{w}^{*}$. 則有: 
+		\end{itemize}
+		
+		\begin{enumerate}
+			\item $\tilde{\mathbf{w}}^{T} \mathbf{1}=\left (\mathbf{w}-\mathbf{w}^{*}\right) ^{T} \mathbf{1}=\mathbf{w}^{T} \mathbf{1}-\mathbf{w}^{* T} \mathbf{1}=0$
+			\item $\tilde{\mathbf{w}}^{T} \boldsymbol{\mu}=\left (\mathbf{w}-\mathbf{w}^{*}\right) ^{T} \boldsymbol{\mu}=\mathbf{w}^{T} \boldsymbol{\mu}-\mathbf{w}^{* T} \boldsymbol{\mu}=\mu_{p}-\mu_{p}=0$
+		\end{enumerate}
+		
+		這意味著: 
+		
+		\begin{enumerate}
+			\item $\tilde{\mathbf{w}}^{T} \Omega \mathbf{w}_{1}=\frac{\tilde{\mathbf{w}}^{T} \mathbf{1}}{\mathbf{1}^{T} \Omega^{-1} \mathbf{1}}=0$
+			\item $\tilde{\mathbf{w}}^{T} \Omega \mathbf{w}_{2}=\frac{\tilde{\mathbf{w}}^{T} \mu}{1^{T} \Omega^{-1} \mu}=0$
+		\end{enumerate}
+		
+		\begin{itemize}
+			\item 由於 $\mathbf{w}^{*} = \theta \mathbf{w}_{1} + (1 - \theta) \mathbf{w}_{2}$, 因此我們有: 
+		\end{itemize}
+		
+		$$
+		\tilde{\mathbf{w}}^{T} \Omega \mathbf{w}^{* T}=0 .
+		$$
+		
+		\begin{itemize}
+			\item 注意到: 
+		\end{itemize}
+		
+		$$
+		\mathbf{w}=\mathbf{w}^{*}+\tilde{\mathbf{w}}
+		$$
+		
+		因此有: 
+		
+		$$
+		\mathbf{w}^{T} \mathbf{R}=\mathbf{w}^{* T} \mathbf{R}+\tilde{\mathbf{w}}^{T} \mathbf{R}
+		$$
+		
+		因而有: 
+		
+		$$
+		\begin{aligned}
+			\operatorname{Var}\left (\mathbf{w}^{T} \mathbf{R}\right) & =\operatorname{Var}\left (\mathbf{w}^{* T} \mathbf{R}+\tilde{\mathbf{w}}^{T} \mathbf{R}\right) \\
+			& =\operatorname{Var}\left (\mathbf{w}^{* T} \mathbf{R}\right) +\operatorname{Var}\left (\tilde{\mathbf{w}}^{T} \mathbf{R}\right) +2 \operatorname{Cov}\left (\mathbf{w}^{* T} \mathbf{R}, \tilde{\mathbf{w}}^{T} \mathbf{R}\right) \\
+			& =\mathbf{w}^{* T} \Omega \mathbf{w}^{*}+\mathbf{w}^{T} \Omega \mathbf{w}+2 \operatorname{Cov}\left (\mathbf{w}^{* T} \mathbf{R}, \tilde{\mathbf{w}}^{T} \mathbf{R}\right) \\
+			& =\mathbf{w}^{* T} \Omega \mathbf{w}^{*}+\mathbf{w}^{T} \Omega \mathbf{w}
+		\end{aligned}
+		$$
+		
+		由於: 
+		
+		$$
+		\operatorname{Cov}\left (\mathbf{w}^{* T} \mathbf{R}, \tilde{\mathbf{w}}^{T} \mathbf{R}\right) =\mathbf{w}^{* T} \Omega \mathbf{w}=0 .
+		$$
+		
+		由於 $\Omega$ 是正定的, 我們有: 
+		
+		$$
+		\mathbf{w}^{* T} \Omega \mathbf{w}^{*} \geq 0 .
+		$$
+		
+		因此: 
+		
+		$$
+		\operatorname{Var}\left (\mathbf{w}^{T} \mathbf{R}\right) \geq \operatorname{Var}\left (\mathbf{w}^{* T} \mathbf{R}\right) 
+		$$
+		
+		另注意到, 由於 $\mathbf{w}^{*} = \mathbf{e}_{1} + \mu_{p} \mathbf{e}_{2}$, 因此我們有: 
+		
+		$$
+		\begin{aligned}
+			\operatorname{Var}\left (\mathbf{w}^{* T} \mathbf{R}\right) & =\operatorname{Var}\left (\mathbf{e}_{1}^{T} \mathbf{R}+\mu_{p} \mathbf{e}_{2}^{T} \mathbf{R}\right) \\
+			& =\mathbf{e}_{1}^{T} \Omega \mathbf{e}_{1}+\mu_{p}^{2} \mathbf{e}_{2}^{T} \Omega \mathbf{e}_{2}+2 \mu_{p} \mathbf{e}_{1}^{T} \Omega \mathbf{e}_{2} \\
+			& =\mathbf{e}_{1}^{T} \Omega \mathbf{e}_{1}+\mathbf{e}_{2}^{T} \Omega \mathbf{e}_{2}\left (\mu_{p}^{2}+2 \mu_{p} \frac{\mathbf{e}_{1}^{T} \Omega \mathbf{e}_{2}}{\mathbf{e}_{2}^{T} \Omega \mathbf{e}_{2}}\right) \\
+			& =\mathbf{e}_{1}^{T} \Omega \mathbf{e}_{1}-\frac{\left (\mathbf{e}_{1}^{T} \Omega \mathbf{e}_{2}\right) ^{2}}{\mathbf{e}_{2}^{T} \Omega \mathbf{e}_{2}}+\mathbf{e}_{2}^{T} \Omega \mathbf{e}_{2}\left (\mu_{p}^{2}+\frac{\mathbf{e}_{1}^{T} \Omega \mathbf{e}_{2}}{\mathbf{e}_{2}^{T} \Omega \mathbf{e}_{2}}\right) ^{2}
+		\end{aligned}
+		$$
+		
+		得出 (1) : 
+		
+		$$
+		\mathbf{e}_{1}^{T} \Omega \mathbf{e}_{1}-\frac{\left (\mathbf{e}_{1}^{T} \Omega \mathbf{e}_{2}\right) ^{2}}{\mathbf{e}_{2}^{T} \Omega \mathbf{e}_{2}}=\frac{1}{\mathbf{1}^{T} \Omega^{-1} \mathbf{1}}=\sigma_{m v p}^{2}
+		$$
+		
+		以及 (2) : 
+		
+		$$
+		\frac{\mathbf{e}_{1}^{T} \Omega \mathbf{e}_{2}}{\mathbf{e}_{2}^{T} \Omega \mathbf{e}_{2}}=-\frac{\mathbf{1}^{T} \Omega^{-1} \boldsymbol{\mu}}{\mathbf{1}^{T} \Omega^{-1} \mathbf{1}}=\mu_{m v p}
+		$$
+		
+		因此有
+		
+		$$
+		\operatorname{Var}\left (\mathbf{w}^{* T} \mathbf{R}\right) =\sigma_{m v p}^{2}+k^{2}\left (\mu_{p}-\mu_{m v p}\right) ^{2}
+		$$
+		
+		此處: 
+		
+		$$
+		k^{2}=\mathbf{e}_{2}^{T} \Omega \mathbf{e}_{2}
+		$$
+		
+		\begin{itemize}
+			\item 當我們改變 $\mu_{p}$ 的值時, 有效投資組合的變異數也隨之改變. 其曲線: 
+		\end{itemize}
+		
+		$$
+		\operatorname{Var}\left (\mathbf{w}^{* T} \mathbf{R}\right) =\sigma_{m v p}^{2}+k^{2}\left (\mu_{p}-\mu_{m v p}\right) ^{2}
+		$$
+		
+		或: 
+		
+		$$
+		\mu_{p}=\mu_{m v p} \pm \frac{1}{k} \sqrt{\operatorname{Var}\left (\mathbf{w}^{* T} \mathbf{R}\right) -\sigma_{m v p}^{2}}
+		$$
+		
+		是一條頂點位於以下位置$\sigma_{m v p}, \mu_{p}$的雙曲線: 
+		
+		\begin{itemize}
+			\item 該雙曲線稱為「馬可維茲曲線」 (Markowitz curve). 
+			\item 當且僅當投資組合的期望報酬與標準差位於馬可維茲曲線上時, 該投資組合才是有效的. 
+			\item 雙曲線右側的無界區域稱為「馬可維茲子彈」 (Markowitz bullet) 或「可達區域」 (attainable region). 
+			\item 雙曲線的上半部分稱為「馬可維茲有效前緣」 (Markowitz efficient frontier). 
+			
+		\end{itemize}
+		
+		舉例, 假設 $N=3$, 以及
+		
+		$$
+		\boldsymbol{\mu}=\left (\begin{array}{l}
+			0.08 \\
+			0.08 \\
+			0.12
+		\end{array}\right) 
+		$$
+		
+		$$
+		\begin{gathered}
+			\Omega=\left (\begin{array}{ccc}
+				0.02 & -0.01 & -0.02 \\
+				-0.01 & 0.04 & 0.01 \\
+				-0.02 & 0.01 & 0.09
+			\end{array}\right) \\
+			\Omega^{-1}=\left (\begin{array}{ccc}
+				71.4 & 14.3 & 14.3 \\
+				14.3 & 28.6 & 0 \\
+				14.3 & 0 & 14.3
+			\end{array}\right) 
+		\end{gathered}
+		$$
+		
+		Now
+		
+		$$
+		\begin{aligned}
+			& \mathbf{w}_{1}=\frac{\Omega^{-1} \mathbf{1}}{\mathbf{1}^{T} \Omega^{-1} \mathbf{1}}= (0.583, 0.250, 0.167) ^{T} \\
+			& \mathbf{w}_{2}=\frac{\Omega^{-1} \boldsymbol{\mu}}{\mathbf{1}^{T} \Omega^{-1} \boldsymbol{\mu}}= (0.577, 0.231, 0.192) ^{T}
+		\end{aligned}
+		$$
+		
+		若將其中一部分比例 $\theta$ 投資於權重為 $\mathbf{w}_{1}$ 的投資組合, 另一部分比例 $1-\theta$ 投資於權重為 $\mathbf{w}_{2}$ 的投資組合, 則其平均值為: 
+		
+		
+		$$
+		\mu_{p}=\theta \mathbf{w}_{1}^{T} \boldsymbol{\mu}+ (1-\theta) \mathbf{w}_{2}^{T} \boldsymbol{\mu}=0.0877-0.00106 \theta
+		$$
+		
+		以及
+		
+		$$
+		\begin{aligned}
+			\sigma^{2} & =\theta^{2} \mathbf{w}_{1}^{T} \Omega \mathbf{w}_{1}+2 \theta (1-\theta) \mathbf{w}_{2}^{T} \Omega \mathbf{w}_{2}+ (1-\theta) ^{2} \mathbf{w}_{2}^{T} \Omega \mathbf{w}_{2} \\
+			& =0.076^{2}+65.62\left (\mu_{P}-0.087\right) ^{2}
+		\end{aligned}
+		$$
+		
+		則馬爾科維茨曲線為: 
+		
+		$$
+		\sigma=\sqrt{0.076^{2}+65.62\left (\mu_{P}-0.087\right) ^{2}}
+		$$
+		
+		最小變異投資組合的平均報酬率與變異數分別為 0.087 與 0.076. 接下來, 我們將如同先前在兩種風險資產與無風險資產的情況中所做的那樣, 把這 $N$ 個資產與一個無風險資產結合起來. 
+		
+		
+		\section{風險資產與無風險資產的效率投資組合}
+		\begin{itemize}
+			\item 在此中, 投資組合的收益為: 
+		\end{itemize}
+		
+		$$
+		\begin{aligned}
+			R_{p} & =w_{0} \mu_{f}+\sum_{i=1}^{N} w_{i} R_{i} \\
+			& =w_{0} \mu_{f}+\sum_{j=1}^{N} w_{j} \sum_{i=1}^{N} \frac{w_{i}}{\sum_{j=1}^{N} w_{j}} R_{i} \\
+			& = (1-\theta) \mu_{f}+\theta \sum_{i=1}^{N} \tilde{w}_{i} R_{i}
+		\end{aligned}
+		$$
+		
+		此處有: 
+		
+		$$
+		\theta=\sum_{j=1}^{N} w_{j} \quad \text { and } \quad \tilde{\mathrm{w}}_{\mathrm{i}}=\frac{\mathrm{w}_{\mathrm{i}}}{\sum_{\mathrm{j}=1}^{\mathrm{N}} \mathrm{w}_{\mathrm{j}}}, \mathrm{j}=1, 2, \ldots, \mathrm{~N} .
+		$$
+		
+		\begin{itemize}
+			\item 注意到: 
+		\end{itemize}
+		
+		$$
+		\sum_{i=1}^{N} \tilde{w}_{i}=1 \quad \text { and } \quad \operatorname{Var}\left (\mathrm{R}_{\mathrm{p}}\right) =\theta^{2} \tilde{\mathbf{w}}^{\mathrm{T}} \Omega \tilde{\mathbf{w}}
+		$$
+		
+		\begin{itemize}
+			\item 假設我們希望得到平均報酬率為 $\mu_{p}$ 的效率投資組合. 也就是說, 我們希望找到能滿足下列條件的 $\tilde{\mathbf{w}}^{*}$: 
+			
+		\end{itemize}
+		
+		$$
+		\min \frac{1}{2} \theta^{2} \tilde{\mathbf{w}}^{T} \Omega \tilde{\mathbf{w}}
+		$$
+		
+		受約束於: 
+		
+		$$
+		\sum_{i=1}^{N} \tilde{w}_{i}=1 \quad \text { and } \quad (1-\theta) \mu_{\mathrm{f}}+\theta \sum_{\mathrm{i}=1}^{\mathrm{N}} \tilde{w}_{\mathrm{i}} \mu_{\mathrm{i}}=\mu_{\mathrm{p}}
+		$$
+		
+		\begin{itemize}
+			\item 我們會展示: 
+		\end{itemize}
+		
+		$$
+		\tilde{\mathbf{w}}^{*}=\frac{\Omega^{-1}\left (\boldsymbol{\mu}-\mu_{f} \mathbf{1}\right) }{\mathbf{1}^{T} \Omega^{-1}\left (\boldsymbol{\mu}-\mu_{f} \mathbf{1}\right) }
+		$$
+		
+		這就是我們所稱的「切點投資組合 (Tangency Portfolio) 」. 
+		
+		\begin{itemize}
+			\item 例子: 假設 $N=2$, 則有
+		\end{itemize}
+		
+		
+		$$
+		\Omega=\left (\begin{array}{cc}
+			\sigma_{1}^{2} & \sigma_{12} \\
+			\sigma_{21} & \sigma_{2}^{2}
+		\end{array}\right) 
+		$$
+		
+		以及: 
+		
+		$$
+		\Omega^{-1}=\frac{1}{\sigma_{1}^{2} \sigma_{2}^{2}-\sigma_{12} \sigma_{21}}\left (\begin{array}{cc}
+			\sigma_{2}^{2} & -\sigma_{12} \\
+			-\sigma_{21} & \sigma_{2}^{2}
+		\end{array}\right) 
+		$$
+		
+		令 $V_{1}=\mu_{1}-\mu_{f}$, $V_{2}=\mu_{2}-\mu_{f}$. 則有: 
+		
+		
+		$$
+		\Omega^{-1}\left (\boldsymbol{\mu}-\mu_{f} \mathbf{1}\right) =\frac{1}{\sigma_{1}^{2} \sigma_{2}^{2}-\sigma_{12} \sigma_{21}}\binom{\sigma_{2}^{2} V_{1}-\sigma_{12} V 2}{-\sigma_{21} V_{1}+\sigma_{2}^{2} V_{2}}
+		$$
+		
+		以及: 
+		
+		$$
+		\begin{aligned}
+			\mathbf{1}^{T} \Omega^{-1}\left (\left (\boldsymbol{\mu}-\mu_{f} \mathbf{1}\right) \right. & =\frac{1}{\sigma_{1}^{2} \sigma_{2}^{2}-\sigma_{12} \sigma_{21}} \mathbf{1}^{T}\binom{\sigma_{2}^{2} V_{1}-\sigma_{12} V 2}{-\sigma_{21} V_{1}+\sigma_{2}^{2} V_{2}} \\
+			& =\frac{1}{\sigma_{1}^{2} \sigma_{2}^{2}-\sigma_{12} \sigma_{21}}\left (\sigma_{1}^{2} V_{2}+\sigma_{2}^{2} V_{1}-\sigma_{12}\left (V_{1}+V 2\right) \right) 
+		\end{aligned}
+		$$
+		
+		這給出了: 
+		
+		$$
+		\tilde{w}_{1}^{*}=\frac{\sigma_{2}^{2} V_{1}-\sigma_{12} V 2}{\sigma_{1}^{2} V_{2}+\sigma_{2}^{2} V_{1}-\sigma_{12}\left (V_{1}+V 2\right) }
+		$$
+		
+		以及: 
+		
+		$$
+		\tilde{w}_{2}^{*}=1-\tilde{w}_{1}^{*}
+		$$
+		
+		這就是我們先前所稱的 $w_{T}$ 與 $1-w_{T}$. 
+		
+		證明如下: 對應於此最適化問題的拉格朗日函數為: 
+		
+		
+		$$
+		L\left (\tilde{\mathbf{w}}, \theta, \lambda_{1}, \lambda_{2}\right) =\frac{1}{2} \theta^{2} \tilde{\mathbf{w}}^{T} \Omega \frac{1}{2} \tilde{\mathbf{w}}+\lambda_{1}\left (1-\tilde{\mathbf{w}}^{T} \mathbf{1}\right) +\lambda_{2}\left (\mu_{p}- (1-\theta) \mu_{f}-\theta \tilde{\mathbf{w}}^{T} \boldsymbol{\mu}\right) 
+		$$
+		
+		對 $\theta, \tilde{\mathbf{w}}, \lambda_{1}$ 及 $\lambda_{2}$ 分別取偏導後, 可得: 
+		
+		
+		$$
+		\left\{\begin{array}{l}
+			\theta \tilde{\mathbf{w}}^{T} \Omega \tilde{\mathbf{w}}-\lambda_{2}\left (-\mu_{f}+\tilde{\mathbf{w}}^{T} \boldsymbol{\mu}\right) =0 \\
+			\theta^{2} \Omega \tilde{\mathbf{w}}-\lambda_{1} \theta \boldsymbol{\mu}-\lambda_{2} \mathbf{1}=\mathbf{0} \\
+			1-\tilde{\mathbf{w}}^{T} \mathbf{1}=0 \\
+			\mu_{p}- (1-\theta) \mu_{f}-\theta \tilde{\mathbf{w}}^{T} \boldsymbol{\mu}=0
+		\end{array}\right.
+		$$
+		
+		第二個等式有: 
+		
+		$$
+		\tilde{w}=\frac{1}{\theta^{2}} \Omega^{-1}\left (\lambda_{1} \theta \boldsymbol{\mu}+\lambda_{2} \mathbf{1}\right) 
+		$$
+		
+		現在將第二個方程式乘以 $\tilde{w}^{T}$, 第一個方程式乘以 $\theta$, 然後取其差, 可得: 
+		
+		
+		$$
+		\lambda_{2}=-\lambda_{1} \theta
+		$$
+		
+		這給出了: 
+		
+		$$
+		\tilde{w}=\frac{\lambda_{1}}{\theta} \Omega^{-1}\left (\boldsymbol{\mu}-\mu_{f} \mathbf{1}\right) 
+		$$
+		
+		利用 $\tilde{\mathbf{w}}^{T} \mathbf{1}=1$ 這一事實, 可得: 
+		
+		
+		$$
+		\tilde{w}=\frac{\Omega^{-1}\left (\boldsymbol{\mu}-\mu_{f} \mathbf{1}\right) }{\mathbf{1}^{T} \Omega^{-1}\left (\boldsymbol{\mu}-\mu_{f} \mathbf{1}\right) }
+		$$
+		
+		這就是所求的結果. 其解為: 
+		
+		
+		$$
+		\tilde{w}^{*}=\frac{\Omega^{-1}\left (\boldsymbol{\mu}-\mu_{f} \mathbf{1}\right) }{\mathbf{1}^{T} \Omega^{-1}\left (\boldsymbol{\mu}-\mu_{f} \mathbf{1}\right) }
+		$$
+		
+		這個投資組合即是我們所稱的「切點投資組合 (Tangency Portfolio)」或「市場投資組合 (Market Portfolio)」. 
+		
+		\begin{itemize}
+			\item 切點投資組合包含所有資產. 這是合理的, 因為若資產 $i$ 未包含於此投資組合中, 則無人會購買它, 該資產將逐漸凋零並最終退出市場. 
+			\item 若所有投資者都購買相同的風險資產組合, 則該投資組合中的權重必須與市場資本權重相符, 也就是每個資產的總市值占整體市場總市值的比例. 即: 
+		\end{itemize}
+		
+		
+		$$
+		\tilde{w}_{i}^{*}=\frac{V_{i}}{V}
+		$$
+		
+		對所有的 $i$, 其中 $V_{i}$ 與 $V$ 的定義同前. 
+		
+		
+		
+	\end{document}
