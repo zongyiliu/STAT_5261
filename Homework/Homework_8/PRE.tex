@@ -1,0 +1,196 @@
+\documentclass[letterpaper]{article} 
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{physics}
+\usepackage[version=4]{mhchem}
+\usepackage{stmaryrd}
+\usepackage[dvipsnames]{xcolor}
+\colorlet{LightRubineRed}{RubineRed!70}
+\colorlet{Mycolor1}{green!10!orange}
+\definecolor{Mycolor2}{HTML}{00F9DE}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{lipsum}
+\usepackage{fancyvrb}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage[export]{adjustbox}
+\graphicspath{ {./images/} }
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{hyperref} 
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\E}{\mathbb{E}}
+\usepackage[normalem]{ulem}
+\usepackage{xcolor} % For custom colors
+\lstset{
+	language=Python,                % Choose the language (e.g., Python, C, R)
+	basicstyle=\ttfamily\small, % Font size and type
+	keywordstyle=\color{blue},  % Keywords color
+	commentstyle=\color{gray},  % Comments color
+	stringstyle=\color{red},    % String color
+	numbers=left,               % Line numbers
+	numberstyle=\tiny\color{gray}, % Line number style
+	stepnumber=1,               % Numbering step
+	breaklines=true,            % Auto line break
+	backgroundcolor=\color{black!5}, % Light gray background
+	frame=single,               % Frame around the code
+}
+\usepackage{float}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+	\usepackage[]{amssymb} %gives us the character \varnothing
+	
+	\title{Homework 8, STAT 5261}
+	\author{Zongyi Liu}
+	\date{Wed, Oct 29, 2025}
+	
+	\begin{document}
+		\maketitle
+		
+		
+		\section{Question 1}
+	Let $X$ be a random variable and let $\operatorname{VaR}(\alpha)(X)$ be the value at risk corresponding to $X$. Show that
+	
+	\begin{enumerate}
+		\item [(a)] Translation Invariance:
+
+\begin{equation*}
+\operatorname{VaR}(\alpha)(X+a)=\operatorname{VaR}(\alpha)(X)+a, \quad \forall a \in \mathbb{R} \tag{1}
+\end{equation*}
+
+\item [(b)] Positive Homogeneity:
+
+\begin{equation*}
+\operatorname{VaR}(\alpha)(\lambda X)=\lambda \operatorname{VaR}(\alpha)(X), \quad \forall \lambda \geq 0 \tag{2}
+\end{equation*}
+
+\end{enumerate}
+
+		
+			\textbf{Answer}
+			
+			
+			
+			\clearpage
+			
+			
+			\section{Question 2}
+			
+			Suppose the return $R$ on a stock satisfies
+	
+$$
+R=\mu+\lambda Y
+$$
+
+where $\mu$ and $\lambda$ are fixed and $Y$ has a $t$-distribution with $\nu$ degrees of freedom.
+
+\begin{enumerate}
+	\item [(a)] If you hold a position of size $S_{0}$ in this stock, show that for one day
+
+$$
+\operatorname{VaR}(\alpha)=-S_{0}\left(\mu+\lambda t_{\alpha, \nu}\right)
+$$
+
+where $t_{\alpha, \nu}$ is the $\alpha$ th quantile of a $t$-distribution with $\nu$ degrees of freedom. Hint: Recall that $\operatorname{Pr}(L>\operatorname{VaR}(\alpha))=\alpha$ and $L=-S_{0} R$.
+
+\item [(b)] If $S_{0}=100,000, \mu=0.4$, and $\lambda=0.01$, compute $\operatorname{VaR}(0.05)$ when $\nu=10$.
+
+\end{enumerate}
+
+\textbf{Answer}
+
+
+
+\clearpage
+
+
+\section{Question 3}
+
+Suppose the daily returns ( $R_{A}, R_{B}$ ) on Stocks A and B have a bivariate normal distribution with
+
+$$
+\boldsymbol{\mu}=\binom{0.0002}{0.0003}, \quad \Sigma=\left(\begin{array}{ll}
+	0.0003 & 0.0002 \\
+	0.0002 & 0.0004
+\end{array}\right) .
+$$
+
+This implies that
+
+$$
+R_{A} \sim N(0.0002,0.0003), \quad R_{B} \sim N(0.0003,0.0004),
+$$
+
+and for any $a, b$,
+
+$$
+a R_{A}+b R_{B} \sim N\left(0.0002 a+0.0003 b, 0.0003 a^{2}+0.0004 b^{2}+0.0004 a b\right)
+$$
+
+\begin{enumerate}
+	\item [(a)] Suppose that you hold a $\$ 1000$ position in Stock A (i.e. $S_{0}=1000$ ). Compute $\mathrm{VaR}_{A}(0.05)$.
+	\item [(b)]  Suppose that you hold a $\$ 1000$ position in Stock B (i.e. $S_{0}=1000$ ). Compute $\mathrm{VaR}_{B}(0.05)$.
+	\item [(c)]  What is $\operatorname{VaR}(0.05)$ of a portfolio holding $\$ 500$ in Stock A and $\$ 500$ in Stock B?
+\end{enumerate}
+
+\textbf{Answer}
+
+
+
+\clearpage
+
+\section{Question 4}
+Suppose the distribution of $R$ has a pdf $f$. Show that
+
+$$
+\mathrm{ES}(\alpha)=-S_{0} \frac{\int_{-\infty}^{q_{\alpha}} r f(r) d r}{\alpha}
+$$
+
+where $q_{\alpha}$ is the $\alpha$ th quantile of the distribution of $R$.
+
+\textbf{Answer}
+
+
+
+\clearpage
+
+\section{Question 5}
+
+Assume $R \sim N\left(\mu, \sigma^{2}\right)$. Show that
+
+$$
+\operatorname{ES}(\alpha)=-S_{0}\left[\mu-\sigma \frac{1}{\alpha \sqrt{2 \pi}} e^{-z_{\alpha}^{2} / 2}\right]
+$$
+
+where $z_{\alpha}$ is the $\alpha$ th quantile of the standard normal distribution $N(0,1)$.
+
+\textbf{Answer}
+
+
+
+\clearpage
+
+	\end{document}
+	
