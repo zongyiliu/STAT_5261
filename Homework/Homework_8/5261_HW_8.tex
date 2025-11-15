@@ -1,0 +1,470 @@
+\documentclass[letterpaper]{article} 
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{physics}
+\usepackage[version=4]{mhchem}
+\usepackage{stmaryrd}
+\usepackage[dvipsnames]{xcolor}
+\colorlet{LightRubineRed}{RubineRed!70}
+\colorlet{Mycolor1}{green!10!orange}
+\definecolor{Mycolor2}{HTML}{00F9DE}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\VaR}{\mathrm{VaR}}
+\DeclareMathOperator{\ES}{\mathrm{ES}}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{lipsum}
+\usepackage{fancyvrb}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage[export]{adjustbox}
+\graphicspath{ {./images/} }
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{hyperref} 
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\E}{\mathbb{E}}
+\usepackage[normalem]{ulem}
+\usepackage{xcolor} % For custom colors
+\lstset{
+	language=Python,                % Choose the language (e.g., Python, C, R)
+	basicstyle=\ttfamily\small, % Font size and type
+	keywordstyle=\color{blue},  % Keywords color
+	commentstyle=\color{gray},  % Comments color
+	stringstyle=\color{red},    % String color
+	numbers=left,               % Line numbers
+	numberstyle=\tiny\color{gray}, % Line number style
+	stepnumber=1,               % Numbering step
+	breaklines=true,            % Auto line break
+	backgroundcolor=\color{black!5}, % Light gray background
+	frame=single,               % Frame around the code
+}
+\usepackage{float}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+	\usepackage[]{amssymb} %gives us the character \varnothing
+	
+	\title{Homework 8, STAT 5261}
+	\author{Zongyi Liu}
+	\date{Wed, Nov 12, 2025}
+	
+	\begin{document}
+		\maketitle
+		
+		
+		\section{Question 1}
+	Let $X$ be a random variable and let $\operatorname{VaR}(\alpha)(X)$ be the value at risk corresponding to $X$. Show that
+	
+	\begin{enumerate}
+		\item [(a)] Translation Invariance:
+
+\begin{equation*}
+\operatorname{VaR}(\alpha)(X+a)=\operatorname{VaR}(\alpha)(X)+a, \quad \forall a \in \mathbb{R} \tag{1}
+\end{equation*}
+
+\item [(b)] Positive Homogeneity:
+
+\begin{equation*}
+\operatorname{VaR}(\alpha)(\lambda X)=\lambda \operatorname{VaR}(\alpha)(X), \quad \forall \lambda \geq 0 \tag{2}
+\end{equation*}
+
+\end{enumerate}
+
+		
+			\textbf{Answer}
+			
+			In the book def 19.2, we have that for a random variable $X$, the Value at Risk at level $\alpha \in (0,1)$ is defined by
+			$\operatorname{VaR}_\alpha(X) := \inf\{x \in \mathbb{R} : F_X(x) \ge \alpha\}$,
+			where $F_X$ is the distribution function of $X$.
+			
+		\underline{Part a}
+			
+			Let $a \in \mathbb{R}$. The distribution function of $X+a$ satisfies
+			$F_{X+a}(x) = P(X+a \le x) = P(X \le x-a) = F_X(x-a)$.
+			Thus
+			$\operatorname{VaR}_\alpha(X+a)
+			= \inf\{x : F_{X+a}(x)\ge \alpha\}
+			= \inf\{x : F_X(x-a)\ge \alpha\}$.
+			Let $t = x-a$ so that $x = t+a$. Then
+			$\operatorname{VaR}_\alpha(X+a)
+			= \inf\{t+a : F_X(t)\ge \alpha\}
+			= a + \inf\{t : F_X(t)\ge \alpha\}$.
+			Hence
+			$\operatorname{VaR}_\alpha(X+a)
+			= \operatorname{VaR}_\alpha(X) + a$.
+			
+		\underline{Part b}
+			
+			Let $\lambda \ge 0$. For $\lambda > 0$,
+			$F_{\lambda X}(x)
+			= P(\lambda X \le x)
+			= P\bigl(X \le x/\lambda\bigr)
+			= F_X(x/\lambda)$.
+			Therefore
+			$\operatorname{VaR}_\alpha(\lambda X)
+			= \inf\{x : F_{\lambda X}(x)\ge \alpha\}
+			= \inf\{x : F_X(x/\lambda)\ge \alpha\}$.
+			Let $t = x/\lambda$ so $x = \lambda t$. Then
+			$\operatorname{VaR}_\alpha(\lambda X)
+			= \inf\{\lambda t : F_X(t)\ge \alpha\}
+			= \lambda \inf\{t : F_X(t)\ge \alpha\}$.
+			Thus
+			$\operatorname{VaR}_\alpha(\lambda X)
+			= \lambda \operatorname{VaR}_\alpha(X)$.
+			
+			If $\lambda = 0$, then $0X = 0$ almost surely, hence $\operatorname{VaR}_\alpha(0) = 0 = 0 \cdot \operatorname{VaR}_\alpha(X)$.
+			Therefore the result holds for all $\lambda \ge 0$.
+			
+			
+			\clearpage
+			
+			
+			\section{Question 2}
+			
+			Suppose the return $R$ on a stock satisfies
+	
+$$
+R=\mu+\lambda Y
+$$
+
+where $\mu$ and $\lambda$ are fixed and $Y$ has a $t$-distribution with $\nu$ degrees of freedom.
+
+\begin{enumerate}
+	\item [(a)] If you hold a position of size $S_{0}$ in this stock, show that for one day
+
+$$
+\operatorname{VaR}(\alpha)=-S_{0}\left(\mu+\lambda t_{\alpha, \nu}\right)
+$$
+
+where $t_{\alpha, \nu}$ is the $\alpha$ th quantile of a $t$-distribution with $\nu$ degrees of freedom. Hint: Recall that $\operatorname{Pr}(L>\operatorname{VaR}(\alpha))=\alpha$ and $L=-S_{0} R$.
+
+\item [(b)] If $S_{0}=100,000, \mu=0.4$, and $\lambda=0.01$, compute $\operatorname{VaR}(0.05)$ when $\nu=10$.
+
+\end{enumerate}
+
+\textbf{Answer}
+
+\underline{Part a}
+
+One-day return is given by $R=\mu+\lambda Y$ with $Y\sim t_\nu$.  
+The one-day loss is therefore $L=-S_0R=-S_0(\mu+\lambda Y)$.  
+Assuming $S_0>0$ and $\lambda>0$, the function $L$ is strictly decreasing in $Y$.
+
+By definition, $\VaR(\alpha)$ satisfies the equation  
+$\Pr(L>\VaR(\alpha))=\alpha$. Start by expanding the event:
+$\Pr(L>\VaR(\alpha))
+=\Pr\bigl(-S_0(\mu+\lambda Y)>\VaR(\alpha)\bigr)$. Since $S_0>0$, dividing both sides by $-S_0$ reverses the inequality, giving
+$\Pr\bigl(-S_0(\mu+\lambda Y)>\VaR(\alpha)\bigr)
+=\Pr\bigl(\mu+\lambda Y<-\VaR(\alpha)/S_0\bigr)$.
+
+Subtract $\mu$ from the right-hand side:
+$\Pr\bigl(\mu+\lambda Y<-\VaR(\alpha)/S_0\bigr)
+=\Pr\bigl(\lambda Y<-\VaR(\alpha)/S_0-\mu\bigr)$. Because $\lambda>0$, dividing by $\lambda$ preserves the direction of the inequality:
+$\Pr\bigl(\lambda Y<-\VaR(\alpha)/S_0-\mu\bigr)
+=\Pr\bigl(Y<(-\VaR(\alpha)/S_0-\mu)/\lambda\bigr)$. Returning to the defining condition $\Pr(L>\VaR(\alpha))=\alpha$, we now have
+$\Pr\bigl(Y<(-\VaR(\alpha)/S_0-\mu)/\lambda\bigr)=\alpha$. Since $Y\sim t_\nu$, let $t_{\alpha,\nu}$ denote the $\alpha$-quantile of the $t_\nu$ distribution, so that  
+$\Pr(Y<t_{\alpha,\nu})=\alpha$. Matching the two expressions yields
+$(-\VaR(\alpha)/S_0-\mu)/\lambda = t_{\alpha,\nu}$.
+
+Now solve for $\VaR(\alpha)$:
+$-\VaR(\alpha)/S_0-\mu=\lambda t_{\alpha,\nu}$, so
+$-\VaR(\alpha)/S_0=\mu+\lambda t_{\alpha,\nu}$ and multiplying by $-S_0$ gives
+$\VaR(\alpha)=-S_0(\mu+\lambda t_{\alpha,\nu})$.
+
+Thus the Value at Risk is
+$\VaR(\alpha)=-S_0(\mu+\lambda t_{\alpha,\nu})$.
+
+\underline{Part b}
+
+For $S_0=100000$, $\mu=0.4$, $\lambda=0.01$, and $\nu=10$, we use $t_{0.05,10}\approx -1.812$. Substitution into the expression from part (a) gives  
+$\VaR(0.05)=-100000(0.4+0.01\,t_{0.05,10})=-100000(0.4-0.01812)\approx -38188$.  
+Thus the $5\%$ one-day VaR is approximately $-3.82\times 10^4$, meaning a potential loss of about \$38{,}200 at the 5\% tail.
+
+
+\clearpage
+
+
+\section{Question 3}
+
+Suppose the daily returns ($R_{A}, R_{B}$) on Stocks A and B have a bivariate normal distribution with
+
+$$
+\boldsymbol{\mu}=\binom{0.0002}{0.0003}, \quad \Sigma=\left(\begin{array}{ll}
+	0.0003 & 0.0002 \\
+	0.0002 & 0.0004
+\end{array}\right) .
+$$
+
+This implies that
+
+$$
+R_{A} \sim N(0.0002,0.0003), \quad R_{B} \sim N(0.0003,0.0004),
+$$
+
+and for any $a, b$,
+
+$$
+a R_{A}+b R_{B} \sim N\left(0.0002 a+0.0003 b, 0.0003 a^{2}+0.0004 b^{2}+0.0004 a b\right)
+$$
+
+\begin{enumerate}
+	\item [(a)] Suppose that you hold a $\$ 1000$ position in Stock A (i.e. $S_{0}=1000$). Compute $\mathrm{VaR}_{A}(0.05)$.
+	\item [(b)]  Suppose that you hold a $\$ 1000$ position in Stock B (i.e. $S_{0}=1000$). Compute $\mathrm{VaR}_{B}(0.05)$.
+	\item [(c)]  What is $\operatorname{VaR}(0.05)$ of a portfolio holding $\$ 500$ in Stock A and $\$ 500$ in Stock B?
+\end{enumerate}
+
+\textbf{Answer}
+
+By definition, the (one–day) \(\VaR_{0.05}\) is defined as the 5\% lower quantile
+of the portfolio value change (reported as a positive loss).  
+Let \(R\) be the (random) return and \(S_0\) the initial position. Then we have:
+\[
+S_1 = S_0(1+R),\qquad
+\Delta S = S_1 - S_0 = S_0 R,\qquad
+L = -\Delta S = -S_0 R.
+\]
+If \(q_{0.05}(R)\) is the 5\%-quantile of \(R\), then:
+\[
+\VaR_{0.05} = -S_0\, q_{0.05}(R).
+\]
+
+Throughout the question, use \(z_{0.05}\approx -1.645\) for the standard normal quantile.
+
+%--------------------------------------------------
+% (a) VaR for stock A
+%--------------------------------------------------
+
+\underline{Part a}
+
+We have
+\[
+R_A \sim N(\mu_A,\sigma_A^2),\quad
+\mu_A = 0.0002,\quad \sigma_A^2 = 0.0003,\quad
+\sigma_A = \sqrt{0.0003}\approx 0.01732.
+\]
+Thus
+\[
+q_{0.05}(R_A) = \mu_A + z_{0.05}\sigma_A
+\approx 0.0002 + (-1.645)\cdot 0.01732
+\approx 0.0002 - 0.02849
+\approx -0.02829.
+\]
+Therefore
+\[
+\VaR_A(0.05) = -1000\,q_{0.05}(R_A)
+\approx -1000\cdot(-0.02829)
+\approx 28.3.
+\]
+
+%--------------------------------------------------
+% (b) VaR for stock B
+%--------------------------------------------------
+
+\underline{Part b}
+
+We have
+\[
+R_B \sim N(\mu_B,\sigma_B^2),\quad
+\mu_B = 0.0003,\quad \sigma_B^2 = 0.0004,\quad
+\sigma_B = \sqrt{0.0004}=0.02.
+\]
+Thus
+\[
+q_{0.05}(R_B)
+= \mu_B + z_{0.05}\sigma_B
+\approx 0.0003 + (-1.645)\cdot 0.02
+\approx 0.0003 - 0.0329
+\approx -0.0326.
+\]
+Hence
+\[
+\VaR_B(0.05) = -1000\,q_{0.05}(R_B)
+\approx 32.6.
+\]
+
+%--------------------------------------------------
+% (c) VaR for portfolio: 500 in A, 500 in B
+%--------------------------------------------------
+
+\underline{Part c}
+
+The total initial value is \(S_0 = 1000\).  
+Weights in A and B are
+\[
+w_A = \frac{500}{1000} = 0.5,\qquad
+w_B = 0.5.
+\]
+With means $w=(1/2,1/2)^T$, and the portfolio return is
+\[
+R_p = w_A R_A + w_B R_B = 0.5 R_A + 0.5 R_B.
+\]
+From the given joint normal $
+R_p \sim N(\mu_p,\sigma_p^2)$, with $
+\mu_p = 0.0002\cdot 0.5 + 0.0003\cdot 0.5
+= 0.0001 + 0.00015
+= 0.00025$ and variance is:
+\[
+\sigma_p^2
+= 0.0003 a^2 + 0.0004 b^2 + 0.0004 ab
+\quad\text{with }a=b=0.5.
+\]
+So we have:
+\[
+\sigma_p^2
+= 0.0003\cdot 0.25 + 0.0004\cdot 0.25 + 0.0004\cdot 0.25
+= 0.000075 + 0.0001 + 0.0001
+= 0.000275,
+\]
+\[
+\sigma_p = \sqrt{0.000275}\approx 0.0166.
+\]
+Thus:
+\[
+q_{0.05}(R_p)
+= \mu_p + z_{0.05}\sigma_p
+\approx 0.00025 + (-1.645)\cdot 0.0166
+\approx 0.00025 - 0.0273
+\approx -0.0270.
+\]
+Hence we get:
+\[
+\VaR_{p}(0.05)
+= -S_0\,q_{0.05}(R_p)
+\approx -1000\cdot(-0.0270)
+\approx 27.0.
+\]
+
+\clearpage
+
+\section{Question 4}
+Suppose the distribution of $R$ has a pdf $f$. Show that
+
+$$
+\mathrm{ES}(\alpha)=-S_{0} \frac{\int_{-\infty}^{q_{\alpha}} r f(r) d r}{\alpha}
+$$
+
+where $q_{\alpha}$ is the $\alpha$ th quantile of the distribution of $R$.
+
+\textbf{Answer}
+
+Let \(R\) be the portfolio return with pdf \(f\) and cdf \(F\), and initial
+portfolio value \(S_0>0\). Define the loss \(L=-S_0R\).
+Let \(q_\alpha\) be the \(\alpha\)th quantile of \(R\), i.e.
+\(F(q_\alpha)=\Pr(R\le q_\alpha)=\alpha\).
+
+The \(\alpha\)-VaR of the loss \(L\) is
+\(\VaR_\alpha(L)=\inf\{x:\Pr(L\le x)\ge\alpha\}\).
+Since \(L=-S_0R\) is strictly decreasing in \(R\), we have
+\(\Pr(L\le x)=\Pr(-S_0R\le x)=\Pr(R\ge -x/S_0)\).
+Thus the \(\alpha\)-quantile of \(L\) corresponds to the \(\alpha\)-quantile of \(R\),
+and hence \(\VaR_\alpha(L)=-S_0q_\alpha\).
+
+The Expected Shortfall at level \(\alpha\) is
+\(\ES(\alpha)=E[L\mid L\ge \VaR_\alpha(L)]\).
+Using \(L=-S_0R\) and \(\VaR_\alpha(L)=-S_0q_\alpha\),
+the event \(\{L\ge \VaR_\alpha(L)\}\) becomes
+\(\{-S_0R\ge -S_0q_\alpha\}=\{R\le q_\alpha\}\).
+Hence:
+\[
+\ES(\alpha)=E[-S_0R\mid R\le q_\alpha]=-S_0\,E[R\mid R\le q_\alpha].
+\]
+
+Now we have:
+\[
+E[R\mid R\le q_\alpha]
+=\frac{E[R\,\mathbf{1}_{\{R\le q_\alpha\}}]}{\Pr(R\le q_\alpha)}
+=\frac{\int_{-\infty}^{q_\alpha}r\,f(r)\,dr}{F(q_\alpha)}.
+\]
+Since \(F(q_\alpha)=\alpha\), we obtain
+\(E[R\mid R\le q_\alpha]
+=\bigl(\int_{-\infty}^{q_\alpha}r\,f(r)\,dr\bigr)/\alpha\).
+
+Therefore:
+\[
+\ES(\alpha)
+=-S_0\,E[R\mid R\le q_\alpha]
+=-S_0\,\frac{\int_{-\infty}^{q_\alpha}r\,f(r)\,dr}{\alpha},
+\]
+thus we prove that:
+\[
+\ES(\alpha)
+=-S_0\,\frac{\int_{-\infty}^{q_\alpha}r\,f(r)\,dr}{\alpha}.
+\]
+
+
+
+\clearpage
+
+\section{Question 5}
+
+Assume $R \sim N\left(\mu, \sigma^{2}\right)$. Show that
+
+$$
+\operatorname{ES}(\alpha)=-S_{0}\left[\mu-\sigma \frac{1}{\alpha \sqrt{2 \pi}} e^{-z_{\alpha}^{2} / 2}\right]
+$$
+
+where $z_{\alpha}$ is the $\alpha$ th quantile of the standard normal distribution $N(0,1)$.
+
+\textbf{Answer}
+
+Assume that \(R \sim N(\mu,\sigma^2)\) and \(S_0>0\).  
+From the previous result, the Expected Shortfall at level \(\alpha\) is  
+\(\ES(\alpha) = -S_0\bigl(\int_{-\infty}^{q_\alpha} r f_R(r)\,dr\bigr)/\alpha\),  
+where \(q_\alpha\) is the \(\alpha\)-quantile of \(R\).
+
+Since \(R=\mu+\sigma Z\) with \(Z\sim N(0,1)\), the \(\alpha\)-quantile of \(R\) is  
+\(q_\alpha = \mu + \sigma z_\alpha\), where \(z_\alpha\) is the \(\alpha\)-quantile of \(N(0,1)\).  
+Let the standard normal pdf and cdf be  
+\(\varphi(z) = (1/\sqrt{2\pi})e^{-z^2/2}\) and  
+\(\Phi(z)=\int_{-\infty}^z \varphi(x)\,dx\).
+
+The pdf of \(R\) is \(f_R(r)=(1/\sigma)\varphi((r-\mu)/\sigma)\).  
+Consider the integral \(I=\int_{-\infty}^{q_\alpha} r f_R(r)\,dr\).  
+With the change of variables \(x=(r-\mu)/\sigma\), so that \(r=\mu+\sigma x\),  
+\(dr=\sigma\,dx\), the upper limit becomes \(x=z_\alpha\).  
+Thus  
+\(I=\int_{-\infty}^{z_\alpha}(\mu+\sigma x)\varphi(x)\,dx\).  
+Splitting the integral gives  
+\(I=\mu\int_{-\infty}^{z_\alpha}\varphi(x)\,dx+\sigma\int_{-\infty}^{z_\alpha}x\varphi(x)\,dx\).
+
+The first term equals \(\mu\Phi(z_\alpha)=\mu\alpha\).  
+For the second, using \(d(-\varphi(x))/dx=x\varphi(x)\), we obtain  
+\(\int_{-\infty}^{z_\alpha}x\varphi(x)\,dx=-\varphi(z_\alpha)\).  
+Hence  
+\(I=\mu\alpha-\sigma\varphi(z_\alpha)\). Dividing by \(\alpha\) gives  
+\((1/\alpha)I=\mu-\sigma\varphi(z_\alpha)/\alpha\).  
+Substituting \(\varphi(z_\alpha)=(1/\sqrt{2\pi})e^{-z_\alpha^2/2}\) yields that:
+\[
+\ES(\alpha)
+= -S_0\left[\mu - \sigma\frac{1}{\alpha\sqrt{2\pi}}e^{-z_\alpha^2/2}\right].
+\]
+
+Thus the identity  
+\(\ES(\alpha)= -S_0\left[\mu - \sigma(\alpha^{-1}\sqrt{2\pi}^{-1})e^{-z_\alpha^2/2}\right]\)  
+is established.
+
+
+\clearpage
+
+	\end{document}
+	
