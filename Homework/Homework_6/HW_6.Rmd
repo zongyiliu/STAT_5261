@@ -1,0 +1,1234 @@
+---
+title: "HW_6"
+author: "Zongyi Liu"
+date: "2025-10-15"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+> Table of Content:
+> p.127 Problem 1 as Problem 1
+> p.127 Problem 2 as Problem 2
+> p.127 Problem 3 as Problem 3
+> Problem 2       as Problem 4
+> p.131 Problem 1 as Problem 5
+> p.132 Problem 3 as Problem 6
+
+
+# Problem 
+
+```{r}
+ library("Ecdat")
+   ?CPSch3
+   data(CPSch3)
+   dimnames(CPSch3)[[2]]
+   male.earnings = CPSch3[CPSch3[ ,3] == "male", 2]
+   sqrt.male.earnings = sqrt(male.earnings)
+   log.male.earnings = log(male.earnings)
+   fourthroot.earnings <- male.earnings^(1/4) 
+   eighthroot.earnings <- male.earnings^(1/8)
+   
+   par(mfrow = c(2, 3))
+   qqnorm(male.earnings ,datax = TRUE, main = "untransformed")
+   qqnorm(sqrt.male.earnings, datax = TRUE,
+      main = "square-root transformed")
+   qqnorm(log.male.earnings, datax = TRUE, main = "log-transformed")
+   qqnorm(fourthroot.earnings,  datax = TRUE, main = "1/4 power")
+   qqnorm(eighthroot.earnings,  datax = TRUE, main = "1/8 power")
+   
+   par(mfrow = c(2, 3))
+   boxplot(male.earnings, main = "untransformed")
+   boxplot(sqrt.male.earnings, main = "square-root transformed")
+   boxplot(log.male.earnings, main = "log-transformed")
+   boxplot(fourthroot.earnings, main = "1/4 power")
+   boxplot(eighthroot.earnings, main = "1/8 power")
+
+   par(mfrow = c(2, 3))
+   plot(density(male.earnings), main = "untransformed")
+   plot(density(sqrt.male.earnings), main = "square-root transformed")
+   plot(density(log.male.earnings), main = "log-transformed")
+   plot(density(fourthroot.earnings), main = "1/4 power")
+   plot(density(eighthroot.earnings), main = "1/8 power")
+
+```
+
+
+```{r}
+# --- Data ---
+library(Ecdat)
+data(CPSch3)
+male.earnings <- CPSch3[CPSch3[, 3] == "male", 2]
+
+# --- Different root transformations ---
+sqrt.male.earnings  <- male.earnings^(1/2)   # square root
+fourthroot.earnings <- male.earnings^(1/4)   # 4th root
+eighthroot.earnings <- male.earnings^(1/8)   # 8th root
+log.male.earnings   <- log(male.earnings)    # log for comparison
+
+# --- QQ plots ---
+par(mfrow = c(2, 3))
+qqnorm(male.earnings,        datax = TRUE, main = "untransformed")
+qqnorm(sqrt.male.earnings,   datax = TRUE, main = "1/2 power (sqrt)")
+qqnorm(fourthroot.earnings,  datax = TRUE, main = "1/4 power")
+qqnorm(eighthroot.earnings,  datax = TRUE, main = "1/8 power")
+
+# --- Boxplots ---
+par(mfrow = c(2, 3))
+boxplot(male.earnings,       main = "untransformed")
+boxplot(sqrt.male.earnings,  main = "1/2 power (sqrt)")
+boxplot(fourthroot.earnings, main = "1/4 power")
+boxplot(eighthroot.earnings, main = "1/8 power")
+
+# --- Densities ---
+par(mfrow = c(2, 3))
+plot(density(male.earnings),       main = "untransformed")
+plot(density(sqrt.male.earnings),  main = "1/2 power (sqrt)")
+plot(density(fourthroot.earnings), main = "1/4 power")
+plot(density(eighthroot.earnings), main = "1/8 power")
+```
+
+
+```{r}
+install.packages("readxl")
+library(readxl)
+```
+
+
+```{r}
+capm <- read_excel("CAPM_DATA.xlsx")
+capm
+```
+
+```{r}
+# 1. Install and Load Necessary Package
+# If you don't have 'fGarch' and 'readr' installed, uncomment and run these lines:
+# install.packages("fGarch")
+# install.packages("readr")
+library(fGarch)
+library(readr)
+
+# 2. Load the Data
+# The file is loaded as 'CAPM_DATA.xlsx - capm.csv'
+
+# Load the data, assuming it's comma-separated (CSV)
+# Skip the RFREE column as it is the risk-free rate, which is often constant or modeled separately.
+data <- read_excel("CAPM_DATA.xlsx")
+returns_data <- data[, c("MSOFT", "GE", "GM", "IBM", "MPORT")]
+
+# List of distributions to fit:
+# 'norm': Normal (Gaussian)
+# 'sstd': Skewed Student's t (captures fat tails AND skewness)
+# 'sged': Skewed Generalized Error Distribution (captures fat tails AND skewness)
+distributions <- c("norm", "sstd", "sged") 
+
+# 3. Define the Fitting Function
+fit_and_compare <- function(returns, asset_name) {
+    
+    # Function to extract AIC, BIC, and Log-Likelihood from garchFit object
+    extract_garch_stats <- function(model_fit) {
+        return(c(
+            LogLikelihood = model_fit@fit$likelihood,
+            AIC = model_fit@fit$aic,
+            BIC = model_fit@fit$bic
+        ))
+    }
+    
+    results <- list()
+    
+    for (dist in distributions) {
+        
+        # Fit the distribution using a GARCH(0,0) model to perform unconditional MLE.
+        # This explicit formula prevents the "Misspecified GARCH Model: Both Orders are zero!" error.
+        tryCatch({
+            fit <- garchFit(
+                formula = ~ arma(0, 0) + garch(0, 0),
+                data = returns,
+                cond.dist = dist,
+                trace = FALSE
+            )
+            results[[dist]] <- extract_garch_stats(fit)
+        }, error = function(e) {
+            # Catch fitting errors for highly constrained distributions
+            results[[dist]] <- c(LogLikelihood = NA, AIC = NA, BIC = NA)
+        })
+    }
+    
+    # Format results
+    comparison_df <- as.data.frame(t(sapply(results, unlist)))
+    
+    # Find the best fit (lowest AIC/BIC)
+    best_fit_aic <- rownames(comparison_df)[which.min(comparison_df$AIC)]
+    best_fit_bic <- rownames(comparison_df)[which.min(comparison_df$BIC)]
+    
+    # Add indicator columns
+    comparison_df$Best_Fit_AIC <- ""
+    comparison_df$Best_Fit_BIC <- ""
+    if (!is.na(best_fit_aic)) {
+        comparison_df[best_fit_aic, "Best_Fit_AIC"] <- "<- BEST"
+    }
+    if (!is.na(best_fit_bic)) {
+        comparison_df[best_fit_bic, "Best_Fit_BIC"] <- "<- BEST"
+    }
+    
+    # Print individual results
+    cat("\n======================================================\n")
+    cat("Results for Asset:", asset_name, "\n")
+    cat("======================================================\n")
+    print(comparison_df)
+    
+    return(list(
+        Asset = asset_name,
+        Best_AIC = best_fit_aic,
+        Best_BIC = best_fit_bic
+    ))
+}
+
+# 4. Run the analysis for all assets
+
+summary_list <- list()
+for (col_name in names(returns_data)) {
+    asset_results <- fit_and_compare(returns_data[[col_name]], col_name)
+    summary_list[[col_name]] <- asset_results
+}
+
+# 5. Print Final Summary Table
+
+cat("\n\n######################################################\n")
+cat("          FINAL DISTRIBUTION FIT SUMMARY (Lower AIC/BIC is Better) \n")
+cat("######################################################\n")
+
+summary_df <- data.frame(
+    Asset = sapply(summary_list, function(x) x$Asset),
+    Best_Distribution_AIC = sapply(summary_list, function(x) x$Best_AIC),
+    Best_Distribution_BIC = sapply(summary_list, function(x) x$Best_BIC)
+)
+
+print(summary_df)
+
+# Interpretation Guidance:
+cat("\nInterpretation: The Skewed Student's t ('sstd') and Skewed GED ('sged') are non-Normal distributions that introduce parameters to account for **fat tails** and **skewness**. They usually provide a significantly better fit (lower AIC/BIC) for financial returns than the simple Normal ('norm') distribution.")
+```
+
+
+
+```{r}
+# 1. Load Necessary Packages
+library(fGarch)
+library(readr)
+
+# 2. Load the Data
+# NOTE: Using the 'CAPM_DATA.xlsx - capm.csv' data provided.
+data <- read_excel("CAPM_DATA.xlsx")
+returns_data <- data[, c("MSOFT", "GE", "GM", "IBM", "MPORT")]
+
+
+# List of distributions to fit
+distributions <- c("norm", "sstd", "sged") 
+
+# 3. Define the Corrected Fitting Function
+fit_and_compare <- function(returns, asset_name) {
+    
+    # Function to extract AIC, BIC, and Log-Likelihood from garchFit object
+    extract_garch_stats <- function(model_fit) {
+        return(c(
+            LogLikelihood = model_fit@fit$likelihood,
+            AIC = model_fit@fit$aic,
+            BIC = model_fit@fit$bic
+        ))
+    }
+    
+    results <- list()
+    
+    for (dist in distributions) {
+        
+        # Fit the distribution using GARCH(0,0) (unconditional MLE)
+        tryCatch({
+            fit <- garchFit(
+                formula = ~ arma(0, 0) + garch(0, 0),
+                data = returns,
+                cond.dist = dist,
+                trace = FALSE
+            )
+            results[[dist]] <- extract_garch_stats(fit)
+        }, error = function(e) {
+            # Assign NA if the fit fails to ensure the results list is consistent
+            results[[dist]] <- c(LogLikelihood = NA, AIC = NA, BIC = NA)
+        })
+    }
+    
+    # Format results
+    comparison_df <- as.data.frame(t(sapply(results, unlist)))
+    
+    # --- FIX START ---
+    # Find the index of the best fit. which.min returns integer(0) if all are NA.
+    aic_idx <- which.min(comparison_df$AIC)
+    bic_idx <- which.min(comparison_df$BIC)
+
+    # Robustly find the best fit name. If the index is length 0, assign NA.
+    best_fit_aic <- if (length(aic_idx) > 0) rownames(comparison_df)[aic_idx] else NA_character_
+    best_fit_bic <- if (length(bic_idx) > 0) rownames(comparison_df)[bic_idx] else NA_character_
+    
+    # Add indicator columns
+    comparison_df$Best_Fit_AIC <- ""
+    comparison_df$Best_Fit_BIC <- ""
+    
+    # Use the corrected check (is.na() is now safe to use)
+    if (!is.na(best_fit_aic)) {
+        comparison_df[best_fit_aic, "Best_Fit_AIC"] <- "<- BEST"
+    }
+    if (!is.na(best_fit_bic)) {
+        comparison_df[best_fit_bic, "Best_Fit_BIC"] <- "<- BEST"
+    }
+    # --- FIX END ---
+    
+    # Print individual results
+    cat("\n======================================================\n")
+    cat("Results for Asset:", asset_name, "\n")
+    cat("======================================================\n")
+    print(comparison_df)
+    
+    return(list(
+        Asset = asset_name,
+        Best_AIC = best_fit_aic,
+        Best_BIC = best_fit_bic
+    ))
+}
+
+# 4. Run the analysis for all assets
+
+summary_list <- list()
+for (col_name in names(returns_data)) {
+    asset_results <- fit_and_compare(returns_data[[col_name]], col_name)
+    summary_list[[col_name]] <- asset_results
+}
+
+# 5. Print Final Summary Table
+
+cat("\n\n######################################################\n")
+cat("          FINAL DISTRIBUTION FIT SUMMARY (Lower AIC/BIC is Better) \n")
+cat("######################################################\n")
+
+summary_df <- data.frame(
+    Asset = sapply(summary_list, function(x) x$Asset),
+    Best_Distribution_AIC = sapply(summary_list, function(x) x$Best_AIC),
+    Best_Distribution_BIC = sapply(summary_list, function(x) x$Best_BIC)
+)
+
+print(summary_df)
+```
+
+
+```{r}
+# 1. 確保載入必要的套件
+library(fGarch)
+library(readr)
+# 確保您的數據讀取正確，這是假設成功的
+data <- read_excel("CAPM_DATA.xlsx")
+returns_data <- data[, c("MSOFT", "GE", "GM", "IBM", "MPORT")]
+
+# 檢查和清理 NA/Inf (從上一個回應繼承過來，這仍然是好習慣)
+returns_data_clean <- returns_data
+returns_data_clean <- lapply(returns_data_clean, function(x) x[!is.na(x) & !is.infinite(x)])
+returns_data <- as.data.frame(returns_data_clean)
+
+# List of distributions to fit
+distributions <- c("norm", "sstd", "sged") 
+
+# 2. 修正後的 Fitting Function (使用 ~ 1 + garch(0, 0) 顯式包含均值常數)
+fit_and_compare_final <- function(returns, asset_name) {
+    
+    extract_garch_stats <- function(model_fit) {
+        return(c(
+            LogLikelihood = model_fit@fit$likelihood,
+            AIC = model_fit@fit$aic,
+            BIC = model_fit@fit$bic
+        ))
+    }
+    
+    results <- list()
+    
+    for (dist in distributions) {
+        
+        start_list <- list()
+        if (dist %in% c("sstd", "sged")) {
+            start_list <- list(nu = 5, xi = 1) 
+        }
+
+        # --- 關鍵修正處 ---
+        # 使用 formula = ~ 1 + garch(0, 0) 顯式指定一個常數均值模型 (mu)
+        # 這是為了滿足 garchFit 函式強制要求有均值模型的要求。
+        tryCatch({
+            fit <- garchFit(
+                formula = ~ 1 + garch(0, 0), # 修正為 ~ 1 + garch(0, 0)
+                data = returns,
+                cond.dist = dist,
+                control = list(maxit = 1000, relTol = 1e-6), 
+                init.pars = start_list, 
+                trace = FALSE
+            )
+            results[[dist]] <- extract_garch_stats(fit)
+        }, error = function(e) {
+            results[[dist]] <- c(LogLikelihood = NA, AIC = NA, BIC = NA)
+            cat(sprintf("警告: 資產 %s 的 %s 分布擬合失敗: %s\n", asset_name, dist, e$message))
+        })
+    }
+    
+    # 處理 NA 結果的邏輯 (保持不變)
+    comparison_df <- as.data.frame(t(sapply(results, unlist)))
+    aic_idx <- which.min(comparison_df$AIC)
+    bic_idx <- which.min(comparison_df$BIC)
+
+    best_fit_aic <- if (length(aic_idx) > 0) rownames(comparison_df)[aic_idx] else NA_character_
+    best_fit_bic <- if (length(bic_idx) > 0) rownames(comparison_df)[bic_idx] else NA_character_
+    
+    comparison_df$Best_Fit_AIC <- ""
+    comparison_df$Best_Fit_BIC <- ""
+    
+    if (!is.na(best_fit_aic)) {
+        comparison_df[best_fit_aic, "Best_Fit_AIC"] <- "<- BEST"
+    }
+    if (!is.na(best_fit_bic)) {
+        comparison_df[best_fit_bic, "Best_Fit_BIC"] <- "<- BEST"
+    }
+    
+    cat("\n======================================================\n")
+    cat("Results for Asset:", asset_name, "\n")
+    cat("======================================================\n")
+    print(comparison_df)
+    
+    return(list(
+        Asset = asset_name,
+        Best_AIC = best_fit_aic,
+        Best_BIC = best_fit_bic
+    ))
+}
+
+# 3. 運行修正後的分析
+
+summary_list <- list()
+for (col_name in names(returns_data)) {
+    asset_returns <- as.numeric(returns_data[[col_name]])
+    # 使用修正後的函式
+    asset_results <- fit_and_compare_final(asset_returns, col_name) 
+    summary_list[[col_name]] <- asset_results
+}
+
+# 4. 打印最終摘要
+cat("\n\n######################################################\n")
+cat("          FINAL DISTRIBUTION FIT SUMMARY (Lower AIC/BIC is Better) \n")
+cat("######################################################\n")
+
+summary_df <- data.frame(
+    Asset = sapply(summary_list, function(x) x$Asset),
+    Best_Distribution_AIC = sapply(summary_list, function(x) x$Best_AIC),
+    Best_Distribution_BIC = sapply(summary_list, function(x) x$Best_BIC)
+)
+
+print(summary_df)
+
+print(summary_df)
+```
+
+```{r}
+returns_data
+```
+
+```{r}
+install.packages("QRM")
+```
+
+
+
+```{r}
+# Load required libraries
+library(fitdistrplus)
+library(QRM)
+library(goftest)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+# Read the data
+data <- read_excel("CAPM_DATA.xlsx")  # Assuming you've saved the file as CSV
+
+# Remove RFREE column and focus on asset returns
+asset_returns <- data[, 1:5]
+
+# Function to fit multiple distributions and compare goodness-of-fit
+fit_and_compare <- function(returns, asset_name) {
+  # Remove any NA values
+  returns <- na.omit(returns)
+  
+  # Initialize results dataframe
+  results <- data.frame(
+    Distribution = character(),
+    LogLikelihood = numeric(),
+    AIC = numeric(),
+    BIC = numeric(),
+    KS_Statistic = numeric(),
+    KS_PValue = numeric(),
+    stringsAsFactors = FALSE
+  )
+  
+  # 1. Normal Distribution
+  tryCatch({
+    norm_fit <- fitdist(returns, "norm")
+    ks_norm <- ks.test(returns, "pnorm", mean = norm_fit$estimate["mean"], 
+                       sd = norm_fit$estimate["sd"])
+    results <- rbind(results, data.frame(
+      Distribution = "Normal",
+      LogLikelihood = norm_fit$loglik,
+      AIC = norm_fit$aic,
+      BIC = norm_fit$bic,
+      KS_Statistic = ks_norm$statistic,
+      KS_PValue = ks_norm$p.value
+    ))
+  }, error = function(e) NULL)
+  
+  # 2. Student's t Distribution
+  tryCatch({
+    t_fit <- fitdist(returns, "t", start = list(m = mean(returns), s = sd(returns), df = 5),
+                     method = "mle", lower = c(-Inf, 0.001, 2.1))
+    
+    # Calculate log-likelihood manually for t-distribution
+    loglik_t <- sum(dt((returns - t_fit$estimate["m"])/t_fit$estimate["s"], 
+                       df = t_fit$estimate["df"], log = TRUE) - log(t_fit$estimate["s"]))
+    k <- 3  # parameters: location, scale, df
+    n <- length(returns)
+    aic_t <- -2 * loglik_t + 2 * k
+    bic_t <- -2 * loglik_t + k * log(n)
+    
+    ks_t <- ks.test(returns, function(x) pt((x - t_fit$estimate["m"])/t_fit$estimate["s"], 
+                                            df = t_fit$estimate["df"]))
+    
+    results <- rbind(results, data.frame(
+      Distribution = "Student-t",
+      LogLikelihood = loglik_t,
+      AIC = aic_t,
+      BIC = bic_t,
+      KS_Statistic = ks_t$statistic,
+      KS_PValue = ks_t$p.value
+    ))
+  }, error = function(e) NULL)
+  
+  # 3. Generalized Error Distribution (GED)
+  tryCatch({
+    # Using QRM library for GED
+    ged_fit <- fit.st(returns)  # This fits skewed t, but we can use for symmetric GED
+    
+    # For symmetric GED (shape parameter = 2 is normal, <2 fatter tails)
+    ged_params <- MEST(returns)
+    
+    # Calculate log-likelihood for GED
+    loglik_ged <- sum(dged(returns, mean = mean(returns), sd = sd(returns), 
+                           nu = ged_params$nu, log = TRUE))
+    k <- 3  # mean, sd, shape
+    n <- length(returns)
+    aic_ged <- -2 * loglik_ged + 2 * k
+    bic_ged <- -2 * loglik_ged + k * log(n)
+    
+    # KS test for GED (approximate)
+    ks_ged <- ks.test(returns, function(x) pged(x, mean = mean(returns), 
+                                                sd = sd(returns), nu = ged_params$nu))
+    
+    results <- rbind(results, data.frame(
+      Distribution = "GED",
+      LogLikelihood = loglik_ged,
+      AIC = aic_ged,
+      BIC = bic_ged,
+      KS_Statistic = ks_ged$statistic,
+      KS_PValue = ks_ged$p.value
+    ))
+  }, error = function(e) NULL)
+  
+  # 4. Laplace Distribution (Double Exponential)
+  tryCatch({
+    laplace_fit <- fitdist(returns, "laplace", start = list(m = mean(returns), s = sd(returns)))
+    ks_laplace <- ks.test(returns, "plaplace", location = laplace_fit$estimate["m"], 
+                          scale = laplace_fit$estimate["s"])
+    
+    results <- rbind(results, data.frame(
+      Distribution = "Laplace",
+      LogLikelihood = laplace_fit$loglik,
+      AIC = laplace_fit$aic,
+      BIC = laplace_fit$bic,
+      KS_Statistic = ks_laplace$statistic,
+      KS_PValue = ks_laplace$p.value
+    ))
+  }, error = function(e) NULL)
+  
+  # Add asset name to results
+  results$Asset <- asset_name
+  
+  return(results)
+}
+
+# Fit distributions for each asset
+all_results <- data.frame()
+
+for(asset in colnames(asset_returns)) {
+  cat("Fitting distributions for", asset, "...\n")
+  asset_results <- fit_and_compare(asset_returns[[asset]], asset)
+  all_results <- rbind(all_results, asset_results)
+}
+
+# Determine best fitting distribution for each asset
+best_fits <- all_results %>%
+  group_by(Asset) %>%
+  slice_min(AIC) %>%  # Lower AIC is better
+  select(Asset, Best_Distribution = Distribution, AIC, LogLikelihood, KS_Statistic)
+
+# Print results
+print("Best fitting distributions for each asset:")
+print(best_fits)
+
+print("\nDetailed results for all distributions:")
+print(all_results)
+
+# Visualization: Compare distributions for each asset
+for(asset in colnames(asset_returns)) {
+  returns <- na.omit(asset_returns[[asset]])
+  
+  # Create density plot comparing empirical vs fitted distributions
+  p <- ggplot(data.frame(Returns = returns), aes(x = Returns)) +
+    geom_histogram(aes(y = ..density..), bins = 30, alpha = 0.5, fill = "lightblue") +
+    stat_function(fun = dnorm, args = list(mean = mean(returns), sd = sd(returns)), 
+                  aes(color = "Normal"), size = 1) +
+    stat_function(fun = function(x) dt((x - mean(returns))/sd(returns), df = 5)/sd(returns), 
+                  aes(color = "Student-t"), size = 1) +
+    labs(title = paste("Distribution Fit for", asset),
+         x = "Returns", y = "Density") +
+    scale_color_manual(name = "Distributions", 
+                       values = c("Normal" = "red", "Student-t" = "blue")) +
+    theme_minimal()
+  
+  print(p)
+}
+
+```
+
+```{r}
+install.packages("evir")
+library(evir)
+library(fGarch)
+data(bmw)
+```
+
+```{r}
+ee<-data(bmw)
+
+ee
+```
+
+
+
+
+```{r}
+# Load required libraries
+library(fitdistrplus)
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+# Install missing packages if needed
+if (!require("QRM")) install.packages("QRM")
+if (!require("goftest")) install.packages("goftest")
+if (!require("tseries")) install.packages("tseries")
+if (!require("fGarch")) install.packages("fGarch")
+
+library(QRM)
+library(goftest)
+library(tseries)
+library(fGarch)
+data <- read_excel("CAPM_DATA.xlsx")  # Assuming you've saved the file as CSV
+
+# Remove RFREE column and focus on asset returns
+asset_returns <- data[, 1:5]
+
+# Function to calculate skewness and kurtosis
+calculate_moments <- function(x) {
+  n <- length(x)
+  mean_x <- mean(x)
+  sd_x <- sd(x)
+  
+  # Skewness
+  skewness <- sum((x - mean_x)^3) / (n * sd_x^3)
+  
+  # Kurtosis (excess kurtosis)
+  kurtosis <- sum((x - mean_x)^4) / (n * sd_x^4) - 3
+  
+  return(list(skewness = skewness, kurtosis = kurtosis))
+}
+
+# Function to fit GED distribution using fGarch
+fit_ged <- function(returns) {
+  ged_fit <- gedFit(returns)
+  
+  # Extract parameters
+  mean_val <- ged_fit$par["mean"]
+  sd_val <- ged_fit$par["sd"]
+  nu_val <- ged_fit$par["nu"]
+  
+  # Calculate log-likelihood
+  loglik <- ged_fit$minimum * (-1)  # gedFit returns negative log-likelihood
+  
+  return(list(
+    mean = mean_val,
+    sd = sd_val,
+    nu = nu_val,
+    loglik = loglik
+  ))
+}
+
+# Function to fit multiple distributions and compare goodness-of-fit
+fit_and_compare <- function(returns, asset_name) {
+  # Remove any NA values
+  returns <- na.omit(returns)
+  
+  # Initialize results dataframe
+  results <- data.frame(
+    Distribution = character(),
+    LogLikelihood = numeric(),
+    AIC = numeric(),
+    BIC = numeric(),
+    KS_Statistic = numeric(),
+    KS_PValue = numeric(),
+    Parameters = numeric(),
+    stringsAsFactors = FALSE
+  )
+  
+  # 1. Normal Distribution
+  tryCatch({
+    norm_fit <- fitdist(returns, "norm")
+    ks_norm <- ks.test(returns, "pnorm", mean = norm_fit$estimate["mean"], 
+                       sd = norm_fit$estimate["sd"])
+    results <- rbind(results, data.frame(
+      Distribution = "Normal",
+      LogLikelihood = norm_fit$loglik,
+      AIC = norm_fit$aic,
+      BIC = norm_fit$bic,
+      KS_Statistic = ks_norm$statistic,
+      KS_PValue = ks_norm$p.value,
+      Parameters = 2
+    ))
+  }, error = function(e) {
+    message("Error fitting Normal distribution for ", asset_name, ": ", e$message)
+  })
+  
+  # 2. Student's t Distribution
+  tryCatch({
+    t_fit <- fitdist(returns, "t", start = list(m = mean(returns), s = sd(returns), df = 5),
+                     method = "mle", lower = c(-Inf, 0.001, 2.1))
+    
+    # Calculate log-likelihood manually for t-distribution
+    loglik_t <- sum(dt((returns - t_fit$estimate["m"])/t_fit$estimate["s"], 
+                       df = t_fit$estimate["df"], log = TRUE) - log(t_fit$estimate["s"]))
+    k <- 3  # parameters: location, scale, df
+    n <- length(returns)
+    aic_t <- -2 * loglik_t + 2 * k
+    bic_t <- -2 * loglik_t + k * log(n)
+    
+    ks_t <- ks.test(returns, function(x) pt((x - t_fit$estimate["m"])/t_fit$estimate["s"], 
+                                            df = t_fit$estimate["df"]))
+    
+    results <- rbind(results, data.frame(
+      Distribution = "Student-t",
+      LogLikelihood = loglik_t,
+      AIC = aic_t,
+      BIC = bic_t,
+      KS_Statistic = ks_t$statistic,
+      KS_PValue = ks_t$p.value,
+      Parameters = 3
+    ))
+  }, error = function(e) {
+    message("Error fitting Student-t distribution for ", asset_name, ": ", e$message)
+  })
+  
+  # 3. Generalized Error Distribution (GED)
+  tryCatch({
+    ged_fit <- fit_ged(returns)
+    
+    k <- 3  # mean, sd, shape
+    n <- length(returns)
+    aic_ged <- -2 * ged_fit$loglik + 2 * k
+    bic_ged <- -2 * ged_fit$loglik + k * log(n)
+    
+    # KS test for GED
+    ks_ged <- ks.test(returns, function(x) pged(x, mean = ged_fit$mean, 
+                                                sd = ged_fit$sd, nu = ged_fit$nu))
+    
+    results <- rbind(results, data.frame(
+      Distribution = "GED",
+      LogLikelihood = ged_fit$loglik,
+      AIC = aic_ged,
+      BIC = bic_ged,
+      KS_Statistic = ks_ged$statistic,
+      KS_PValue = ks_ged$p.value,
+      Parameters = 3
+    ))
+  }, error = function(e) {
+    message("Error fitting GED distribution for ", asset_name, ": ", e$message)
+  })
+  
+  # 4. Laplace Distribution (Double Exponential)
+  tryCatch({
+    # Define Laplace distribution functions
+    dlaplace <- function(x, m, s) {
+      1/(2*s) * exp(-abs(x-m)/s)
+    }
+    
+    plaplace <- function(q, m, s) {
+      ifelse(q < m, 0.5 * exp((q-m)/s), 1 - 0.5 * exp(-(q-m)/s))
+    }
+    
+    laplace_fit <- fitdist(returns, "laplace", start = list(m = mean(returns), s = sd(returns)/sqrt(2)),
+                          method = "mle")
+    
+    ks_laplace <- ks.test(returns, "plaplace", m = laplace_fit$estimate["m"], 
+                          s = laplace_fit$estimate["s"])
+    
+    results <- rbind(results, data.frame(
+      Distribution = "Laplace",
+      LogLikelihood = laplace_fit$loglik,
+      AIC = laplace_fit$aic,
+      BIC = laplace_fit$bic,
+      KS_Statistic = ks_laplace$statistic,
+      KS_PValue = ks_laplace$p.value,
+      Parameters = 2
+    ))
+  }, error = function(e) {
+    message("Error fitting Laplace distribution for ", asset_name, ": ", e$message)
+  })
+  
+  # Add asset name to results
+  results$Asset <- asset_name
+  
+  return(results)
+}
+
+# Fit distributions for each asset
+all_results <- data.frame()
+
+for(asset in colnames(asset_returns)) {
+  cat("Fitting distributions for", asset, "...\n")
+  asset_results <- fit_and_compare(asset_returns[[asset]], asset)
+  all_results <- rbind(all_results, asset_results)
+}
+
+# Determine best fitting distribution for each asset based on AIC
+best_fits_aic <- all_results %>%
+  group_by(Asset) %>%
+  filter(!is.na(AIC)) %>%
+  slice_min(AIC, n = 1) %>%
+  select(Asset, Best_Distribution_AIC = Distribution, AIC, LogLikelihood, KS_Statistic, KS_PValue)
+
+# Determine best fitting distribution for each asset based on BIC
+best_fits_bic <- all_results %>%
+  group_by(Asset) %>%
+  filter(!is.na(BIC)) %>%
+  slice_min(BIC, n = 1) %>%
+  select(Asset, Best_Distribution_BIC = Distribution, BIC, LogLikelihood, KS_Statistic, KS_PValue)
+
+# Print results
+cat("\n=== BEST FITTING DISTRIBUTIONS (AIC CRITERION) ===\n")
+print(best_fits_aic)
+
+cat("\n=== BEST FITTING DISTRIBUTIONS (BIC CRITERION) ===\n")
+print(best_fits_bic)
+
+cat("\n=== DETAILED RESULTS FOR ALL DISTRIBUTIONS ===\n")
+print(all_results)
+
+# Basic statistics for each asset
+cat("\n=== BASIC STATISTICS FOR EACH ASSET ===\n")
+for(asset in colnames(asset_returns)) {
+  returns <- na.omit(asset_returns[[asset]])
+  moments <- calculate_moments(returns)
+  
+  cat("\n", asset, ":\n")
+  cat("  Observations:", length(returns), "\n")
+  cat("  Mean:", round(mean(returns), 6), "\n")
+  cat("  Std Dev:", round(sd(returns), 6), "\n")
+  cat("  Skewness:", round(moments$skewness, 6), "\n")
+  cat("  Kurtosis:", round(moments$kurtosis, 6), "\n")
+  cat("  Jarque-Bera p-value:", round(tseries::jarque.bera.test(returns)$p.value, 6), "\n")
+  cat("  Min:", round(min(returns), 6), "Max:", round(max(returns), 6), "\n")
+}
+
+# Visualization: Compare distributions for each asset
+for(asset in colnames(asset_returns)) {
+  returns <- na.omit(asset_returns[[asset]])
+  
+  # Get best fitting distribution
+  best_dist <- best_fits_aic %>% filter(Asset == asset) %>% pull(Best_Distribution_AIC)
+  
+  # Create density plot
+  df <- data.frame(Returns = returns)
+  
+  p <- ggplot(df, aes(x = Returns)) +
+    geom_histogram(aes(y = ..density..), bins = 20, alpha = 0.6, fill = "lightblue", color = "black") +
+    geom_density(alpha = 0.5, fill = "red", color = "red") +
+    stat_function(fun = dnorm, args = list(mean = mean(returns), sd = sd(returns)), 
+                  aes(color = "Normal"), size = 1, linetype = "dashed") +
+    labs(title = paste("Distribution Fit for", asset),
+         subtitle = paste("Best fit:", best_dist),
+         x = "Returns", y = "Density") +
+    scale_color_manual(name = "Distributions", values = c("Normal" = "blue")) +
+    theme_minimal() +
+    theme(legend.position = "top")
+  
+  print(p)
+}
+
+# Summary table of best fits
+cat("\n=== SUMMARY OF BEST FITTING DISTRIBUTIONS ===\n")
+summary_table <- best_fits_aic %>%
+  group_by(Best_Distribution_AIC) %>%
+  summarise(Count = n()) %>%
+  arrange(desc(Count))
+
+print(summary_table)
+
+# Save results to CSV
+write.csv(all_results, "distribution_fit_results.csv", row.names = FALSE)
+write.csv(best_fits_aic, "best_distributions_aic.csv", row.names = FALSE)
+
+cat("\nResults saved to CSV files:\n")
+cat("- distribution_fit_results.csv\n")
+cat("- best_distributions_aic.csv\n")
+```
+
+## a
+> 
+
+## d
+
+```{r}
+# Find the 95% confidence interval of lambda
+
+range(bc$x[ind2])
+```
+
+## e
+```{r}
+# Find the 99% confidence interval of lambda
+
+bc = boxcox(male.earnings ~ 1, lambda = seq(0.3, 0.45, by = 1 / 100),
+       interp = FALSE)
+    ind = (bc$y == max(bc$y))
+    ind2 = (bc$y > max(bc$y) - qchisq(0.99, df = 1) / 2)
+    bc$x[ind]
+    bc$x[ind2]
+    
+range(bc$x[ind2])
+```
+
+```{r}
+library("fGarch")
+   fit = sstdFit(male.earnings, hessian = TRUE)
+```
+
+```{r}
+fit
+```
+
+
+
+# Problem 5
+
+```{r}
+library(Ecdat)
+       data(CRSPday)
+       dimnames(CRSPday)[[2]]
+       
+r = CRSPday[ ,5]
+       plot(r)
+
+       mode(r)
+       class(r)
+       
+       r2 = as.numeric(r)
+       class(r2)
+       plot(r2)
+       
+       cov(CRSPday[ ,4:6])
+       cor(CRSPday[ ,4:6])
+       apply(CRSPday[ ,4:6], 2, mean)
+```
+
+```{r}
+apply(CRSPday[ ,4:6], 2, mean)
+cov(CRSPday[ ,4:6])
+```
+
+# Test
+
+```{r}
+bupa <- read.csv("bupa.data", header = FALSE)
+
+bupa1 <- read.csv("bupa.names", header = FALSE)
+
+bupa
+
+bupa1
+```
+
+
+```{r}
+# Load necessary library for standard normal CDF (Phi)
+# The pnorm() function in R provides the standard normal CDF
+# library(stats) # 'stats' is usually loaded by default
+
+# --- 1. Parameter Setup ---
+# Market and Option Parameters
+mu <- 0.25      # Stock drift
+r <- 0.05       # Risk-free rate
+sigma <- 0.5    # Volatility
+S0 <- 10        # Initial stock price
+K <- 10         # Strike price
+T_time <- 1     # Time to maturity
+num_simulations <- 10000 # Number of simulation paths
+
+# Discretization Parameters
+num_steps <- 252 # Daily steps (approx. trading days in a year)
+dt <- T_time / num_steps
+
+# --- 2. Black-Scholes Formula Functions ---
+
+# Function to calculate d1 for the Black-Scholes formula
+d1_BS <- function(S, K, r, sigma, tau) {
+  return((log(S / K) + (r + 0.5 * sigma^2) * tau) / (sigma * sqrt(tau)))
+}
+
+# Function to calculate European Call Price (P_t)
+call_price_BS <- function(S, K, r, sigma, tau) {
+  if (tau <= 0) {
+    return(max(S - K, 0)) # Payoff at maturity
+  }
+  d1 <- d1_BS(S, K, r, sigma, tau)
+  d2 <- d1 - sigma * sqrt(tau)
+  
+  # Black-Scholes Call Price
+  C <- S * pnorm(d1) - K * exp(-r * tau) * pnorm(d2)
+  return(C)
+}
+
+# Function to calculate Delta (delta_t)
+delta_BS <- function(S, K, r, sigma, tau) {
+  if (tau <= 0) {
+    return(as.numeric(S > K)) # Delta is 1 if in the money, 0 otherwise
+  }
+  d1 <- d1_BS(S, K, r, sigma, tau)
+  
+  # Delta for a European Call
+  Delta <- pnorm(d1)
+  return(Delta)
+}
+
+# --- 3. Simulation and Hedging Loop ---
+
+hedging_errors <- numeric(num_simulations)
+
+for (i in 1:num_simulations) {
+  
+  # Initialize paths and portfolio
+  S <- numeric(num_steps + 1)
+  Delta <- numeric(num_steps + 1)
+  B <- numeric(num_steps + 1) # Bank account
+  H <- numeric(num_steps + 1) # Hedging portfolio value
+  
+  S[1] <- S0
+  B[1] <- 1 # Bond starts at 1, but we track the cash held (psi * B_t)
+
+  # Initial values at t=0
+  time <- 0
+  tau <- T_time - time
+  
+  # Initial Option Price (P_0)
+  P0 <- call_price_BS(S0, K, r, sigma, tau)
+  
+  # Initial Delta (delta_0)
+  Delta[1] <- delta_BS(S0, K, r, sigma, tau)
+  
+  # Initial Portfolio Value (H_0 = P_0)
+  H[1] <- P0 
+  
+  # Initial cash position (psi_0 * B_0): H_0 - delta_0 * S_0
+  psi <- (H[1] - Delta[1] * S[1]) / B[1] 
+  
+  # --- Discrete Time Step Iteration ---
+  for (j in 1:num_steps) {
+    time <- j * dt
+    tau <- T_time - time
+    
+    # 1. Simulate Stock Price Movement (using P-dynamics)
+    dW <- rnorm(1, 0, 1) # Standard normal increment
+    S[j+1] <- S[j] * exp((mu - 0.5 * sigma^2) * dt + sigma * sqrt(dt) * dW)
+    
+    # 2. Update Bond (Bank Account) Value
+    B[j+1] <- B[j] * exp(r * dt) # B_t solves dB_t = r B_t dt, so B_t = exp(r*t)
+    
+    # 3. Portfolio Update (Hypothetical Continuous Time for comparison)
+    # This step is mainly for demonstrating the self-financing condition:
+    # dH_t = phi_t dS_t + psi_t dB_t (where phi_t = Delta_t)
+    # In discrete time, the change in portfolio value *before* rebalancing is:
+    H_prev <- Delta[j] * S[j+1] + psi * B[j+1] 
+    H[j+1] <- H_prev # Portfolio value before rebalancing
+
+    # 4. Rebalancing (at time t_j):
+    
+    # Calculate new Delta for the next interval [t_j, t_{j+1}]
+    # This is the number of shares (phi) to hold *after* rebalancing at t_j
+    Delta[j+1] <- delta_BS(S[j+1], K, r, sigma, tau)
+    
+    # Determine new cash position (psi * B_{j+1}) required for the self-financing hedge
+    # The new cash amount psi' is determined such that:
+    # H_{j+1} = Delta_{j+1} * S_{j+1} + psi' * B_{j+1}
+    # where H_{j+1} is the value *before* transaction costs (which is H_prev)
+    psi <- (H[j+1] - Delta[j+1] * S[j+1]) / B[j+1]
+  }
+  
+  # --- 4. Terminal Evaluation ---
+  
+  # Actual Option Payoff (P_T)
+  ST <- S[num_steps + 1]
+  PT <- max(ST - K, 0) 
+  
+  # Hedging Portfolio Value at T (H_T)
+  HT <- H[num_steps + 1]
+  
+  # Hedging Error
+  hedging_errors[i] <- PT - HT
+}
+
+# --- 5. Results and Visualization ---
+
+# Calculate statistics
+mean_error <- mean(hedging_errors)
+sd_error <- sd(hedging_errors)
+
+# Create the histogram
+hist(hedging_errors, 
+     breaks = 50, # Number of bins
+     main = "Histogram of Discrete Delta Hedging Error ($P_T - H_T$)", 
+     xlab = expression(Hedging~Error~(P[T] - H[T])), 
+     col = "skyblue", 
+     border = "white")
+
+# Add a vertical line at the mean error
+abline(v = mean_error, col = "red", lwd = 2, lty = 2)
+
+# Add text summary
+legend("topright", 
+       legend = c(
+         paste("Mean Error: ", format(mean_error, digits = 4)),
+         paste("Std Dev: ", format(sd_error, digits = 4)),
+         paste("Simulations: ", num_simulations)
+       ),
+       bty = "n", cex = 0.9)
+
+# Print a summary of the error
+cat("\n--- Hedging Error Summary ---\n")
+cat("Mean Hedging Error: ", mean_error, "\n")
+cat("Standard Deviation: ", sd_error, "\n")
+
+# For verification: Calculate the theoretical Black-Scholes Price P_0
+P_theoretical <- call_price_BS(S0, K, r, sigma, T_time)
+cat("Theoretical P_0: ", P_theoretical, "\n")
+cat("Average H_0 (should be P_0): ", H[1], "\n")
+```
+
+
+```{r}
+# -----------------------------
+# Discrete Delta-Hedging in BS
+# -----------------------------
+
+set.seed(42)
+
+# Parameters
+mu     <- 0.25
+r      <- 0.05
+sigma  <- 0.5
+S0     <- 10
+K      <- 10
+Tmat   <- 1.0
+dt     <- 1/252         # choose your time step (e.g., daily)
+n_steps <- as.integer(Tmat/dt)
+n_sims <- 20000         # number of simulation paths
+
+# --- Black-Scholes helpers (risk-neutral) ---
+bs_call_price <- function(S, K, r, sigma, tau){
+  if (tau <= 0) return(pmax(S - K, 0))
+  d1 <- (log(S / K) + (r + 0.5 * sigma^2) * tau) / (sigma * sqrt(tau))
+  d2 <- d1 - sigma * sqrt(tau)
+  S * pnorm(d1) - K * exp(-r * tau) * pnorm(d2)
+}
+
+bs_call_delta <- function(S, K, r, sigma, tau){
+  if (tau <= 0) return(as.numeric(S > K))  # limit as tau->0
+  d1 <- (log(S / K) + (r + 0.5 * sigma^2) * tau) / (sigma * sqrt(tau))
+  pnorm(d1)
+}
+
+# Initial option price (risk-neutral)
+P0 <- bs_call_price(S0, K, r, sigma, Tmat)
+
+# Storage for hedging errors
+hedge_error <- numeric(n_sims)
+
+# Simulate and hedge
+for (m in 1:n_sims) {
+  S <- S0
+  
+  # t = 0: set initial hedge (Delta0) and cash so portfolio H0 = P0
+  tau0   <- Tmat
+  Delta  <- bs_call_delta(S, K, r, sigma, tau0)
+  Cash   <- P0 - Delta * S   # money in bank account
+  for (i in 1:n_steps) {
+    Z  <- rnorm(1)
+    S  <- S * exp((mu - 0.5 * sigma^2) * dt + sigma * sqrt(dt) * Z)
+    Cash <- Cash * exp(r * dt)
+    t    <- i * dt
+    tau  <- max(Tmat - t, 0)
+    H_before <- Delta * S + Cash
+    
+    if (tau > 0) {
+      # compute new delta and rebalance self-financing
+      Delta_new <- bs_call_delta(S, K, r, sigma, tau)
+      Cash <- H_before - Delta_new * S
+      Delta <- Delta_new
+    } else {
+      break
+    }
+  }
+  
+  # Terminal portfolio value and payoff
+  H_T <- Delta * S + Cash
+  payoff <- pmax(S - K, 0)
+  
+  # Hedging error: P_T - H_T (P_T equals payoff at maturity)
+  hedge_error[m] <- payoff - H_T
+}
+
+# Summary stats
+cat(sprintf("Mean hedging error: % .6f\n", mean(hedge_error)))
+cat(sprintf("Std  hedging error: % .6f\n", sd(hedge_error)))
+cat(sprintf("Median error      : % .6f\n", median(hedge_error)))
+cat(sprintf("95%% CI (approx)   : [% .6f, % .6f]\n",
+            mean(hedge_error) - 1.96*sd(hedge_error)/sqrt(n_sims),
+            mean(hedge_error) + 1.96*sd(hedge_error)/sqrt(n_sims)))
+
+# Histogram
+hist(hedge_error, breaks = 60,
+     main = "Discrete Delta-Hedging Error:  P_T - H_T",
+     xlab = "Hedging Error at T",
+     ylab = "Frequency")
+abline(v = mean(hedge_error), lwd = 2)
+
+```
+
