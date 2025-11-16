@@ -1,0 +1,643 @@
+\documentclass[letterpaper]{article} 
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage[version=4]{mhchem}
+\usepackage{stmaryrd}
+\usepackage[dvipsnames]{xcolor}
+\colorlet{LightRubineRed}{RubineRed!70}
+\colorlet{Mycolor1}{green!10!orange}
+\definecolor{Mycolor2}{HTML}{00F9DE}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{lipsum}
+\usepackage{fancyvrb}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage[export]{adjustbox}
+\graphicspath{ {./images/} }
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{hyperref} 
+\usepackage{xcolor} % For custom colors
+\lstset{
+	language=Python,                % Choose the language (e.g., Python, C, R)
+	basicstyle=\ttfamily\small, % Font size and type
+	keywordstyle=\color{blue},  % Keywords color
+	commentstyle=\color{gray},  % Comments color
+	stringstyle=\color{red},    % String color
+	numbers=left,               % Line numbers
+	numberstyle=\tiny\color{gray}, % Line number style
+	stepnumber=1,               % Numbering step
+	breaklines=true,            % Auto line break
+	backgroundcolor=\color{black!5}, % Light gray background
+	frame=single,               % Frame around the code
+}
+\usepackage{float}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+\usepackage[]{amssymb} %gives us the character \varnothing
+
+	\title{Homework 4, MATH 5261}
+	\author{Zongyi Liu}
+	\date{Wed, Oct 1, 2025}
+	
+	\begin{document}
+		\maketitle
+		
+	   {Github Repository Directory}: \url{https:/github.com/zongyiliu/STAT5261/tree/main/Homework_4}
+		
+		\section{Question 1}
+		
+		Do problems 1, 2, and 3 from Section 16.10.1 of Chapter 16. Each problem is worth 5 points. To receive full credit, you must provide both:
+		
+		\begin{itemize}
+			\item The R code you used to solve each problem.
+			\item Your answers to each question.
+		\end{itemize}
+	
+		\subsection{Problem 1}
+		
+		This section uses daily stock prices in the data set \texttt{Stock Bond.csv} that is posted on the book’s website and in which any variable whose name ends with “AC” is an adjusted closing price. As the name suggests, these prices have been adjusted for dividends and stock splits, so that returns can be calculated without further adjustments. Run the following code which will read the data, compute the returns for six stocks, create a scatterplot matrix of these returns, and compute the mean vector, covariance matrix, and vector of standard deviations of the returns. Note that returns will be percentages.
+		
+		Write an R program to find the efficient frontier, the tangency portfolio, and the minimum variance portfolio, and plot on “reward-risk space” the location of each of the six stocks, the efficient frontier, the tangency portfolio, and the line of efficient portfolios. Use the constraints that $−0.1 \leq w_j \leq 0.5$ for each stock. The first constraint limits short sales but does not rule them out completely. The second constraint prohibits more than 50\% of the investment in any single stock. Assume that the annual risk-free rate is 3\% and convert this to a daily rate by dividing by 365, since interest is earned on trading as well as nontrading days.
+		
+		\textbf{Answer}
+		
+		Firstly to read the data as code given in textbook:
+		
+		\begin{lstlisting}
+     dat = read.csv("Stock_Bond.csv", header = T)
+     prices = cbind(dat$GM_AC, dat$F_AC, dat$CAT_AC, dat$UTX_AC,
+     dat$MRK_AC, dat$IBM_AC)
+     n = dim(prices)[1]
+     returns =  100 * (prices[2:n, ] / prices[1:(n-1), ] - 1)
+     pairs(returns)
+     mean_vect = colMeans(returns)
+     cov_mat = cov(returns)
+     sd_vect = sqrt(diag(cov_mat))
+		\end{lstlisting}
+		
+		
+For
+\begin{lstlisting}
+     mean_vect
+\end{lstlisting}
+
+		We get:
+		
+\begin{minipage}{\linewidth}
+	\begin{Verbatim}
+     0.04089730 0.04786051 0.07989876 0.07284620 0.06240313 0.04616853
+	\end{Verbatim}
+\end{minipage}
+
+		For
+\begin{lstlisting}
+	cov_mat
+\end{lstlisting}
+
+We get:
+
+\begin{minipage}{\linewidth}
+	\begin{Verbatim}
+		[,1]      [,2]      [,3]      [,4]      [,5]      [,6]
+		[1,] 4.2605957 2.6699572 1.4654812 1.2455745 0.8957578 1.2340664
+		[2,] 2.6699572 4.4391064 1.5316444 1.2740768 0.9780046 1.1875001
+		[3,] 1.4654812 1.5316444 3.9094617 1.3875721 0.8230401 1.1040855
+		[4,] 1.2455745 1.2740768 1.3875721 3.0467665 0.8154347 0.9491030
+		[5,] 0.8957578 0.9780046 0.8230401 0.8154347 3.0879666 0.7996968
+		[6,] 1.2340664 1.1875001 1.1040855 0.9491030 0.7996968 3.6498981
+	\end{Verbatim}
+\end{minipage}
+
+		For
+		
+\begin{lstlisting}
+	sd_vect
+\end{lstlisting}
+
+We get:
+
+\begin{minipage}{\linewidth}
+	\begin{Verbatim}
+		2.064121 2.106919 1.977236 1.745499 1.757261 1.910471
+	\end{Verbatim}
+
+The scatterplot can be generated as below:
+
+\includegraphics[max width=\textwidth, center]{Q1_1_1}
+\captionof{figure}{Scatterplot of returns} 
+\end{minipage}
+
+To find the efficient frontier and plot it in graph, I have R code as below; it was inspired by the sample code provided by the author to generate Figure 16.1 in the textbook.
+
+     \begin{lstlisting}
+     # dat <- read.csv("Stock_Bond.csv", header = TRUE)
+     # read the library: library(quadprog)
+     
+     prices  <- cbind(dat$GM_AC, dat$F_AC, dat$CAT_AC, dat$UTX_AC, dat$MRK_AC, dat$IBM_AC)
+     n       <- nrow(prices)
+     returns <- 100 * (prices[2:n, ] / prices[1:(n-1), ] - 1)  # unit: % per day
+     mean_vect <- colMeans(returns)
+     cov_mat   <- cov(returns)
+     sd_vect   <- sqrt(diag(cov_mat))
+     tickers   <- c("GM","F","CAT","UTX","MRK","IBM")
+     
+     ## setting
+     M   <- length(mean_vect)
+     rf  <- (0.03/365) * 100    # annual 3% converted to daily percentage to match 'returns'
+     lb  <- -0.10               # allow up to 10% short (w_j >= -0.1)
+     ub  <-  0.50               # cap any single weight at 50% (w_j <= 0.5)
+     
+     # quadprog uses t(Amat) %*% w >= bvec, with the first 'meq' constraints as equalities
+     Amat <- cbind(rep(1, M),        # sum w = 1
+     mean_vect,        # target mean
+     diag(M),          # w_j >= lb
+     -diag(M))         # -w_j >= -ub  (i.e., w_j <= ub)
+     
+     solve_frontier <- function(mu_grid, Sigma, mu) {
+     	k <- length(mu_grid)
+     	sdP <- numeric(k)
+     	W   <- matrix(NA_real_, nrow = k, ncol = M)
+     	Dmat <- Sigma + 1e-10 * diag(M)
+     	for (i in seq_len(k)) {
+     		bvec <- c(1, mu_grid[i], rep(lb, M), rep(-ub, M))
+     		res  <- solve.QP(Dmat = Dmat, dvec = rep(0, M), Amat = Amat, bvec = bvec, meq = 2)
+     		sdP[i] <- sqrt(2 * res$value)   # res$value = (1/2) * w' * Sigma * w
+     		W[i, ] <- res$solution
+     	}
+     	list(sd = sdP, W = W)
+     }
+     
+     mu_grid <- seq(min(mean_vect) + 1e-4, max(mean_vect) - 1e-4, length.out = 300)
+     fr <- solve_frontier(mu_grid, cov_mat, mean_vect)
+     sdP <- fr$sd
+     W   <- fr$W
+     
+     ## global MVP
+     i_gmv  <- which.min(sdP)
+     w_gmv  <- W[i_gmv, ]
+     mu_gmv <- mu_grid[i_gmv]
+     sd_gmv <- sdP[i_gmv]
+     
+     ## tangency under the same bounds
+     sharpe <- (mu_grid - rf) / sdP
+     i_tan  <- which.max(sharpe)
+     w_tan  <- W[i_tan, ]
+     mu_tan <- mu_grid[i_tan]
+     sd_tan <- sdP[i_tan]
+     
+     ## print weights
+     cat("\n== GMV weights ==\n")
+     print(setNames(round(w_gmv, 4), tickers))
+     cat("GMV mean =", round(mu_gmv, 5), "%  sd =", round(sd_gmv, 5), "%\n")
+     
+     cat("\n== Tangency weights (bounds -0.1..0.5, rf =", round(rf,5), "%/day) ==\n")
+     print(setNames(round(w_tan, 4), tickers))
+     cat("Tangency mean =", round(mu_tan, 5), "%  sd =", round(sd_tan, 5),
+     "%  Sharpe =", round(max(sharpe), 4), "\n\n")
+     
+     ## plot
+     plot(sd_vect, mean_vect, pch = 19, cex = 1.1,
+     xlab = "Risk (sd per day)", ylab = "Expected return",
+     xlim = c(0, max(c(sd_vect, sdP)) * 1.05),
+     ylim = range(c(mean_vect, mu_grid, rf)))
+     text(sd_vect, mean_vect, labels = tickers, pos = 4, cex = 0.9)
+     
+     # full (bounded) frontier
+     lines(sdP, mu_grid, col = "gray60", lwd = 1)
+     
+     # efficient part (to the right of GMV: higher mean than GMV)
+     eff_idx <- mu_grid > mu_gmv
+     lines(sdP[eff_idx], mu_grid[eff_idx], col = "red", lwd = 3)
+     
+     # risk-free point, tangency point, and CML
+     points(0, rf, pch = 8, cex = 1.2, col = "blue")
+     points(sd_tan, mu_tan, pch = 19, cex = 1.2, col = "purple")
+     
+     # Capital Market Line from rf through the tangency portfolio
+     x_cml <- seq(0, max(sdP), length.out = 100)
+     y_cml <- rf + (mu_tan - rf) / sd_tan * x_cml
+     lines(x_cml, y_cml, col = "blue")
+     
+     legend("topleft",
+     legend = c("Assets", "Frontier (feasible)", "Efficient frontier",
+     "Risk-free", "Tangency", "CML"),
+     pch = c(19, NA, NA, 8, 19, NA),
+     lty = c(NA, 1, 1, NA, NA, 2),
+     col = c("black", "gray60", "red", "blue", "purple", "blue"),
+     pt.cex = c(1.1, NA, NA, 1.2, 1.2, NA),
+     lwd = c(NA, 1, 3, NA, NA, 2), bty = "n")
+    \end{lstlisting}
+
+\includegraphics[max width=\textwidth, center]{Q1_1_2}
+\captionof{figure}{Expected return versus risk} 
+		
+		\subsection{Problem 2}
+		
+		If an investor wants an efficient portfolio with an expected daily return of 0.07\%, how should the investor allocate his or her capital to the six stocks and to the risk-free asset? Assume that the investor wishes to use the tangency portfolio computed with the constraints $−0.1 \leq w_j \leq 0.5$, not the unconstrained tangency portfolio.
+		
+			\textbf{Answer}
+     
+     Here we have:
+     
+          \begin{lstlisting}
+     target <- 0.07
+     
+     y <- (target - rf) / (mu_tan - rf) # mix proportion in the tangency portfolio
+     w_final <- y * w_tan # weights in the 6 risky stocks
+     w_rf    <- 1 - y # weight in risk-free
+     sigma_final <- y * sd_tan # portfolio risk (sd, %/day)
+     
+     cat("y =", round(y,7), "\n")
+     print(setNames(round(w_final,7), c("GM","F","CAT","UTX","MRK","IBM")))
+     cat("Risk-free weight =", round(w_rf,4), "\n")
+     cat("Target risk (sd, %/day) =", round(sigma_final,7), "\n")
+    \end{lstlisting}
+
+  The answer is:
+
+
+\begin{minipage}{\linewidth}
+	\begin{Verbatim}
+     y = 0.9472562 
+     GM          F        CAT        UTX        MRK        IBM 
+     -0.0872159 -0.0030514  0.3186343  0.3641956  0.3027479  0.0519458 
+     
+     Risk-free weight = 0.0527 
+	\end{Verbatim}
+\end{minipage}
+
+We should buy each of six assets accordingly, and also need to buy 0.0527 of our portfolio of the risk-free asset. 
+  
+		
+		\subsection{Problem 3}
+		
+		Does this data set include Black Monday?
+		
+		\textbf{Answer}
+		
+		Yes, it was included. Black Monday is October 19th 1987, we can check by selecting the date:
+		
+		\begin{lstlisting}
+     dat[ dat$Date == "19-Oct-87", ]
+		\end{lstlisting}
+		
+		The print result is as below:
+		
+		
+		\includegraphics[max width=\textwidth, center]{Q3_3_1}
+		\captionof{figure}{Row of Oct 19, 1987}
+
+  To make more clear, we can also plot the graph of stock price during this period. 
+  \begin{lstlisting}
+     library(ggplot2)
+     library(tidyr)
+     library(readr)
+     
+     dat_500 <- head(dat, 500)
+     
+     # Select AC for 6 stocks
+     dat_prices <- dat_500[, c("Date", "GM_AC", "F_AC", "UTX_AC", "CAT_AC", "MRK_AC", "IBM_AC")]
+     
+     # pivot longer
+     dat_long <- pivot_longer(dat_prices, 
+     cols = -Date,
+     names_to = "Stock",
+     values_to = "Price")
+     
+     dat_long$Date <- as.Date(dat_long$Date, format = "%d-%b-%y")
+     
+     ggplot(dat_long, aes(x = Date, y = Price, color = Stock)) +
+     geom_line(size = 1) +
+     labs(title = "Stock Price Changes 1987-89",
+     x = "Date", y = "Adjusted Closing Price") +
+     theme_minimal()
+ 	\end{lstlisting}
+ 
+ We can see that there is a sharp decrease on October 19th, 1987, which is known as the Black Monday. On that day, there was a severe stock market crash, the worldwide losses were estimated at \$1.71 trillion. 
+ 
+  \includegraphics[max width=\textwidth, center]{Q3_3_2}
+  \captionof{figure}{Stock price over time}
+		\clearpage
+		
+		\section{Question 2}
+		Suppose a firm is planning to invest $\$ 1,000,000$ in a combination of a risk-free asset and a risky asset A. Assume:
+
+$$
+\mu_{f}=5 \%, \quad \mu_{A}=12 \%, \quad \sigma_{A}=25 \%
+$$
+
+The company has capital reserves to cover losses up to $\$ 200,000$, and they want the probability of losing this amount or more to be at most 0.01 .
+
+If the return of the portfolio is:
+
+$$
+R=\omega \mu_{A}+(1-\omega) \mu_{f}
+$$
+
+and the return is normally distributed, find the value of $\omega$ that satisfies the risk requirement.
+	
+	\textbf{Answer}
+	
+	Same as the mechanism of Example 16.2 in book, we have:
+	
+	Here the portfolio return $(R\sim N(\mu_R,\sigma_R^2))$ with
+	
+	$$
+	\mu_R=\omega\mu_A+(1-\omega)\mu_f=0.05+0.07,\omega,\qquad
+	\sigma_R=\omega\sigma_A=0.25,\omega .
+	$$
+	
+	Losing \$200{,}000 or more on \$1,000,000 means $(R\le -0.20)$, then we have (in textbook  $\Phi(0.01)=2.33$, but the more precise estimation is 2.3263, which I used here):
+	
+	$$
+	\Phi!\left(\frac{-0.20-\mu_R}{\sigma_R}\right)\le 0.01
+	;\Longrightarrow;
+	\frac{-0.20-\mu_R}{\sigma_R}\le z_{0.01}=-2.3263.
+	$$
+	
+	Thus we got:
+	
+	$$
+	\mu_R ;\ge; -0.20+2.3263,\sigma_R
+	;\Longrightarrow;
+	0.05+0.07\omega ;\ge; -0.20+2.3263(0.25\omega).
+	$$
+	
+	Solve for ($\omega$):
+	
+	$$
+	0.25 \ge (0.581575-0.07)\omega ;\Rightarrow;
+	\omega \le \frac{0.25}{0.511575}\approx 0.4887.
+	$$
+	
+	So the largest risky weight satisfying the 0.01 loss constraint is:
+	
+	$$
+	{\omega \approx 0.489.}
+	$$
+	
+		
+		\clearpage
+		
+			\section{Question 3}
+		
+		The table below gives sample statistics (monthly means, standard deviations, and covariances) for returns on Microsoft, Nordstrom, and Starbucks over the period January 1995 to January 2000.
+		
+		\begin{center}
+			\begin{tabular}{cccc}
+				\hline
+				Asset & $\mu_{i}$ & $\sigma_{i}$ & Covariances \\
+				\hline
+				A (Microsoft) & 0.0427 & 0.1000 & $\sigma_{A B}=0.0018$ \\
+				B (Nordstrom) & 0.0015 & 0.1044 & $\sigma_{A C}=0.0011$ \\
+				C (Starbucks) & 0.0285 & 0.1411 & $\sigma_{B C}=0.0026$ \\
+				\hline
+			\end{tabular}
+		\end{center}
+		
+		\begin{itemize}
+		 \item (a) (4pt) Find the global minimum variance portfolio. What is its mean? What is its variance?
+		 \item (b) (4pt) Find the efficient portfolio of these assets with the same expected return as Microsoft. What is its risk?
+		\item (c) (4pt) Assume a risk-free rate of 0.0001 per month (T-bill). What are the weights of the tangency portfolio?
+		 \item (d) (3pt) Find the portfolio made up of the risky assets and the risk-free asset that has the same expected return as Microsoft. What is its risk equal to?
+		\end{itemize}
+	
+	\textbf{Answer}
+	
+	
+	\subsection{Part a}
+	
+	Use Lagrange multipliers to find the global minimum variance portfolio (MVP)
+	
+	\[
+	\min_{w\in\mathbb{R}^n}\ \tfrac12\,w^\top \Sigma w
+	\quad \text{s.t. } \mathbf{1}^\top w=1,
+	\]
+	where $\Sigma$ is the covariance matrix, $\mathbf{1}=(1,\dots,1)^\top$.
+	
+	\[
+	\mathcal{L}(w,\lambda)=\tfrac12\,w^\top \Sigma w-\lambda(\mathbf{1}^\top w-1).
+	\]
+	First-order conditions:
+	\[
+	\nabla_w \mathcal{L}=\Sigma w-\lambda \mathbf{1}=0,\qquad \mathbf{1}^\top w=1.
+	\]
+	Hence $w=\lambda\,\Sigma^{-1}\mathbf{1}$ and
+	\[
+	1=\mathbf{1}^\top w=\lambda\,\mathbf{1}^\top \Sigma^{-1}\mathbf{1}
+	\ \Longrightarrow\
+	\lambda=\frac{1}{\mathbf{1}^\top \Sigma^{-1}\mathbf{1}}.
+	\]
+	Therefore we have:
+	
+	\[
+	{\,w_{\mathrm{GMV}}=\frac{\Sigma^{-1}\mathbf{1}}{\mathbf{1}^\top \Sigma^{-1}\mathbf{1}}\,},\qquad
+	{\,\sigma^2_{\mathrm{GMV}}=\frac{1}{\mathbf{1}^\top \Sigma^{-1}\mathbf{1}}\,},\qquad
+	{\,\mu_{\mathrm{GMV}}=w_{\mathrm{GMV}}^\top \mu\,}.
+	\]
+	
+	
+	In this case, we have:
+	
+	\[
+	\Sigma=
+	\begin{bmatrix}
+		0.01000000&0.00180000&0.00110000\\
+		0.00180000&0.01089936&0.00260000\\
+		0.00110000&0.00260000&0.01990921
+	\end{bmatrix},\quad
+	\mu=\begin{bmatrix}0.0427\\ 0.0015\\ 0.0285\end{bmatrix}.
+	\]
+	Then
+	\[
+	w_{\mathrm{MVP}}\approx
+	\begin{bmatrix}
+		0.44113\\ 0.36569\\ 0.19318
+	\end{bmatrix},\qquad
+	\mu_{\mathrm{MVP}}\approx 0.02489,\qquad
+	\sigma_{\mathrm{MVP}}\approx 0.07268\ (\sigma^2\approx 0.005282).
+	\]
+	
+	
+	\subsection{Part b}
+	
+	To find the efficient portfolio with target mean equal to Microsoft's mean
+	
+	\[
+	\mu=\begin{bmatrix}0.0427\\0.0015\\0.0285\end{bmatrix},\quad
+	\Sigma=\begin{bmatrix}
+		0.01000000 & 0.00180000 & 0.00110000\\
+		0.00180000 & 0.01089936 & 0.00260000\\
+		0.00110000 & 0.00260000 & 0.01990921
+	\end{bmatrix},\quad
+	\mu_P=\mu_A=0.0427,\ \mathbf{1}=(1,1,1)^\top.
+	\]
+	
+	Let:
+	\[
+	a=\mathbf{1}^\top\Sigma^{-1}\mathbf{1},\quad
+	b=\mathbf{1}^\top\Sigma^{-1}\mu,\quad
+	c=\mu^\top\Sigma^{-1}\mu.
+	\]
+	
+	Make the least variance of the targeted profit be: 
+	
+	
+	\[
+	w(\mu_P)=\lambda\,\Sigma^{-1}\mathbf{1}+\gamma\,\Sigma^{-1}\mu,\qquad
+	\begin{bmatrix}\lambda\\ \gamma\end{bmatrix}
+	=\frac{1}{ac-b^2}\begin{bmatrix}c & -b\\ -b & a\end{bmatrix}
+	\begin{bmatrix}1\\ \mu_P\end{bmatrix}.
+	\]
+	
+	Then we have:
+	
+	\[
+	w^*=\begin{bmatrix}
+		0.8275\\[2pt]-0.0907\\[2pt]0.2632
+	\end{bmatrix}
+	\quad(\text{A,B,C}),\qquad
+	\mu(w^*)=\mu_P=0.0427.
+	\]
+	
+	Its risk is:
+	
+	\[
+	\sigma(w^*)=\sqrt{\,{w^*}^\top\Sigma\,w^*\,}\ \approx\ 0.09166\ \ (\text{}9.166\%),
+	\]
+	
+	The variance is:
+	
+	\[
+	\sigma^2(w^*)\approx 0.008401.
+	\]
+	
+	\subsection{Part c}
+	% How to solve for the tangency (maximum Sharpe) portfolio weights
+	
+	Let the mean vector be $\mu\in\mathbb{R}^3$, covariance matrix $\Sigma\in\mathbb{R}^{3\times3}$ (symmetric
+	positive definite), and risk–free rate $r_f$.
+	Define the excess–return vector
+	\[
+	x:=\mu-r_f\,\mathbf{1},\qquad \mathbf{1}=(1,1,1)^\top .
+	\]
+	
+	The tangency portfolio maximizes the Sharpe ratio
+	\[
+	S(w)=\frac{x^\top w}{\sqrt{w^\top \Sigma w}} \quad (\text{scale-invariant}).
+	\]
+	By Cauchy--Schwarz in the $\Sigma$-inner product,
+	\[
+	(x^\top w)^2 \le (x^\top \Sigma^{-1}x)\,(w^\top \Sigma w),
+	\]
+	with equality iff $w \propto \Sigma^{-1}x$. Imposing the budget constraint $\mathbf{1}^\top w=1$ gives
+	\[
+	{ \;
+		w^{\star}=\frac{\Sigma^{-1}x}{\mathbf{1}^\top \Sigma^{-1}x}
+		=\frac{\Sigma^{-1}(\mu-r_f\mathbf{1})}{\mathbf{1}^\top \Sigma^{-1}(\mu-r_f\mathbf{1})}.
+		\;}
+	\]
+	
+	With
+	\[
+	\mu=\begin{bmatrix}0.0427\\[2pt]0.0015\\[2pt]0.0285\end{bmatrix},\quad
+	r_f=0.0001,\quad
+	x=\begin{bmatrix}0.0426\\[2pt]0.0014\\[2pt]0.0284\end{bmatrix},
+	\]
+	and the given
+	\[
+	\Sigma=\begin{bmatrix}
+		0.01000000 & 0.00180000 & 0.00110000\\
+		0.00180000 & 0.01089936 & 0.00260000\\
+		0.00110000 & 0.00260000 & 0.01990921
+	\end{bmatrix},
+	\]
+	one finds
+	\[
+	v:=\Sigma^{-1}x \approx
+	\begin{bmatrix}
+		4.27639\\[2pt]-0.88941\\[2pt]1.30635
+	\end{bmatrix},\qquad
+	s:=\mathbf{1}^\top v \approx 4.69333,
+	\]
+	hence we have the weights:
+	
+	\[
+	{
+		w^{\star}=\frac{v}{s}\approx
+		\begin{bmatrix}
+			0.9112\\[2pt]-0.1895\\[2pt]0.2783
+		\end{bmatrix}
+		\
+	}.
+	\]
+	
+	\subsection{Part d}
+	
+	% Target: same mean as Microsoft (0.0427) using risky assets + risk-free (r_f=0.0001 per month)
+	
+	\[
+	\mu=\begin{bmatrix}0.0427\\0.0015\\0.0285\end{bmatrix},\quad
+	\Sigma=\begin{bmatrix}
+		0.01000000 & 0.00180000 & 0.00110000\\
+		0.00180000 & 0.01089936 & 0.00260000\\
+		0.00110000 & 0.00260000 & 0.01990921
+	\end{bmatrix},\quad r_f=0.0001.
+	\]
+	
+	Firstly we need to get the tangency portfolio, with \(x=\mu-r_f\mathbf{1}\),
+	\[
+	w^{\star}=\frac{\Sigma^{-1}x}{\mathbf{1}^\top \Sigma^{-1}x}
+	\approx
+	\begin{bmatrix}
+		0.911163\\[1pt]-0.189505\\[1pt]0.278342
+	\end{bmatrix},\qquad
+	\mu_T=\mu^\top w^{\star}\approx 0.046555,\ \ 
+	\sigma_T=\sqrt{{w^{\star}}^\top\Sigma\,w^{\star}}\approx 0.099489.
+	\]
+	
+	On the CML, take
+	\[
+	y=\frac{\mu_A-r_f}{\mu_T-r_f}
+	=\frac{0.0427-0.0001}{0.046555-0.0001}\approx 0.917013,
+	\]
+	i.e. invest \(y\) in \(w^{\star}\) and \(1-y\) in the risk–free asset. Thus the weights are
+	\[
+	w_{\text{risky}}=y\,w^{\star}\approx
+	\begin{bmatrix}
+		0.835549\\[1pt]-0.173779\\[1pt]0.255243
+	\end{bmatrix},\qquad
+	w_f=1-y\approx 0.082987.
+	\]
+	
+	Then we have the risk (also standard deviation) as
+	
+	\[
+	\sigma_{\text{portfolio}}=y\,\sigma_T
+	\approx 0.917013\times 0.099489\approx {0.091233}\quad(\text{about }9.12\%\text{ per month}).
+	\]
+	
+	
+	\end{document}
