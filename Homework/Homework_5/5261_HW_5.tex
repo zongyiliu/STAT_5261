@@ -1,0 +1,365 @@
+
+\documentclass[letterpaper]{article} 
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{physics}
+\usepackage[version=4]{mhchem}
+\usepackage{stmaryrd}
+\usepackage[dvipsnames]{xcolor}
+\colorlet{LightRubineRed}{RubineRed!70}
+\colorlet{Mycolor1}{green!10!orange}
+\definecolor{Mycolor2}{HTML}{00F9DE}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{lipsum}
+\usepackage{fancyvrb}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage[export]{adjustbox}
+\graphicspath{ {./images/} }
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{hyperref} 
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\E}{\mathbb{E}}
+\usepackage[normalem]{ulem}
+\usepackage{xcolor} % For custom colors
+\lstset{
+	language=Python,                % Choose the language (e.g., Python, C, R)
+	basicstyle=\ttfamily\small, % Font size and type
+	keywordstyle=\color{blue},  % Keywords color
+	commentstyle=\color{gray},  % Comments color
+	stringstyle=\color{red},    % String color
+	numbers=left,               % Line numbers
+	numberstyle=\tiny\color{gray}, % Line number style
+	stepnumber=1,               % Numbering step
+	breaklines=true,            % Auto line break
+	backgroundcolor=\color{black!5}, % Light gray background
+	frame=single,               % Frame around the code
+}
+\usepackage{float}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+	\usepackage[]{amssymb} %gives us the character \varnothing
+	
+	\title{Homework 5, MATH 5261}
+	\author{Zongyi Liu}
+	\date{Wed, Oct 8, 2025}
+	
+	\begin{document}
+		\maketitle
+		
+		{Github Repository Directory}: \url{https:/github.com/zongyiliu/STAT5261/tree/main/Homework_5}
+		
+		\section{Question 1}
+		
+		Assume asset $j$ 's $\beta_{j}=0.75$ and that $\mu_{f}=3 \%$ and $\mu_{M}=10 \%$.
+		
+		\begin{itemize}
+			\item  (a) Assume that the CAPM theory holds, what is $\mu_{j}$, the average return of asset $j$ equal to?
+			\item (b) If actually $\mu_{j}=9 \%$, is asset $j$ overpriced, underpriced or correctly priced?
+		\end{itemize}
+		
+		\textbf{Answer}
+		
+		\textbf{(a)} Under the Capital Asset Pricing Model (CAPM), the expected return of asset $j$ is given by:
+		\[
+		\mu_j = \mu_f + \beta_j (\mu_M - \mu_f).
+		\]
+		Substituting the given values, we have:
+		\[
+		\mu_j = 3\% + 0.75(10\% - 3\%) = 3\% + 0.75(7\%) = 3\% + 5.25\% = 8.25\%.
+		\]
+		Hence we have ${\mu_j = 8.25\%}$
+		
+		\textbf{(b)} The actual return is $\mu_j^{\text{actual}} = 9\%$, while the CAPM-implied expected return is $\mu_j^{\text{CAPM}} = 8.25\%$.
+		Since
+		\[
+		\mu_j^{\text{actual}} > \mu_j^{\text{CAPM}},
+		\]
+		the asset offers a higher return than predicted by CAPM for its level of systematic risk. Therefore, it is underpriced (undervalued).
+		
+		\clearpage
+		\section{Question 2}
+		Do problems 3 and 6 on page 513 (Chapter 17), in problem 6 c), please change $220 \%^{2}$ to $300 \%^{2}$.
+		
+		\subsection{Problem 3}
+		Suppose that the risk-free interest rate is $0.023$, that the expected return 
+		on the market portfolio is $\mu_M = 0.10$, and that the volatility of the market 
+		portfolio is $\sigma_M = 0.12$.
+		\begin{itemize}
+			\item (a) What is the expected return on an efficient portfolio with $\sigma_R = 0.05$?
+			\item (b) Stock A returns have a covariance of $0.004$ with market returns. What is the beta of Stock A?
+			\item (c) Stock B has beta equal to $1.5$ and $\sigma_{\varepsilon} = 0.08$. 
+			Stock C has beta equal to $1.8$ and $\sigma_{\varepsilon} = 0.10$.
+			\begin{itemize}
+				\item (i) What is the expected return of a portfolio that is one-half Stock B and one-half Stock C?
+				\item (ii) What is the volatility of a portfolio that is one-half Stock B and one-half Stock C?
+				Assume that the $\varepsilon$s of Stocks B and C are independent.
+			\end{itemize}
+		\end{itemize}
+		
+		
+		\textbf{Answer}
+		
+		Given $r_f=0.023$, $\mu_M=0.10$, and $\sigma_M=0.12$.
+		
+		\underline{(a)}
+		
+		On the CML,
+		\[
+		\mathbb{E}[R]= r_f + \frac{\mu_M-r_f}{\sigma_M}\,\sigma_R
+		= 0.023 + \frac{0.10-0.023}{0.12}\cdot 0.05
+		= 0.055083
+		\]
+		
+		\underline{(b)}
+		
+		\[ \beta_A=\frac{\Cov(R_A,R_M)}{\Var(R_M)}
+		=\frac{0.004}{\sigma_M^2}
+		=\frac{0.004}{0.12^2}
+		=\frac{0.004}{0.0144}
+		=0.27778
+		\]
+		
+		\underline{(c)}
+		
+		Let $w_B=w_C=\tfrac12$. With $R_i=r_f+\beta_i(R_M-r_f)+\varepsilon_i$ and
+		$\Var(\varepsilon_B)=\sigma_{\varepsilon,B}^2=0.08^2$, 
+		$\Var(\varepsilon_C)=\sigma_{\varepsilon,C}^2=0.10^2$
+		
+		\textit{(i)} Portfolio beta:
+		
+		\[
+		\beta_P=w_B\beta_B+w_C\beta_C=\tfrac12(1.5)+\tfrac12(1.8)=1.65.
+		\]
+		Thus
+		
+		\[
+		\mathbb{E}[R_P]=r_f+\beta_P(\mu_M-r_f)
+		=0.023+1.65\cdot 0.077
+		=0.15005
+		\]
+		
+		\textit{(ii)} Since $\epsilon$ of stock B and C are independent, we have portfolio variance to be:
+		
+		\[
+		\sigma_{\varepsilon,P}^2
+		={w_B^2\sigma_{\varepsilon,B}^2+w_C^2\sigma_{\varepsilon,C}^2}
+		={\Big(\tfrac12\Big)^2(0.08)^2+\Big(\tfrac12\Big)^2(0.10)^2}
+		=0.0041.
+		\]
+		
+		Thus we have:
+		\[
+		\sigma_{\varepsilon,P}
+		=0.06403
+		\]
+		
+		\clearpage
+		
+		\subsection{Problem 6}
+		
+		Suppose that the riskless rate of return is $4\%$ and the expected market return is $12\%$. 
+		The standard deviation of the market return is $11\%$. 
+		Suppose as well that the covariance of the return on Stock A with the market return is $165\%^{2}$.
+		\begin{itemize}
+			\item What is the beta of Stock A?
+			\item What is the expected return on Stock A?
+			\item If the variance of the return on Stock A is \textcolor{red}{\sout{$220\%^{2}$}} $300\%^{2}$, what percentage of this variance is due to market risk?
+		\end{itemize}
+		
+		Given $r_f=4\%$, $\mu_M=12\%$, $\sigma_M=11\%$ so $\Var(R_M)=0.11^2=0.0121$, and 
+		$\Cov(R_A,R_M)=165\%^{2}=0.0165$.
+		
+		
+		\textbf{Answer}
+		
+		
+		\underline{(a)}
+		
+		Beta of Stock A is:
+		
+		\[
+		\beta_A=\frac{\Cov(R_A,R_M)}{\Var(R_M)}
+		=\frac{0.0165}{0.0121}
+		=\frac{165}{121}
+		\approx 1.36364
+		\]
+		
+		\underline{(b)}
+		
+		Expected return on Stock A (CAPM) can be calculated as:
+		
+		\[
+		\mu_A = r_f + \beta_A(\mu_M-r_f)
+		=0.04+1.363636\cdot(0.12-0.04)
+		\approx 0.1490909
+		\]
+		
+		\underline{(c)}
+		
+		
+		With the single-index model, the market-driven component of variance is:
+		
+		\[
+		\beta_A^2\Var(R_M)=\frac{\Cov(R_A,R_M)^2}{\Var(R_M)}
+		=\frac{0.0165^2}{0.0121}=0.0225.
+		\]
+		
+		Given $\Var(R_A)=300\%^{2}=0.03$, the percentage due to market risk is:
+		\[
+		\frac{\beta_A^2\Var(R_M)}{\Var(R_A)}
+		=\frac{0.0225}{0.03}= 0.75
+		\]
+		
+		
+		\clearpage
+		\section{Question 3}
+		The Security Market line (SML) of an asset relates the excess return of an asset to the excess return of the market portfolio. It says that the risk premium of a security $j$ is proportional to the risk premium on the market portfolio, that is
+		
+		
+		$$
+		\mu_{j}-\mu_{f}=\beta_{j}\left(\mu_{M}-\mu_{f}\right)
+		$$
+		
+		(We will derive this equation next week in class). Here $\mu_{j}$ and $\mu_{f}$ are the returns of securty $j$ and risk-free asset, respectively, and $\mu_{M}$ is the returm on the market portfolio. $\beta_{j}$ is the $j$ th security's "beta" value. Investors usually want an estimate of a stock's beta before purchasing it. The econometric model is obtained by including an intercept in the model (even though theory says it should be zero) and an error term and is given
+		
+		$$
+		R_{j, t}-R_{f, t}=\alpha+\beta_{j}\left(R_{m, t}-R_{f, t}\right)+\epsilon_{j, t} .
+		$$
+		
+		The data (CAPM, posted on courseworks under assignments) is the data on the monthly returns of four firms (Microsoft, GE, GM, IBM), the rate of return on the market portfolio (MKT) and the rate of return of risk free asset (RKFREE). The 120 observations cover January 1995 to December 2004. The columns in the data set are given in the following order Microsoft, GE, GM, IBM, MARKET PORTFOLIO, RISK FREE RATE (30 day T-Bill). Use this data to answer the following questions.
+		
+		\begin{itemize}
+			\item  (a) Estimate the CAPM model for each firm and comment on their estimated beta values.
+			\item	(b) Finance theory says that the intercept parameter $\alpha$ should be zero. Does this seem correct given your estimates (you need to test $H_{0}: \alpha=0$ against $H_{a}: \alpha \neq 0$ for each firm at 0.05 significance level.
+			\item	(c) Construct a $95 \%$ for each $\beta_{j}$ using the model and interpret your results.
+			\item	(d) Test at the $5 \%$ level of significance the hypothesis that each stock's $\beta$ is 1 against the alternative that it is not equal to 1.
+			\item	(e) Test at the $5 \%$ level of significance the hypothesis that the beta of Microsoft is 1 against the alternative that it is greater than 1.
+		\end{itemize}
+	
+		\textbf{Answer}
+	
+	
+	\underline{(a)}
+	
+	We first loaded the excel first, and then run the CAPM model on each firm. 
+	
+	\begin{lstlisting}
+     capm <- read_excel("CAPM_DATA.xlsx")
+	\end{lstlisting}
+
+And then standardize names of stocks:
+
+\begin{lstlisting}
+     names(capm) <- c("MSFT","GE","GM","IBM","MKT","RF")
+\end{lstlisting}
+  
+   Then we build excess returns by the definition of CAPM model:
+ 
+ \begin{lstlisting}
+     excess_mkt <- capm$MKT - capm$RF
+ \end{lstlisting}
+   
+   I then wrote a for loop to test over all firms to apply CAPM model on it, I can not put the full R code here due to the confine of length, please see the link to my Github Repo in the header. 
+   
+	By definition, beta value of a single security is the ratio between the returns on this security and the marketing, and the variance of the market returns. I also put the risk free asset here, just to test if my code works appropriately, as the textbook mentioned that the risk free asset as alpha and beta to be zero.
+	
+	\includegraphics[max width=\textwidth, center]{Q3a}
+	\captionof{figure}{CAPM model for each firm and their Alpha and Beta}
+	
+	In this case, we can see that beta values for \texttt{MSFT}, \texttt{GE}, \texttt{GM}, \texttt{IBM} are 1.4299, 0.9830, 1.074, 1.268 separately. A positive beta indicates the asset moves in the same direction as the market, whereas a negative beta  indicates that they move in the opposite direction. 
+	
+	In this case, all four beta values are above 0, and all three except \texttt{GE} are higher than 1. For those firms whose beta value is larger than 1, historically their assets amplified the return of the whole market, or it is aggressive, whereas for \texttt{GE}, we can say that historically it dampened (or less sensitive to) the market’s moves, and it is not aggressive.
+	
+	
+	\underline{(b)}
+	
+	We can use the same result for alpha values. Here the p-values of alpha are all much over 0.05, with the lowest \texttt{GE} being 0.2329. Thus we can not reject the hypothesis that they are zero. 
+	
+	\underline{(c)}
+
+\includegraphics[max width=\textwidth, center]{Q3c}
+\captionof{figure}{Confidence Interval of each firm's Beta value}
+	
+	\begin{itemize}
+		\item \texttt{MSFT}: $\hat\beta=1.43$, $95\%$ CI $[1.057,\;1.80]$. \\
+		The interval lies entirely above $1$, so $\beta>1$ at the $5\%$ level. 
+		\texttt{MSFT} exhibits a {significantly aggressive} exposure: it tends to amplify market moves.
+		
+		\item \texttt{GE}: $\hat\beta=0.983$, $95\%$ CI $[0.776,\;1.19]$. \\
+		The interval includes $1$, so we \emph{cannot reject} $\beta=1$. 
+		\texttt{GE} moves roughly in line with the market (no significant amplification or dampening).
+		
+		\item \texttt{GM}: $\hat\beta=1.074$, $95\%$ CI $[0.766,\;1.38]$. \\
+		The interval includes $1$, hence the beta is {not significantly} greater than $1$. 
+		Point estimate suggests mild aggressiveness, but evidence is insufficient.
+		
+		\item \texttt{IBM}: $\hat\beta=1.268$, $95\%$ CI $[0.961,\;1.58]$. \\
+		The interval touches and includes $1$, so we {cannot conclude} $\beta>1$ at $5\%$. 
+		\texttt{IBM} may be somewhat aggressive, but the result is borderline/non-significant.
+	\end{itemize}
+	
+	{Overall:} Only \texttt{MSFT}’s beta is significantly above $1$ at the $5\%$ level. 
+	For \texttt{GE}, \texttt{GM} and \texttt{IBM}, the confidence intervals contain $1$, indicating market-like sensitivity. 
+	All intervals are strictly positive, implying no evidence of negative (inverse) market exposure among these stocks.
+	
+	
+	\underline{(d)}
+	
+	\includegraphics[max width=\textwidth, center]{Q3d}
+	\captionof{figure}{Test at 5\% level of significance of each firm and their Beta values}
+	
+	\[
+	t=\frac{\hat\beta-1}{\operatorname{SE}(\hat\beta)},\qquad \text{df}=T-2=118,
+	\quad t_{0.975,118}\approx 1.98.
+	\]
+	
+	Thus we can that only \texttt{MSFT} can reject the $H_0 (\beta\neq 1)$, whereas all other three are smaller than the threshold.
+	
+	
+	\underline{(e)}
+	
+	
+	\includegraphics[max width=\textwidth, center]{Q3e}
+	\captionof{figure}{Test at 5\% level of significance of \texttt{MSFT}'s Beta value is larger than 1}
+
+	
+	From the CAPM regression let $\hat\beta$ be the slope estimate and $\mathrm{SE}(\hat\beta)$ its
+	standard error. The test statistic is:
+	\[
+	t=\frac{\hat\beta-1}{\mathrm{SE}(\hat\beta)} \;\sim\; t_{T-2}\quad\text{under }H_0.
+	\]
+	For MSFT we obtained \(t=2.28\) with \(\mathrm{df}=118\). The right-tail $p$-value is:
+	\[
+	p=\Pr\bigl(t_{118}\ge 2.28\bigr)=0.0121.
+	\]
+	At the $5\%$ level, since $p=0.0121<0.05$ (equivalently, $t=2.28>t_{0.95,118}\approx 1.66$),
+	we \emph{reject} $H_0$ and conclude that $
+	{\beta_{\text{MSFT}} > 1 \text{ at the 5\% significance level.}}
+	$
+
+	\end{document}
+	

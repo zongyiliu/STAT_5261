@@ -1,0 +1,287 @@
+---
+title: "HW_5"
+author: "Zongyi Liu"
+date: "2025-10-05"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+install.packages("readxl")
+```
+
+```{r}
+dat = read.csv("capm2.csv", header = TRUE)
+   attach(dat)
+   n = dim(dat)[1]
+   EX_R_sp500 = Close.sp500[2:n] / Close.sp500[1:(n-1)]
+      - 1  - Close.tbill[2:n] / (100 * 253)
+   EX_R_msft = Close.msft[2:n] / Close.msft[1:(n-1)]
+      - 1  - Close.tbill[2:n] / (100 * 253)
+   fit = lm(EX_R_msft ~ EX_R_sp500)
+   options(digits = 3)
+   summary(fit)
+```
+
+
+```{r}
+dat = read.csv("Stock_Bond_2004_to_2006.csv", header = TRUE)
+   prices = dat[ , c(5, 7, 9, 11, 13, 15, 17, 24)]
+   n = dim(prices)[1]
+
+dat2 =  as.matrix(cbind(dat[(2:n), 3] / 365,
+      100 * (prices[2:n,] / prices[1:(n-1), ] - 1)))
+   names(dat2)[1] = "treasury"
+   risk_free = dat2[,1]
+   ExRet = dat2[ ,2:9] - risk_free
+   market = ExRet[ ,8]
+   stockExRet = ExRet[ ,1:7]
+   
+fit_reg = lm(stockExRet ~ market)
+   summary(fit_reg)
+   res = residuals(fit_reg)
+   pairs(res)
+   options(digits = 3)
+   betas = fit_reg$coeff[2, ]
+```
+
+
+```{r}
+
+library(readxl)
+
+## ============================
+## CAPM Homework Utility Script
+## ============================
+## Data format (columns in order):
+## Microsoft, GE, GM, IBM, MARKET, RKFREE
+## File should contain monthly returns in decimal form (e.g., 0.012 = 1.2%).
+## If your file uses percentages, divide by 100 first.
+
+# ---- 0) Load data ----
+# Change the path/filename as needed:
+capm <- read_excel("CAPM_DATA.xlsx")
+
+# Standardize column names
+names(capm) <- c("MSFT","GE","GM","IBM","MKT","RF")
+
+# If your returns are in percent, uncomment the next line:
+# capm[] <- capm[] / 100
+
+# 1) Build excess returns
+excess_mkt <- capm$MKT - capm$RF
+
+firms <- c("MSFT","GE","GM","IBM","RF")
+
+# Containers for results
+res_tab <- data.frame(
+  Firm = character(),
+  Alpha = numeric(),  Alpha_SE = numeric(),  Alpha_t = numeric(),  Alpha_p = numeric(),
+  Beta  = numeric(),  Beta_SE  = numeric(),  Beta_t  = numeric(),  Beta_p  = numeric(),
+  stringsAsFactors = FALSE
+)
+
+beta_ci_tab <- data.frame(
+  Firm = character(),
+  Beta_hat = numeric(),
+  CI_L = numeric(),
+  CI_U = numeric(),
+  stringsAsFactors = FALSE
+)
+
+beta_eq1_tab <- data.frame(
+  Firm = character(),
+  t_stat = numeric(),
+  df = integer(),
+  p_value_two_sided = numeric(),
+  stringsAsFactors = FALSE
+)
+
+# 2) Loop over firms: fit CAPM R_{j,t}-R_{f,t} = alpha + beta (R_{M,t}-R_{f,t}) + eps
+for (f in firms) {
+  excess_ret <- capm[[f]] - capm$RF
+  fit <- lm(excess_ret ~ excess_mkt)
+
+  sm <- summary(fit)
+  coefs <- sm$coefficients
+  df_res <- sm$df[2]
+
+  alpha_hat <- coefs["(Intercept)","Estimate"]
+  alpha_se  <- coefs["(Intercept)","Std. Error"]
+  alpha_t   <- coefs["(Intercept)","t value"]
+  alpha_p   <- coefs["(Intercept)","Pr(>|t|)"]
+
+  beta_hat  <- coefs["excess_mkt","Estimate"]
+  beta_se   <- coefs["excess_mkt","Std. Error"]
+  beta_t    <- coefs["excess_mkt","t value"]
+  beta_p    <- coefs["excess_mkt","Pr(>|t|)"]
+
+  # Store main regression results (for parts a & b)
+  res_tab <- rbind(res_tab, data.frame(
+    Firm=f, Alpha=alpha_hat, Alpha_SE=alpha_se, Alpha_t=alpha_t, Alpha_p=alpha_p,
+    Beta=beta_hat, Beta_SE=beta_se, Beta_t=beta_t, Beta_p=beta_p, stringsAsFactors=FALSE
+  ))
+
+  # 95% CI for beta (part c)
+  ci <- suppressWarnings(confint(fit, "excess_mkt", level = 0.95))
+  beta_ci_tab <- rbind(beta_ci_tab, data.frame(
+    Firm=f, Beta_hat=beta_hat, CI_L=ci[1], CI_U=ci[2], stringsAsFactors=FALSE
+  ))
+
+  # Test H0: beta = 1 vs beta != 1 (part d)
+  t_beta_eq1 <- (beta_hat - 1)/beta_se
+  p_two <- 2*pt(-abs(t_beta_eq1), df=df_res)
+  beta_eq1_tab <- rbind(beta_eq1_tab, data.frame(
+    Firm=f, t_stat=t_beta_eq1, df=df_res, p_value_two_sided=p_two, stringsAsFactors=FALSE
+  ))
+}
+
+# 3) One-sided test for Microsoft: H0: beta_MSFT = 1 vs H1: beta_MSFT > 1 (part e)
+msft_row <- subset(res_tab, Firm=="MSFT")
+df_msft  <- subset(beta_eq1_tab, Firm=="MSFT")$df
+t_one    <- (msft_row$Beta - 1) / msft_row$Beta_SE
+p_right  <- 1 - pt(t_one, df=df_msft)
+
+one_sided_msft <- data.frame(
+  Firm = "MSFT",
+  t_stat = as.numeric(t_one),
+  df = as.integer(df_msft),
+  p_value_right_tail = as.numeric(p_right),
+  stringsAsFactors = FALSE
+)
+
+# ---- 4) Print results neatly ----
+cat("\n============================\n(a) CAPM estimates (alpha, beta)\n============================\n")
+print(res_tab, digits=4, row.names=FALSE)
+
+cat("\n===========================================\n(b) Alpha=0 tests (two-sided, 5% level)\n===========================================\n")
+alpha_tests <- res_tab[, c("Firm","Alpha","Alpha_SE","Alpha_t","Alpha_p")]
+print(alpha_tests, digits=4, row.names=FALSE)
+cat("\nDecision @ 5%: reject H0 if Alpha_p < 0.05.\n")
+
+cat("\n====================================\n(c) 95% CI for beta_j (per firm)\n====================================\n")
+print(beta_ci_tab, digits=4, row.names=FALSE)
+
+cat("\n=========================================================\n(d) Test H0: beta=1 vs H1: beta!=1 (two-sided, 5%)\n=========================================================\n")
+print(beta_eq1_tab, digits=4, row.names=FALSE)
+cat("\nDecision @ 5%: reject H0 if p_value_two_sided < 0.05.\n")
+
+cat("\n=========================================================\n(e) MSFT one-sided test: H0 beta=1 vs H1 beta>1 (5%)\n=========================================================\n")
+print(one_sided_msft, digits=4, row.names=FALSE)
+cat("\nDecision @ 5%: reject H0 if right-tail p-value < 0.05.\n")
+
+# ---- 5) Optional: quick SML plot for a chosen firm (e.g., MSFT) ----
+# Uncomment to visualize:
+# ex_msft <- capm$MSFT - capm$RF
+# fit_msft <- lm(ex_msft ~ excess_mkt)
+# plot(excess_mkt, ex_msft, xlab="Market excess return", ylab="MSFT excess return",
+#      main="SML (MSFT)", pch=16)
+# abline(fit_msft, lwd=2)
+```
+
+```{r}
+sm
+```
+
+
+```{r}
+# --------------------------------------------------------
+# 1. Setup and Data Loading
+# --------------------------------------------------------
+
+# IMPORTANT: Replace 'CAPM_Data.csv' with the actual file path and name of your data file.
+# The data is assumed to be 120 monthly observations (Jan 1995 - Dec 2004).
+capm_data <- read_excel("CAPM_DATA.xlsx")
+
+# Rename columns for easier access (assuming the order is as stated in the prompt)
+colnames(capm_data) <- c("MSFT", "GE", "GM", "IBM", "MKT", "RKFREE")
+
+# --------------------------------------------------------
+# 2. Calculate Excess Returns
+# --------------------------------------------------------
+
+# Market Excess Return (X_M,t)
+capm_data$MKT_Excess <- capm_data$MKT - capm_data$RKFREE
+
+# Individual Stock Excess Returns (Y_j,t)
+capm_data$MSFT_Excess <- capm_data$MSFT - capm_data$RKFREE
+capm_data$GE_Excess   <- capm_data$GE - capm_data$RKFREE
+capm_data$GM_Excess   <- capm_data$GM - capm_data$RKFREE
+capm_data$IBM_Excess  <- capm_data$IBM - capm_data$RKFREE
+
+# Optional: View the first few rows of the new data frame
+head(capm_data)
+```
+
+
+```{r}
+# --------------------------------------------------------
+# 3. Run OLS Regressions for each stock
+# --------------------------------------------------------
+
+# Microsoft CAPM Regression
+capm_msft <- lm(MSFT_Excess ~ MKT_Excess, data = capm_data)
+
+# GE CAPM Regression
+capm_ge <- lm(GE_Excess ~ MKT_Excess, data = capm_data)
+
+# GM CAPM Regression
+capm_gm <- lm(GM_Excess ~ MKT_Excess, data = capm_data)
+
+# IBM CAPM Regression
+capm_ibm <- lm(IBM_Excess ~ MKT_Excess, data = capm_data)
+
+# Optional: View the full summary for one stock (e.g., Microsoft)
+# summary(capm_msft)
+
+# --------------------------------------------------------
+# 4. Extract Alpha and Beta values
+# --------------------------------------------------------
+
+# Function to extract alpha and beta from a linear model
+extract_capm_coeffs <- function(model, stock_name) {
+  coefficients <- coef(model)
+  # The intercept is Alpha (α)
+  alpha <- coefficients["(Intercept)"]
+  # The coefficient for MKT_Excess is Beta (β)
+  beta <- coefficients["MKT_Excess"]
+  
+  # Extract the standard error of Beta for t-test
+  se_beta <- summary(model)$coefficients["MKT_Excess", "Std. Error"]
+  
+  return(data.frame(
+    Stock = stock_name,
+    Alpha = alpha,
+    Beta = beta,
+    Beta_SE = se_beta
+  ))
+}
+
+# Combine results into one data frame
+results <- rbind(
+  extract_capm_coeffs(capm_msft, "Microsoft"),
+  extract_capm_coeffs(capm_ge, "GE"),
+  extract_capm_coeffs(capm_gm, "GM"),
+  extract_capm_coeffs(capm_ibm, "IBM")
+)
+
+# --------------------------------------------------------
+# 5. Final Output and Interpretation
+# --------------------------------------------------------
+
+# Print the final results table
+print(results)
+
+# Determine the most aggressive (highest beta) and most defensive (lowest beta)
+most_aggressive_stock <- results[which.max(results$Beta), "Stock"]
+most_defensive_stock <- results[which.min(results$Beta), "Stock"]
+
+# Print interpretation
+cat("\n--- CAPM Beta Interpretation ---\n")
+cat("Most Aggressive Stock (Highest Beta):", most_aggressive_stock, "\n")
+cat("Most Defensive Stock (Lowest Beta):", most_defensive_stock, "\n")
+```
+
