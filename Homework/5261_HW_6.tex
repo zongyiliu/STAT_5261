@@ -1,0 +1,358 @@
+
+\documentclass[letterpaper]{article} 
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{physics}
+\usepackage[version=4]{mhchem}
+\usepackage{stmaryrd}
+\usepackage[dvipsnames]{xcolor}
+\colorlet{LightRubineRed}{RubineRed!70}
+\colorlet{Mycolor1}{green!10!orange}
+\definecolor{Mycolor2}{HTML}{00F9DE}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{lipsum}
+\usepackage{fancyvrb}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage[export]{adjustbox}
+\graphicspath{ {./images/} }
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{hyperref} 
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\E}{\mathbb{E}}
+\usepackage[normalem]{ulem}
+\usepackage{xcolor} % For custom colors
+\lstset{
+	language=Python,                % Choose the language (e.g., Python, C, R)
+	basicstyle=\ttfamily\small, % Font size and type
+	keywordstyle=\color{blue},  % Keywords color
+	commentstyle=\color{gray},  % Comments color
+	stringstyle=\color{red},    % String color
+	numbers=left,               % Line numbers
+	numberstyle=\tiny\color{gray}, % Line number style
+	stepnumber=1,               % Numbering step
+	breaklines=true,            % Auto line break
+	backgroundcolor=\color{black!5}, % Light gray background
+	frame=single,               % Frame around the code
+}
+\usepackage{float}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+	\usepackage[]{amssymb} %gives us the character \varnothing
+	
+	\title{Homework 6, MATH 5261}
+	\author{Zongyi Liu}
+	\date{Thu, Oct 16, 2025}
+	
+	\begin{document}
+		\maketitle
+		
+		{Github Repository Directory}: \url{https:/github.com/zongyiliu/STAT5261/tree/main/Homework_6}
+		
+		\section{Question 1}
+		
+		\subsection{Problem 1}
+		
+		Which of the three transformation provides the most symmetric distribution? Try other powers beside the square root. Which power do you think is best for symmetrization? You may include plots with your work if you find it helpful to do that.
+		
+		
+		\textbf{Answer}
+		
+		Besides the square root, I also used 1/4  (if we regard square root as 1/2 power) power and 1/8 power in this case, and I added those graphs together. 
+		
+			 \begin{verbatim}
+     	fourthroot.earnings <- male.earnings^(1/4)   # 4th root
+        eighthroot.earnings <- male.earnings^(1/8)   # 8th root
+		\end{verbatim}
+	
+		
+		Due to the refine of length, I can not show full codes here, but I've put them in the repository listed above, for the reference, please check that.
+		
+		For the qqplots, the untransformed looks convex, and the log-transformed data looks concave, it is little bit  over-transforms to left skewness. The square-root transformed plot looks to be the straightest curve of the three. The 1/4 power transformed looks similar to square-root, and the 1/8 power transformed looks little bit more concave than the 1/4 one. Moreover, the left-tail of the distribution is not modeled very well in all of those five transformations.
+		
+		\includegraphics[max width=0.8\textwidth, center]{Q1_P1_1}
+		\captionof{figure}{QQ plot of five transformations}
+		
+		For the boxplots, we can see that all of them have a large number of outliers, it is hard to conclude which method is the best because their performances are all not very well.
+		
+		
+		\includegraphics[max width=0.8\textwidth, center]{Q1_P1_2}
+		\captionof{figure}{Box plot of five transformations}
+		
+		The kernel density estimate show that the untransformed and the log- transformed variables look skewed to right and left, respectively, while the square-root transformed variables look to have the most normal and symmetric form.
+		
+		The 1/4 power transformed one is as centered as the square-root transformed, and 1/8 power transformed is more skewed than previous two.
+		
+		\includegraphics[max width=0.8\textwidth, center]{Q1_P1_3}
+		\captionof{figure}{Kernel density plot of five transformations}
+		
+		
+		\clearpage
+		\subsection{Problem 2}
+		
+		\begin{itemize}
+			\item (a) What are \texttt{ind} and \texttt{ind2} and what purposes do they serve?
+			\item (b) What is the effect of \texttt{interp} on the output from \texttt{boxcox}?
+			\item (c) What is the MLE of $\lambda$?
+			\item (d) What is a 95\% confidence interval for $\lambda$?
+			\item (e) Modify the code to find a 99\% confidence interval for $\lambda$.
+		\end{itemize}
+	
+	\textbf{Answer}
+	
+	\underline{Part a}
+	
+	 In R, \texttt{ind} are just index variables to store values. Here \texttt{ind} helped us to find the MLE. The logical vector \texttt{ind} holds a \texttt{TRUE} for the index in x (and y) that is the location of the maximum in the Box-Cox likelihood plot. 
+	 
+	 As for \texttt{ind2}, it holds the locations where we are within the 95\% confidence interval for $\lambda$.
+	 
+	 \underline{Part b}
+	 
+	 In the \texttt{boxcox()} function, the argument \texttt{interp} controls whether interpolation is used to find the optimal value of $\lambda$:
+	 
+	 \begin{itemize}
+	 	\item \texttt{interp = TRUE} (default): the function uses smooth interpolation (e.g., spline fitting) over the specified range of $\lambda$ values to estimate the maximum more precisely, rather than being restricted to the discrete grid.\\
+	 	For example, the result might be $\lambda = 0.376$.
+	 	\item \texttt{interp = FALSE}: the function only computes the log-likelihood for the discrete $\lambda$ values provided, without performing any interpolation.\\
+	 	For example, the result might be $\lambda = 0.37$.
+	 \end{itemize}
+	 
+	 Thus, in this case:
+	 
+	 
+	 \[
+     \texttt{bc = boxcox(male.earnings \textasciitilde 1, lambda = seq(0.3, 0.45, by = 1/100), interp = FALSE)}
+	 \]
+	 the function computes the log-likelihood only at the discrete points $\lambda = 0.3, 0.31, \ldots, 0.45$, without interpolating between them.
+	 
+	 
+	 
+	 \underline{Part c}
+	 
+	 The optimal value of $\lambda$ to use in the Box-Cox transformation is found to be:
+	 \begin{verbatim}
+      [1] "Maxlikihood lambda value= 0.360000"
+	 \end{verbatim}
+	 
+	 
+	 This can also be double-checked with the plot of location of MLE.
+	 
+	\includegraphics[max width=\textwidth, center]{Q1_P2}
+	 \captionof{figure}{The output from the Box-Cox transformation showing the location of the MLE}
+	
+	 
+	 \underline{Part d}
+	 
+	 A 95\% confidence interval for $\lambda$ is given as below, rounded to 2 digits:
+	 
+	 \begin{verbatim}
+     > range(bc$x[ind2])
+     [1] 0.32 0.40
+	 \end{verbatim}
+ 
+ 
+	 \underline{Part e}
+	 
+	 We change 0.95 into 0.99 in this part and thus can get the 99\% confidence interval.
+	 
+	 \begin{verbatim}
+     ind2 = (bc$y > max(bc$y) - qchisq(0.95, df = 1) / 2)
+	\end{verbatim}
+
+
+	 Similarly, a 99\% confidence interval for $\lambda$ is given as below, rounded to 2 digits:
+	 
+	 \begin{verbatim}
+     > range(bc$x[ind2])
+     [1] 0.31 0.41
+	 \end{verbatim}
+	 
+		
+		\subsection{Problem 3}
+		What are the estimates of the degrees-of-freedom parameter and of $\xi$?
+		
+		\textbf{Answer}
+		
+		We can find the \texttt{fit}:
+		
+		\begin{verbatim}
+     > fit
+     $minimum
+     [1] 20121.41
+     
+     $estimate
+     mean        sd        nu        xi 
+     17.322933   7.492441  21.599882   1.651652 
+		\end{verbatim}
+		
+		These are the parameters in a Fernandez--Steel (F--S) skewed $t$-distribution. In this case, degrees-of-freedom, $\nu = 21.599949$, it is large, indicating the tail approximates normal but still pretty heavy; $\xi = 1.651652$, which is greater than 1, and this indicates right skewness of the data. 
+		
+		\clearpage
+
+\section{Question 2}
+
+Use the data set in HW5 to identify which distribution fits better each set of returns (try t, normal, ged ect)
+
+\textbf{Answer}
+
+I loaded the dataset for HW 5 and excluded the column for risk-free asset, and then fit the three distributions. With AIC and BIC criterias; For full codes to implement this, please see my \href{https:/github.com/zongyiliu/STAT5261/tree/main/Homework_6}{repository}. It turns out that normal distribution fits the best for all five cases, however,  as states in the book, typically the assets are followed by the Student's t-distribution, here the factor leading to this result might be the dates are just 120, which does not have too many extreme data to distort the overall distribution.
+
+
+
+\includegraphics[max width=0.9\textwidth, center]{Q3_P1}
+\captionof{figure}{Results 1}
+
+\includegraphics[max width=0.9\textwidth, center]{Q3_P2}
+\captionof{figure}{Results 2}
+
+For the distributions of four assets and the market portfolio can be plotted as below. We can see that \texttt{MSOFT}, \texttt{GE} and \texttt{GM} are centered near zero, and \texttt{IBM} is left-skewed whereas \texttt{MPORTM} is a little bit right skewed.
+
+\includegraphics[max width=0.6\textwidth, center]{Q3_P3}
+\captionof{figure}{Distribution fit for \texttt{MSOFT} }
+
+\includegraphics[max width=0.6\textwidth, center]{Q3_P4}
+\captionof{figure}{Distribution fit for \texttt{GE} }
+
+\includegraphics[max width=0.6\textwidth, center]{Q3_P5}
+\captionof{figure}{Distribution fit for \texttt{GM} }
+
+\includegraphics[max width=0.6\textwidth, center]{Q3_P6}
+\captionof{figure}{Distribution fit for \texttt{IBM}}
+
+\includegraphics[max width=0.6\textwidth, center]{Q3_P7}
+\captionof{figure}{Distribution fit for \texttt{MPORT}}
+
+\clearpage
+
+\section{Question 3}
+
+Use your \texttt{R} output to answer the following questions:
+
+\begin{itemize}
+	\item (a) What is the mean of the \texttt{Mobil} returns?
+	\item (b) What is the variance of the \texttt{GE} returns?
+	\item (c) What is the covariance between the \texttt{GE} and \texttt{Mobil} returns?
+	\item (d) What is the correlation between the \texttt{GE} and \texttt{Mobil} returns?
+\end{itemize}
+
+\textbf{Answer}
+
+\underline{Part a}
+
+The printout results are as follows:
+
+\begin{verbatim}
+	[1] "year" "month" "day" "ge" "ibm" "mobil" "crsp"
+	[1] "numeric"
+	[1] "ts"
+	[1] "numeric"
+	
+	           ge         ibm        mobil
+	ge     1.882164e-04 8.007660e-05 5.270394e-05
+	ibm    8.007660e-05 3.061309e-04 3.588748e-05
+	mobil  5.270394e-05 3.588748e-05 1.670265e-04
+	
+	         ge        ibm      mobil
+	ge     1.0000000 0.3335979 0.2972499
+	ibm    0.3335979 1.0000000 0.1587072
+	mobil  0.2972499 0.1587072 1.0000000
+	
+	ge        ibm       mobil
+	0.0010713801 0.0007000767 0.0007788801
+\end{verbatim}
+
+We can see that the mean value of \texttt{Mobil} is 0.0007789; and values for \texttt{GE} and \texttt{IBM} are 0.00107 and 0.0007 respectively. 
+
+\underline{Part b}
+
+We can see that the variance of \texttt{GE} is 1.882164e-04, and variance for \texttt{IBM} and \texttt{Mobil} are 3.061309e-04 and 1.670265e-04 respectively. 
+
+
+\underline{Part c}
+
+The covariance of \texttt{GE} and \texttt{Mobil} returns is 5.270394e-05.
+
+
+\underline{Part d}
+
+The correlation between \texttt{GE} and \texttt{Mobil} returns is 0.2972499.
+
+\clearpage
+
+\section{Question 4}
+
+Show that why Eq. (5.15) can be intergrated into $\frac{1}{2}(\xi^{-1} + \xi)$.
+
+\textbf{Answer}
+
+
+Let $f$ be a symmetric probability density function about $0$, so that
+\[
+\int_{-\infty}^{\infty} f(y)\,dy = 1, \qquad 
+\int_{-\infty}^{0} f(y)\,dy = \int_{0}^{\infty} f(y)\,dy = \frac{1}{2}.
+\]
+Define
+\[
+f^{*}(y\mid\xi) =
+\begin{cases}
+	f(\xi y), & y < 0, \\[2pt]
+	f(y / \xi), & y \ge 0,
+\end{cases}
+\qquad \xi > 0.
+\]
+
+
+We compute the unnormalized integral:
+\[
+\int_{-\infty}^{\infty} f^{*}(y\mid\xi)\,dy
+= \underbrace{\int_{-\infty}^{0} f(\xi y)\,dy}_{I_1}
++ \underbrace{\int_{0}^{\infty} f(y / \xi)\,dy}_{I_2}.
+\]
+
+For the first term, let $u = \xi y$, so $dy = du / \xi$, and $y \in (-\infty, 0) \Rightarrow u \in (-\infty, 0)$. Hence
+\[
+I_1 = \int_{-\infty}^{0} f(\xi y)\,dy
+= \frac{1}{\xi} \int_{-\infty}^{0} f(u)\,du
+= \frac{1}{\xi} \cdot \frac{1}{2}.
+\]
+
+For the second term, let $v = y / \xi$, so $dy = \xi\,dv$, and $y \in (0, \infty) \Rightarrow v \in (0, \infty)$. Hence
+\[
+I_2 = \int_{0}^{\infty} f(y / \xi)\,dy
+= \xi \int_{0}^{\infty} f(v)\,dv
+= \xi \cdot \frac{1}{2}.
+\]
+
+Adding both parts gives
+\[
+\int_{-\infty}^{\infty} f^{*}(y\mid\xi)\,dy
+= \frac{1}{2}(\xi^{-1} + \xi).
+\]
+
+
+		
+	\end{document}
+	
