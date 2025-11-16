@@ -1,0 +1,460 @@
+
+\documentclass[letterpaper]{article} 
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{physics}
+\usepackage[version=4]{mhchem}
+\usepackage{stmaryrd}
+\usepackage[dvipsnames]{xcolor}
+\colorlet{LightRubineRed}{RubineRed!70}
+\colorlet{Mycolor1}{green!10!orange}
+\definecolor{Mycolor2}{HTML}{00F9DE}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{lipsum}
+\usepackage{fancyvrb}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage[export]{adjustbox}
+\graphicspath{ {./images/} }
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{hyperref} 
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\E}{\mathbb{E}}
+\usepackage[normalem]{ulem}
+\usepackage{xcolor} % For custom colors
+\lstset{
+	language=Python,                % Choose the language (e.g., Python, C, R)
+	basicstyle=\ttfamily\small, % Font size and type
+	keywordstyle=\color{blue},  % Keywords color
+	commentstyle=\color{gray},  % Comments color
+	stringstyle=\color{red},    % String color
+	numbers=left,               % Line numbers
+	numberstyle=\tiny\color{gray}, % Line number style
+	stepnumber=1,               % Numbering step
+	breaklines=true,            % Auto line break
+	backgroundcolor=\color{black!5}, % Light gray background
+	frame=single,               % Frame around the code
+}
+\usepackage{float}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+	\usepackage[]{amssymb} %gives us the character \varnothing
+	
+	\title{Homework 7, MATH 5261}
+	\author{Zongyi Liu}
+	\date{Wed, Oct 29, 2025}
+	
+	\begin{document}
+		\maketitle
+		
+		{Github Repository Directory}: \url{https:/github.com/zongyiliu/STAT_5261/tree/main/Homework_7}
+		
+		\section{Question 1}
+		Let $C$ be a $d$-dimensional copula. Show that for any $\left(u_{1}, u_{2}, \ldots, u_{d}\right) \in[0,1]^{d}$
+
+$$
+\max \left(\sum_{i=1}^{d} u_{i}-d+1,0\right) \leq C\left(u_{1}, u_{2}, \ldots, u_{d}\right) \leq \min \left(u_{1}, u_{2}, \ldots, u_{d}\right)
+$$
+		
+			\textbf{Answer}
+			
+			Let $C$ be a $d$-dimensional copula. For any $\mathbf{u} = \left(u_{1}, u_{2}, \ldots, u_{d}\right) \in[0,1]^{d}$, the following bounds hold:
+			$$
+			\max \left(\sum_{i=1}^{d} u_{i}-d+1,0\right) \leq C\left(u_{1}, u_{2}, \ldots, u_{d}\right) \leq \min \left(u_{1}, u_{2}, \ldots, u_{d}\right)
+			$$
+			
+			This is also known as Fréchet-Hoeffding bounds.
+
+
+Let $U_1, U_2, \ldots, U_d$ be random variables uniformly distributed on $[0, 1]$ such that their joint CDF is $C(\mathbf{u}) = P(U_1 \leq u_1, \ldots, U_d \leq u_d)$.
+
+\underline{Part 1: the upper bound}
+
+We show $C(\mathbf{u}) \leq \min \left(u_{1}, u_{2}, \ldots, u_{d}\right)$ here. By the definition of a joint probability:
+$$
+C(\mathbf{u}) = P\left(\bigcap_{i=1}^{d} \{U_i \leq u_i\}\right)
+$$
+Since the intersection of events is always a subset of any individual event, for a fixed index $j \in \{1, \ldots, d\}$:
+$$
+\bigcap_{i=1}^{d} \{U_i \leq u_i\} \subseteq \{U_j \leq u_j\}
+$$
+Taking probabilities, we have:
+$$
+P\left(\bigcap_{i=1}^{d} \{U_i \leq u_i\}\right) \leq P(U_j \leq u_j)
+$$
+By the marginal property of the copula, $P(U_j \leq u_j) = u_j$. Thus, $C(\mathbf{u}) \leq u_j$ for all $j=1, \ldots, d$. Therefore, $C\left(u_{1}, u_{2}, \ldots, u_{d}\right) \leq \min \left(u_{1}, u_{2}, \ldots, u_{d}\right)$.
+
+\underline{Part 2: the lower bound}
+
+We show $C(\mathbf{u}) \geq \max \left(\sum_{i=1}^{d} u_{i}-d+1,0\right)$ here. Firstly, we use the relationship between the probability of the intersection and the union of complementary events:
+$$
+C(\mathbf{u}) = P\left(\bigcap_{i=1}^{d} \{U_i \leq u_i\}\right) = 1 - P\left(\left(\bigcap_{i=1}^{d} \{U_i \leq u_i\}\right)^c\right)
+$$
+By De Morgan's Laws, the complement is the union of the complements:
+$$
+C(\mathbf{u}) = 1 - P\left(\bigcup_{i=1}^{d} \{U_i > u_i\}\right)
+$$
+Now, we apply {Boole's Inequality} (Union Bound) to the union of the complementary events $\{U_i > u_i\}$:
+$$
+P\left(\bigcup_{i=1}^{d} \{U_i > u_i\}\right) \leq \sum_{i=1}^{d} P(U_i > u_i)
+$$
+The marginal probability is $P(U_i > u_i) = 1 - P(U_i \leq u_i) = 1 - u_i$.
+Substituting this into the inequality:
+$$
+P\left(\bigcup_{i=1}^{d} \{U_i > u_i\}\right) \leq \sum_{i=1}^{d} (1 - u_i) = d - \sum_{i=1}^{d} u_i
+$$
+Finally, substituting this back into the expression for $C(\mathbf{u})$:
+$$
+C(\mathbf{u}) \geq 1 - \left(d - \sum_{i=1}^{d} u_i\right) = \sum_{i=1}^{d} u_i - d + 1
+$$
+
+Since $C(\mathbf{u})$ is a probability (a value in $[0, 1]$), it must be non-negative.
+Therefore, the tightest lower bound must be the maximum of 0 and the result from Step A:
+$$
+C\left(u_{1}, u_{2}, \ldots, u_{d}\right) \geq \max \left(\sum_{i=1}^{d} u_{i}-d+1,0\right)
+$$
+
+Combining Part 1 and Part 2 we get the the Fréchet-Hoeffding bounds; in this case for copula, we have:
+
+\[
+\max \!\left(\sum_{i=1}^{d} u_{i}-d+1,\,0\right) \;\le\; C\left(u_{1}, \ldots, u_{d}\right) \;\le\; \min \left(u_{1}, \ldots, u_{d}\right).
+\]
+		
+		\clearpage
+		
+		
+		\section{Question 2}
+		
+		$\mathbf{X}=\left(X_{1}, X_{2}\right)^{T}$ have a bivariate normal distribution with mean:
+
+
+$$
+\boldsymbol{\mu}=\binom{\mu_{1}}{\mu_{2}} \quad \text { and covariance } \quad \Sigma=\left(\begin{array}{cc}
+\sigma_{1}^{2} & \rho \sigma_{1} \sigma_{2} \\
+\rho \sigma_{1} \sigma_{2} & \sigma_{2}^{2}
+\end{array}\right)
+$$
+
+Find $c_{\mathbf{X}}\left(u_{1}, u_{2}\right)$, the pdf of the $C_{\mathbf{X}}\left(u_{1}, u_{2}\right)$, the copula corresponding to $\mathbf{X}$.\\
+
+	\textbf{Answer}
+	
+	
+	Let $\mathbf{X}=(X_{1}, X_{2})^{T}$ follow a bivariate normal distribution $\mathbf{X} \sim N(\boldsymbol{\mu}, \Sigma)$ with mean vector $\boldsymbol{\mu}$ and covariance matrix $\Sigma$:
+	$$
+	\boldsymbol{\mu}=\binom{\mu_{1}}{\mu_{2}} \quad \text { and covariance } \quad \Sigma=\left(\begin{array}{cc}
+		\sigma_{1}^{2} & \rho \sigma_{1} \sigma_{2} \\
+		\rho \sigma_{1} \sigma_{2} & \sigma_{2}^{2}
+	\end{array}\right)
+	$$
+	The correlation parameter is $\rho$.
+	
+	The density of the copula $C_{\mathbf{X}}$ is the ratio of the joint PDF $f_{\mathbf{X}}(x_1, x_2)$ to the product of the marginal PDFs $f_{X_1}(x_1) f_{X_2}(x_2)$:
+	$$
+	c_{\mathbf{X}}(u_1, u_2) = \frac{f_{\mathbf{X}}(x_1, x_2)}{f_{X_1}(x_1) f_{X_2}(x_2)}
+	$$
+	where the variables are linked by the standard normal quantile function $\Phi^{-1}$:
+	$$
+	z_1 = \frac{x_1 - \mu_1}{\sigma_1} = \Phi^{-1}(u_1) \quad \text{and} \quad z_2 = \frac{x_2 - \mu_2}{\sigma_2} = \Phi^{-1}(u_2)
+	$$
+	
+	Let $\phi_{\rho}(z_1, z_2)$ be the PDF of the standard bivariate normal distribution (with zero mean, unit variance, and correlation $\rho$), and $\phi(z)$ be the standard univariate normal PDF.
+	$$
+	\text{Joint PDF: } f_{\mathbf{X}}(x_1, x_2) = \frac{1}{\sigma_1 \sigma_2} \phi_{\rho}\left(z_1, z_2\right)
+	$$
+	$$
+	\text{Marginal PDFs: } f_{X_1}(x_1) = \frac{1}{\sigma_1} \phi(z_1) \quad \text{and} \quad f_{X_2}(x_2) = \frac{1}{\sigma_2} \phi(z_2)
+	$$
+
+	
+	Substituting these into the copula density formula:
+	$$
+	c_{\mathbf{X}}(u_1, u_2) = \frac{\frac{1}{\sigma_1 \sigma_2} \phi_{\rho}(z_1, z_2)}{\left(\frac{1}{\sigma_1} \phi(z_1)\right) \left(\frac{1}{\sigma_2} \phi(z_2)\right)} = \frac{\phi_{\rho}(z_1, z_2)}{\phi(z_1) \phi(z_2)}
+	$$
+	Using the explicit formulas for $\phi_{\rho}$ and $\phi$:
+	$$
+	\phi_{\rho}(z_1, z_2) = \frac{1}{2\pi \sqrt{1 - \rho^2}} \exp\left(-\frac{1}{2(1-\rho^2)}\left[ z_1^2 - 2\rho z_1 z_2 + z_2^2 \right]\right)
+	$$
+	$$
+	\phi(z_1) \phi(z_2) = \left(\frac{1}{\sqrt{2\pi}} e^{-z_1^2/2}\right) \left(\frac{1}{\sqrt{2\pi}} e^{-z_2^2/2}\right) = \frac{1}{2\pi} \exp\left(-\frac{1}{2}(z_1^2 + z_2^2)\right)
+	$$
+	Taking the ratio:
+	\begin{align*}
+		c_{\mathbf{X}}(u_1, u_2) &= \frac{1}{\sqrt{1 - \rho^2}} \exp\left( -\frac{1}{2(1-\rho^2)}\left(z_1^2 - 2\rho z_1 z_2 + z_2^2\right) + \frac{1}{2}(z_1^2 + z_2^2) \right) \\
+		&= \frac{1}{\sqrt{1 - \rho^2}} \exp\left( \frac{1}{2(1-\rho^2)} \left[ -(z_1^2 - 2\rho z_1 z_2 + z_2^2) + (1-\rho^2)(z_1^2 + z_2^2) \right] \right) \\
+		&= \frac{1}{\sqrt{1 - \rho^2}} \exp\left( \frac{1}{2(1-\rho^2)} \left[ -z_1^2 + 2\rho z_1 z_2 - z_2^2 + z_1^2 - \rho^2 z_1^2 + z_2^2 - \rho^2 z_2^2 \right] \right) \\
+		&= \frac{1}{\sqrt{1 - \rho^2}} \exp\left(\frac{1}{2(1-\rho^2)} \left[ 2\rho z_1 z_2 - \rho^2 (z_1^2 + z_2^2) \right]\right)
+	\end{align*}
+	
+	The density of the Gaussian Copula is:
+	$$
+	c_{\mathbf{X}}\left(u_{1}, u_{2}\right) = \frac{1}{\sqrt{1 - \rho^2}} \exp\left(\frac{2\rho z_1 z_2 - \rho^2 (z_1^2 + z_2^2)}{2(1-\rho^2)}\right)
+	$$
+	where $z_i = \Phi^{-1}(u_i)$ for $i=1, 2$.
+
+\clearpage
+
+\section{Question 3}
+\subsection{Problem 1}
+Consider the R code above.
+\begin{enumerate}
+	\item[(a)] What type of copula model has been sampled? Give the copula family, the correlation matrix, and any other parameters that specify the copula.
+	\item[(b)] What is the sample size?
+\end{enumerate}
+
+	\textbf{Answer}
+	
+	\underline{Part a}
+	
+	The code given for this question in book is as:
+	
+\begin{lstlisting}
+     library(copula)
+     cop_t_dim3 = tCopula(dim = 3, param = c(-0.6,0.75,0),dispstr = "un", df = 1)
+     set.seed(5640)
+     rand_t_cop = rCopula(n = 500, copula = cop_t_dim3)
+     pairs(rand_t_cop)
+     cor(rand_t_cop)
+\end{lstlisting}
+
+
+
+	\begin{itemize}
+		\item {Copula family:} The function {tCopula} is used, so the model is a {Student's $t$ Copula} (or {t-Copula}).
+		\item {Dimension:} \texttt{dim = 3}, so the copula is {3-dimensional}.
+		\item {Correlation matrix ($\mathbf{P}$):} The parameter vector is \texttt{param = c(-0.6,0.75,0)}, which specifies the three unique correlation coefficients ($\rho_{12}, \rho_{13}, \rho_{23}$) for a 3-dimensional copula. The correlation matrix $\mathbf{P}$ is:
+		$$
+		\mathbf{P} = \begin{pmatrix}
+			1 & -0.6 & 0.75 \\
+			-0.6 & 1 & 0 \\
+			0.75 & 0 & 1
+		\end{pmatrix}
+		$$
+		\item {Other parameters:} The degrees of freedom is $\text{df} = 1$.
+	\end{itemize}
+
+	\underline{Part b}
+	
+	The function \texttt{rCopula} is called with \texttt{{n} = 500}, thus the sample size is 500.
+
+\clearpage
+
+
+
+\subsection{Problem 2}
+
+Examine the scatterplot matrix ({generated by line 6}) and answer the questions below. Include the scatterplot matrix with your answer.
+
+\begin{enumerate}
+	\item[(a)] Components 2 and 3 are uncorrelated. Do they appear independent? Why or why not?
+	\item[(b)] Do you see signs of tail dependence? If so, where?
+	\item[(c)] What are the effects of dependence upon the plots?
+	\item[(d)] The nonzero correlations in the copula do not have the same values as the corresponding sample correlations. Do you think this is just due to random variation or is something else going on? If there is another cause besides random variation, what might that be? To help answer this question, you can get confidence intervals for the Pearson correlation: For example,
+\begin{lstlisting}
+     cor.test(rand_t_cop[,1], rand_t_cop[,3])
+
+\end{lstlisting}
+
+	will give a confidence interval (95 percent by default) for the correlation (Pearson by default) between components 1 and 3. Does this confidence interval include 0.75?
+\end{enumerate}
+
+	\textbf{Answer}
+	
+	\underline{Part a}
+	
+	\includegraphics[max width=0.8\textwidth, center]{Q3_1}
+	\captionof{figure}{Scatterplot Matrix}
+	
+	From the plot we can see that components 2 and 3 ({var 2 vs. var 3} plot) {do not appear independent}. Although the theoretical linear correlation parameter is $\rho_{23}=0$, the scatterplot exhibits clear {tail dependence} (clustering of points in the corners, particularly the top-right and bottom-left, as well as the top-left and bottom-right). Independence would require the points to be uniformly scattered across the unit square. This non-independent structure is expected because the function is a $t$-Copula with a very low degrees of freedom ($\text{df}=1$), which induces dependence in the tails even when $\rho=0$.
+	
+	Moreover, from the plot we can see that component 1 and 2 are negatively correlated, and component 1 and 3 are positive correlated. 
+	
+	\underline{Part b}
+	
+	Yes, strong signs of tail dependence are evident in {all three pairs} of components. 
+	
+	\begin{itemize}
+		\item {var 1 and var 3} ($\rho_{13}=0.75$): Strong clustering in the {bottom-left $(0,0)$} and {top-right $(1,1)$} corners (positive tail dependence).
+		\item {var 1 and var 2} ($\rho_{12}=-0.6$): Strong clustering in the {top-left $(0,1)$} and {bottom-right $(1,0)$} corners (negative tail dependence).
+		\item {var 2 and var 3} ($\rho_{23}=0$): Although $\rho=0$, there is visible clustering in the corners, indicating {symmetric tail dependence} without a linear trend, characteristic of a low $\text{df}$ $t$-Copula.
+	\end{itemize}
+
+	\underline{Part c}
+	
+	\begin{itemize}
+		\item {Effect 1 (Linear trend):} The non-zero correlation parameters ($\rho_{12}=-0.6$ and $\rho_{13}=0.75$) determine the primary linear association or "squeeze" of the cloud of points along the diagonal/anti-diagonal.
+		\item {Effect 2 (Tail dependency):} The low degrees of freedom ($\text{df}=1$) forces a higher density of points into the corners $(0, 0)$, $(0, 1)$, $(1, 0)$, and $(1, 1)$, indicating that extreme values in one component are highly likely to be paired with extreme values in the other. We can see this in both negative (var 1 and var 2) and positive (var 2 and var 3) cases.
+		\item {Effect 3 (Non-uniformity):} Compared to an independent copula (where points would be uniformly scattered), the dependence causes the points to be highly concentrated in specific regions dictated by $\rho$ and $\text{df}$.
+	\end{itemize}
+	
+	\underline{Part d}
+	
+	The Pearson correlation matrix is printed as below, whereas the correlation we entered was  \texttt{param = c(-0.6,0.75,0)}; they are different. 
+	
+	\begin{verbatim}
+                [,1]        [,2]        [,3]
+     [1,]  1.0000000 -0.54999514  0.70707296
+     [2,] -0.5499951  1.00000000 -0.06538499
+     [3,]  0.7070730 -0.06538499  1.00000000
+\end{verbatim}
+
+Besides random variation, there might be strong nonlinear effects which caused the problem; for $t$-corpula with small degree of freedom, it has strong tail dependence (as in this case). In other words, the parameters of corpula only measures linear related parameters, but here there is a strong nonlinear trend. 
+  
+  
+  The confidence interval generated by the codes give are shown below:
+
+	\begin{verbatim}
+     Pearson's product-moment correlation
+     
+     data:  rand_t_cop[, 1] and rand_t_cop[, 3]
+     t = 22.314, df = 498, p-value < 2.2e-16
+     alternative hypothesis: true correlation is not equal to 0
+     95 percent confidence interval:
+     0.6603249 0.7483624
+     sample estimates:
+     cor 
+     0.707073 
+	\end{verbatim}
+
+As we can see the confidence interval is (0.6603249, 0.7483624), which does not include 0.75. Becasue of the nonlinear transform when we build copula, the relationships between variables would change, thus causing the change of correlation parameter.
+\clearpage
+
+\section{Question 4}
+
+Suppose that there two bonds A and B that may default and let $T_{A}$ and $T_{B}$ denote their respective default times. Suppose that $T_{A} \sim \operatorname{Exponential}\left(\lambda_{A}=0.10\right)$ and $T_{B} \sim \operatorname{Exponential}\left(\lambda_{B}=\right. 0.07)$. Assume that the risk free rate is 0 and that $\left(F_{A}\left(T_{A}\right), F_{B}\left(T_{B}\right)\right)$ is distributed according to Joe's copula:
+
+$$
+C(u, v)=1-\left[(1-u)^{2}+(1-v)^{2}-(1-u)^{2}(1-v)^{2}\right]^{1 / 2}
+$$
+
+\begin{enumerate}
+	\item[(a)] Consider an insurance with a payoff of $\$ 2$ million if both bonds default before the end of the first year and $\$ 1$ million if both survive the first year but they default before the end of the second year. Find the fair price of this insurance.
+	\item[(b)] Consider an insurance with a payoff of $\$ 2$ million if both bonds default before the end of the first year and $\$ 1$ million if both survive the first year but A or B defaults before the end of the second year. Find the fair price of this insurance.
+
+\end{enumerate}
+
+
+
+	\textbf{Answer}
+	
+		\underline{Part a}
+		
+	We are given two default times:
+	\[
+	T_A \sim \text{Exponential}(\lambda_A = 0.10), \qquad
+	T_B \sim \text{Exponential}(\lambda_B = 0.07),
+	\]
+	
+	and Joe's copula
+	
+	\[
+	C(u,v) = 1 - \sqrt{(1-u)^2 + (1-v)^2 - (1-u)^2 (1-v)^2}.
+	\]
+	
+	Let the survival probabilities be:
+	
+	\[
+	s_A(t) = e^{-0.1t}, \qquad s_B(t) = e^{-0.07t}.
+	\]
+	
+	Then the joint survival copula is:
+	
+	\[
+	\overline{C}(s_A,s_B) = s_A + s_B - \sqrt{s_A^2 + s_B^2 - (s_A s_B)^2}.
+	\]
+	
+	Also, the joint CDF is:
+	
+	\[
+	H(t_A,t_B) = \mathbb{P}(T_A \le t_A, T_B \le t_B)
+	= 1 - s_A(t_A) - s_B(t_B) + \overline{C}(s_A(t_A), s_B(t_B)).
+	\]
+	
+
+	
+	\[
+	\begin{aligned}
+		s_A(1) &= e^{-0.10} = 0.904837, &
+		s_B(1) &= e^{-0.07} = 0.932394, \\
+		s_A(2) &= e^{-0.20} = 0.818731, &
+		s_B(2) &= e^{-0.14} = 0.869358.
+	\end{aligned}
+	\]
+	
+	\[
+	\begin{aligned}
+		\overline{C}(s_A(1),s_B(1)) &= 0.8491428483, \\
+		\overline{C}(s_A(2),s_B(2)) &= 0.7291902477, \\
+		H(1,1) &= 0.0119116104, \\
+		H(2,2) - H(1,2) - H(2,1) + H(1,1) &= 0.0088558816.
+	\end{aligned}
+	\]
+	
+	
+	
+	Payoff:
+	\[
+	2\text{M if both default by 1 year, } \quad
+	1\text{M if both survive 1 year but default by 2 years.}
+	\]
+	
+	Thus the fair price is
+	\[
+	\begin{aligned}
+		P_a &= 2{,}000{,}000 \, H(1,1)
+		+ 1{,}000{,}000 \, [H(2,2) - H(1,2) - H(2,1) + H(1,1)] \\
+		&= 2{,}000{,}000 (0.0119116104)
+		+ 1{,}000{,}000 (0.0088558816) \\
+		&= {\$32{,}679.10}.
+	\end{aligned}
+	\]
+	
+	\underline{Part b}
+	
+	Payoff:
+	\[
+	2\text{M if both default by 1 year, } \quad
+	1\text{M if both survive 1 year but at least one defaults by 2 years.}
+	\]
+	
+	\[
+	\begin{aligned}
+		P_b &= 2{,}000{,}000 \, H(1,1)
+		+ 1{,}000{,}000 \, [\mathbb{P}(T_A>1,T_B>1)-\mathbb{P}(T_A>2,T_B>2)] \\
+		&= 2{,}000{,}000 \, H(1,1)
+		+ 1{,}000{,}000 \, [\overline{C}(s_A(1),s_B(1)) - \overline{C}(s_A(2),s_B(2))] \\
+		&= 2{,}000{,}000 (0.0119116104)
+		+ 1{,}000{,}000 (0.1199526006) \\
+		&= {\$143{,}775.82}.
+	\end{aligned}
+	\]
+
+		
+		
+
+\clearpage
+	\end{document}
+	
