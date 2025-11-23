@@ -1,0 +1,159 @@
+\documentclass[letterpaper]{article} 
+\usepackage[utf8]{inputenc}
+\linespread{0.85}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage[version=4]{mhchem}
+\usepackage[dvipsnames]{xcolor}
+\colorlet{LightRubineRed}{RubineRed!70}
+\colorlet{Mycolor1}{green!10!orange}
+\definecolor{Mycolor2}{HTML}{00F9DE}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{lipsum}
+\usepackage{fancyvrb}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage[export]{adjustbox}
+\graphicspath{ {./images/} }
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{hyperref} 
+\usepackage{xcolor} % For custom colors
+\lstset{
+	language=Python,                % Choose the language (e.g., Python, C, R)
+	basicstyle=\ttfamily\small, % Font size and type
+	keywordstyle=\color{blue},  % Keywords color
+	commentstyle=\color{gray},  % Comments color
+	stringstyle=\color{red},    % String color
+	numbers=left,               % Line numbers
+	numberstyle=\tiny\color{gray}, % Line number style
+	stepnumber=1,               % Numbering step
+	breaklines=true,            % Auto line break
+	backgroundcolor=\color{black!5}, % Light gray background
+	frame=single,               % Frame around the code
+}
+\usepackage{float}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+\usepackage[]{amssymb} %gives us the character \varnothing
+
+	\title{Homework 3, STAT 5261}
+	\author{Zongyi Liu}
+	\date{Wed, Sept 24, 2025}
+	\begin{document}
+		\maketitle
+		
+		\section{Question 1}
+		\subsection{Problem 1}
+		Suppose that there are two risky assets, A and B, with expected returns equal to 2.3\% and 4.5\%, respectively. Suppose that the standard deviations of the returns are 6\% and 11\% and that the returns on the assets have a correlation of 0.17.
+		
+		\begin{itemize}
+			\item (a) What portfolio of A and B achieves a 3 \% rate of expected return?
+		    \item (b) What portfolios of A and B achieve a 5.5\% standard deviation of return? Among these, which has the largest expected return?
+		\end{itemize}
+	
+	\textbf{Answer}
+	\vspace*{0.1\textheight}
+		
+		\subsection{Problem 2}
+		Suppose there are two risky assets, C and D, the tangency portfolio is 65\% C and 35\% D, and the expected return and standard deviation of the return on the tangency portfolio are 5\% and 7\%, respectively. Suppose also that the risk-free rate of return is 1.5\%. If you want the standard deviation of your return to be 5\%, what proportions of your capital should be in the risk-free asset, asset C, and asset D?
+		
+	
+	
+	\textbf{Answer}
+		
+		
+		\clearpage
+		
+	\section{Question 2}
+	Let $f(x,y)$ be a continuous and differentiable function of $x$ and $y$. 
+	The function $f$ is said to be homogeneous of degree one if
+	\[
+	f(cx,cy) = c f(x,y).
+	\]
+	
+	Euler’s theorem states that if $f$ is homogeneous of degree one, then
+	\[
+	f(x,y) = x \frac{\partial}{\partial x} f(x,y) + y \frac{\partial}{\partial y} f(x,y).
+	\]
+	
+	Let 
+	\[
+	\mu_P(x,y) = x\mu_A + y\mu_B, 
+	\quad 
+	\sigma_P(x,y) = \sqrt{x^2\sigma_A^2 + y^2\sigma_B^2 + 2xy\sigma_{AB}}.
+	\]
+	
+	\begin{enumerate}
+		\item Show that $\mu_P(x,y)$ and $\sigma_P(x,y)$ are homogeneous of degree 1 (for $\sigma_P(x,y)$ assume $c \geq 0$).
+		
+		\item In a portfolio where the portion $x$ is invested in asset $A$ and the portion $y$ is invested in asset $B$, the partial derivatives
+		\[
+		\frac{\partial}{\partial x}\sigma_P(x,y) 
+		\quad \text{and} \quad 
+		\frac{\partial}{\partial y}\sigma_P(x,y),
+		\]
+		are called the marginal contributions to risk of $A$ and $B$, respectively. The contributions to risk of assets $A$ and $B$ are given by
+		\[
+		x \frac{\partial}{\partial x}\sigma_P(x,y) 
+		\quad \text{and} \quad 
+		y \frac{\partial}{\partial y}\sigma_P(x,y),
+		\]
+		respectively. Find the expression of the marginal risks and the contribution to risk of assets $A$ and $B$.
+	\end{enumerate}
+
+
+\textbf{Answer}
+
+	\clearpage
+	
+	\section{Question 3}
+	
+	The annual estimates of the parameters for Boeing (B) and Microsoft (M) stocks are given below:
+	\[
+	\mu_B = 0.1492,\qquad 
+	\mu_M = 0.3308,\qquad
+	\sigma_B^2 = 0.0695,\qquad
+	\sigma_M^2 = 0.1369,\qquad
+	\rho_{BM} = -0.0083 .
+	\]
+	Assume a risk--free rate of $6\%$ per year for the T--bill (risk--free rate).
+	
+	\begin{enumerate}
+		\item Use the Lagrange multiplier method to derive the minimum variance portfolio.
+		\item Find the tangency portfolio and compute its mean and risk.
+		\item Suppose you desire a portfolio with an expected return of $20\%$. 
+		What should be the weights of this portfolio if you only use risky assets? 
+		What is its risk equal to?
+		\item Suppose you desire a portfolio with a risk of $20\%$. 
+		What should be the weights of this portfolio if you use risky and risk--free assets? 
+		What is its expected return equal to?
+	\end{enumerate}
+
+
+   \textbf{Answer}
+   
+	
+	
+	
+	\end{document}
