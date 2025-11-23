@@ -1,0 +1,157 @@
+\documentclass[letterpaper]{article} 
+\usepackage[utf8]{inputenc}
+\linespread{0.85}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{physics}
+\usepackage[version=4]{mhchem}
+\usepackage{stmaryrd}
+\usepackage[dvipsnames]{xcolor}
+\colorlet{LightRubineRed}{RubineRed!70}
+\colorlet{Mycolor1}{green!10!orange}
+\definecolor{Mycolor2}{HTML}{00F9DE}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{lipsum}
+\usepackage{fancyvrb}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage[export]{adjustbox}
+\graphicspath{ {./images/} }
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{hyperref} 
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\E}{\mathbb{E}}
+\usepackage[normalem]{ulem}
+\usepackage{xcolor} % For custom colors
+\lstset{
+	language=Python,                % Choose the language (e.g., Python, C, R)
+	basicstyle=\ttfamily\small, % Font size and type
+	keywordstyle=\color{blue},  % Keywords color
+	commentstyle=\color{gray},  % Comments color
+	stringstyle=\color{red},    % String color
+	numbers=left,               % Line numbers
+	numberstyle=\tiny\color{gray}, % Line number style
+	stepnumber=1,               % Numbering step
+	breaklines=true,            % Auto line break
+	backgroundcolor=\color{black!5}, % Light gray background
+	frame=single,               % Frame around the code
+}
+\usepackage{float}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+	\usepackage[]{amssymb} %gives us the character \varnothing
+	
+	\title{Homework 5, STAT 5261}
+	\author{Zongyi Liu}
+	\date{Wed, Oct 8, 2025}
+	
+	\begin{document}
+		\maketitle
+		
+		
+		\section{Question 1}
+		
+		Assume asset $j$ 's $\beta_{j}=0.75$ and that $\mu_{f}=3 \%$ and $\mu_{M}=10 \%$.
+		
+		\begin{itemize}
+			\item  (a) Assume that the CAPM theory holds, what is $\mu_{j}$, the average return of asset $j$ equal to?
+			\item (b) If actually $\mu_{j}=9 \%$, is asset $j$ overpriced, underpriced or correctly priced?
+		\end{itemize}
+		
+		\textbf{Answer}
+		
+		\clearpage
+		\section{Question 2}
+		Do problems 3 and 6 on page 513 (Chapter 17), in problem 6 c), please change $220 \%^{2}$ to $300 \%^{2}$.
+		
+		\subsection{Problem 3}
+		Suppose that the risk-free interest rate is $0.023$, that the expected return 
+		on the market portfolio is $\mu_M = 0.10$, and that the volatility of the market 
+		portfolio is $\sigma_M = 0.12$.
+		\begin{itemize}
+			\item (a) What is the expected return on an efficient portfolio with $\sigma_R = 0.05$?
+			\item (b) Stock A returns have a covariance of $0.004$ with market returns. What is the beta of Stock A?
+			\item (c) Stock B has beta equal to $1.5$ and $\sigma_{\varepsilon} = 0.08$. 
+			Stock C has beta equal to $1.8$ and $\sigma_{\varepsilon} = 0.10$.
+			\begin{itemize}
+				\item (i) What is the expected return of a portfolio that is one-half Stock B and one-half Stock C?
+				\item (ii) What is the volatility of a portfolio that is one-half Stock B and one-half Stock C?
+				Assume that the $\varepsilon$s of Stocks B and C are independent.
+			\end{itemize}
+		\end{itemize}
+		
+		
+		\textbf{Answer}
+		
+		\clearpage
+		
+		\subsection{Problem 6}
+		
+		Suppose that the riskless rate of return is $4\%$ and the expected market return is $12\%$. 
+		The standard deviation of the market return is $11\%$. 
+		Suppose as well that the covariance of the return on Stock A with the market return is $165\%^{2}$.
+		\begin{itemize}
+			\item What is the beta of Stock A?
+			\item What is the expected return on Stock A?
+			\item If the variance of the return on Stock A is \textcolor{red}{\sout{$220\%^{2}$}} $300\%^{2}$, what percentage of this variance is due to market risk?
+		\end{itemize}
+		
+		Given $r_f=4\%$, $\mu_M=12\%$, $\sigma_M=11\%$ so $\Var(R_M)=0.11^2=0.0121$, and 
+		$\Cov(R_A,R_M)=165\%^{2}=0.0165$.
+		
+		
+		\textbf{Answer}
+		
+		
+		
+		\clearpage
+		\section{Question 3}
+		The Security Market line (SML) of an asset relates the excess return of an asset to the excess return of the market portfolio. It says that the risk premium of a security $j$ is proportional to the risk premium on the market portfolio, that is
+		
+		
+		$$
+		\mu_{j}-\mu_{f}=\beta_{j}\left(\mu_{M}-\mu_{f}\right)
+		$$
+		
+		(We will derive this equation next week in class). Here $\mu_{j}$ and $\mu_{f}$ are the returns of securty $j$ and risk-free asset, respectively, and $\mu_{M}$ is the returm on the market portfolio. $\beta_{j}$ is the $j$ th security's "beta" value. Investors usually want an estimate of a stock's beta before purchasing it. The econometric model is obtained by including an intercept in the model (even though theory says it should be zero) and an error term and is given
+		
+		$$
+		R_{j, t}-R_{f, t}=\alpha+\beta_{j}\left(R_{m, t}-R_{f, t}\right)+\epsilon_{j, t} .
+		$$
+		
+		The data (CAPM, posted on courseworks under assignments) is the data on the monthly returns of four firms (Microsoft, GE, GM, IBM), the rate of return on the market portfolio (MKT) and the rate of return of risk free asset (RKFREE). The 120 observations cover January 1995 to December 2004. The columns in the data set are given in the following order Microsoft, GE, GM, IBM, MARKET PORTFOLIO, RISK FREE RATE (30 day T-Bill). Use this data to answer the following questions.
+		
+		\begin{itemize}
+			\item  (a) Estimate the CAPM model for each firm and comment on their estimated beta values.
+			\item	(b) Finance theory says that the intercept parameter $\alpha$ should be zero. Does this seem correct given your estimates (you need to test $H_{0}: \alpha=0$ against $H_{a}: \alpha \neq 0$ for each firm at 0.05 significance level.
+			\item	(c) Construct a $95 \%$ for each $\beta_{j}$ using the model and interpret your results.
+			\item	(d) Test at the $5 \%$ level of significance the hypothesis that each stock's $\beta$ is 1 against the alternative that it is not equal to 1.
+			\item	(e) Test at the $5 \%$ level of significance the hypothesis that the beta of Microsoft is 1 against the alternative that it is greater than 1.
+		\end{itemize}
+	
+		\textbf{Answer}
+	
+	\end{document}
+	
