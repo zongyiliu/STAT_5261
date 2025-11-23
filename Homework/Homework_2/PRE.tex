@@ -1,0 +1,203 @@
+\documentclass[letterpaper]{article} 
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage[version=4]{mhchem}
+\usepackage{stmaryrd}
+\usepackage[dvipsnames]{xcolor}
+\colorlet{LightRubineRed}{RubineRed!70}
+\colorlet{Mycolor1}{green!10!orange}
+\definecolor{Mycolor2}{HTML}{00F9DE}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{lipsum}
+\usepackage{fancyvrb}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage[export]{adjustbox}
+\graphicspath{ {./images/} }
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{hyperref} 
+\usepackage{xcolor} % For custom colors
+\lstset{
+	language=Python,                % Choose the language (e.g., Python, C, R)
+	basicstyle=\ttfamily\small, % Font size and type
+	keywordstyle=\color{blue},  % Keywords color
+	commentstyle=\color{gray},  % Comments color
+	stringstyle=\color{red},    % String color
+	numbers=left,               % Line numbers
+	numberstyle=\tiny\color{gray}, % Line number style
+	stepnumber=1,               % Numbering step
+	breaklines=true,            % Auto line break
+	backgroundcolor=\color{black!5}, % Light gray background
+	frame=single,               % Frame around the code
+}
+\usepackage{float}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+	\usepackage[]{amssymb} %gives us the character \varnothing
+	
+	\title{Homework 2, STAT 5261}
+	\author{Zongyi Liu}
+	\date{Fri, Sep 19, 2025}
+	\begin{document}
+		\maketitle
+		
+		\section{Question 0}
+		\subsection{Part 1}
+		
+		Use the plot to estimate graphically the yield to maturity. Does this estimate agree with that from spline interpolation?
+		
+		As an alternative to interpolation, the yield to maturity can be found using a nonlinear root finder (equation solver) such as \texttt{uniroot()}, which is illustrated here:
+		
+		\texttt{uniroot(function(r) r\^{}2 - .5, c(0.7, 0.8))}
+		
+		
+		\textbf{Answer}
+		
+		
+		
+		\subsection{Part 2}
+		
+		What does the code 	\texttt{uniroot(function(r) r\^{}2 - 0.5, c(0.7, 0.8))} do?
+		
+		\textbf{Answer}
+		
+		
+			\subsection{Part 3}
+		
+		Use \texttt{uniroot()} to find the yield to maturity of the 30-year par
+		\$1,000 bond with coupon payments of \$40 that is selling at \$1,200.
+			
+			
+			\textbf{Answer}
+
+			
+				\subsection{Part 4}
+				
+		Find the yield to maturity of a par \$10,000 bond selling at \$9,800
+		with semiannual coupon payments equal to \$280 and maturing in 8 years.
+		
+		
+		\textbf{Answer}
+		
+
+			
+		\subsection{Part 5}
+		
+		Use \texttt{uniroot()} to find the yield to maturity of the 20-year par
+		\$1,000 bond with semiannual coupon payments of \$35 that is selling at \$1,050.
+		
+		\textbf{Answer}
+		
+		
+\clearpage
+
+		\section{Question 1}
+
+Suppose that the forward rate is r(t) = 0.028+0.00042t.
+
+\begin{itemize}
+	\item (a) What is the yield to maturity of a bond maturing in 20 years?
+	\item (b) What is the price of a par \$1,000 zero-coupon bond maturing in
+	15 years?
+\end{itemize}
+
+
+\textbf{Answer}
+
+\vspace*{0.1\textheight}
+
+	\section{Question 3}
+	
+	A coupon bond has a coupon rate of 3\% and a current yield of 2.8\%. 
+
+	\begin{itemize}
+		\item (a) Is the bond selling above or below par? Why or why not?
+	\item 	(b) Is the yield to maturity above or below 2.8 \%? Why or why not?
+\end{itemize}
+	
+	\textbf{Answer}
+	
+\vspace*{0.1\textheight}
+\section{Question 4}
+
+Suppose that the forward rate is $r(t) = 0.032 + 0.001t + 0.0002t^2$.
+	\begin{itemize}
+	\item (a) What is the 5-year continuously compounded spot rate?
+\item 	(b) What is the price of a zero-coupon bond that matures in 5 years?
+\end{itemize}
+
+\textbf{Answer}
+
+
+\clearpage
+\section{Question 7}
+One year ago a par \$1,000 20-year coupon bond with semiannual coupon payments was issued. The annual interest rate (that is, the coupon rate) at that time was 8.5\%. Now, a year later, the annual interest rate is 7.6\%.
+
+	\begin{itemize}
+	\item (a) What are the coupon payments?
+	\item (b) What is the bond worth now? Assume that the second coupon payment was just received, so the bondholder receives an additional 38 coupon payments, the next one in 6 months.
+	\item (c) What would the bond be worth if instead the second payment were just about to be received?
+
+\end{itemize}
+
+\textbf{Answer}
+
+\vspace*{0.1\textheight}
+
+\section{Question 15}
+	Suppose that a bond pays a cash flow $C_i$ at time $T_i$ for $i=1,\ldots,N$.
+	Then the net present value (NPV) of cash flow $C_i$ is
+	\[
+	\mathrm{NPV}_i \;=\; C_i \exp(-T_i\,y_{T_i}).
+	\]
+	
+	Define the weights
+	\[
+	\omega_i \;=\; \frac{\mathrm{NPV}_i}{\sum_{j=1}^{N}\mathrm{NPV}_j}
+	\]
+	and define the duration of the bond to be
+	\[
+	\mathrm{DUR} \;=\; \sum_{i=1}^{N}\omega_i T_i,
+	\]
+	which is the weighted average of the times of the cash flows. Show that
+	\[
+	\left.\frac{d}{d\delta}\sum_{i=1}^{N} C_i \exp\!\big\{-T_i\,(y_{T_i}+\delta)\big\}\right|_{\delta=0}
+	= -\,\mathrm{DUR}\,\sum_{i=1}^{N} C_i \exp\{-T_i\,y_{T_i}\},
+	\]
+	and use this result to verify Eq.~(3.31).
+	
+	
+	\textbf{Answer}
+	
+
+\clearpage
+
+\section{Question 21}
+	A par \$1,000 bond matures in 4years and pays semiannual coupon payments of \$25. The price of the bond is \$1,015. What is the semiannual yield to maturity of this bond?
+	
+	\textbf{Answer}
+	
+	
+\end{document}
