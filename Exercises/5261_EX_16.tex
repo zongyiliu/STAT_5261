@@ -1,0 +1,131 @@
+\documentclass[letterpaper, 9pt]{article}
+\linespread{0.85}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{physics}
+\usepackage[version=4]{mhchem}
+\usepackage{stmaryrd}
+\usepackage[dvipsnames]{xcolor}
+\colorlet{LightRubineRed}{RubineRed!70}
+\colorlet{Mycolor1}{green!10!orange}
+\definecolor{Mycolor2}{HTML}{00F9DE}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{lipsum}
+\usepackage{fancyvrb}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage[export]{adjustbox}
+\graphicspath{ {./images/} }
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{hyperref} 
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\E}{\mathbb{E}}
+\usepackage[normalem]{ulem}
+\usepackage{xcolor} % For custom colors
+\lstset{
+	language=Python,                % Choose the language (e.g., Python, C, R)
+	basicstyle=\ttfamily\small, % Font size and type
+	keywordstyle=\color{blue},  % Keywords color
+	commentstyle=\color{gray},  % Comments color
+	stringstyle=\color{red},    % String color
+	numbers=left,               % Line numbers
+	numberstyle=\tiny\color{gray}, % Line number style
+	stepnumber=1,               % Numbering step
+	breaklines=true,            % Auto line break
+	backgroundcolor=\color{black!5}, % Light gray background
+	frame=single,               % Frame around the code
+}
+\usepackage{float}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+	\usepackage[]{amssymb} %gives us the character \varnothing
+	
+	\title{Exercise 16, STAT 5261}
+	\author{Zongyi Liu}
+	\date{Wed, Oct 15, 2025}
+	
+	\begin{document}
+		\maketitle
+		
+		
+		\section{Question 1}
+		
+		Suppose that there are two risky assets, A and B , with expected returns equal to $2.3 \%$ and $4.5 \%$, respectively. Suppose that the standard deviations of the returns are $\sqrt{6} \%$ and $\sqrt{11} \%$ and that the returns on the assets have a correlation of 0.17.\\
+		(a) What portfolio of A and B achieves a $3 \%$ rate of expected return?\\
+		(b) What portfolios of A and B achieve a $\sqrt{5.5} \%$ standard deviation of return? Among these, which has the largest expected return?
+		
+	
+	\textbf{Answer}
+ 	\vspace*{0.3\textheight}
+		
+			\section{Question 2}
+			
+		 Suppose there are two risky assets, C and D, the tangency portfolio is $65 \% \mathrm{C}$ and $35 \% \mathrm{D}$, and the expected return and standard deviation of the return on the tangency portfolio are $5 \%$ and $7 \%$, respectively. Suppose also that the risk-free rate of return is $1.5 \%$. If you want the standard deviation of your return to be $5 \%$, what proportions of your capital should be in the risk-free asset, asset C, and asset D?
+		
+
+		 \textbf{Answer}
+		 \clearpage
+		 
+		 	\section{Question 3}
+		  (a) Suppose that stock A shares sell at $\$ 75$ and stock B shares at $\$ 115$. A portfolio has 300 shares of stock A and 100 of stock B. What are the weights $w$ and $1-w$ of stocks A and B in this portfolio?\\
+		 (b) More generally, if a portfolio has $N$ stocks, if the price per share of the $j$ th stock is $P_{j}$, and if the portfolio has $n_{j}$ shares of stock $j$, then find a formula for $w_{j}$ as a function of $n_{1}, \ldots, n_{N}$ and $P_{1}, \ldots, P_{N}$.
+		 
+		 \textbf{Answer}
+\vspace*{0.3\textheight}
+		
+			\section{Question 4}
+		 Let $\mathcal{R}_{P}$ be a return of some type on a portfolio and let $\mathcal{R}_{1}, \ldots, \mathcal{R}_{N}$ be the same type of returns on the assets in this portfolio. Is
+		 
+		 $$
+		 \mathcal{R}_{P}=w_{1} \mathcal{R}_{1}+\cdots+w_{N} \mathcal{R}_{N}
+		 $$
+		 
+		 true if $\mathcal{R}_{P}$ is a net return? Is this equation true if $\mathcal{R}_{P}$ is a gross return? Is it true if $\mathcal{R}_{P}$ is a log return? Justify your answers.
+		 
+		\textbf{Answer}
+		\clearpage
+		
+			\section{Question 5}
+Suppose one has a sample of monthly log returns on two stocks with sample means of 0.0032 and 0.0074, sample variances of 0.017 and 0.025, and a sample covariance of 0.0059. For purposes of resampling, consider these to be the "true population values." A bootstrap resample has sample means of 0.0047 and 0.0065 , sample variances of 0.0125 and 0.023, and a sample covariance of 0.0058.\\
+(a) Using the resample, estimate the efficient portfolio of these two stocks that has an expected return of 0.005 ; that is, give the two portfolio weights.\\
+(b) What is the estimated variance of the return of the portfolio in part (a) using the resample variances and covariances?\\
+(c) What are the actual expected return and variance of return for the portfolio in (a) when calculated with the true population values (e.g., with using the original sample means, variances, and covariance)?
+
+	\textbf{Answer}
+	\vspace*{0.3\textheight}
+	
+	\section{Question 6}
+	Stocks 1 and 2 are selling for $\$ 100$ and $\$ 125$, respectively. You own 200 shares of stock 1 and 100 shares of stock 2. The weekly returns on these stocks have means of 0.001 and 0.0015 , respectively, and standard deviations of 0.03 and 0.04 , respectively. Their weekly returns have a correlation of 0.35. Find the correlation matrix of the weekly returns on the two stocks and the mean and standard deviation of the weekly returns on the portfolio.
+	
+	
+	\textbf{Answer}
+	\vspace*{0.1\textheight}
+	
+
+
+\clearpage
+	\end{document}
+	
