@@ -1,0 +1,200 @@
+\documentclass[letterpaper, 9pt]{article}
+\linespread{0.85}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{physics}
+\usepackage[version=4]{mhchem}
+\usepackage{stmaryrd}
+\usepackage[dvipsnames]{xcolor}
+\colorlet{LightRubineRed}{RubineRed!70}
+\colorlet{Mycolor1}{green!10!orange}
+\definecolor{Mycolor2}{HTML}{00F9DE}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{lipsum}
+\usepackage{fancyvrb}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage[export]{adjustbox}
+\graphicspath{ {./images/} }
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{hyperref} 
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\E}{\mathbb{E}}
+\usepackage[normalem]{ulem}
+\usepackage{xcolor} % For custom colors
+\lstset{
+	language=Python,                % Choose the language (e.g., Python, C, R)
+	basicstyle=\ttfamily\small, % Font size and type
+	keywordstyle=\color{blue},  % Keywords color
+	commentstyle=\color{gray},  % Comments color
+	stringstyle=\color{red},    % String color
+	numbers=left,               % Line numbers
+	numberstyle=\tiny\color{gray}, % Line number style
+	stepnumber=1,               % Numbering step
+	breaklines=true,            % Auto line break
+	backgroundcolor=\color{black!5}, % Light gray background
+	frame=single,               % Frame around the code
+}
+\usepackage{float}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+	\usepackage[]{amssymb} %gives us the character \varnothing
+	
+	\title{Exercise 17, STAT 5261}
+	\author{Zongyi Liu}
+	\date{Wed, Oct 15, 2025}
+	
+	\begin{document}
+		\maketitle
+		
+		
+		\section{Question 1}
+		What is the beta of a portfolio if $E\left(R_{P}\right)=16 \%, \mu_{f}=5.5 \%$, and $E\left(R_{M}\right)=11 \%$?
+		
+	
+	\textbf{Answer}
+ 	\vspace*{0.1\textheight}
+		
+			\section{Question 2}
+			
+		 Suppose that the risk-free rate of interest is 0.03 and the expected rate of return on the market portfolio is 0.14. The standard deviation of the market portfolio is 0.12.\\
+		 (a) According to the CAPM, what is the efficient way to invest with an expected rate of return of 0.11?\\
+		 (b) What is the risk (standard deviation) of the portfolio in part (a)?
+		 
+		 \textbf{Answer}
+		 \vspace*{0.1\textheight}
+		 
+		 	\section{Question 3}
+		 Suppose that the risk-free interest rate is 0.023 , that the expected return on the market portfolio is $\mu_{M}=0.10$, and that the volatility of the market portfolio is $\sigma_{M}=0.12$.\\
+		 (a) What is the expected return on an efficient portfolio with $\sigma_{R}=0.05$?\\
+		 (b) Stock A returns have a covariance of 0.004 with market returns. What is the beta of Stock A?\\
+		 (c) Stock B has beta equal to 1.5 and $\sigma_{\epsilon}=0.08$. Stock C has beta equal to 1.8 and $\sigma_{\epsilon}=0.10$.\\
+		 i. What is the expected return of a portfolio that is one-half Stock B and one-half Stock C?\\
+		 ii. What is the volatility of a portfolio that is one-half Stock B and one-half Stock C? Assume that the $\epsilon$ s of Stocks B and C are independent.
+		 
+		 
+		 \textbf{Answer}
+		\vspace*{0.1\textheight}
+		
+			\section{Question 4}
+		Show that equation (17.16) follows from equation (7.8).
+		
+		\textbf{Answer}
+		\vspace*{0.1\textheight}
+		
+			\section{Question 5}
+		 True or false: The CAPM implies that investors demand a higher return to hold more volatile securities. Explain your answer.
+	
+	\textbf{Answer}
+	\vspace*{0.1\textheight}
+	
+	\section{Question 6}
+	Suppose that the riskless rate of return is $4 \%$ and the expected market return is $12 \%$. The standard deviation of the market return is $11 \%$. Suppose as well that the covariance of the return on Stock A with the market return is $165 \%^{2}.^{9}$\\
+	(a) What is the beta of Stock A?\\
+	(b) What is the expected return on Stock A?\\
+	(c) If the variance of the return on Stock A is $220 \%^{2}$, what percentage of this variance is due to market risk?
+	
+	
+	\textbf{Answer}
+	\vspace*{0.1\textheight}
+	
+	\section{Question 7}
+	
+	Suppose there are three risky assets with the following betas and $\sigma_{\epsilon_{j}}^{2}$.
+
+\begin{center}
+\begin{tabular}{l|c|c}
+	$j$ & $\beta_{j}$ & $\sigma_{\epsilon_{j}}^{2}$ \\
+	\hline
+	1 & 0.9 & 0.010 \\
+	2 & 1.1 & 0.015 \\
+	3 & 0.6 & 0.011 \\
+\end{tabular}
+\end{center}
+
+Suppose also that the variance of $R_{M t}-\mu_{f t}$ is 0.014.\\
+(a) What is the beta of an equally weighted portfolio of these three assets?\\
+(b) What is the variance of the excess return on the equally weighted portfolio?\\
+(c) What proportion of the total risk of asset 1 is due to market risk?
+
+
+\textbf{Answer}
+\vspace*{0.2\textheight}
+
+\section{Question 8}
+Suppose there are two risky assets, call them C and D. The tangency portfolio is $60 \% \mathrm{C}$ and $40 \% \mathrm{D}$. The expected yearly returns are $4 \%$ and $6 \%$ for assets C and D. The standard deviations of the yearly returns are $10 \%$ and $18 \%$ for C and D and the correlation between the returns on C and D is 0.5. The risk-free yearly rate is $1.2 \%$.\\
+(a) What is the expected yearly return on the tangency portfolio?\\
+(b) What is the standard deviation of the yearly return on the tangency portfolio?\\
+(c) If you want an efficient portfolio with a standard deviation of the yearly return equal to $3 \%$, what proportion of your equity should be in the risk-free asset? If there is more than one solution, use the portfolio with the higher expected yearly return.\\
+(d) If you want an efficient portfolio with an expected yearly return equal to $7 \%$, what proportions of your equity should be in asset C, asset D, and the risk-free asset?\\
+
+\textbf{Answer}
+\vspace*{0.3\textheight}
+\section{Question 9}
+What is the beta of a portfolio if the expected return on the portfolio is $E\left(R_{P}\right)=15 \%$, the risk-free rate is $\mu_{f}=6 \%$, and the expected return on the market is $E\left(R_{M}\right)=12 \%$? Make the usual CAPM assumptions including that the portfolio alpha is zero.
+
+\textbf{Answer}
+\clearpage
+
+\section{Question 10}
+Suppose that the risk-free rate of interest is 0.07 and the expected rate of return on the market portfolio is 0.14. The standard deviation of the market portfolio is 0.12.\\
+(a) According to the CAPM, what is the efficient way to invest with an expected rate of return of 0.11?\\
+(b) What is the risk (standard deviation) of the portfolio in part (a)?
+
+\textbf{Answer}
+
+\vspace*{0.2\textheight}
+
+\section{Question 11}
+Suppose there are three risky assets with the following betas and $\sigma_{\epsilon_{j}}^{2}$ when regressed on the market portfolio.
+
+\begin{center}
+	\begin{tabular}{l|c|c}
+		$j$ & $\beta_{j}$ & $\sigma_{\epsilon_{j}}^{2}$ \\
+		\hline
+		1 & 0.7 & 0.010 \\
+		2 & 0.8 & 0.025 \\
+		3 & 0.6 & 0.012 \\
+	\end{tabular}
+\end{center}
+
+Assume $\epsilon_{1}, \epsilon_{2}$, and $\epsilon_{3}$ are uncorrelated. Suppose also that the variance of $R_{M}-\mu_{f}$ is 0.02.\\
+(a) What is the beta of an equally weighted portfolio of these three assets?\\
+(b) What is the variance of the excess return on the equally weighted portfolio?\\
+(c) What proportion of the total risk of asset 1 is due to market risk?
+
+		\textbf{Answer}
+		\vspace*{0.2\textheight}
+		
+		\section{Question 12}
+		As an analyst, you have constructed 2 possible portfolios. Both portfolios have the same beta and expected return, but portfolio 1 was constructed with only technology companies whereas portfolio 2 was constructed using technology, healthcare, energy, consumer products, and metals and mining companies. Should you be impartial to which portfolio you invest in? Explain why or why not.
+		
+			\textbf{Answer}
+		
+
+\clearpage
+	\end{document}
+	
