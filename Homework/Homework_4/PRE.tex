@@ -1,0 +1,147 @@
+\documentclass[letterpaper]{article} 
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage[version=4]{mhchem}
+\usepackage{stmaryrd}
+\usepackage[dvipsnames]{xcolor}
+\colorlet{LightRubineRed}{RubineRed!70}
+\colorlet{Mycolor1}{green!10!orange}
+\definecolor{Mycolor2}{HTML}{00F9DE}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{lipsum}
+\usepackage{fancyvrb}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage[export]{adjustbox}
+\graphicspath{ {./images/} }
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{hyperref} 
+\usepackage{xcolor} % For custom colors
+\lstset{
+	language=Python,                % Choose the language (e.g., Python, C, R)
+	basicstyle=\ttfamily\small, % Font size and type
+	keywordstyle=\color{blue},  % Keywords color
+	commentstyle=\color{gray},  % Comments color
+	stringstyle=\color{red},    % String color
+	numbers=left,               % Line numbers
+	numberstyle=\tiny\color{gray}, % Line number style
+	stepnumber=1,               % Numbering step
+	breaklines=true,            % Auto line break
+	backgroundcolor=\color{black!5}, % Light gray background
+	frame=single,               % Frame around the code
+}
+\usepackage{float}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+\usepackage[]{amssymb} %gives us the character \varnothing
+
+	\title{Homework 4, STAT 5261}
+	\author{Zongyi Liu}
+	\date{Wed, Oct 1, 2025}
+	
+	\begin{document}
+		\maketitle
+		
+		\section{Question 1}
+		
+		Do problems 1, 2, and 3 from Section 16.10.1 of Chapter 16. Each problem is worth 5 points. To receive full credit, you must provide both:
+		
+		\begin{itemize}
+			\item The R code you used to solve each problem.
+			\item Your answers to each question.
+		\end{itemize}
+	
+		\subsection{Problem 1}
+		
+		This section uses daily stock prices in the data set \texttt{Stock Bond.csv} that is posted on the book’s website and in which any variable whose name ends with “AC” is an adjusted closing price. As the name suggests, these prices have been adjusted for dividends and stock splits, so that returns can be calculated without further adjustments. Run the following code which will read the data, compute the returns for six stocks, create a scatterplot matrix of these returns, and compute the mean vector, covariance matrix, and vector of standard deviations of the returns. Note that returns will be percentages.
+		
+		Write an R program to find the efficient frontier, the tangency portfolio, and the minimum variance portfolio, and plot on “reward-risk space” the location of each of the six stocks, the efficient frontier, the tangency portfolio, and the line of efficient portfolios. Use the constraints that $−0.1 \leq w_j \leq 0.5$ for each stock. The first constraint limits short sales but does not rule them out completely. The second constraint prohibits more than 50\% of the investment in any single stock. Assume that the annual risk-free rate is 3\% and convert this to a daily rate by dividing by 365, since interest is earned on trading as well as nontrading days.
+		
+		\textbf{Answer}
+		
+		
+		\subsection{Problem 2}
+		
+		If an investor wants an efficient portfolio with an expected daily return of 0.07\%, how should the investor allocate his or her capital to the six stocks and to the risk-free asset? Assume that the investor wishes to use the tangency portfolio computed with the constraints $−0.1 \leq w_j \leq 0.5$, not the unconstrained tangency portfolio.
+		
+			\textbf{Answer}
+     
+  
+		
+		\subsection{Problem 3}
+		
+		Does this data set include Black Monday?
+		
+		\textbf{Answer}
+		
+		\clearpage
+		
+		\section{Question 2}
+		Suppose a firm is planning to invest $\$ 1,000,000$ in a combination of a risk-free asset and a risky asset A. Assume:
+		
+		$$
+		\mu_{f}=5 \%, \quad \mu_{A}=12 \%, \quad \sigma_{A}=25 \%
+		$$
+		
+		The company has capital reserves to cover losses up to $\$ 200,000$, and they want the probability of losing this amount or more to be at most 0.01 .
+		
+		If the return of the portfolio is:
+		
+		$$
+		R=\omega \mu_{A}+(1-\omega) \mu_{f}
+		$$
+		
+		and the return is normally distributed, find the value of $\omega$ that satisfies the risk requirement.
+		
+		\textbf{Answer}
+		\clearpage
+		
+			\section{Question 3}
+		
+		The table below gives sample statistics (monthly means, standard deviations, and covariances) for returns on Microsoft, Nordstrom, and Starbucks over the period January 1995 to January 2000.
+		
+		\begin{center}
+			\begin{tabular}{cccc}
+				\hline
+				Asset & $\mu_{i}$ & $\sigma_{i}$ & Covariances \\
+				\hline
+				A (Microsoft) & 0.0427 & 0.1000 & $\sigma_{A B}=0.0018$ \\
+				B (Nordstrom) & 0.0015 & 0.1044 & $\sigma_{A C}=0.0011$ \\
+				C (Starbucks) & 0.0285 & 0.1411 & $\sigma_{B C}=0.0026$ \\
+				\hline
+			\end{tabular}
+		\end{center}
+		
+		\begin{itemize}
+		 \item (a) Find the global minimum variance portfolio. What is its mean? What is its variance?
+		 \item (b) Find the efficient portfolio of these assets with the same expected return as Microsoft. What is its risk?
+		\item (c) Assume a risk-free rate of 0.0001 per month (T-bill). What are the weights of the tangency portfolio?
+		 \item (d) Find the portfolio made up of the risky assets and the risk-free asset that has the same expected return as Microsoft. What is its risk equal to?
+		\end{itemize}
+	
+	\textbf{Answer}
+	
+	
+	\end{document}
