@@ -1,0 +1,877 @@
+---
+title: "Final Project for STAT 5261"
+output:
+  html_document: default
+  pdf_document: default
+date: "2025-11-26"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# 1.0 Setup
+
+```{r}
+install.packages("PerformanceAnalytics")
+```
+
+```{r echo=TRUE}
+library(PerformanceAnalytics) # used to compute returns
+library(quantmod)
+
+symbols <- c("AAPL", "MSFT", "AMZN", "GOOGL", "META",
+             "TSLA", "JNJ", "PG", "XOM", "JPM",
+             "NVDA", "^GSPC")
+
+getSymbols(symbols, 
+           from = "2019-01-01", 
+           to = "2025-10-31", 
+           periodicity = "monthly")
+
+```
+
+
+```{r}
+library(quantmod)
+getSymbols("TB3MS", src = "FRED")
+
+# Transfer the annual rate into monthly RFR
+rf_annual <- TB3MS / 100
+rf_m <- rf_annual / 12
+
+head(rf_m)  # Check the first few months
+```
+```{r}
+plot(TB3MS)
+```
+
+# 2.2 Descriptive statistics
+## Part 1. Load the data
+
+```{r}
+library(quantmod)
+library(PerformanceAnalytics)
+library(tidyverse)
+
+symbols <- c("AAPL", "MSFT", "AMZN", "GOOGL", "META",
+             "TSLA", "JNJ", "PG", "XOM", "JPM",
+             "NVDA", "GSPC")
+
+getSymbols(symbols, from="2019-01-01", to="2025-10-31", periodicity="monthly")
+```
+
+## Part 2. Descriptive statistics
+
+```{r}
+# Step 1: compute monthly returns
+rets <- na.omit( do.call(merge, lapply(symbols, function(x) monthlyReturn(Cl(get(x)))) ) )
+colnames(rets) <- symbols
+
+# Step 2: split S&P 500 and assets
+sp500 <- rets[,"GSPC"]
+assets <- rets[,symbols[symbols!="GSPC"]]
+
+# Step 3: compute beta for each asset vs market
+get_beta <- function(asset, market){
+    cov(asset, market) / var(market)
+}
+betas <- sapply(assets, function(x) get_beta(x, sp500))
+
+# Step 4: compute statistics
+stats <- data.frame(
+    Mean = apply(assets, 2, mean),
+    StdDev = apply(assets, 2, sd),
+    Skewness = apply(assets, 2, skewness),
+    Kurtosis = apply(assets, 2, kurtosis),
+    Beta = betas
+)
+
+print(stats)
+```
+
+## Part 3. Equity curve for each asset
+
+```{r}
+equity <- cumprod(1 + rets)
+colnames(equity) <- symbols
+
+# Step 3: plot equity curves (log scale recommended)
+chart.TimeSeries(equity,
+                 legend.loc="topleft",
+                 main="Equity Curve: Growth of $1 Invested (2019–2025)",
+                 ylab="$ Value",
+                 ylog=TRUE)
+```
+
+## Part 4. Stationary test
+
+```{r}
+rets <- na.omit( do.call(merge, lapply(symbols, function(x) monthlyReturn(Cl(get(x)))) ) )
+colnames(rets) <- symbols
+
+# asset vs market
+sp500  <- rets[,"GSPC"]
+assets <- rets[, symbols[symbols != "GSPC"]]
+
+# Do the ADF test
+library(tseries)
+
+adf_pvals <- sapply(colnames(assets), function(sym) {
+  x <- as.numeric(assets[, sym])
+  tseries::adf.test(x)$p.value
+})
+
+adf_pvals
+
+```
+
+## Part 5. Normality check
+
+```{r}
+# Shapiro-Wilk normality test
+shapiro_pvals <- sapply(colnames(assets), function(sym) {
+  x <- as.numeric(assets[, sym])
+  shapiro.test(x)$p.value
+})
+
+shapiro_pvals
+```
+
+```{r}
+# QQ plot
+
+par(mfrow = c(2, 2))
+for(sym in c("AAPL", "MSFT", "NVDA", "TSLA")) {
+  x <- as.numeric(assets[, sym])
+  qqnorm(x, main = paste(sym, "QQ-plot"))
+  qqline(x, col = 2)
+}
+par(mfrow = c(1,1))
+```
+
+## Part 6. Outlier check
+
+```{r}
+# Check the outliers
+
+outliers_list <- lapply(colnames(assets), function(sym) {
+  x <- as.numeric(assets[, sym])
+  boxplot.stats(x)$out  
+})
+names(outliers_list) <- colnames(assets)
+
+outliers_list$AAPL   
+
+boxplot(coredata(assets), las = 2,
+        main = "Monthly Returns Boxplot",
+        ylab = "Return")
+```
+
+## Part 7. Sharpe ratio
+
+```{r}
+rf_xts <- TB3MS 
+
+library(zoo)
+library(PerformanceAnalytics)
+
+# Use the time for assets as the index to get corresponding RFR
+rf_m_aligned <- rf_m[index(assets)]
+rf_m_aligned <- na.locf(rf_m_aligned)
+
+sharpe_annual <- SharpeRatio.annualized(
+R = assets,
+Rf = rf_m_aligned,
+scale = 12
+)
+
+sharpe_annual
+
+```
+
+```{r}
+# Find the asset with the highest Sharpe ratio
+
+sharpe_vec <- as.numeric(sharpe_annual)
+names(sharpe_vec) <- colnames(assets)
+
+sharpe_vec
+best_asset <- names(which.max(sharpe_vec))
+best_asset
+
+```
+
+
+## Part 8. Convert between annual and monthly data
+
+```{r}
+library(PerformanceAnalytics)
+
+# Monthly mean / std
+mean_monthly <- apply(assets, 2, mean)
+sd_monthly   <- apply(assets, 2, sd)
+
+# Annualize
+mean_annual <- mean_monthly * 12
+sd_annual   <- sd_monthly * sqrt(12)
+
+annual_stats <- data.frame(
+    Mean_Annual = mean_annual,
+    StdDev_Annual = sd_annual
+)
+
+print(annual_stats)
+
+```
+
+
+# 2.3 Portfolio Theory
+## Part 1. MVP and its statistics
+
+```{r}
+# MVP weights 
+# Minimum Variance Portfolio (unconstrained, sum w = 1)
+
+Sigma <- cov(assets, use = "complete.obs")
+n     <- ncol(assets)
+one   <- rep(1, n)
+
+Sigma_inv <- solve(Sigma)
+
+w_mvp <- as.vector(Sigma_inv %*% one / as.numeric(t(one) %*% Sigma_inv %*% one))
+names(w_mvp) <- colnames(assets)
+
+w_mvp
+sum(w_mvp)   # should be 1
+
+```
+
+```{r}
+# MVP returns
+
+rets_mvp <- xts(as.matrix(assets) %*% w_mvp, order.by = index(assets))
+colnames(rets_mvp) <- "MVP"
+
+# Monthly mean & sd
+mean_mvp_monthly <- mean(rets_mvp$MVP)
+sd_mvp_monthly   <- sd(rets_mvp$MVP)
+
+mean_mvp_monthly
+sd_mvp_monthly
+
+# Annualized mean & sd
+mean_mvp_annual <- mean_mvp_monthly * 12
+sd_mvp_annual   <- sd_mvp_monthly * sqrt(12)
+
+mean_mvp_annual
+sd_mvp_annual
+```
+```{r}
+# VaR and ES
+
+library(PerformanceAnalytics)
+
+alpha <- 0.95  # confidence level for VaR / ES
+
+VaR_mvp_95 <- VaR(rets_mvp, p = alpha, method = "historical")
+ES_mvp_95  <- ES(rets_mvp,  p = alpha, method = "historical")
+
+VaR_mvp_95
+ES_mvp_95
+```
+
+```{r}
+# Summary
+
+mvp_summary <- data.frame(
+  Mean_Monthly = mean_mvp_monthly,
+  SD_Monthly   = sd_mvp_monthly,
+  Mean_Annual  = mean_mvp_annual,
+  SD_Annual    = sd_mvp_annual,
+  VaR_95       = as.numeric(VaR_mvp_95),
+  ES_95        = as.numeric(ES_mvp_95)
+)
+mvp_summary
+```
+
+```{r}
+# MVP Sharpe ratio
+# rf_m_aligned: same monthly risk-free rate series aligned with assets
+rf_m_mvp <- rf_m_aligned[index(rets_mvp)]
+rf_m_mvp <- na.locf(rf_m_mvp)
+
+sharpe_mvp_annual <- SharpeRatio.annualized(
+  R  = rets_mvp,
+  Rf = rf_m_mvp,
+  scale = 12
+)
+
+sharpe_mvp_annual
+```
+
+```{r}
+summary(rf_m_mvp)
+head(rf_m_mvp)
+```
+
+## Part 2. 5% Var and comparison
+
+```{r}
+portfolio_value <- 100000  # $100,000 to invest
+alpha <- 0.95              # 5% left tail -> p = 0.95
+
+# 1. 5% VaR for MVP (monthly, return space)
+VaR_mvp_5 <- VaR(rets_mvp, p = alpha, method = "historical")
+VaR_mvp_5
+
+# Convert to dollar VaR (loss amount); VaR() usually returns a negative number for losses
+VaR_mvp_5_dollar <- portfolio_value * abs(as.numeric(VaR_mvp_5))
+VaR_mvp_5_dollar
+
+# 2. 5% VaR for each individual asset (monthly)
+VaR_assets_5 <- VaR(assets, p = alpha, method = "historical")
+VaR_assets_5
+
+# Convert each asset's VaR to dollar terms for $100,000 fully invested in that asset
+VaR_assets_5_dollar <- portfolio_value * abs(as.numeric(VaR_assets_5))
+names(VaR_assets_5_dollar) <- colnames(assets)
+VaR_assets_5_dollar
+
+# 3. Comparison table: MVP vs individual assets
+VaR_comparison <- data.frame(
+  Asset         = c("MVP", colnames(assets)),
+  VaR_5_Return  = c(as.numeric(VaR_mvp_5), as.numeric(VaR_assets_5)),
+  VaR_5_Dollar  = c(VaR_mvp_5_dollar,      VaR_assets_5_dollar)
+)
+
+VaR_comparison
+```
+
+## Part 3. Efficient frontier
+
+```{r}
+library(quadprog)
+
+# 月度均值 & 协方差矩阵
+mu_m  <- colMeans(assets)
+Sigma <- cov(assets, use = "complete.obs")
+
+n   <- ncol(assets)
+one <- rep(1, n)
+
+# 对齐无风险利率（如果已经有 rf_m_aligned 就用那个）
+rf_m_aligned <- rf_m[index(assets)]
+rf_m_aligned <- na.locf(rf_m_aligned)
+
+# 平均月度无风险利率，用于切点组合
+rf_bar_m <- as.numeric(mean(rf_m_aligned))
+rf_bar_m
+```
+
+```{r}
+## MVP with short allowed
+Sigma_inv <- solve(Sigma)
+
+# MVP (allow selling short)
+w_mvp_short <- as.vector(Sigma_inv %*% one / as.numeric(t(one) %*% Sigma_inv %*% one))
+names(w_mvp_short) <- colnames(assets)
+
+w_mvp_short
+sum(w_mvp_short)    # 应该≈1
+
+# 月度收益序列
+rets_mvp_short <- xts(as.matrix(assets) %*% w_mvp_short, order.by = index(assets))
+colnames(rets_mvp_short) <- "MVP_short"
+
+# 统计量
+mean_mvp_short_m <- mean(rets_mvp_short)
+sd_mvp_short_m   <- sd(rets_mvp_short)
+
+mean_mvp_short_a <- mean_mvp_short_m * 12
+sd_mvp_short_a   <- sd_mvp_short_m * sqrt(12)
+
+# 年化 Sharpe（手算，用 rf_bar_m）
+sharpe_mvp_short_a <- (mean_mvp_short_m - rf_bar_m) / sd_mvp_short_m * sqrt(12)
+
+c(mean_mvp_short_m, sd_mvp_short_m,
+  mean_mvp_short_a, sd_mvp_short_a,
+  sharpe_mvp_short_a)
+
+```
+
+```{r}
+## MVP without short
+Dmat <- 2 * Sigma
+dvec <- rep(0, n)
+
+# Constraint: 1'w = 1 且 w >= 0
+Amat <- cbind(one, diag(n))      
+bvec <- c(1, rep(0, n))
+
+sol_mvp_noshort <- solve.QP(Dmat, dvec, Amat, bvec, meq = 1)
+w_mvp_noshort   <- sol_mvp_noshort$solution
+names(w_mvp_noshort) <- colnames(assets)
+
+w_mvp_noshort
+sum(w_mvp_noshort)
+
+rets_mvp_noshort <- xts(as.matrix(assets) %*% w_mvp_noshort, order.by = index(assets))
+colnames(rets_mvp_noshort) <- "MVP_noshort"
+
+mean_mvp_noshort_m <- mean(rets_mvp_noshort)
+sd_mvp_noshort_m   <- sd(rets_mvp_noshort)
+
+mean_mvp_noshort_a <- mean_mvp_noshort_m * 12
+sd_mvp_noshort_a   <- sd_mvp_noshort_m * sqrt(12)
+
+sharpe_mvp_noshort_a <- (mean_mvp_noshort_m - rf_bar_m) / sd_mvp_noshort_m * sqrt(12)
+
+c(mean_mvp_noshort_m, sd_mvp_noshort_m,
+  mean_mvp_noshort_a, sd_mvp_noshort_a,
+  sharpe_mvp_noshort_a)
+
+```
+
+```{r}
+## ---- tangency-portfolio ---------------------------------------------------
+# Excess return
+excess_mu <- mu_m - rf_bar_m
+
+# tangency weights（unconstrained）：w ∝ Σ^{-1} (μ - r_f 1)
+w_tan_raw <- solve(Sigma, excess_mu)
+w_tan     <- w_tan_raw / sum(w_tan_raw)
+names(w_tan) <- colnames(assets)
+
+w_tan
+sum(w_tan)
+
+# Tangency monthly return
+rets_tan <- xts(as.matrix(assets) %*% w_tan, order.by = index(assets))
+colnames(rets_tan) <- "Tangency"
+
+# Statistics
+mean_tan_m <- mean(rets_tan)
+sd_tan_m   <- sd(rets_tan)
+
+mean_tan_a <- mean_tan_m * 12
+sd_tan_a   <- sd_tan_m * sqrt(12)
+
+sharpe_tan_a <- (mean_tan_m - rf_bar_m) / sd_tan_m * sqrt(12)
+
+c(mean_tan_m, sd_tan_m,
+  mean_tan_a, sd_tan_a,
+  sharpe_tan_a)
+
+```
+
+```{r}
+## ---- asset-sharpe-vs-tan --------------------------------------------------
+# Align with rf
+rf_assets <- rf_m_aligned
+
+# Excessive returns
+excess_assets <- sweep(assets, 1, rf_assets, FUN = "-")
+
+mean_excess_m <- apply(excess_assets, 2, mean)
+sd_excess_m   <- apply(excess_assets, 2, sd)
+
+sharpe_assets_a <- mean_excess_m / sd_excess_m * sqrt(12)
+
+sharpe_assets_a
+
+# Table
+sharpe_table <- data.frame(
+  Asset        = c(colnames(assets), "Tangency"),
+  Sharpe_Ann   = c(sharpe_assets_a, sharpe_tan_a)
+)
+
+sharpe_table
+
+```
+
+```{r}
+## ---- efficient-frontier-short ---------------------------------------------
+Sigma_inv <- solve(Sigma)
+A <- as.numeric(t(one) %*% Sigma_inv %*% one)
+B <- as.numeric(t(one) %*% Sigma_inv %*% mu_m)
+C <- as.numeric(t(mu_m) %*% Sigma_inv %*% mu_m)
+D <- A * C - B^2
+
+# Target return
+target_returns_m <- seq(min(mu_m), max(mu_m), length.out = 50)
+
+weights_frontier_short <- matrix(NA, nrow = length(target_returns_m), ncol = n)
+colnames(weights_frontier_short) <- colnames(assets)
+
+risk_frontier_short_m <- rep(NA, length(target_returns_m))
+
+for (i in seq_along(target_returns_m)) {
+  Rp <- target_returns_m[i]
+  lambda1 <- (C - B * Rp) / D
+  lambda2 <- (A * Rp - B) / D
+  w_p <- Sigma_inv %*% (lambda1 * one + lambda2 * mu_m)
+  weights_frontier_short[i, ] <- as.vector(w_p)
+  risk_frontier_short_m[i]    <- sqrt(as.numeric(t(w_p) %*% Sigma %*% w_p))
+}
+
+frontier_short <- data.frame(
+  Return_M = target_returns_m,
+  Risk_M   = risk_frontier_short_m,
+  Return_A = target_returns_m * 12,
+  Risk_A   = risk_frontier_short_m * sqrt(12)
+)
+
+head(frontier_short)
+
+```
+```{r}
+# Check. This should give a return to be n.
+
+n <- ncol(assets)
+mu_m <- colMeans(assets)   
+Sigma <- cov(assets)       
+one <- rep(1, n)           
+
+n
+length(mu_m)
+dim(Sigma)
+length(one)
+
+```
+
+
+
+```{r}
+library(quadprog)
+
+# Assume assets has a monthly return to be (T × n)
+n     <- ncol(assets)
+mu_m  <- colMeans(assets)
+Sigma <- cov(assets)
+one   <- rep(1, n)
+
+# Construct D and d for QP 
+Dmat <- 2 * Sigma + diag(1e-6, n)  # Positive definite
+dvec <- rep(0, n)
+
+# Target return
+eps <- 1e-6
+target_returns_m2 <- seq(min(mu_m) + eps, max(mu_m) - eps, length.out = 30)
+
+weights_frontier_noshort   <- matrix(NA, nrow = length(target_returns_m2), ncol = n)
+colnames(weights_frontier_noshort) <- colnames(assets)
+risk_frontier_noshort_m    <- rep(NA, length(target_returns_m2))
+
+for (i in seq_along(target_returns_m2)) {
+  Rp <- target_returns_m2[i]
+  
+  # constraint: 1'w = 1, μ'w = Rp, w >= 0
+  Amat <- cbind(one, mu_m, diag(n))      # n × (2+n)
+  bvec <- c(1, Rp, rep(0, n))            # length 2+n
+  
+  # Some Rp might not workable, so I use tryCatch here
+  sol <- tryCatch(
+    solve.QP(Dmat, dvec, Amat, bvec, meq = 2),
+    error = function(e) {
+      message("infeasible target return at i = ", i, ", Rp = ", Rp, 
+              " ; message: ", e$message)
+      NULL
+    }
+  )
+  
+  # Test
+  if (is.null(sol)) next
+  
+  w_p <- sol$solution
+  
+  weights_frontier_noshort[i, ] <- w_p
+  risk_frontier_noshort_m[i]    <- sqrt(drop(t(w_p) %*% Sigma %*% w_p))
+}
+
+frontier_noshort <- data.frame(
+  Return_M = target_returns_m2,
+  Risk_M   = risk_frontier_noshort_m,
+  Return_A = target_returns_m2 * 12,
+  Risk_A   = risk_frontier_noshort_m * sqrt(12)
+)
+
+head(frontier_noshort)
+
+```
+
+## Part 4. Plot and table
+
+```{r}
+plot(frontier_short$Risk_A, frontier_short$Return_A, type="l",
+     xlab="Annualized Risk", ylab="Annualized Return",
+     main="Efficient Frontier (with & without Short Sales)")
+lines(frontier_noshort$Risk_A, frontier_noshort$Return_A, col=2)
+points(sd_mvp_short_a, mean_mvp_short_a, pch=19)
+points(sd_mvp_noshort_a, mean_mvp_noshort_a, pch=19, col=2)
+points(sd_tan_a, mean_tan_a, pch=17, col=4)
+legend("topleft", c("Short allowed","No short","MVP short","MVP no-short","Tangency"),
+       col=c(1,2,1,2,4), pch=c(NA,NA,19,19,17), lty=c(1,1,NA,NA,NA))
+
+```
+
+```{r}
+## ---- weights-table ------
+weights_table <- data.frame(
+  Asset          = colnames(assets),
+  MVP_Short      = w_mvp_short,
+  MVP_NoShort    = w_mvp_noshort,
+  Tangency       = w_tan
+)
+
+weights_table
+```
+
+```{r}
+## ---- portfolio-stats-table -----
+portfolio_stats <- data.frame(
+  Portfolio   = c("MVP_Short", "MVP_NoShort", "Tangency"),
+  Mean_Month  = c(mean_mvp_short_m,  mean_mvp_noshort_m,  mean_tan_m),
+  SD_Month    = c(sd_mvp_short_m,    sd_mvp_noshort_m,    sd_tan_m),
+  Mean_Annual = c(mean_mvp_short_a,  mean_mvp_noshort_a,  mean_tan_a),
+  SD_Annual   = c(sd_mvp_short_a,    sd_mvp_noshort_a,    sd_tan_a),
+  Sharpe_Ann  = c(sharpe_mvp_short_a, sharpe_mvp_noshort_a, sharpe_tan_a)
+)
+
+portfolio_stats
+```
+
+
+# 2.4 Asset allocation
+## Part 1. No short sales
+
+```{r}
+# Set the target
+target_return_m <- 0.06 / 12  # = 0.005 per month
+
+# Computing the weights
+
+library(quadprog)
+
+mu_m  <- colMeans(assets)
+Sigma <- cov(assets)
+
+n <- ncol(assets)
+Dmat <- 2 * Sigma
+dvec <- rep(0, n)
+
+one <- rep(1, n)
+
+# Constraints:
+# sum(w) = 1
+# mu'w = target_return
+# w >= 0
+Amat <- cbind(one, mu_m, diag(n))
+bvec <- c(1, target_return_m, rep(0, n))
+
+sol_target <- solve.QP(Dmat, dvec, Amat, bvec, meq = 2)
+w_target_onlyrisk <- sol_target$solution
+names(w_target_onlyrisk) <- colnames(assets)
+
+w_target_onlyrisk
+
+
+# Back test
+portfolio_value <- 100000
+
+# portfolio returns
+rets_target <- xts(as.numeric(assets %*% w_target_onlyrisk), order.by=index(assets))
+
+# stats
+mean_target_m <- mean(rets_target)
+sd_target_m   <- sd(rets_target)
+
+# VaR & ES
+library(PerformanceAnalytics)
+VaR_target_5 <- VaR(rets_target, p=0.95, method="historical")
+ES_target_5  <- ES(rets_target, p=0.95, method="historical")
+
+# Dollar amounts
+VaR_target_5_dol <- abs(as.numeric(VaR_target_5)) * portfolio_value
+ES_target_5_dol  <- abs(as.numeric(ES_target_5)) * portfolio_value
+
+c(mean_target_m, sd_target_m, VaR_target_5, ES_target_5)
+VaR_target_5_dol
+ES_target_5_dol
+
+
+```
+
+## Part 2. Using T-bill and tangency PF
+
+```{r}
+# Find the monthly return of tangency PF
+
+rets_tan <- xts(as.numeric(assets %*% w_tan), order.by=index(assets))
+mean_tan_m <- mean(rets_tan)
+mean_tan_m
+```
+
+```{r}
+# T-bill + tangency PF weights
+
+# target monthly return
+Rp <- target_return_m
+
+# monthly risk-free rate
+rf_bar_m <- mean(rf_m_aligned)
+
+wt <- (Rp - rf_bar_m) / (mean_tan_m - rf_bar_m)
+wt   # portion invested in tangency portfolio
+
+w_tbill <- 1 - wt
+w_tbill
+```
+
+```{r}
+# Percentage of every assests in the PF
+
+w_target_tan <- wt * w_tan
+names(w_target_tan) <- colnames(assets)
+
+w_target_tan
+```
+
+```{r}
+rets_target_tan <- wt * rets_tan + w_tbill * rf_m_aligned
+
+sd_target_tan_m <- sd(rets_target_tan)
+VaR_target_tan_5 <- VaR(rets_target_tan, p=0.95, method="historical")
+ES_target_tan_5  <- ES(rets_target_tan, p=0.95, method="historical")
+
+VaR_target_tan_5_dol <- abs(as.numeric(VaR_target_tan_5)) * portfolio_value
+ES_target_tan_5_dol  <- abs(as.numeric(ES_target_tan_5)) * portfolio_value
+
+c(mean(rets_target_tan), sd_target_tan_m, VaR_target_tan_5, ES_target_tan_5)
+VaR_target_tan_5_dol
+ES_target_tan_5_dol
+
+```
+
+# 2.5 PCA
+
+```{r}
+assets <- as.matrix(assets)
+mode(assets) <- "numeric"
+```
+
+
+```{r}
+# Correlation matrix
+R <- cor(assets)
+
+# Most related and least related
+R_upper <- R
+R_upper[lower.tri(R_upper, diag = TRUE)] <- NA
+
+max_corr <- which(R_upper == max(R_upper, na.rm = TRUE), arr.ind = TRUE)
+min_corr <- which(R_upper == min(R_upper, na.rm = TRUE), arr.ind = TRUE)
+
+cat("Highest correlation: ",
+    rownames(R)[max_corr[1]], "-",
+    colnames(R)[max_corr[1]],
+    " = ", R[max_corr[1], max_corr[1]], "\n")
+
+cat("Lowest correlation: ",
+    rownames(R)[min_corr[1]], "-",
+    colnames(R)[min_corr[1]],
+    " = ", R[min_corr[1], min_corr[1]], "\n")
+
+```
+
+```{r}
+pca <- prcomp(assets, scale. = TRUE)
+summary(pca)
+pca$rotation   # Every assets' loads in Principal Components
+
+round(pca$rotation[, 1:3], 3)
+```
+```{r}
+install.packages("psych")
+```
+
+
+```{r}
+library(psych)
+
+fa.parallel(assets, fa="fa")   # Advised number of factors
+```
+
+# 2.6 Risk Management
+
+# 2.7 Copulas
+
+```{r}
+library(copula)
+# Merge all assets
+rets <- do.call(merge, lapply(symbols, function(sym) {
+  monthlyReturn(Cl(get(sym)))
+}))
+colnames(rets) <- symbols
+
+
+# Transfer to normal matrix
+R_mat <- coredata(rets)          
+colnames(R_mat) <- symbols
+d <- ncol(R_mat)                  # dimension = 12
+
+# pseudo-observations: U ~ U(0,1)
+U <- pobs(R_mat)                  # Matrix with same dimensions
+
+# Gaussian copula
+cop_norm <- normalCopula(dim = d, dispstr = "un") 
+fit_norm <- fitCopula(cop_norm, U, method = "ml")
+
+# t copula
+cop_t <- tCopula(dim = d, dispstr = "un")
+fit_t  <- fitCopula(cop_t, U, method = "ml")
+
+# Clayton copula (lower tail related)
+cop_clay <- claytonCopula(dim = d)
+fit_clay <- fitCopula(cop_clay, U, method = "ml")
+
+# Gumbel copula (upper tail related)
+cop_gum  <- gumbelCopula(dim = d)
+fit_gum  <- fitCopula(cop_gum, U, method = "ml")
+
+# Frank copula (symmetric)
+cop_frank <- frankCopula(dim = d)
+fit_frank <- fitCopula(cop_frank, U, method = "ml")
+```
+
+
+```{r}
+# 4. Compare AIC/BIC
+cop_fits <- list(
+  Gaussian = fit_norm,
+  t        = fit_t,
+  Clayton  = fit_clay,
+  Gumbel   = fit_gum,
+  Frank    = fit_frank
+)
+
+AIC_values <- sapply(cop_fits, AIC)
+BIC_values <- sapply(cop_fits, BIC)
+logLik_values <- sapply(cop_fits, logLik)
+
+AIC_values
+BIC_values
+logLik_values
+
+# Find the smallest AIC/BIC
+best_AIC_copula <- names(which.min(AIC_values))
+best_BIC_copula <- names(which.min(BIC_values))
+
+best_AIC_copula
+best_BIC_copula
+
+
+fit_t       # Find the structure 
+coef(fit_t)
+```
+
