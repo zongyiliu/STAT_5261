@@ -1,0 +1,790 @@
+\documentclass[letterpaper, 9pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{physics}
+\usepackage[version=4]{mhchem}
+\usepackage{stmaryrd}
+\usepackage[dvipsnames]{xcolor}
+\colorlet{LightRubineRed}{RubineRed!70}
+\colorlet{Mycolor1}{green!10!orange}
+\definecolor{Mycolor2}{HTML}{00F9DE}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\VaR}{\mathrm{VaR}}
+\DeclareMathOperator{\ES}{\mathrm{ES}}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{lipsum}
+\usepackage{fancyvrb}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage[export]{adjustbox}
+\graphicspath{ {./images/} }
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{hyperref} 
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\E}{\mathbb{E}}
+\usepackage[normalem]{ulem}
+\usepackage{xcolor} % For custom colors
+\lstset{
+	language=Python,                % Choose the language (e.g., Python, C, R)
+	basicstyle=\ttfamily\small, % Font size and type
+	keywordstyle=\color{blue},  % Keywords color
+	commentstyle=\color{gray},  % Comments color
+	stringstyle=\color{red},    % String color
+	numbers=left,               % Line numbers
+	numberstyle=\tiny\color{gray}, % Line number style
+	stepnumber=1,               % Numbering step
+	breaklines=true,            % Auto line break
+	backgroundcolor=\color{black!5}, % Light gray background
+	frame=single,               % Frame around the code
+}
+\usepackage{float}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+	\usepackage[]{amssymb} %gives us the character \varnothing
+	
+	\title{Final Project, STAT 5261}
+	\author{Zongyi Liu (zl3554)}
+	\date{Wed, Nov 26, 2025}
+	
+	\begin{document}
+		\maketitle
+		
+		{Github Repository Directory}: \url{https://github.com/zongyiliu/STAT_5261/tree/main/Homework/Homework_Final}
+		\section{Executive Summary}
+		
+		\begin{itemize}
+			\item \emph{Sample and universe.}  
+			I study monthly returns of 11 large, liquid U.S.\ assets from Jan 2019 to Oct 2025, spanning
+			technology (\texttt{AAPL}, \texttt{MSFT}, \texttt{AMZN}, \texttt{GOOGL}, \texttt{META}, \texttt{TSLA}, \texttt{NVDA}),
+			healthcare/consumer defensives (\texttt{JNJ}, \texttt{PG}), energy (\texttt{XOM}), and financials (\texttt{JPM}).
+			
+			\item \emph{Individual performance and risk.}  
+			Technology names, especially \texttt{NVDA} and \texttt{TSLA}, display the highest average returns and
+			annualized Sharpe ratios (up to about 2.07), whereas defensive stocks \texttt{PG} and \texttt{JNJ} offer
+			much lower returns but substantially lower volatility.
+			
+			\item \emph{Outliers and distributional features.}  
+			Outlier detection (IQR, Z-score, MAD) shows virtually no extreme observations for
+			stable names (\texttt{AAPL}, \texttt{MSFT}, \texttt{JNJ}, \texttt{PG}), but frequent outliers for
+			volatile assets (\texttt{AMZN}, \texttt{META}, \texttt{TSLA}, \texttt{XOM}, \texttt{JPM}, \texttt{NVDA}).  
+			Normality tests and VaR/ES estimates confirm that \texttt{TSLA}, \texttt{NVDA}, and \texttt{META} are
+			heavy-tailed with pronounced downside risk. I also fitted different distributions with the help of conditioning based on GARCH specification, and got various results.
+			
+			\item \emph{Minimum-variance portfolios.}  
+			The no--short--sale MVP loads heavily on defensive stocks (\texttt{PG}, \texttt{JNJ}) and a few
+			lower-risk names (\texttt{GOOGL}, \texttt{XOM}), achieving the lowest volatility and relatively mild
+			5\% VaR/ES with a moderate Sharpe ratio.  
+			Allowing short sales in the MVP materially increases volatility and tail risk, while delivering
+			only a small improvement in expected return and a much lower Sharpe ratio.
+			
+			\item \emph{Tangency portfolio and risk-free asset.}  
+			The tangency portfolio (risky assets only) attains the highest expected return and Sharpe ratio,
+			but its 5\% VaR and ES are the most severe among all portfolios.  
+			When a risk-free asset (T-bill) is included, a combination of about 9\% in the tangency portfolio
+			and 91\% in T-bills matches a 6\% annual target return with dramatically lower volatility and tail
+			losses compared with any risky-only allocation.
+			
+			\item \emph{Bootstrap inference for VaR and ES.}  
+			To quantify estimation uncertainty in tail risk measures, I used a bootstrap procedure. Repeated resampling of the monthly return series
+			generates an empirical sampling distribution for the 5\% historical VaR and ES.
+			This approach avoids parametric assumptions and is well suited for non-smooth
+			statistics such as quantiles and tail means. The resulting bootstrap standard errors
+			and 95\% confidence intervals provide a robust assessment of the precision of VaR and
+			ES estimates, accounting for both sampling variability and portfolio construction
+			uncertainty.
+			
+			\item \emph{Correlation and PCA structure.}  
+			The correlation matrix reveals strong co-movement among large-cap tech stocks, and much weaker
+			correlation between tech and defensive/commodity names (e.g., \texttt{META} vs.\ \texttt{XOM}).  
+			PCA shows that three principal components explain about 68\% of total variation: a broad
+			market/tech factor (PC1), a growth–versus–defensive factor (PC2), and a more sector-specific
+			factor (PC3) involving energy, financials, and communications.
+			
+			\item \emph{Risk modeling via copulas.}  
+			Copula-based dependence modeling indicates that the Student-$t$ copula fits the joint return
+			distribution best (lowest AIC and BIC), highlighting the importance of capturing tail dependence
+			rather than assuming a purely Gaussian structure.
+			
+			\item \emph{Overall takeaway.}  
+			Effective portfolio construction over this sample requires balancing high-return but
+			heavy-tailed tech exposures with defensive stocks and, when available, a risk-free asset.
+			The no-short MVP offers strong downside protection, while the T-bill + tangency strategy provides
+			a more efficient way to achieve target returns with controlled risk.
+		\end{itemize}
+		
+		\section{Descriptive Statistics}
+		
+		\emph{Sample Statistics for Each Data} In this study I used 11 assets with time range from January 1, 2019 to October 31, 2025. The general information of those assets are listed below:
+		
+		\begin{itemize}
+			\item \texttt{AAPL}: Apple Inc., consumer electronics, smartphones, computers, wearables
+			\item \texttt{MSFT}: Microsoft Corporation, software, cloud computing, enterprise technology
+			\item \texttt{AMZN}: Amazon.com Inc., e-commerce, cloud computing (AWS), logistics
+			\item \texttt{GOOGL}: Alphabet Inc.\ (Class A), online advertising, search engine, cloud services
+			\item \texttt{META}: Meta Platforms Inc., social media (Facebook, Instagram), VR/AR technologies
+			\item \texttt{TSLA}: Tesla Inc., electric vehicles, clean energy, autonomous driving
+			\item \texttt{JNJ}: Johnson \& Johnson, pharmaceuticals, medical devices, healthcare products
+			\item \texttt{PG}: Procter \& Gamble, consumer goods, household \& personal care brands
+			\item \texttt{XOM}: Exxon Mobil Corporation, oil \& gas, energy exploration, petrochemicals
+			\item \texttt{JPM}: JPMorgan Chase \& Co., banking, investment management, financial services
+			\item \texttt{NVDA}: NVIDIA Corporation, GPUs, AI hardware, data center computing
+			\item \texttt{GSPC}: S\&P 500 Index (market benchmark), represents 500 large U.S.\ companies
+		\end{itemize}
+	
+	And their descriptive statistics are shown as below:	
+		
+		\begin{table}[htbp]
+			\centering
+			\caption{Asset Return Summary Statistics}
+			\begin{tabular}{lccccc}
+				\toprule
+				\textbf{Ticker} & \textbf{Mean} & \textbf{StdDev} & \textbf{Skewness} & \textbf{Kurtosis} & \textbf{Beta} \\
+				\midrule
+				AAPL & 0.026195312 & 0.08011206 & -0.03365191 & -0.77901530 & 1.2191835 \\
+				MSFT & 0.021585828 & 0.06226285 &  0.17017810 & -0.38299882 & 0.9403176 \\
+				AMZN & 0.016557489 & 0.08803682 &  0.33517650 &  0.84931329 & 1.1832620 \\
+				GOOGL & 0.022776095 & 0.07735267 & -0.40264341 & -0.28267538 & 1.0176823 \\
+				META & 0.022983741 & 0.11125480 & -0.37138577 &  0.96845122 & 1.2765125 \\
+				TSLA & 0.057683954 & 0.20737137 &  0.73744639 &  0.51012851 & 2.3441502 \\
+				JNJ & 0.005467106 & 0.04920065 &  0.09613001 & -0.34040990 & 0.5128830 \\
+				PG & 0.006585631 & 0.04864787 &  0.16436558 & -0.36205224 & 0.4273911 \\
+				XOM & 0.009271294 & 0.08846612 &  0.26105313 &  1.41911647 & 0.8535354 \\
+				JPM & 0.016276413 & 0.07468222 & -0.21352673 &  0.73558756 & 1.1483736 \\
+				NVDA & 0.059385595 & 0.13613246 & -0.20986786 & -0.03601573 & 1.7732969 \\
+				\bottomrule
+			\end{tabular}
+		\end{table}
+		
+		\emph{Equity Curve} An equity curve for each assets superposed with that of S\&P 500 is generated as below, where we can see a sharp rise of NVIDIA in recent years.
+		
+		\includegraphics[max width=\textwidth, center]{equity_curve}
+		
+		\emph{Stationary Test} Here I used the ADF (Augmented Dickey--Fuller) test, which is a statistical procedure used to
+		determine whether a time series contains a unit root, which corresponds to
+		non-stationarity. From the result statistics, we can see that except \texttt{GOOGL} and \texttt{META}, all other assets are stationary. 
+		
+		\emph{Normality Test} As for the normality, I used Shapiro--Wilk normality test, and from the result we can see that \texttt{TSLA} and \texttt{XOM} are not normally distributed, and all other assets are normally distributed. I also used visualization methods such as QQ plot, which can be seen in the appendix, and the results are the same as the normality test.
+		
+		\emph{Outlier Test} Then I used three methods to test outliers. The table shows that the three detection methods produce
+		substantially different results across assets.
+		Stable, low–volatility stocks such as \texttt{AAPL}, \texttt{MSFT}, \texttt{JNJ}, and \texttt{PG} exhibit no
+		outliers under any method.
+		For more volatile assets---\texttt{AMZN}, \texttt{META}, \texttt{TSLA}, \texttt{XOM}, \texttt{JPM}, and \texttt{NVDA}---the MAD
+		procedure identifies the largest number of outliers, reflecting its robustness
+		to heavy tails and sensitivity to extreme deviations.
+		The Z--score method is generally the most conservative, often detecting no
+		outliers where IQR and MAD do.
+		Instances where all three methods agree (e.g., \texttt{META} at months 38 and~46 or \texttt{JPM}
+		at month~15) indicate genuinely atypical return behavior.
+		Overall, MAD is the most sensitive method, IQR provides moderate detection, and
+		Z--scores tend to underreport outliers in non-Gaussian financial data.
+		
+		To visualize the outliers, I used box plot and violin plot, which can be seen in the appendix.
+		
+		
+		\begin{table}[htbp]
+			\centering
+			\caption{Comparison of Outlier Months Detected by Different Methods}
+			\begin{tabular}{lccc}
+				\hline
+				\textbf{Asset} & \textbf{IQR Method} & \textbf{Z-Score Method} & \textbf{MAD Method} \\
+				\hline
+				AAPL  & None & None & None \\
+				MSFT  & None & None & None \\
+				AMZN  & 16, 40, 43 & None & 16, 40, 43 \\
+				GOOGL & 40 & None & 40, 74 \\
+				META  & 38, 46 & 38, 46 & 38, 46, 47, 62 \\
+				TSLA  & 20 & 20 & 13, 20 \\
+				JNJ   & None & None & 16 \\
+				PG    & None & None & 36 \\
+				XOM   & 14, 15, 16, 26, 37, 46 & 15 & 14, 15, 16, 21, 23, 26, 37, 46 \\
+				JPM   & 15 & 15 & 15, 23, 42, 46 \\
+				NVDA  & 40 & None & 5, 40, 53 \\
+				\hline
+			\end{tabular}
+		\end{table}
+	
+	\emph{Fit Different Distributions} If we directly fit different distributions, we would simply get $t$ distribution the best nearly for all kinds of assets. However, financial returns exhibit time-varying volatility and volatility clustering.
+	Fitting distributions directly to raw returns under an i.i.d.\ assumption conflates
+	these volatility dynamics with heavy-tailed behavior. When modeling conditional
+	heteroskedasticity, we use a GARCH specification, thus time variation in volatility is
+	explicitly captured, and distributional assumptions are imposed on the standardized
+	innovations rather than on raw returns. This allows for a more meaningful comparison
+	of candidate distributions and ensures that inferred tail behavior reflects genuine
+	innovation risk rather than unmodeled volatility effects. The best fitting distributions are shown as below.
+	
+	
+	\begin{table}[htbp]
+		\centering
+		\caption{Best-Fitting Conditional Distributions by AIC and BIC}
+		\label{tab:best_dist}
+		\begin{tabular}{lcc}
+			\toprule
+			\textbf{Asset} & \textbf{Best (AIC)} & \textbf{Best (BIC)} \\
+			\midrule
+			AAPL  & GED  & GED  \\
+			MSFT  & Normal & Normal \\
+			AMZN  & Student-$t$ & Normal \\
+			GOOGL & Skewed Student-$t$ & Normal \\
+			META  & Skewed Student-$t$ & Student-$t$ \\
+			TSLA  & Normal & Normal \\
+			JNJ   & Normal & Normal \\
+			PG    & Normal & Normal \\
+			XOM   & GED  & GED  \\
+			JPM   & Normal & Normal \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+		
+		
+		\emph{Sharpe Ratio} The table below reports the annualized Sharpe ratios for the eleven assets in the
+		sample. The results reveal substantial heterogeneity in risk-adjusted performance across
+		sectors. \texttt{NVDA} exhibits by far the highest Sharpe ratio (2.07), indicating exceptional
+		risk-adjusted returns driven by strong mean performance relative to its volatility.
+		Other large-cap technology stocks---including \texttt{TSLA}, \texttt{MSFT}, \texttt{AAPL}, and \texttt{GOOGL}---also achieve
+		Sharpe ratios above~1, suggesting that these assets delivered highly favorable 
+		risk--return tradeoffs over the sample period. In particular, \texttt{TSLA}'s Sharpe ratio (1.31)
+		reflects both elevated volatility and periods of unusually strong returns, especially during 
+		the post-2019 expansion.
+		
+		
+		\begin{table}[h!]
+			\centering
+			\caption{Annualized Sharpe Ratios of Individual Assets}
+			\label{tab:sharpe}
+			\begin{tabular}{l r}
+				\toprule
+				\textbf{Asset} & \textbf{Sharpe Ratio} \\
+				\midrule
+				AAPL  & 1.2389550 \\
+				MSFT  & 1.2615931 \\
+				AMZN  & 0.6486593 \\
+				GOOGL & 1.0833367 \\
+				META  & 0.7615089 \\
+				TSLA  & 1.3086380 \\
+				JNJ   & 0.2793679 \\
+				PG    & 0.3676322 \\
+				XOM   & 0.3168737 \\
+				JPM   & 0.7490568 \\
+				NVDA  & 2.0744136 \\
+				\bottomrule
+			\end{tabular}
+		\end{table}
+		
+		\emph{Annualization of the Data} Here is the result of annualized data.
+		
+		\begin{table}[ht]
+			\centering
+			\caption{Annualized Mean Returns and Standard Deviations of Assets}
+			\begin{tabular}{lcc}
+				\toprule
+				\textbf{Asset} & \textbf{Mean (Annual)} & \textbf{Std.~Dev (Annual)} \\
+				\midrule
+				AAPL  & 0.3143 & 0.2775 \\
+				MSFT  & 0.2590 & 0.2157 \\
+				AMZN  & 0.1987 & 0.3050 \\
+				GOOGL & 0.2733 & 0.2680 \\
+				META  & 0.2758 & 0.3854 \\
+				TSLA  & 0.6922 & 0.7184 \\
+				JNJ   & 0.0656 & 0.1704 \\
+				PG    & 0.0790 & 0.1685 \\
+				XOM   & 0.1113 & 0.3065 \\
+				JPM   & 0.1953 & 0.2587 \\
+				NVDA  & 0.7126 & 0.4716 \\
+				\bottomrule
+			\end{tabular}
+		\end{table}
+		
+		
+		
+		\section{Portfolio Theory}
+		
+		\emph{Construct MVP} I constructed the MVP and reported its statistics in the tables below. The no--short-sale minimum-variance portfolio (MVP) exhibits the characteristics expected from a strictly risk-minimizing allocation. Because short positions are prohibited, the optimizer concentrates weight on the lowest-volatility and most defensive assets in the universe—primarily \texttt{PG} (39.2\%), \texttt{JNJ} (32.3\%), and to a lesser extent \texttt{GOOGL} and \texttt{XOM}. These assets have relatively low idiosyncratic risk and modest correlations with the broader equity universe, making them natural anchors for variance reduction.
+		
+		
+		In terms of performance, the portfolio achieves:
+		\[
+		\text{Mean}_m = 0.0103,\qquad 
+		\text{SD}_m = 0.0379,\qquad 
+		\text{Sharpe}_a = 0.8488.
+		\]
+		The no short MVP therefore delivers the {lowest volatility} among all portfolios considered, while maintaining a reasonably strong annualized Sharpe ratio. The downside risk metrics further confirm its stability:
+		\[
+		\text{VaR}_{5\%} = -0.0464, \qquad
+		\text{ES}_{5\%} = -0.0618,
+		\]
+		both of which are smaller in magnitude compared with the short-sale and tangency portfolios.
+		
+		Overall, the no-short MVP is highly stable, exhibits minimal exposure to downside tail events, and offers an attractive risk-adjusted profile for investors whose primary objective is {capital preservation} and {low volatility}. However, because the portfolio is dominated by defensive stocks and excludes high-growth names, it sacrifices upside potential relative to the tangency portfolio. Thus, the no short MVP is best interpreted as a conservative core allocation rather than a return-seeking portfolio.
+		
+		\emph{Comparison of MVP and other Assets} We compare the 5\% Value-at-Risk (VaR), Expected Shortfall (ES), and annualized Sharpe ratio for the three portfolios: the minimum-variance portfolio without short-selling, the minimum-variance portfolio with short-selling allowed, and the tangency portfolio. The results are summarized in the second table
+		
+		The results highlight clear differences in risk profiles and reward-to-risk trade-offs:
+		
+		\begin{itemize}
+			\item {Minimum-Variance Portfolio (No Short-Selling)}  
+			achieves the {lowest downside risk}: both its VaR and ES are smallest in magnitude.  
+			Its Sharpe ratio (0.8488) is significantly higher than that of the short-selling MVP, indicating much better risk-adjusted performance.
+			
+			\item {Minimum-Variance Portfolio (With Short-Selling)}  
+			exhibits substantially higher downside risk (\text{VaR} = -0.0910, \text{ES} = -0.1088).  
+			Allowing short positions introduces leveraged exposures that increase tail risk.  
+			Its Sharpe ratio (0.1344) is the lowest among the portfolios, showing that the additional risk does not translate into improved returns.
+			
+			\item {Tangency Portfolio}  
+			delivers the highest expected return and a very strong annualized Sharpe ratio (\text{Sharpe} = 2.1312).  
+			However, this comes with the {largest tail losses}: both VaR and ES are significantly more negative.  
+			This reflects its aggressive nature and reliance on high-return, high-volatility assets.
+		\end{itemize}
+		
+		Overall, the no-short MVP offers the most stable downside protection, the short-selling MVP increases risk without commensurate benefit, and the tangency portfolio maximizes return relative to risk but at the cost of substantial tail exposure.
+		
+		
+		\begin{table}[htbp]
+			\centering
+			\caption{Portfolio Weights for MVP (No-Short \& Short) and Tangency Portfolios}
+			\begin{tabular}{lccc}
+				\toprule
+				\textbf{Asset} & \textbf{$w_{\text{MVP,noshort}}$} & \textbf{$w_{\text{MVP,short}}$} & \textbf{$w_{\text{Tangency}}$} \\
+				\midrule
+				AAPL & 0.0000 & -0.1650 & 0.2570 \\
+				MSFT & 0.0512 & 0.1177 & 0.4101 \\
+				AMZN & 0.0566 & 0.1564 & -0.9761 \\
+				GOOGL & 0.1217 & 0.1422 & 0.3640 \\
+				META & 0.0000 & -0.0769 & -0.0607 \\
+				TSLA & 0.0000 & -0.0196 & 0.1878 \\
+				JNJ  & 0.3225 & 0.3659 & -0.1525 \\
+				PG   & 0.3921 & 0.4195 & 0.1348 \\
+				XOM  & 0.0435 & 0.0177 & 0.1087 \\
+				JPM  & 0.0124 & 0.0434 & -0.0227 \\
+				NVDA & 0.0000 & -0.0012 & 0.7494 \\
+				\bottomrule
+			\end{tabular}
+		\end{table}
+		
+		
+		\begin{table}[h!]
+			\centering
+			\caption{Portfolio Performance: MVP (No Short), MVP (Short Allowed), and Tangency Portfolio}
+			\begin{tabular}{lccccccc}
+				\toprule
+				\textbf{Portfolio} 
+				& \textbf{mean\(_m\)} 
+				& \textbf{sd\(_m\)} 
+				& \textbf{mean\(_a\)} 
+				& \textbf{sd\(_a\)} 
+				& \textbf{VaR\(_{5,m}\)} 
+				& \textbf{ES\(_{5,m}\)} 
+				& \textbf{Sharpe\(_a\)} \\
+				\midrule
+				\textbf{$w_{\text{MVP,noshort}}$} & 0.0103 & 0.0379 & 0.1315 & 0.1314 & -0.0464 & -0.0618 & 0.8488 \\
+				\textbf{$w_{\text{MVP,short}}$}   & 0.0039 & 0.0593 & 0.0476 & 0.2055 & -0.0910 & -0.1088 & 0.1344 \\
+				\textbf{$w_{\text{tan}}$}         & 0.0556 & 0.1211 & 0.9139 & 0.4194 & -0.1263 & -0.1799 & 2.1312 \\
+				\bottomrule
+			\end{tabular}
+		\end{table}
+		
+		
+		\section{Asset Allocation}
+		
+		In this case we applied the theory of asset allocation in two scenarios, one is to invest in only risky assests, and another is to combine the risky and risk free assests together.
+		
+		The comparison between the risky-only efficient portfolio and the T-bill + tangency allocation shows a clear trade-off between risk exposure and reliance on the risk-free asset. The risky-only portfolio places all capital in equities and achieves a monthly mean return of approximately 0.98\%, exceeding the target but at the cost of substantial volatility (3.73\% per month). This high volatility is reflected in its downside risk: for a \$100{,}000 investment, the 5\% historical VaR and ES are about \$4{,}860 and \$6{,}164, respectively, indicating significant losses in adverse months. In contrast, the T-bill + tangency approach invests only about 9\% of wealth in the tangency portfolio and the remaining 91\% in T-bills, resulting in a portfolio that meets the same return target (0.5\% per month) but with drastically lower volatility (0.75\% per month). Consequently, its tail losses are much smaller, with historical VaR of about \$838 and ES around \$1{,}146. This comparison highlights a fundamental implication of mean–variance theory: when a risk-free asset is available, combining it with the tangency portfolio is far more effective at reducing risk for a given target return than relying solely on risky assets, especially in a no-short-sales environment where the feasible risky-only set is more constrained and generally less efficient.
+		
+		
+		\begin{table}[htbp]
+			\centering
+			\caption{Risk and Performance Metrics for Different Portfolio Constructions}
+			\begin{tabular}{lccc}
+				\toprule
+				& \textbf{No-Short Efficient} & \textbf{Tangency Portfolio} & \textbf{T-Bill + Tangency} \\
+				\midrule
+				Monthly Mean Return 
+				& 0.00977 
+				& 0.03890 
+				& 0.00500 \\
+				
+				Monthly Standard Deviation 
+				& 0.03726 
+				& 0.08357 
+				& 0.00751 \\
+				
+				\midrule
+				{Historical 5\% VaR (\$100k)} 
+				& 4860.04 
+				& --- 
+				& 838.06 \\
+				
+				{Historical 5\% ES (\$100k)} 
+				& 6164.47 
+				& --- 
+				& 1145.96 \\
+				
+				\midrule
+				{Normal 5\% VaR (\$100k)} 
+				& 5152.52 
+				& --- 
+				& 735.75 \\
+				
+				{Normal 5\% ES (\$100k)} 
+				& -8662.66 
+				& --- 
+				& -2049.68 \\
+				
+				\midrule
+				Weight in Tangency Portfolio ($y^*$) 
+				& --- & --- & 0.08990 \\
+				Weight in Risk-Free Asset 
+				& --- & --- & 0.91010 \\
+				\bottomrule
+			\end{tabular}
+		\end{table}
+		
+		
+		\section{Principle Component Analysis}
+		
+		
+		\emph{Correlation matrix} For generating correlation matrix, we get the correlation matrix generated as below:
+		
+		\begin{table}[htbp]
+			\centering
+			\caption{Correlation Matrix of Assets}
+			\resizebox{\textwidth}{!}{
+				\begin{tabular}{lccccccccccc}
+					\toprule
+					& AAPL & MSFT & AMZN & GOOGL & META & TSLA & JNJ & PG & XOM & JPM & NVDA \\
+					\midrule
+					AAPL  & 1.0000000 & 0.5863039 & 0.60825481 & 0.49623262 & 0.34410064 & 0.64668256 & 0.40988295 & 0.36571684 & 0.21676561 & 0.32158080 & 0.53012768 \\
+					MSFT  & 0.5863039 & 1.0000000 & 0.65913657 & 0.55706624 & 0.56945994 & 0.47416466 & 0.24796009 & 0.30849851 & 0.11696617 & 0.33709045 & 0.65147796 \\
+					AMZN  & 0.60825481 & 0.65913657 & 1.0000000 & 0.59683797 & 0.50329704 & 0.58442493 & 0.09341286 & 0.05761213 & 0.06809702 & 0.23987985 & 0.60740706 \\
+					GOOGL & 0.49623262 & 0.55706624 & 0.59683797 & 1.0000000 & 0.39564282 & 0.45825661 & 0.11062309 & 0.05654949 & 0.15590236 & 0.37735126 & 0.49039013 \\
+					META  & 0.34410064 & 0.56945994 & 0.50329704 & 0.39564282 & 1.0000000 & 0.29244560 & 0.18490252 & 0.27500197 & -0.01301193 & 0.35426955 & 0.52086588 \\
+					TSLA  & 0.64668256 & 0.47416466 & 0.58442493 & 0.45825661 & 0.29244560 & 1.0000000 & 0.17291130 & 0.03234005 & 0.05421201 & 0.22991528 & 0.41251101 \\
+					JNJ   & 0.40988295 & 0.24796009 & 0.09341286 & 0.11062309 & 0.18490252 & 0.17291130 & 1.0000000 & 0.43172004 & 0.38737879 & 0.35842446 & 0.05109294 \\
+					PG    & 0.36571684 & 0.30849851 & 0.05761213 & 0.05654949 & 0.27500197 & 0.03234005 & 0.43172004 & 1.0000000 & 0.15928922 & 0.21716270 & 0.08745125 \\
+					XOM   & 0.21676561 & 0.11696617 & 0.06809702 & 0.15590236 & -0.01301193 & 0.05421201 & 0.38737879 & 0.15928922 & 1.0000000 & 0.52309187 & 0.05929966 \\
+					JPM   & 0.32158080 & 0.33709045 & 0.23987985 & 0.37735126 & 0.35426955 & 0.22991528 & 0.35842446 & 0.21716270 & 0.52309187 & 1.0000000 & 0.33439732 \\
+					NVDA  & 0.53012768 & 0.65147796 & 0.60740706 & 0.49039013 & 0.52086588 & 0.41251101 & 0.05109294 & 0.08745125 & 0.05929966 & 0.33439732 & 1.0000000 \\
+					\bottomrule
+				\end{tabular}
+			}
+		\end{table}
+		
+		From the correlation matrix, the strongest linear relationship is observed
+		between \texttt{MSFT} and \texttt{AMZN} ($\rho = 0.6591$), indicating that these two large-cap
+		technology firms tend to move together closely.  
+		Such a high correlation implies limited diversification benefits when holding
+		both assets simultaneously, since their returns respond similarly to market and
+		sector-specific shocks.
+		
+		In contrast, the weakest correlation occurs between \texttt{META} and \texttt{XOM}
+		($\rho = -0.0130$), effectively indicating no linear co-movement.  
+		Because \texttt{META} is a high-growth technology stock while \texttt{XOM} is an energy company,
+		their fundamentals are driven by distinct economic forces.  
+		This near-zero correlation provides strong diversification value: combining
+		assets whose returns are largely independent reduces overall portfolio
+		volatility without materially sacrificing expected return.
+		
+		Overall, the correlation structure shows that technology stocks are highly
+		interrelated, while defensive and commodity-based assets (\texttt{JNJ}, \texttt{PG}, \texttt{XOM}) offer the
+		most diversification potential relative to the tech-heavy portion of the
+		portfolio.
+		
+		
+		\emph{Perform PCA} After performing PCA, we have:
+		
+		\begin{table}[htbp]
+			\centering
+			\caption{PCA Loadings for the First Three Principal Components}
+			\resizebox{0.3\textwidth}{!}{
+				\begin{tabular}{lccc}
+					\toprule
+					\textbf{Asset} & \textbf{PC1} & \textbf{PC2} & \textbf{PC3} \\
+					\midrule
+					AAPL & 0.377 & -0.053 & -0.096 \\
+					MSFT & 0.388 & 0.089 & -0.155 \\
+					AMZN & 0.370 & 0.263 & 0.061 \\
+					GOOGL & 0.335 & 0.144 & 0.255 \\
+					META & 0.308 & 0.085 & -0.276 \\
+					TSLA & 0.315 & 0.174 & 0.111 \\
+					JNJ  & 0.184 & -0.522 & -0.178 \\
+					PG   & 0.161 & -0.398 & -0.621 \\
+					XOM  & 0.131 & -0.510 & 0.505 \\
+					JPM  & 0.259 & -0.350 & 0.369 \\
+					NVDA & 0.347 & 0.220 & 0.028 \\
+					\bottomrule
+				\end{tabular}
+			}
+		\end{table}
+		
+		And:
+		
+		\begin{table}[htbp]
+			\centering
+			\caption{Importance of Principal Components}
+			\resizebox{\textwidth}{!}{
+				\begin{tabular}{lccccccccccc}
+					\toprule
+					& \textbf{PC1} & \textbf{PC2} & \textbf{PC3} & \textbf{PC4} & \textbf{PC5} & 
+					\textbf{PC6} & \textbf{PC7} & \textbf{PC8} & \textbf{PC9} & \textbf{PC10} & \textbf{PC11} \\
+					\midrule
+					\textbf{Standard deviation} 
+					& 2.1458 & 1.3269 & 1.04017 & 0.95869 & 0.73010 
+					& 0.70475 & 0.67358 & 0.62469 & 0.54867 & 0.51643 & 0.43890 \\
+					\textbf{Proportion of Variance} 
+					& 0.4186 & 0.1601 & 0.09836 & 0.08355 & 0.04846 
+					& 0.04515 & 0.04125 & 0.03548 & 0.02737 & 0.02425 & 0.01751 \\
+					\textbf{Cumulative Proportion}
+					& 0.4186 & 0.5786 & 0.67699 & 0.76054 & 0.80900 
+					& 0.85415 & 0.89540 & 0.93088 & 0.95824 & 0.98249 & 1.00000 \\
+					\bottomrule
+				\end{tabular}
+			}
+		\end{table}
+	
+	The PCA results in those tables indicate that the first principal component (PC1) explains 41.9\% of the total
+	variation in asset returns, with all assets loading positively.  
+	This pattern reflects a broad market factor: large technology stocks (\texttt{AAPL},
+	\texttt{MSFT}, \texttt{AMZN}, \texttt{NVDA}) have the highest positive loadings, while defensive stocks
+	(\texttt{JNJ}, \texttt{PG}, \texttt{XOM}) load more weakly.  
+	Thus PC1 captures the common market movement dominated by the tech sector.
+	
+	PC2 explains an additional 16.0\% of the variance and represents a clear
+	sectoral contrast.  
+	Technology stocks load mildly positive on PC2, whereas defensive and value-oriented
+	stocks (\texttt{JNJ}, \texttt{PG}, \texttt{XOM}, \texttt{JPM}) load strongly negative.  
+	This component therefore reflects rotation between growth/tech and
+	defensive/value sectors.
+	
+	PC3 accounts for a further 9.8\% of the variation and appears to separate energy
+	(\texttt{XOM}), financials (\texttt{JPM}), and communication services (\texttt{GOOGL}) from \texttt{META} and
+	consumer staples (\texttt{PG}), based on the opposing loading signs.  
+	This factor captures more specific industry-level dynamics not explained by the
+	first two components.
+	
+	The cumulative variance explained by the first three components is 67.7\%,
+	indicating that the majority of movements across these assets can be summarized
+	by a market-wide factor (PC1), a growth--value contrast (PC2), and a
+	sector-specific factor (PC3).
+	
+	
+		
+		
+		\emph{Factor Analysis} We run the factor analysis, and get results as below:
+		
+		
+		\includegraphics[max width=0.9\linewidth]{factoranalysis}
+		
+		
+		The parallel analysis compares the eigenvalues from the actual correlation matrix 
+		with those obtained from randomly generated data of the same dimension. 
+		As shown in the figure, only the first two factors have eigenvalues 
+		that exceed the corresponding simulated eigenvalues. This indicates that these 
+		two factors represent systematic covariance in the data, while the remaining 
+		factors fall below the random-data threshold and are therefore attributable 
+		to noise. Consequently, a two-factor structure is appropriate for subsequent 
+		factor analysis.
+		
+		\section{Risk Management}
+		
+		\emph{Normal and Non-parameteric} We get the results as below:
+		\begin{table}[htbp]
+			\centering
+			\caption{Comparison of 5\% VaR and ES under Normal and Historical Methods}
+			\resizebox{0.5\textwidth}{!}{
+				\begin{tabular}{lrrrr}
+					\toprule
+					\textbf{Asset} & 
+					\textbf{VaR\_norm} & \textbf{ES\_norm} & 
+					\textbf{VaR\_hist} & \textbf{ES\_hist} \\
+					\midrule
+					AAPL & 10557.730 & 13905.286 & 10225.654 & 11802.921 \\
+					MSFT & 8082.745  & 10684.455 & 6857.783  & 8554.580  \\
+					AMZN & 12825.019 & 16503.718 & 10670.958 & 13987.338 \\
+					GOOGL& 10445.772 & 13678.024 & 11537.464 & 14394.635 \\
+					META & 16001.412 & 20650.296 & 13724.029 & 22233.791 \\
+					TSLA & 28341.159 & 37006.362 & 21517.881 & 26585.838 \\
+					JNJ  & 7546.077  & 9601.971  & 7470.793  & 8242.128  \\
+					PG   & 7343.300  & 9376.096  & 7786.454  & 8447.463  \\
+					XOM  & 13624.252 & 17320.890 & 11812.892 & 16585.209 \\
+					JPM  & 10656.490 & 13777.155 & 9076.518  & 14222.861 \\
+					NVDA & 16453.238 & 22141.658 & 16889.412 & 22495.241 \\
+					\bottomrule
+			\end{tabular}}
+		\end{table}
+	
+	
+	Using both the normal and historical methods, we observe clear differences in
+	downside risk across the assets:
+	
+	\texttt{TSLA} exhibits by far the largest risk measures:
+	\[
+	\text{VaR}_{0.05}^{\text{norm}} = 28{,}341,\qquad
+	\text{ES}_{0.05}^{\text{norm}} = 37{,}006,
+	\]
+	\[
+	\text{VaR}_{0.05}^{\text{hist}} = 21{,}518,\qquad
+	\text{ES}_{0.05}^{\text{hist}} = 26{,}586.
+	\]
+	These values greatly exceed those of any other asset, indicating extremely high tail risk and volatility. \texttt{NVDA} and \texttt{META} also show relatively large VaR and ES, but remain well below \texttt{TSLA}.
+	
+	The assets \texttt{PG}, \texttt{JNJ}, and \texttt{MSFT} consistently have the smallest risk measures:
+	
+	\[
+	\text{VaR}_{0.05}^{\text{norm}}(\text{PG}) = 7{,}343,\qquad
+	\text{ES}_{0.05}^{\text{norm}}(\text{PG}) = 9{,}376,
+	\]
+	\[
+	\text{VaR}_{0.05}^{\text{hist}}(\text{MSFT}) = 6{,}858,\qquad
+	\text{ES}_{0.05}^{\text{hist}}(\text{JNJ}) = 8{,}242.
+	\]
+	These defensive, lower-volatility stocks exhibit much smaller expected losses
+	during severe downside events.
+	
+	\texttt{TSLA}'s extremely high VaR and ES reflect its role as a highly volatile growth
+	stock with heavy tail behavior. In contrast, \texttt{PG}, \texttt{JNJ}, and \texttt{MSFT} behave like
+	defensive or stable large-cap firms, providing significantly lower downside
+	risk. From a portfolio-construction perspective, combining low-risk assets with
+	high-risk assets may improve diversification, but concentration in \texttt{TSLA} or
+	\texttt{META} would substantially increase portfolio tail risk.
+	
+	
+	
+	\emph{Bootstrapping} This question asks us to use bootstrapping method to compute standard errors, and 95\% confidence interval for VaR and ES for previously computed portfolios.
+	
+	First, for two (three) portfolios we did in Part 3 (Portfolio Theory), we have:
+	\begin{table}[htbp]
+		\centering
+		\caption{Bootstrap Estimates, Standard Errors, and 95\% Confidence Intervals for VaR and ES}
+		\label{tab:bootstrap_var_es_dollar}
+		\begin{tabular}{lccccc}
+			\toprule
+			\textbf{Portfolio} & \textbf{Measure} & \textbf{Estimate} & \textbf{SE} & \textbf{CI$_L$} & \textbf{CI$_U$} \\
+			\midrule
+			MVP (No short) & VaR & -4860.042 & 697.3866 & -5997.9928 & -3712.239 \\
+			MVP (No short) & ES  & -6164.466 & 900.6877 & -7771.265 & -4326.829 \\
+			\midrule
+			MVP (Short) & VaR & -4378.347 & 965.8988 & -8161.158 & -3302.252 \\
+			MVP (Short) & ES  & -6275.710 & 1044.2080 & -8398.878 & -4355.215 \\
+			\midrule
+			Tangency & VaR & -15840.95 & 2805.507 & -18453.33 & -7725.755 \\
+			Tangency & ES  & -18668.30 & 2021.857 & -21400.02 & -12942.08 \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	
+	
+	Then, for the two portfolios we got from Part 4 (Asset Allocation):
+	\begin{table}[htbp]
+		\centering
+		\caption{Bootstrap Estimates, Standard Errors, and 95\% Confidence Intervals for VaR and ES}
+		\label{tab:bootstrap_var_es_dollar}
+		\begin{tabular}{lccccc}
+			\toprule
+			\textbf{Portfolio} & \textbf{Measure} & \textbf{Estimate} & \textbf{SE} & \textbf{CI$_L$} & \textbf{CI$_U$} \\
+			\midrule
+			All Risky 
+			& VaR & 4860.04 & 702.56 & 3311.12 & 6047.72 \\
+			All Risky 
+			& ES  & 6164.47 & 725.50 & 4419.72 & 7242.58 \\
+			\midrule
+			Risky + Risk-Free
+			& VaR & 838.06 & 382.46 & 162.57 & 1617.90 \\
+			Risky + Risk-Free
+			& ES  & 1145.96 & 386.00 & 332.37 & 1876.02 \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+		
+		
+		\section{Corpulas}
+		
+		In this case I tried five types of corpulas, namely, Gaussian, t, Clayton, Gumbel, and Frank corulas. Then I did AIC and BIC tests on them, and results are shown in the table below. Overall the Student-$t$ copula provides the best fit among
+		all candidate models.
+		
+		\begin{table}[htbp]
+			\centering
+			\caption{Model Comparison Using Log-Likelihood, AIC, and BIC}
+			\label{tab:copula_model_selection}
+			\begin{tabular}{lccc}
+				\hline
+				\textbf{Copula Model} & \textbf{Log-Likelihood} & \textbf{AIC} & \textbf{BIC} \\
+				\hline
+				Gaussian & 301.6809 & -471.3619 & -312.5184 \\
+				Student-$t$ & 314.8911 & -495.7822 & -334.5320 \\
+				Clayton & 136.1343 & -270.2687 & -267.8620 \\
+				Gumbel & 105.3848 & -208.7697 & -206.3629 \\
+				Frank & 106.9688 & -211.9376 & -209.5309 \\
+				\hline
+			\end{tabular}
+		\end{table}
+		
+		
+		\section{Conclusion}
+		
+		
+		In this project I analyzed a cross-sector portfolio of eleven major U.S.\ assets over the
+		period 2019--2025, combining classical mean–variance theory, risk management tools, and
+		multivariate dependence modeling. The descriptive statistics and Sharpe ratios reveal a
+		clear split between high-growth technology names (especially \texttt{NVDA} and \texttt{TSLA}) and
+		defensive large-cap stocks such as \texttt{PG} and \texttt{JNJ}. Tech stocks offer very strong
+		risk–return tradeoffs on average, but at the cost of higher volatility, heavier tails, and
+		more frequent outliers, as confirmed by the outlier diagnostics and VaR/ES analysis.
+		
+		The portfolio optimization results highlight the trade-off between risk minimization and
+		return seeking. The no–short-sale minimum-variance portfolio concentrates in defensive
+		names and achieves the lowest volatility and smallest downside risk, making it suitable
+		for conservative, capital-preserving investors. Allowing short sales in the MVP substantially
+		increases tail risk without delivering commensurate improvements in expected return or
+		Sharpe ratio. In contrast, the tangency portfolio attains the highest expected return and
+		Sharpe ratio, but also exhibits the largest VaR and ES, reflecting its aggressive tilt toward
+		high-beta, high-volatility assets. When a risk-free asset is introduced, combining T-bills
+		with the tangency portfolio dramatically reduces downside risk while still hitting a modest
+		return target, illustrating the central insight of mean–variance theory in the presence of a
+		risk-free asset. Then I did bootstrapping for those portfolios I got above and got the standard errors and 95\% confidence intervals for VaR and ES.
+		
+		The correlation and PCA analyses show that a small number of systematic factors drives the
+		majority of co-movements in returns. The first principal component captures a broad
+		market/technology factor; the second reflects a growth–versus–defensive tilt; and the
+		third isolates more granular industry effects (energy, financials, communications, and
+		staples). This low-dimensional structure justifies factor-based views of diversification and
+		helps explain why defensive and commodity-like assets provide meaningful diversification
+		against a tech-heavy core. Finally, copula-based dependence modeling confirms that a
+		Student-$t$ copula best captures the joint behavior of the assets, underscoring the
+		importance of modeling tail dependence rather than relying solely on Gaussian
+		assumptions.
+		
+		Overall, the study demonstrates that effective equity portfolio construction must balance
+		three dimensions: attractive average returns, robust downside protection, and realistic
+		modeling of dependence and tail risk. A combination of defensive assets, selective
+		exposure to high-quality growth stocks, and the use of a risk-free asset (when available)
+		offers a disciplined way to navigate this trade-off.
+		
+		
+	\end{document}
+	

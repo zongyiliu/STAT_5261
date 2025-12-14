@@ -1,0 +1,2252 @@
+\documentclass[letterpaper, 9pt]{article}
+\linespread{0.85}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{physics}
+\usepackage[version=4]{mhchem}
+\usepackage{stmaryrd}
+\usepackage[dvipsnames]{xcolor}
+\colorlet{LightRubineRed}{RubineRed!70}
+\colorlet{Mycolor1}{green!10!orange}
+\definecolor{Mycolor2}{HTML}{00F9DE}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\VaR}{\mathrm{VaR}}
+\DeclareMathOperator{\ES}{\mathrm{ES}}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{lipsum}
+\usepackage{fancyvrb}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage[export]{adjustbox}
+\graphicspath{ {./images/} }
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{hyperref} 
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\E}{\mathbb{E}}
+\usepackage[normalem]{ulem}
+\usepackage{xcolor} % For custom colors
+\lstset{
+	language=Python,                % Choose the language (e.g., Python, C, R)
+	basicstyle=\ttfamily\small, % Font size and type
+	keywordstyle=\color{blue},  % Keywords color
+	commentstyle=\color{gray},  % Comments color
+	stringstyle=\color{red},    % String color
+	numbers=left,               % Line numbers
+	numberstyle=\tiny\color{gray}, % Line number style
+	stepnumber=1,               % Numbering step
+	breaklines=true,            % Auto line break
+	backgroundcolor=\color{black!5}, % Light gray background
+	frame=single,               % Frame around the code
+}
+\usepackage{float}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+	\usepackage[]{amssymb} %gives us the character \varnothing
+	
+	\title{Appendix for Final Project, STAT 5261}
+	\author{Zongyi Liu}
+	\date{Wed, Nov 26, 2025}
+	
+	\begin{document}
+		\maketitle
+		
+		{Github Repository Directory}: \url{https://github.com/zongyiliu/STAT_5261/tree/main/Homework/Homework_Final}
+		
+		\tableofcontents
+		
+		\section{Executive Summary}
+		
+		All of this part is in the main paper.
+		
+		\section{Descriptive Statistics}
+		\subsection{Sample Statistics for Each Data}
+		\subsubsection{Descriptions}
+		In this study I used 11 assets with time range from January 1, 2019 to October 31, 2025. The general information of those assets are listed below:
+		
+		\begin{itemize}
+			\item \texttt{AAPL}: Apple Inc., consumer electronics, smartphones, computers, wearables
+			\item \texttt{MSFT}: Microsoft Corporation, software, cloud computing, enterprise technology
+			\item \texttt{AMZN}: Amazon.com Inc., e-commerce, cloud computing (AWS), logistics
+			\item \texttt{GOOGL}: Alphabet Inc.\ (Class A), online advertising, search engine, cloud services
+			\item \texttt{META}: Meta Platforms Inc., social media (Facebook, Instagram), VR/AR technologies
+			\item \texttt{TSLA}: Tesla Inc., electric vehicles, clean energy, autonomous driving
+			\item \texttt{JNJ}: Johnson \& Johnson, pharmaceuticals, medical devices, healthcare products
+			\item \texttt{PG}: Procter \& Gamble, consumer goods, household \& personal care brands
+			\item \texttt{XOM}: Exxon Mobil Corporation, oil \& gas, energy exploration, petrochemicals
+			\item \texttt{JPM}: JPMorgan Chase \& Co., banking, investment management, financial services
+			\item \texttt{NVDA}: NVIDIA Corporation, GPUs, AI hardware, data center computing
+			\item \texttt{GSPC}: S\&P 500 Index (market benchmark), represents 500 large U.S.\ companies
+		\end{itemize}
+		
+		
+		and the general descriptive statistics are in this table.
+		
+		\begin{table}[htbp]
+			\centering
+			\caption{Asset Return Summary Statistics}
+			\begin{tabular}{lccccc}
+				\toprule
+				\textbf{Ticker} & \textbf{Mean} & \textbf{StdDev} & \textbf{Skewness} & \textbf{Kurtosis} & \textbf{Beta} \\
+				\midrule
+				AAPL & 0.026195312 & 0.08011206 & -0.03365191 & -0.77901530 & 1.2191835 \\
+				MSFT & 0.021585828 & 0.06226285 &  0.17017810 & -0.38299882 & 0.9403176 \\
+				AMZN & 0.016557489 & 0.08803682 &  0.33517650 &  0.84931329 & 1.1832620 \\
+				GOOGL & 0.022776095 & 0.07735267 & -0.40264341 & -0.28267538 & 1.0176823 \\
+				META & 0.022983741 & 0.11125480 & -0.37138577 &  0.96845122 & 1.2765125 \\
+				TSLA & 0.057683954 & 0.20737137 &  0.73744639 &  0.51012851 & 2.3441502 \\
+				JNJ & 0.005467106 & 0.04920065 &  0.09613001 & -0.34040990 & 0.5128830 \\
+				PG & 0.006585631 & 0.04864787 &  0.16436558 & -0.36205224 & 0.4273911 \\
+				XOM & 0.009271294 & 0.08846612 &  0.26105313 &  1.41911647 & 0.8535354 \\
+				JPM & 0.016276413 & 0.07468222 & -0.21352673 &  0.73558756 & 1.1483736 \\
+				NVDA & 0.059385595 & 0.13613246 & -0.20986786 & -0.03601573 & 1.7732969 \\
+				\bottomrule
+			\end{tabular}
+		\end{table}
+	
+	\subsubsection{Codes}
+	
+	First we need to load the data:
+	
+\begin{lstlisting}
+     library(PerformanceAnalytics) # used to compute returns
+     library(quantmod)
+     
+     symbols <- c("AAPL", "MSFT", "AMZN", "GOOGL", "META",
+     "TSLA", "JNJ", "PG", "XOM", "JPM",
+     "NVDA","^GSPC" # S&P 500
+     )
+     
+     getSymbols(symbols, 
+     from = "2019-01-01", 
+     to = "2025-10-31", 
+     periodicity = "monthly")
+\end{lstlisting}
+
+And set the risk free rate as 0.035 (annually).
+
+\begin{lstlisting}
+     # 0.035/12=0.002917
+     rf_m=0.002917
+\end{lstlisting}
+
+Retrieve the data:
+
+\begin{lstlisting}
+     symbols <- c(
+     "AAPL", "MSFT", "AMZN", "GOOGL", "META",
+     "TSLA", "JNJ", "PG", "XOM", "JPM",
+     "NVDA", "GSPC" # S&P 500
+     )
+     
+     getSymbols(symbols, from="2019-01-01", to="2025-10-31", periodicity="monthly")
+\end{lstlisting}
+
+And then we tried to find the descriptive data:
+
+\begin{lstlisting}
+     # Compute monthly returns
+     rets <- na.omit(do.call(merge, lapply(symbols, function(x) monthlyReturn(Cl(get(x)))) ) )
+     colnames(rets) <- symbols
+     
+     # Split S&P 500 and assets
+     sp500 <- rets[,"GSPC"]
+     assets <- rets[,symbols[symbols!="GSPC"]]
+     
+     # Compute beta for each asset vs market
+     get_beta <- function(asset, market){
+     	cov(asset, market) / var(market)
+     }
+     betas <- sapply(assets, function(x) get_beta(x, sp500))
+     
+     # Compute statistics
+     stats <- data.frame(
+     Mean = apply(assets, 2, mean),
+     StdDev = apply(assets, 2, sd),
+     Skewness = apply(assets, 2, skewness),
+     Kurtosis = apply(assets, 2, kurtosis),
+     Beta = betas
+     )
+     
+     # Get the table
+     
+     print(stats)
+\end{lstlisting}
+		
+		\subsection{Equity Curve}
+		\subsubsection{Descriptions}
+
+The equity curve represents the evolution of the portfolio value over time and is defined as the cumulative effect of period-by-period returns. Let $V_0$ denote the initial capital and $r_t$ the portfolio return at time $t$, then the equity curve is given by
+\[
+V_t = V_0 \prod_{s=1}^{t} (1 + r_s).
+\]
+
+Unlike summary performance statistics such as total return or the Sharpe ratio, the equity curve provides a complete view of the return path of a strategy. It reveals important dynamic characteristics, including return stability, drawdown behavior, and recovery speed after losses.
+
+In particular, the shape of the equity curve allows for an assessment of risk that cannot be captured by average-based metrics alone. Large and persistent drawdowns, high path volatility, or reliance on a small number of extreme return periods can be directly identified from the equity curve. As a result, the equity curve plays a central role in evaluating the practical viability and robustness of a trading strategy.
+
+\includegraphics[max width=\textwidth, center]{equity_curve}
+\subsubsection{Codes}
+\begin{lstlisting}
+     equity <- cumprod(1 + rets)
+     colnames(equity) <- symbols
+     
+     # Plot equity curves (with log scale)
+     chart.TimeSeries(equity,
+     legend.loc="topleft",
+     main="Equity Curve: Growth of $1 Invested (2019–2025)",
+     ylab="$ Value",
+     ylog=TRUE)
+\end{lstlisting}
+
+\subsection{Stationary Test}
+\subsubsection{Descriptions}
+Here I used the ADF (Augmented Dickey--Fuller) test, which is a statistical procedure used to
+determine whether a time series contains a unit root, which corresponds to
+non-stationarity.  
+The test is based on the following regression model:
+
+\[
+\Delta y_t = \alpha + \beta t + \gamma y_{t-1}
++ \sum_{i=1}^{p} \phi_i\, \Delta y_{t-i} + \varepsilon_t,
+\]
+
+where
+\begin{itemize}
+	\item $y_t$ is the observed time series,
+	\item $\Delta y_t = y_t - y_{t-1}$ is the first difference,
+	\item $\alpha$ is an intercept term,
+	\item $\beta t$ is an optional deterministic trend,
+	\item $\gamma$ is the coefficient of interest,
+	\item the lagged differences $\Delta y_{t-i}$ control for autocorrelation,
+	\item $\varepsilon_t$ is white noise.
+\end{itemize}
+
+The null and alternative hypotheses are:
+\[
+H_0: \gamma = 0 \quad \text{(unit root, the series is non-stationary)}, 
+\]
+\[
+H_1: \gamma < 0 \quad \text{(no unit root, the series is stationary)}.
+\]
+
+Under the null hypothesis, the process behaves like a random walk and does not
+revert to a stable mean.  
+The test statistic is the $t$-ratio of the estimated coefficient $\hat{\gamma}$.
+Because the distribution under $H_0$ is non-standard, the critical values are
+derived from the Dickey--Fuller distribution rather than the usual $t$-distribution.
+
+A small $p$-value (typically $< 0.05$) provides evidence against $H_0$,
+indicating that the time series is stationary.  
+Conversely, a large $p$-value suggests that the series may contain a unit root
+and should be treated as non-stationary.
+
+The generated results are:
+
+\begin{minipage}{\linewidth}
+	\begin{Verbatim}
+     AAPL       MSFT       AMZN      GOOGL       META       TSLA        JNJ         PG     
+     0.01000000 0.02288985 0.02555763 0.18572361 0.06129735 0.02332262 0.01000000 0.01000000 
+     XOM        JPM        NVDA 
+     0.02893795 0.01810877 0.02327581 
+	\end{Verbatim}
+\end{minipage}
+
+From the result statistics, we can see that except \texttt{GOOGL} and \texttt{META}, all other assets are stationary.
+
+\subsubsection{Codes}
+\begin{lstlisting}
+     rets <- na.omit( do.call(merge, lapply(symbols, function(x) monthlyReturn(Cl(get(x)))) ) )
+     colnames(rets) <- symbols
+     
+     # Asset vs market
+     sp500  <- rets[,"GSPC"]
+     assets <- rets[, symbols[symbols != "GSPC"]]
+     
+     # Do the ADF test
+     library(tseries)
+     
+     adf_pvals <- sapply(colnames(assets), function(sym) {
+     	x <- as.numeric(assets[, sym])
+     	tseries::adf.test(x)$p.value
+     })
+     
+     adf_pvals
+\end{lstlisting}
+
+\subsection{Normality Test}
+\subsubsection{Descriptions}
+As for the normality test, I used the Shapiro--Wilk normality test; it is widely regarded as one of the most powerful tests for normality,
+particularly for small to medium sample sizes.
+
+The test evaluates the hypotheses
+\[
+H_0: \text{the data are drawn from a normal distribution}, \qquad
+H_1: \text{the data are not drawn from a normal distribution}.
+\]
+
+A small $p$-value (typically $p < 0.05$) provides evidence against the null
+hypothesis, indicating that the sample deviates significantly from normality.
+
+The test statistic $W$ is defined as
+\[
+W = \frac{\left( \sum_{i=1}^{n} a_i\, x_{(i)} \right)^2}
+{\sum_{i=1}^{n} (x_i - \overline{x})^2},
+\]
+where
+\begin{itemize}
+	\item $x_{(i)}$ are the ordered sample values,
+	\item $\overline{x}$ is the sample mean,
+	\item the coefficients $a_i$ are determined from the expected values
+	of order statistics of a standard normal distribution.
+\end{itemize}
+
+A value of $W$ close to $1$ indicates that the sample closely follows a normal
+distribution, whereas smaller values of $W$ suggest departures from normality.
+Because the distribution of $W$ under $H_0$ is non-standard, critical values
+and $p$-values are obtained from tabulated or simulated reference distributions.
+
+\begin{minipage}{\linewidth}
+	\begin{Verbatim}
+     AAPL       MSFT       AMZN      GOOGL       META       TSLA        JNJ         PG
+     0.21248837 0.62165060 0.15510607 0.22833142 0.12889031 0.01970367 0.73330810 0.76560839 
+     XOM        JPM        NVDA 
+     0.02309470 0.59347899  0.92021681 
+	\end{Verbatim}
+\end{minipage}
+
+
+From the result we can say that \texttt{TSLA} and \texttt{XOM} are not normally distributed, and all other assets are normally distributed.
+
+Another way is to generate QQ plots to visualize the normality. A quantile--quantile (QQ) plot is a graphical tool used to assess whether a sample of data
+is consistent with a specified theoretical distribution, most commonly the normal distribution.
+The basic idea is to compare the empirical quantiles of the data to the theoretical quantiles
+of the reference distribution.
+
+Let $X_1,\dots,X_n$ denote the observed returns of a given asset, and let
+$X_{(1)} \leq \cdots \leq X_{(n)}$ be the corresponding order statistics.
+For a normal QQ plot, we proceed as follows:
+\begin{enumerate}
+	\item Choose plotting positions $p_i$ for $i=1,\dots,n$, for example
+	\[
+	p_i = \frac{i - 0.5}{n}.
+	\]
+	\item Compute the theoretical quantiles
+	\[
+	q_i = F^{-1}(p_i),
+	\]
+	where $F^{-1}$ is the quantile function of the reference distribution.
+	For a standard normal QQ plot, $F^{-1} = \Phi^{-1}$, the inverse of the standard normal
+	cumulative distribution function.
+	\item Plot the points $(q_i, X_{(i)})$ in the plane and optionally add a reference line,
+	e.g.\ the least-squares line or the line through the first and third quartiles.
+\end{enumerate}
+
+If the sample is approximately drawn from the reference distribution, the points in the QQ plot
+should lie close to a straight line. Systematic deviations from linearity indicate departures
+from the assumed distribution:
+\begin{itemize}
+	\item {Heavy tails:} If the points bend away from the line in both tails
+	(the extremes are farther from the line than the middle), this suggests heavier tails
+	than the normal distribution.
+	\item {Light tails:} If the points are closer to the line in the tails and deviate
+	in the center, this suggests lighter tails.
+	\item {Skewness:} An ``S-shaped'' pattern, where one tail lies above the line and
+	the other below, indicates skewness in the data.
+\end{itemize}
+
+In the context of asset returns, normal QQ plots are commonly used to visually check the
+normality assumption underlying many classical models (e.g.\ mean--variance analysis,
+linear factor models). Assets whose QQ plots exhibit strong curvature or extreme deviations
+in the tails are likely to have non-normal, heavy-tailed return distributions, and may be
+better modeled using, for example, Student-$t$ or skewed distributions.
+
+
+\includegraphics[max width=\textwidth, center]{QQplot1}
+\includegraphics[max width=\textwidth, center]{QQplot2}
+\includegraphics[max width=\textwidth, center]{QQplot3}
+		
+\subsubsection{Codes}
+
+\begin{lstlisting}
+     shapiro_pvals <- sapply(colnames(assets), function(sym) {
+     	x <- as.numeric(assets[, sym])
+     	shapiro.test(x)$p.value
+     })
+     
+     shapiro_pvals
+\end{lstlisting}
+
+To generate QQ plots, we have:
+
+\begin{lstlisting}
+     par(mfrow = c(2, 2))
+     
+     for(sym in c("AAPL", "MSFT", "AMZN", "GOOGL", "META",
+     "TSLA", "JNJ", "PG", "XOM", "JPM",
+     "NVDA")) {
+     	x <- as.numeric(assets[, sym])
+     	qqnorm(x, main = paste(sym, "QQ-plot"))
+     	qqline(x, col = 1)
+     }
+     par(mfrow = c(1,1))
+\end{lstlisting}
+
+\subsection{Outlier Test}
+\subsubsection{Descriptions}
+
+Firstly I used the IOR methods, 
+
+\begin{table}[h!]
+	\centering
+	\caption{Outliers Detected Using the IQR Method}
+	\begin{tabular}{ll}
+		\toprule
+		Asset & Outlier Months (Index) \\
+		\midrule
+		AAPL  & None \\
+		MSFT  & None \\
+		AMZN  & 16,\; 40,\; 43 \\
+		GOOGL & 40 \\
+		META  & 38,\; 46 \\
+		TSLA  & 20 \\
+		JNJ   & None \\
+		PG    & None \\
+		XOM   & 14,\; 15,\; 16,\; 26,\; 37,\; 46 \\
+		JPM   & 15 \\
+		NVDA  & 40 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+Then I used the Z score test, which is common for financial statistics. Here AAPL, MSFT, AMZN, GOOGL, JNJ, PG, NVDA do not have outliers.
+
+\begin{table}[h!]
+	\centering
+	\caption{Outliers Detected Using Z-Score Method}
+	\begin{tabular}{ll}
+		\toprule
+		Asset & Outlier Months (Index) \\
+		\midrule
+		AAPL  & None \\
+		MSFT  & None \\
+		AMZN  & None \\
+		GOOGL & None \\
+		META  & 38, 46 \\
+		TSLA  & 20 \\
+		JNJ   & None \\
+		PG    & None \\
+		XOM   & 15 \\
+		JPM   & 15 \\
+		NVDA  & None \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+
+
+The third methods is MAD (Median Absolute Deviation) method. From the results
+
+
+\begin{table}[h!]
+	\centering
+	\caption{MAD-Based Outlier Detection Across Assets}
+	\begin{tabular}{ll}
+		\toprule
+		Asset & Outlier Months (Index) \\
+		\midrule
+		AAPL  & None \\
+		MSFT  & None \\
+		AMZN  & 16, 40, 43 \\
+		GOOGL & 40, 74 \\
+		META  & 38, 46, 47, 62 \\
+		TSLA  & 13, 20 \\
+		JNJ   & 16 \\
+		PG    & 36 \\
+		XOM   & 14, 15, 16, 21, 23, 26, 37, 46 \\
+		JPM   & 15, 23, 42, 46 \\
+		NVDA  & 5, 40, 53 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+These plots can be aggregated together:
+
+\begin{table}[htbp]
+	\centering
+	\caption{Comparison of Outlier Months Detected by Different Methods}
+	\begin{tabular}{lccc}
+		\hline
+		\textbf{Asset} & \textbf{IQR Method} & \textbf{Z-Score Method} & \textbf{MAD Method} \\
+		\hline
+		AAPL  & None & None & None \\
+		MSFT  & None & None & None \\
+		AMZN  & 16, 40, 43 & None & 16, 40, 43 \\
+		GOOGL & 40 & None & 40, 74 \\
+		META  & 38, 46 & 38, 46 & 38, 46, 47, 62 \\
+		TSLA  & 20 & 20 & 13, 20 \\
+		JNJ   & None & None & 16 \\
+		PG    & None & None & 36 \\
+		XOM   & 14, 15, 16, 26, 37, 46 & 15 & 14, 15, 16, 21, 23, 26, 37, 46 \\
+		JPM   & 15 & 15 & 15, 23, 42, 46 \\
+		NVDA  & 40 & None & 5, 40, 53 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+\includegraphics[max width=\textwidth, center]{box_plot}
+
+
+\includegraphics[max width=\textwidth, center]{violin_plot}
+
+
+\subsubsection{Codes}
+
+Codes for IQR methods (ie. Boxplot rule)
+
+\begin{lstlisting}
+     outlier_iqr <- function(x) {
+     	Q1 <- quantile(x, 0.25, na.rm = TRUE)
+     	Q3 <- quantile(x, 0.75, na.rm = TRUE)
+     	IQR <- Q3 - Q1
+     	lower <- Q1 - 1.5 * IQR
+     	upper <- Q3 + 1.5 * IQR
+     	which(x < lower | x > upper)
+     }
+     
+     outliers_IQR <- lapply(as.data.frame(assets), outlier_iqr)
+     outliers_IQR
+\end{lstlisting}
+
+Then the codes for z score is shown as below:
+
+
+\begin{lstlisting}
+	outlier_z <- function(x, threshold = 3) {
+		z <- (x - mean(x, na.rm = TRUE)) / sd(x, na.rm = TRUE)
+		which(abs(z) > threshold)
+	}
+	
+	outliers_Z <- lapply(as.data.frame(assets), outlier_z)
+	outliers_Z
+\end{lstlisting}
+
+For MAD test
+\begin{lstlisting}
+     outlier_mad <- function(x, threshold = 3.5) {
+     	m <- median(x, na.rm = TRUE)
+     	mad_val <- mad(x, constant = 1, na.rm = TRUE)
+     	z <- abs((x - m) / mad_val)
+     	which(z > threshold)
+     }
+     
+     outliers_MAD <- lapply(as.data.frame(assets), outlier_mad)
+     outliers_MAD
+\end{lstlisting}
+
+For box plot
+\begin{lstlisting}
+     boxplot(assets, main="Boxplot of Monthly Returns", las=2)
+\end{lstlisting}
+
+
+For violin plot
+\begin{lstlisting}
+     library(vioplot)
+     vioplot(as.matrix(assets), names=colnames(assets), las=2)
+\end{lstlisting}
+
+\subsection{Fit Different Distributions}
+\subsubsection{Descriptions}
+Overall, without manipulation the $t$ distribution fits the best; but, if we just put raw data in fittings, nearly all kinds of assests will fit best for $t$ distribution. Thus I introduced GARCH model here.
+
+Financial asset returns exhibit several well-documented stylized facts, including
+volatility clustering, time-varying conditional variance, and excess kurtosis.
+When distributions are fitted directly to raw returns under an i.i.d.\ assumption,
+these features are ignored, often leading to the empirical selection of heavy-tailed
+distributions such as the Student-$t$.
+
+To properly account for these characteristics, returns are modeled within a
+conditional heteroskedastic framework. Specifically, asset returns are decomposed as
+\[
+r_t = \mu + \varepsilon_t, \qquad
+\varepsilon_t = \sigma_t z_t,
+\]
+where $\sigma_t^2$ follows a GARCH process and $z_t$ denotes standardized innovations
+with $\mathbb{E}[z_t]=0$ and $\Var(z_t)=1$.
+
+The GARCH model captures time-varying volatility by allowing the conditional variance
+to respond dynamically to past shocks. Large return realizations during turbulent
+periods are therefore primarily attributed to elevated conditional volatility
+$\sigma_t$, rather than extreme realizations of the innovation $z_t$. As a result,
+much of the apparent heavy-tailed behavior observed in raw returns is absorbed by the
+volatility process.
+
+Distributional inference is consequently conducted on the GARCH residuals, i.e.,
+the standardized innovations $z_t$. These residuals are approximately serially
+uncorrelated and homoskedastic, making them suitable for likelihood-based comparison
+of candidate distributions. In many cases, once conditional heteroskedasticity is
+modeled, the residuals are well approximated by a Gaussian distribution, while in
+other cases remaining excess kurtosis or asymmetry may still justify heavier-tailed
+or skewed distributions.
+
+Modeling GARCH residuals therefore separates genuine tail behavior from volatility
+dynamics, ensuring that distributional assumptions are not driven by unmodeled
+heteroskedasticity. This provides a coherent foundation for subsequent applications
+such as copula modeling, risk measurement, and scenario simulation, where correctly
+specified marginal distributions are essential.
+
+
+
+\begin{table}[htbp]
+	\centering
+	\caption{Best-Fitting Conditional Distributions by AIC and BIC}
+	\label{tab:best_dist}
+	\begin{tabular}{lcc}
+		\toprule
+		Asset & Best (AIC) & Best (BIC) \\
+		\midrule
+		AAPL  & GED  & GED  \\
+		MSFT  & Normal & Normal \\
+		AMZN  & Student-$t$ & Normal \\
+		GOOGL & Skewed Student-$t$ & Normal \\
+		META  & Skewed Student-$t$ & Student-$t$ \\
+		TSLA  & Normal & Normal \\
+		JNJ   & Normal & Normal \\
+		PG    & Normal & Normal \\
+		XOM   & GED  & GED  \\
+		JPM   & Normal & Normal \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+\subsubsection{Codes}
+\begin{lstlisting}
+     suppressPackageStartupMessages({
+     	library(quantmod)
+     	library(xts)
+     	library(rugarch)
+     })
+     
+     # Symbols + download
+     symbols <- c("AAPL", "MSFT", "AMZN", "GOOGL", "META",
+     "TSLA", "JNJ", "PG", "XOM", "JPM",
+     "NVDA")
+     
+     getSymbols(symbols,
+     from = "2019-01-01",
+     to   = "2025-10-31",
+     periodicity = "monthly",
+     src = "yahoo",
+     auto.assign = TRUE)
+     
+     # Build monthly adjusted price panel
+     prices <- do.call(merge, lapply(symbols, function(sym) {
+     	x <- get(sym)
+     	Ad(x)
+     }))
+     colnames(prices) <- gsub("\\^", "", symbols)
+     
+     # Monthly log-returns
+     returns <- diff(log(prices))[-1]
+     returns <- na.omit(returns)
+     
+     # Fit function: GARCH(1,1) + different conditional distributions
+     fit_distributions_garch <- function(x, solver = "hybrid") {
+     	x <- as.numeric(na.omit(x))
+     	dists <- c("norm", "std", "sstd", "ged")
+     	
+     	out_list <- lapply(dists, function(dist) {
+     		spec <- ugarchspec(
+     		variance.model = list(model = "sGARCH", garchOrder = c(1, 1)),
+     		mean.model     = list(armaOrder = c(0, 0), include.mean = TRUE),
+     		distribution.model = dist
+     		)
+     		
+     		fit <- tryCatch(
+     		ugarchfit(spec = spec, data = x, solver = solver),
+     		error = function(e) NULL
+     		)
+     		
+     		if (is.null(fit)) {
+     			return(c(logLik = NA_real_, AIC = NA_real_, BIC = NA_real_))
+     		}
+     		
+     		ic <- infocriteria(fit)  # AIC, BIC, etc.
+     		c(
+     		logLik = likelihood(fit),
+     		AIC    = ic[1],
+     		BIC    = ic[2]
+     		)
+     	})
+     	
+     	out <- do.call(rbind, out_list)
+     	rownames(out) <- dists
+     	out
+     }
+     
+     # Run for each asset
+     fit_results <- lapply(colnames(returns), function(sym) {
+     	fit_distributions_garch(returns[, sym])
+     })
+     names(fit_results) <- colnames(returns)
+     
+     # Pick best (by AIC and by BIC) for each asset
+     best_by_AIC <- sapply(fit_results, function(m) rownames(m)[which.min(m[, "AIC"])])
+     best_by_BIC <- sapply(fit_results, function(m) rownames(m)[which.min(m[, "BIC"])])
+     
+     # Print summaries
+     cat("==== Best distribution by AIC ====\n")
+     print(best_by_AIC)
+     
+     cat("\n==== Best distribution by BIC ====\n")
+     print(best_by_BIC)
+     
+     cat("\n==== Example: AAPL fit table ====\n")
+     print(fit_results$AAPL)
+     
+     ## 8) Optional: build a single comparison table (asset x best dist)
+     best_table <- data.frame(
+     Asset = names(best_by_AIC),
+     Best_AIC = unname(best_by_AIC),
+     Best_BIC = unname(best_by_BIC),
+     row.names = NULL
+     )
+     print(best_table)
+\end{lstlisting}
+
+\subsection{Sharpe Ratio}
+\subsubsection{Descriptions}
+
+The Sharpe ratio is a widely used measure of risk-adjusted performance in finance. 
+For an asset or portfolio with excess return $R_{t} - R_{f}$, where $R_{f}$ denotes the 
+risk-free rate, the Sharpe ratio is defined as
+\[
+\text{Sharpe} = 
+\frac{\mathbb{E}[R_{t} - R_{f}]}{\sqrt{\operatorname{Var}(R_{t} - R_{f})}}
+= 
+\frac{\mu - R_{f}}{\sigma},
+\]
+where $\mu$ is the mean return and $\sigma$ is the standard deviation of returns.  
+In empirical applications, the Sharpe ratio is typically computed using sample averages and 
+sample standard deviations, and is often annualized for comparability across assets.
+
+Intuitively, the Sharpe ratio measures the amount of excess return obtained per unit of risk.
+A higher Sharpe ratio indicates more efficient compensation for the volatility borne by the investor.
+Assets or portfolios with Sharpe ratios above~1 are usually interpreted as having strong 
+risk--return characteristics, while values above~2 are considered exceptionally strong.
+Conversely, low Sharpe ratios---even for assets with low volatility---indicate limited reward 
+per unit of risk.
+
+Because the Sharpe ratio penalizes return variability symmetrically, it is most appropriate 
+when returns are approximately normally distributed. In cases where returns exhibit skewness 
+or heavy tails, alternative measures such as the Sortino ratio or expected shortfall 
+may provide a richer assessment of downside risk. Nonetheless, the Sharpe ratio remains one 
+of the most widely implemented benchmarks for evaluating investment performance.
+
+
+\begin{table}[h!]
+	\centering
+	\caption{Annualized Sharpe Ratios of Individual Assets}
+	\label{tab:sharpe}
+	\begin{tabular}{l r}
+		\toprule
+		Asset & Sharpe Ratio \\
+		\midrule
+		AAPL  & 1.2389550 \\
+		MSFT  & 1.2615931 \\
+		AMZN  & 0.6486593 \\
+		GOOGL & 1.0833367 \\
+		META  & 0.7615089 \\
+		TSLA  & 1.3086380 \\
+		JNJ   & 0.2793679 \\
+		PG    & 0.3676322 \\
+		XOM   & 0.3168737 \\
+		JPM   & 0.7490568 \\
+		NVDA  & 2.0744136 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+Table above reports the annualized Sharpe ratios for the eleven assets in the
+sample. The results reveal substantial heterogeneity in risk-adjusted performance across
+sectors.
+
+NVDA exhibits by far the highest Sharpe ratio (2.07), indicating exceptional
+risk-adjusted returns driven by strong mean performance relative to its volatility.
+Other large-cap technology stocks---including TSLA, MSFT, AAPL, and GOOGL---also achieve
+Sharpe ratios above~1, suggesting that these assets delivered highly favorable 
+risk--return tradeoffs over the sample period. In particular, TSLA’s Sharpe ratio (1.31)
+reflects both elevated volatility and periods of unusually strong returns, especially during 
+the post-2019 expansion.
+
+In contrast, defensive assets such as JNJ, PG, and XOM exhibit Sharpe ratios well below~0.5.
+Although these stocks experience relatively low volatility, their mean returns are also modest,
+resulting in comparatively poor risk-adjusted performance. XOM, in particular, shows a low  
+Sharpe ratio (0.32), consistent with the heavy-tailed behavior induced by commodity price
+shocks observed elsewhere in the analysis.
+
+Overall, the evidence suggests that growth-oriented technology firms dominated the 
+risk-adjusted performance ranking during the sample window, while traditional defensive 
+and commodity-linked assets offered limited gains per unit of risk.
+
+\subsubsection{Codes}
+
+\begin{lstlisting}
+     # Compute mean & sd for each asset (monthly)
+     mu_m <- colMeans(assets, na.rm = TRUE)
+     sd_m <- apply(assets, 2, sd, na.rm = TRUE)
+     
+     # Annualized mean and sd
+     mu_a <- (1 + mu_m)^12 - 1
+     sd_a <- sd_m * sqrt(12)
+     
+     # Annualized Sharpe ratio for each asset
+     sharpe_a <- (mu_a - rf_annual) / sd_a
+     
+     sharpe_a
+     
+     
+     asset_stats <- t(apply(assets, 2, stat_fun))
+     asset_stats <- as.data.frame(asset_stats)
+     
+\end{lstlisting}
+
+\subsection{Annualization of the Data}
+\subsubsection{Descriptions}
+
+\begin{table}[ht]
+	\centering
+	\caption{Annualized Mean Returns and Standard Deviations of Assets}
+	\begin{tabular}{lcc}
+		\toprule
+		\textbf{Asset} & \textbf{Mean (Annual)} & \textbf{Std.~Dev (Annual)} \\
+		\midrule
+		AAPL  & 0.3143 & 0.2775 \\
+		MSFT  & 0.2590 & 0.2157 \\
+		AMZN  & 0.1987 & 0.3050 \\
+		GOOGL & 0.2733 & 0.2680 \\
+		META  & 0.2758 & 0.3854 \\
+		TSLA  & 0.6922 & 0.7184 \\
+		JNJ   & 0.0656 & 0.1704 \\
+		PG    & 0.0790 & 0.1685 \\
+		XOM   & 0.1113 & 0.3065 \\
+		JPM   & 0.1953 & 0.2587 \\
+		NVDA  & 0.7126 & 0.4716 \\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\subsubsection{Codes}
+
+\begin{lstlisting}
+     library(PerformanceAnalytics)
+     
+     # Monthly mean / std
+     mean_monthly <- apply(assets, 2, mean)
+     sd_monthly   <- apply(assets, 2, sd)
+     
+     # Annualize
+     mean_annual <- mean_monthly * 12
+     sd_annual   <- sd_monthly * sqrt(12)
+     
+     annual_stats <- data.frame(
+     Mean_Annual = mean_annual,
+     StdDev_Annual = sd_annual
+     )
+     print(annual_stats)
+     
+\end{lstlisting}
+
+		\section{Portfolio Theory}
+		\subsection{Construct MVP}
+		\subsubsection{Descriptions}
+		
+		The minimum variance portfolio is constructed by minimizing the portfolio variance
+		subject to a full-investment constraint. Let $\Sigma$ denote the covariance matrix of
+		asset returns and $\mathbf{1}$ a vector of ones. The MVP solves
+		\[
+		\min_{\mathbf{w}} \ \mathbf{w}^\top \Sigma \mathbf{w}
+		\quad \text{s.t.} \quad \mathbf{1}^\top \mathbf{w} = 1,
+		\]
+		with additional constraints imposed when short-selling is disallowed
+		($\mathbf{w} \ge 0$). In the unconstrained case, the closed-form solution is
+		\[
+		\mathbf{w}_{\text{MVP}}
+		= \frac{\Sigma^{-1}\mathbf{1}}{\mathbf{1}^\top \Sigma^{-1}\mathbf{1}},
+		\]
+		which assigns higher weights to assets with low variance and low correlation with
+		others. When no short-selling is allowed, the problem is solved numerically via
+		quadratic programming. The MVP focuses solely on risk minimization and therefore
+		provides the lowest achievable portfolio variance among all fully invested portfolios,
+		serving as a natural benchmark for subsequent portfolio comparisons.
+		\subsubsection{Codes}
+		\begin{lstlisting}
+     R <- assets   # Monthly asset returns (xts)
+     
+     # Mean monthly returns and covariance matrix
+     mu_m  <- colMeans(R)
+     Sigma <- cov(R)
+     one   <- rep(1, ncol(R))
+     names(mu_m) <- colnames(R)
+     
+     # Historical VaR / ES (left-tail)
+     # p = 0.95 to 5% tail
+     
+     var_es_hist <- function(x, p = 0.95) {
+     	q  <- as.numeric(quantile(x, probs = 1 - p, na.rm = TRUE))   # 5% quantile
+     	es <- mean(x[x <= q], na.rm = TRUE)                          # Tail average
+     	c(VaR = q, ES = es)
+     }
+     
+
+     # Portfolio statistics function
+     # Returns monthly + annualized metrics
+
+     stat_fun <- function(Rp, rf_annual = 0) {
+     	Rp <- as.numeric(Rp)
+     	
+     	mu  <- mean(Rp)                 # monthly mean return
+     	sdv <- sd(Rp)                  # monthly volatility
+     	
+     	ann_mu <- (1 + mu)^12 - 1      # annualized (compounded)
+     	ann_sd <- sdv * sqrt(12)       # annualized volatility
+     	
+     	vares <- var_es_hist(Rp, p = 0.95)
+     	
+     	c(
+     	mean_m  = mu,
+     	sd_m    = sdv,
+     	mean_a  = ann_mu,
+     	sd_a    = ann_sd,
+     	VaR_5_m = vares["VaR"],
+     	ES_5_m  = vares["ES"]
+     	)
+     }
+		\end{lstlisting}
+		
+		\subsection{Comparison of MVP and other Assets}
+		
+		\subsubsection{Descriptions}
+		
+		\begin{table}[h!]
+			\centering
+			\caption{Portfolio Weights: No-Short MVP, Short-Allowed MVP, and Tangency Portfolio}
+			\begin{tabular}{lcccc}
+				\toprule
+				Asset & Asset & $w_{\text{MVP,noshort}}$ & $w_{\text{MVP,short}}$ & $w_{\text{Tangency}}$ \\
+				\midrule
+				AAPL  & AAPL  & 0.0000 & -0.1650 & 0.2570 \\
+				MSFT  & MSFT  & 0.0512 & 0.1177  & 0.4101 \\
+				AMZN  & AMZN  & 0.0566 & 0.1564  & -0.9761 \\
+				GOOGL & GOOGL & 0.1217 & 0.1422  & 0.3640 \\
+				META  & META  & 0.0000 & -0.0769 & -0.0607 \\
+				TSLA  & TSLA  & 0.0000 & -0.0196 & 0.1878 \\
+				JNJ   & JNJ   & 0.3225 & 0.3659  & -0.1525 \\
+				PG    & PG    & 0.3921 & 0.4195  & 0.1348 \\
+				XOM   & XOM   & 0.0435 & 0.0177  & 0.1087 \\
+				JPM   & JPM   & 0.0124 & 0.0434  & -0.0227 \\
+				NVDA  & NVDA  & 0.0000 & -0.0012 & 0.7494 \\
+				\bottomrule
+			\end{tabular}
+		\end{table}
+		
+		
+		\begin{table}[h!]
+			\centering
+			\caption{Portfolio Performance: MVP (No Short), MVP (Short Allowed), and Tangency Portfolio}
+			\begin{tabular}{lccccccc}
+				\toprule
+				Portfolio & mean\_m & sd\_m & mean\_a & sd\_a & VaR\_5\_m & ES\_5\_m & Sharpe\_a \\
+				\midrule
+				MVP\_noshort & 0.0103 & 0.0379 & 0.1315 & 0.1314 & -0.0464 & -0.0618 & 0.8488 \\
+				MVP\_short   & 0.0039 & 0.0593 & 0.0476 & 0.2055 & -0.0910 & -0.1088 & 0.1344 \\
+				Tangency     & 0.0556 & 0.1211 & 0.9139 & 0.4194 & -0.1263 & -0.1799 & 2.1312 \\
+				\bottomrule
+			\end{tabular}
+		\end{table}
+		
+		\subsubsection{Codes}
+		
+		\begin{lstlisting}
+     # 1. MVP WITH SHORT-SELLING
+     
+     Sigma_inv <- solve(Sigma)
+     
+     w_mvp_short <- as.numeric(Sigma_inv %*% one / as.numeric(t(one) %*% Sigma_inv %*% one))
+     names(w_mvp_short) <- colnames(R)
+     
+     Rp_mvp_short  <- Return.portfolio(R, weights = w_mvp_short)
+     stats_mvp_short <- stat_fun(Rp_mvp_short)
+     
+     # 2. MVP WITHOUT SHORT-SELLING
+     # Solve QP: min ½ w'Σw subject to sum w = 1, w ≥ 0
+     
+     
+     n <- ncol(R)
+     
+     Dmat <- 2 * Sigma
+     dvec <- rep(0, n)
+     
+     # Constraints:
+     # First column: sum w = 1
+     # Remaining columns: w_i ≥ 0
+     Amat <- cbind(one, diag(n))
+     bvec <- c(1, rep(0, n))
+     
+     res_noshort <- solve.QP(Dmat, dvec, Amat, bvec, meq = 1)
+     w_mvp_noshort <- res_noshort$solution
+     names(w_mvp_noshort) <- colnames(R)
+     
+     Rp_mvp_noshort  <- Return.portfolio(R, weights = w_mvp_noshort)
+     stats_mvp_noshort <- stat_fun(Rp_mvp_noshort)
+     
+     # 3. 5% VaR FOR $100,000 INVESTMENT
+     # using historical MVP returns
+     
+     V0 <- 100000
+     
+     VaR_5_mvp_noshort_ret    <- stats_mvp_noshort["VaR_5_m"]
+     VaR_5_mvp_noshort_dollar <- - V0 * VaR_5_mvp_noshort_ret
+     
+     # 4. Individual assets VaR/ES
+     
+     asset_stats <- t(apply(R, 2, stat_fun))
+     asset_stats <- as.data.frame(asset_stats)
+     
+     asset_stats$VaR_5_dollar <- -V0 * asset_stats$VaR_5_m
+     
+     # 5. Tangency portfolio
+     
+     rf_annual <- 0.02                       # Example risk-free rate
+     rf_m <- (1 + rf_annual)^(1/12) - 1      # Monthly RF
+     
+     excess_mu <- mu_m - rf_m                # Excess returns
+     
+     # Tangency weights: w ∝ Σ⁻¹ (mu - rf*1)
+     w_tan_short <- as.numeric(Sigma_inv %*% excess_mu)
+     w_tan_short <- w_tan_short / sum(w_tan_short)
+     names(w_tan_short) <- colnames(R)
+     
+     Rp_tan_short <- Return.portfolio(R, weights = w_tan_short)
+     stats_tan_short <- stat_fun(Rp_tan_short, rf_annual = rf_annual)
+     
+     # Sharpe ratios (annualized)
+     Sharpe_mvp_noshort <- (stats_mvp_noshort["mean_a"] - rf_annual) / stats_mvp_noshort["sd_a"]
+     Sharpe_mvp_short   <- (stats_mvp_short["mean_a"]   - rf_annual) / stats_mvp_short["sd_a"]
+     Sharpe_tan_short   <- (stats_tan_short["mean_a"]   - rf_annual) / stats_tan_short["sd_a"]
+     
+     # 6. Markowitz Efficient Frontier
+     # WITH and WITHOUT short-selling
+     
+     # Sequence of target expected returns
+     target_seq <- seq(min(mu_m) * 0.5, max(mu_m) * 1.2, length.out = 50)
+     
+     # Frontier WITH short selling
+     ef_short <- lapply(target_seq, function(target) {
+     	Amat <- cbind(one, mu_m)     # sum(w)=1, μ'w=target
+     	bvec <- c(1, target)
+     	res  <- solve.QP(2*Sigma, rep(0,n), Amat, bvec, meq=2)
+     	w    <- res$solution
+     	port_var <- as.numeric(t(w) %*% Sigma %*% w)
+     	c(target = target, sd = sqrt(port_var))
+     })
+     
+     ef_short <- as.data.frame(do.call(rbind, ef_short))
+     
+     # Frontier WITHOUT short selling
+     ef_noshort <- lapply(target_seq, function(target) {
+     	Amat <- cbind(one, mu_m, diag(n))   # add w_i ≥ 0
+     	bvec <- c(1, target, rep(0,n))
+     	res  <- try(solve.QP(2*Sigma, rep(0,n), Amat, bvec, meq=2), silent=TRUE)
+     	
+     	if (inherits(res, "try-error")) {
+     		return(c(target = target, sd = NA))
+     	}
+     	w <- res$solution
+     	port_var <- as.numeric(t(w) %*% Sigma %*% w)
+     	c(target = target, sd = sqrt(port_var))
+     })
+     
+     ef_noshort <- as.data.frame(do.call(rbind, ef_noshort))
+     
+     
+     # 7. Tables of weights and statistics
+     
+     weights_table <- data.frame(
+     Asset = colnames(R),
+     w_MVP_noshort = w_mvp_noshort,
+     w_MVP_short   = w_mvp_short,
+     w_Tangency    = w_tan_short
+     )
+     
+     kable(weights_table, digits = 4)
+     
+     portfolio_stats_table <- rbind(
+     MVP_noshort = stats_mvp_noshort,
+     MVP_short   = stats_mvp_short,
+     Tangency    = stats_tan_short
+     )
+     portfolio_stats_table <- as.data.frame(portfolio_stats_table)
+     
+     portfolio_stats_table$Sharpe_a <- c(
+     Sharpe_mvp_noshort,
+     Sharpe_mvp_short,
+     Sharpe_tan_short
+     )
+     
+     kable(portfolio_stats_table, digits = 4)
+		\end{lstlisting}
+		
+		\section{Asset Allocation}
+		
+		\subsection{Without Risk Free Assets}
+		
+		\subsubsection{Descriptions}
+		
+		Here I just used all assets that are risky.
+		\subsubsection{Codes}
+	\begin{lstlisting}
+     ibrary(quantmod)
+     library(quadprog)
+     library(Rsolnp)
+     
+     
+     ## Align risky returns and rf on the same dates (inner join)
+     dat_all         <- merge(assets, rf_m, join = "inner")
+     assets_aligned  <- dat_all[, colnames(assets)]
+     rf_aligned      <- dat_all[, ncol(dat_all)]
+     
+     assets <- na.omit(assets_aligned)
+     rf_m   <- na.omit(rf_aligned)
+     
+     # Basic stats
+     mu_m  <- colMeans(assets)                               # monthly mean of each asset
+     Sigma <- cov(assets)                                    # covariance matrix
+     rf_m_vec  <- as.numeric(rf_m)
+     rf_m_bar  <- mean(rf_m_vec)                             # average monthly rf
+     rf_a      <- 12 * rf_m_bar                              # annual rf (for reference)
+     
+     target_a  <- 0.06                                       # 6% per year
+     target_m  <- target_a / 12                              # 0.5% per month
+     
+     W0 <- 100000
+     alpha <- 0.05
+     
+     ## 1. Efficient portfolio with only risky assets, no shorting
+     ## Minimize variance subject to:
+     ##   sum(w) = 1, w >= 0, and sum(w * mu_m) >= target_m
+     
+     n_assets <- ncol(assets)
+     
+     Dmat <- 2 * Sigma
+     dvec <- rep(0, n_assets)
+     
+     Amat <- cbind(
+     rep(1, n_assets),      # sum w >= 1  (we will enforce as equality via meq=1)
+     mu_m,                  # expected return >= target_m
+     diag(n_assets)         # w_i >= 0
+     )
+     bvec <- c(1, target_m, rep(0, n_assets))
+     
+     sol_risky <- solve.QP(Dmat = Dmat,
+     dvec = dvec,
+     Amat = Amat,
+     bvec = bvec,
+     meq  = 1)       # first constraint treated as equality
+     
+     w_risky <- sol_risky$solution
+     names(w_risky) <- colnames(assets)
+     
+     cat("No-short risky-only efficient weights:\n")
+     print(round(w_risky, 4))
+     cat("Sum of weights =", sum(w_risky), "\n")
+     cat("Target monthly mean =", target_m, "\n")
+     cat("Achieved monthly mean =", sum(mu_m * w_risky), "\n")
+     
+     ## Portfolio monthly returns (risky-only)
+     ret_risky_m <- as.numeric(assets %*% w_risky)
+     
+     mu_risky_m <- mean(ret_risky_m)
+     sd_risky_m <- sd(ret_risky_m)
+     
+     ## Historical (nonparametric) VaR and ES at 5%
+     q_alpha_risky   <- quantile(ret_risky_m, alpha, type = 7)
+     VaR_risky_hist  <- - q_alpha_risky * W0
+     ES_risky_hist   <- - mean(ret_risky_m[ret_risky_m <= q_alpha_risky]) * W0
+     
+     cat("\n=== Risky-only efficient portfolio (no short) ===\n")
+     cat("Monthly mean     =", mu_risky_m, "\n")
+     cat("Monthly sd       =", sd_risky_m, "\n")
+     cat("5% VaR (hist)    =", VaR_risky_hist, "\n")
+     cat("5% ES  (hist)    =", ES_risky_hist, "\n")
+     
+     ## (Optional) Parametric normal VaR/ES if needed:
+     z_alpha <- qnorm(alpha)
+     VaR_risky_norm <- - (mu_risky_m + sd_risky_m * z_alpha) * W0
+     ES_risky_norm  <- - (mu_risky_m + sd_risky_m * dnorm(z_alpha) / alpha) * W0
+     
+     cat("5% VaR (normal)  =", VaR_risky_norm, "\n")
+     cat("5% ES  (normal)  =", ES_risky_norm, "\n")
+     
+	\end{lstlisting}
+		
+		
+		\subsection{With Risk Free Assets}
+		
+		\subsubsection{Descriptions}
+		Let $R_f$ denote the annualized risk--free rate (T-bill), and let the tangency portfolio
+		have annualized mean return $\mu_T$ and standard deviation $\sigma_T$, with asset weights
+		$\{w_i^T\}_{i=1}^{11}$ over the risky assets
+		(AAPL, MSFT, \dots, NVDA).  Consider a portfolio that invests a fraction
+		$y$ of wealth in the tangency portfolio and the remaining fraction $(1-y)$ in
+		the risk--free asset.  The annualized expected return and standard deviation of this
+		two-fund portfolio are
+		\[
+		\mu_P(y) = (1-y)\,R_f + y\,\mu_T,
+		\qquad
+		\sigma_P(y) = y\,\sigma_T,
+		\]
+		because the risk--free asset has zero variance and zero covariance with the tangency portfolio.
+		
+		\underline{Choice of $y$ for a 6\% target return.}
+		To obtain a target annual return of $6\%$, we choose $y$ such that
+		\[
+		\mu_P(y^*) = 0.06
+		\quad\Longrightarrow\quad
+		(1-y^*)\,R_f + y^*\,\mu_T = 0.06.
+		\]
+		Solving for $y^*$ gives
+		\[
+		y^* = \frac{0.06 - R_f}{\mu_T - R_f}.
+		\]
+		Under the no-short-sales constraint we require $0 \le y^* \le 1$, which is satisfied
+		whenever the target return lies between the risk--free rate and the tangency portfolio
+		return, i.e.\ $R_f \le 0.06 \le \mu_T$.
+		
+		\underline{Dollar amounts invested in each asset and in T-bills.}
+		Let initial wealth be $W_0 = 100{,}000$.  The amount invested in the risk--free asset is
+		\[
+		W_f = (1-y^*)\,W_0,
+		\]
+		and the dollar amount allocated to risky asset $i$ is
+		\[
+		W_i = y^*\,W_0\,w_i^T, \qquad i=1,\dots,11.
+		\]
+		By construction we have $\sum_{i=1}^{11} W_i + W_f = W_0$.
+		
+		\underline{Value-at-Risk comparison}
+		Assuming (approximately) normal returns, the $\alpha$-level \emph{return} VaR of the
+		tangency portfolio (risky-assets-only allocation) is
+		\[
+		\mathrm{VaR}_\alpha^{(T)} 
+		= \mu_T + z_\alpha \sigma_T,
+		\]
+		where $z_\alpha$ is the $\alpha$-quantile of the standard normal distribution
+		(e.g.\ $z_{0.05} \approx -1.645$).  For the combined T-bill + tangency portfolio with
+		weight $y^*$ in the tangency portfolio, the corresponding VaR is
+		\[
+		\mathrm{VaR}_\alpha^{(P)} 
+		= \mu_P(y^*) + z_\alpha \sigma_P(y^*)
+		= \bigl((1-y^*)R_f + y^* \mu_T\bigr)
+		+ z_\alpha \, y^* \sigma_T.
+		\]
+		In dollar terms, the loss-based VaR over one year is
+		\[
+		\mathrm{VaR}^{\text{\$}}_\alpha = - W_0 \,\mathrm{VaR}_\alpha^{(\cdot)}.
+		\]
+		
+		Because $0 < y^* < 1$, we have $\sigma_P(y^*) = y^* \sigma_T < \sigma_T$, so the
+		magnitude of the VaR for the target-return portfolio is strictly smaller than that of
+		the risky-assets-only tangency allocation:
+		\[
+		\bigl|\mathrm{VaR}_\alpha^{(P)}\bigr|
+		\;<\;
+		\bigl|\mathrm{VaR}_\alpha^{(T)}\bigr|,
+		\]
+		provided the same confidence level and horizon are used.  Hence, by mixing the tangency
+		portfolio with T-bills to achieve a 6\% target return, the investor reduces downside risk
+		relative to holding the tangency portfolio alone.
+		
+		\subsubsection{Codes}
+\begin{lstlisting}
+
+
+     ## 2. Tangency portfolio (no short) + T-bills to reach same target
+     ## Maximize Sharpe ratio of w (risky-only), with:
+     ##   sum(w) = 1, w >= 0
+     
+     excess_m <- mu_m - rf_m_bar
+     
+     sharpe_obj <- function(w) {
+     	mu_p <- sum(excess_m * w)
+     	sd_p <- sqrt(as.numeric(t(w) %*% Sigma %*% w))
+     	# Negative Sharpe because we minimize
+     	return(- mu_p / sd_p)
+     }
+     
+     # Equality: sum(w) = 1
+     eqfun <- function(w) sum(w)
+     eqB   <- 1
+     
+     LB <- rep(0, n_assets)
+     UB <- rep(1, n_assets)
+     
+     set.seed(123)
+     sol_tan <- solnp(
+     par  = rep(1 / n_assets, n_assets),
+     fun  = sharpe_obj,
+     eqfun = eqfun,
+     eqB   = eqB,
+     LB    = LB,
+     UB    = UB,
+     control = list(trace = 0)
+     )
+     
+     w_tan <- sol_tan$pars
+     names(w_tan) <- colnames(assets)
+     
+     cat("\nTangency portfolio weights (no short):\n")
+     print(round(w_tan, 4))
+     cat("Sum of weights =", sum(w_tan), "\n")
+     
+     ## Tangency portfolio monthly return
+     ret_tan_m <- as.numeric(assets %*% w_tan)
+     mu_tan_m  <- mean(ret_tan_m)
+     sd_tan_m  <- sd(ret_tan_m)
+     
+     cat("\nTangency monthly mean =", mu_tan_m, "\n")
+     cat("Tangency monthly sd   =", sd_tan_m, "\n")
+     cat("Average rf (monthly)  =", rf_m_bar, "\n")
+     
+     ## Weight y* in tangency portfolio to hit target_m:
+     ## target_m = y* * mu_tan_m + (1 - y*) * rf_m_bar
+     ## => y* = (target_m - rf_m_bar) / (mu_tan_m - rf_m_bar)
+     
+     denom <- mu_tan_m - rf_m_bar
+     if (!is.finite(denom) || abs(denom) < 1e-8) {
+     	stop("Tangency portfolio has almost no excess return over rf; cannot solve y*.")
+     }
+     
+     y_star <- (target_m - rf_m_bar) / denom
+     # clamp to [0,1] (no leverage, no shorting the tangency or rf asset)
+     y_star <- max(min(y_star, 1), 0)
+     
+     cat("\ny_star (weight in tangency)   =", y_star, "\n")
+     cat("Weight in risk-free (T-bill) =", 1 - y_star, "\n")
+     
+     ## Full portfolio with risk-free + tangency
+     ret_p_m <- y_star * ret_tan_m + (1 - y_star) * rf_m_vec
+     
+     mu_p_m <- mean(ret_p_m)
+     sd_p_m <- sd(ret_p_m)
+     
+     q_alpha_p   <- quantile(ret_p_m, alpha, type = 7)
+     VaR_p_hist  <- - q_alpha_p * W0
+     ES_p_hist   <- - mean(ret_p_m[ret_p_m <= q_alpha_p]) * W0
+     
+     cat("\n=== Portfolio with T-bills + tangency (no short) ===\n")
+     cat("Monthly mean     =", mu_p_m, "\n")
+     cat("Monthly sd       =", sd_p_m, "\n")
+     cat("5% VaR (hist)    =", VaR_p_hist, "\n")
+     cat("5% ES  (hist)    =", ES_p_hist, "\n")
+     
+     ## Optional: normal approximation for comparison
+     VaR_p_norm <- - (mu_p_m + sd_p_m * z_alpha) * W0
+     ES_p_norm  <- - (mu_p_m + sd_p_m * dnorm(z_alpha) / alpha) * W0
+     
+     cat("5% VaR (normal)  =", VaR_p_norm, "\n")
+     cat("5% ES  (normal)  =", ES_p_norm, "\n")
+     
+\end{lstlisting}
+				
+		\section{Principal Component Analysis}
+		
+		\subsection{Correlation Matrix}
+		
+		\subsubsection{Descriptions}
+		
+		For generating correlation matrix, we get the correlation matrix generated as below:
+		
+		\begin{table}[htbp]
+			\centering
+			\caption{Correlation Matrix of Assets}
+			\resizebox{\textwidth}{!}{
+				\begin{tabular}{lccccccccccc}
+					\toprule
+					& AAPL & MSFT & AMZN & GOOGL & META & TSLA & JNJ & PG & XOM & JPM & NVDA \\
+					\midrule
+					AAPL  & 1.0000000 & 0.5863039 & 0.60825481 & 0.49623262 & 0.34410064 & 0.64668256 & 0.40988295 & 0.36571684 & 0.21676561 & 0.32158080 & 0.53012768 \\
+					MSFT  & 0.5863039 & 1.0000000 & 0.65913657 & 0.55706624 & 0.56945994 & 0.47416466 & 0.24796009 & 0.30849851 & 0.11696617 & 0.33709045 & 0.65147796 \\
+					AMZN  & 0.60825481 & 0.65913657 & 1.0000000 & 0.59683797 & 0.50329704 & 0.58442493 & 0.09341286 & 0.05761213 & 0.06809702 & 0.23987985 & 0.60740706 \\
+					GOOGL & 0.49623262 & 0.55706624 & 0.59683797 & 1.0000000 & 0.39564282 & 0.45825661 & 0.11062309 & 0.05654949 & 0.15590236 & 0.37735126 & 0.49039013 \\
+					META  & 0.34410064 & 0.56945994 & 0.50329704 & 0.39564282 & 1.0000000 & 0.29244560 & 0.18490252 & 0.27500197 & -0.01301193 & 0.35426955 & 0.52086588 \\
+					TSLA  & 0.64668256 & 0.47416466 & 0.58442493 & 0.45825661 & 0.29244560 & 1.0000000 & 0.17291130 & 0.03234005 & 0.05421201 & 0.22991528 & 0.41251101 \\
+					JNJ   & 0.40988295 & 0.24796009 & 0.09341286 & 0.11062309 & 0.18490252 & 0.17291130 & 1.0000000 & 0.43172004 & 0.38737879 & 0.35842446 & 0.05109294 \\
+					PG    & 0.36571684 & 0.30849851 & 0.05761213 & 0.05654949 & 0.27500197 & 0.03234005 & 0.43172004 & 1.0000000 & 0.15928922 & 0.21716270 & 0.08745125 \\
+					XOM   & 0.21676561 & 0.11696617 & 0.06809702 & 0.15590236 & -0.01301193 & 0.05421201 & 0.38737879 & 0.15928922 & 1.0000000 & 0.52309187 & 0.05929966 \\
+					JPM   & 0.32158080 & 0.33709045 & 0.23987985 & 0.37735126 & 0.35426955 & 0.22991528 & 0.35842446 & 0.21716270 & 0.52309187 & 1.0000000 & 0.33439732 \\
+					NVDA  & 0.53012768 & 0.65147796 & 0.60740706 & 0.49039013 & 0.52086588 & 0.41251101 & 0.05109294 & 0.08745125 & 0.05929966 & 0.33439732 & 1.0000000 \\
+					\bottomrule
+				\end{tabular}
+			}
+		\end{table}
+		
+		We can also use an alternative way to plot the correlation matrix, as shown below:
+
+
+\includegraphics[max width=0.7\textwidth, center]{corrematrix}
+
+We can see that the correlation matrix reveals that the highest correlation occurs between \texttt{MSFT} and \texttt{AMZN}, with a correlation of $0.6591$. In contrast, the lowest correlation is observed between \texttt{META} and \texttt{XOM}, with a value of $-0.013$, indicating almost no linear co-movement between these two assets.
+
+
+\subsubsection{Codes}
+
+
+	\begin{lstlisting}
+	R <- cor(assets, use = "pairwise.complete.obs")
+	
+	R
+\end{lstlisting}
+
+\begin{lstlisting}
+	corrplot(R, method = "color", type = "upper",
+	tl.col = "black", tl.cex = 0.8,
+	addCoef.col = "black")
+\end{lstlisting}
+
+\begin{lstlisting}
+     # Keep only the upper triangle (exclude diagonal and lower triangle)
+     R_upper <- R
+     R_upper[lower.tri(R_upper, diag = TRUE)] <- NA
+     
+     # Find the pair with the HIGHEST correlation
+     max_pos <- which(R_upper == max(R_upper, na.rm = TRUE), arr.ind = TRUE)
+     
+     # In case there are multiple pairs with the same max correlation,
+     # use the first one
+     max_row <- max_pos[1, "row"]
+     max_col <- max_pos[1, "col"]
+     
+     max_name_1 <- rownames(R)[max_row]
+     max_name_2 <- colnames(R)[max_col]
+     max_value  <- R[max_row, max_col]
+     
+     cat("Highest correlation: ",
+     max_name_1, "-",
+     max_name_2,
+     " = ", round(max_value, 4), "\n")
+     
+     # Find the pair with the LOWEST correlation
+     
+     min_pos <- which(R_upper == min(R_upper, na.rm = TRUE), arr.ind = TRUE)
+     
+     min_row <- min_pos[1, "row"]
+     min_col <- min_pos[1, "col"]
+     
+     min_name_1 <- rownames(R)[min_row]
+     min_name_2 <- colnames(R)[min_col]
+     min_value  <- R[min_row, min_col]
+     
+     cat("Lowest correlation: ",
+     min_name_1, "-",
+     min_name_2,
+     " = ", round(min_value, 4), "\n")
+\end{lstlisting}
+
+\subsection{Perform PCA}
+
+\subsubsection{Descriptions}
+
+
+To perform PCA, we have:
+
+\begin{table}[htbp]
+	\centering
+	\caption{PCA Loadings for the First Three Principal Components}
+	\resizebox{0.3\textwidth}{!}{
+		\begin{tabular}{lccc}
+			\toprule
+			\textbf{Asset} & \textbf{PC1} & \textbf{PC2} & \textbf{PC3} \\
+			\midrule
+			AAPL & 0.377 & -0.053 & -0.096 \\
+			MSFT & 0.388 & 0.089 & -0.155 \\
+			AMZN & 0.370 & 0.263 & 0.061 \\
+			GOOGL & 0.335 & 0.144 & 0.255 \\
+			META & 0.308 & 0.085 & -0.276 \\
+			TSLA & 0.315 & 0.174 & 0.111 \\
+			JNJ  & 0.184 & -0.522 & -0.178 \\
+			PG   & 0.161 & -0.398 & -0.621 \\
+			XOM  & 0.131 & -0.510 & 0.505 \\
+			JPM  & 0.259 & -0.350 & 0.369 \\
+			NVDA & 0.347 & 0.220 & 0.028 \\
+			\bottomrule
+		\end{tabular}
+	}
+\end{table}
+
+And:
+
+\begin{table}[htbp]
+	\centering
+	\caption{Importance of Principal Components}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{lccccccccccc}
+			\toprule
+			& \textbf{PC1} & \textbf{PC2} & \textbf{PC3} & \textbf{PC4} & \textbf{PC5} & 
+			\textbf{PC6} & \textbf{PC7} & \textbf{PC8} & \textbf{PC9} & \textbf{PC10} & \textbf{PC11} \\
+			\midrule
+			\textbf{Standard deviation} 
+			& 2.1458 & 1.3269 & 1.04017 & 0.95869 & 0.73010 
+			& 0.70475 & 0.67358 & 0.62469 & 0.54867 & 0.51643 & 0.43890 \\
+			\textbf{Proportion of Variance} 
+			& 0.4186 & 0.1601 & 0.09836 & 0.08355 & 0.04846 
+			& 0.04515 & 0.04125 & 0.03548 & 0.02737 & 0.02425 & 0.01751 \\
+			\textbf{Cumulative Proportion}
+			& 0.4186 & 0.5786 & 0.67699 & 0.76054 & 0.80900 
+			& 0.85415 & 0.89540 & 0.93088 & 0.95824 & 0.98249 & 1.00000 \\
+			\bottomrule
+		\end{tabular}
+	}
+\end{table}
+
+\subsubsection{Codes}
+\begin{lstlisting}
+	pca <- prcomp(assets, scale. = TRUE)
+	summary(pca)
+	
+	# Loading of each asset in the principal components
+	
+	round(pca$rotation[, 1:3], 3)
+\end{lstlisting}
+
+\subsection{Factor Analysis}
+
+\subsubsection{Descriptions}
+
+We run the factor analysis, and get results as below:
+
+
+	\includegraphics[max width=0.9\linewidth]{factoranalysis}
+
+
+The parallel analysis compares the eigenvalues from the actual correlation matrix 
+with those obtained from randomly generated data of the same dimension. 
+As shown in the figure, only the first two factors have eigenvalues 
+that exceed the corresponding simulated eigenvalues. This indicates that these 
+two factors represent systematic covariance in the data, while the remaining 
+factors fall below the random-data threshold and are therefore attributable 
+to noise. Consequently, a two-factor structure is appropriate for subsequent 
+factor analysis.
+
+\subsubsection{Codes}
+
+\begin{lstlisting}
+	library(psych)
+	fa.parallel(assets, fa="fa")   # Advised number of factors
+\end{lstlisting}
+
+		\section{Risk Management}
+		
+		\subsection{Normal and Non-parameteric}
+		\subsubsection{Description}
+		
+		\begin{table}[htbp]
+			\centering
+			\caption{Comparison of 5\% VaR and ES under Normal and Historical Methods}
+			\resizebox{0.5\textwidth}{!}{
+				\begin{tabular}{lrrrr}
+					\toprule
+					\textbf{Asset} & 
+					\textbf{VaR\_norm} & \textbf{ES\_norm} & 
+					\textbf{VaR\_hist} & \textbf{ES\_hist} \\
+					\midrule
+					AAPL & 10557.730 & 13905.286 & 10225.654 & 11802.921 \\
+					MSFT & 8082.745  & 10684.455 & 6857.783  & 8554.580  \\
+					AMZN & 12825.019 & 16503.718 & 10670.958 & 13987.338 \\
+					GOOGL& 10445.772 & 13678.024 & 11537.464 & 14394.635 \\
+					META & 16001.412 & 20650.296 & 13724.029 & 22233.791 \\
+					TSLA & 28341.159 & 37006.362 & 21517.881 & 26585.838 \\
+					JNJ  & 7546.077  & 9601.971  & 7470.793  & 8242.128  \\
+					PG   & 7343.300  & 9376.096  & 7786.454  & 8447.463  \\
+					XOM  & 13624.252 & 17320.890 & 11812.892 & 16585.209 \\
+					JPM  & 10656.490 & 13777.155 & 9076.518  & 14222.861 \\
+					NVDA & 16453.238 & 22141.658 & 16889.412 & 22495.241 \\
+					\bottomrule
+			\end{tabular}}
+		\end{table}
+		
+		
+		\subsubsection{Codes}
+	\begin{lstlisting}
+     ## 0. Setup parameters & clean data
+     
+     investment <- 100000          # Initial investment amount
+     alpha      <- 0.95            # Confidence level 95% (tail probability = 5%)
+     assets_ret <- na.omit(assets) # Remove any missing values
+     
+     asset_names <- colnames(assets_ret)
+     
+     # Result table: one row per asset
+     results <- data.frame(
+     Asset    = asset_names,
+     VaR_norm = NA_real_,  # Normal-method VaR (loss in USD)
+     ES_norm  = NA_real_,  # Normal-method ES  (loss in USD)
+     VaR_hist = NA_real_,  # Historical (nonparametric) VaR
+     ES_hist  = NA_real_   # Historical (nonparametric) ES
+     )
+     
+     ## 1. Compute Loss, VaR, and ES for each asset
+     
+     for (j in seq_along(asset_names)) {
+     	r_j <- as.numeric(assets_ret[, j])          # Monthly returns of the asset
+     	L_j <- -investment * r_j                    # Monthly loss for a long position
+     	
+     	mu_L <- mean(L_j)                           # Mean loss
+     	sd_L <- sd(L_j)                             # Standard deviation of loss
+     	
+     	# 5% tail → 95% quantile of loss
+     	VaR_norm_j <- mu_L + sd_L * qnorm(alpha)    
+     	
+     	# Closed-form ES for the Normal distribution
+     	ES_norm_j <- mu_L + sd_L * dnorm(qnorm(alpha)) / (1 - alpha)
+     	
+     	## --- Historical (nonparametric) VaR/ES ---
+     	VaR_hist_j <- as.numeric(quantile(L_j, probs = alpha, type = 7))
+     	ES_hist_j  <- mean(L_j[L_j >= VaR_hist_j]) # Average of losses in the tail
+     	
+     	## Store results
+     	results$VaR_norm[j] <- VaR_norm_j
+     	results$ES_norm[j]  <- ES_norm_j
+     	results$VaR_hist[j] <- VaR_hist_j
+     	results$ES_hist[j]  <- ES_hist_j
+     }
+     
+     
+     ## 2. Inspect results
+     
+     results_VaR_norm <- results[order(results$VaR_norm, decreasing = TRUE), ]
+     results_ES_norm  <- results[order(results$ES_norm,  decreasing = TRUE), ]
+     results_VaR_hist <- results[order(results$VaR_hist, decreasing = TRUE), ]
+     results_ES_hist  <- results[order(results$ES_hist,  decreasing = TRUE), ]
+     
+     head(results_VaR_norm)   # Largest Normal VaR
+     head(results_ES_norm)    # Largest Normal ES
+     head(results_VaR_hist)   # Largest Historical VaR
+     head(results_ES_hist)    # Largest Historical ES
+     
+     ## 3. Identify assets with highest & lowest VaR / ES
+     
+     # Normal VaR
+     max_VaR_norm_asset <- results$Asset[which.max(results$VaR_norm)]
+     min_VaR_norm_asset <- results$Asset[which.min(results$VaR_norm)]
+     
+     # Normal ES
+     max_ES_norm_asset <- results$Asset[which.max(results$ES_norm)]
+     min_ES_norm_asset <- results$Asset[which.min(results$ES_norm)]
+     
+     # Historical VaR
+     max_VaR_hist_asset <- results$Asset[which.max(results$VaR_hist)]
+     min_VaR_hist_asset <- results$Asset[which.min(results$VaR_hist)]
+     
+     # Historical ES
+     max_ES_hist_asset <- results$Asset[which.max(results$ES_hist)]
+     min_ES_hist_asset <- results$Asset[which.min(results$ES_hist)]
+     
+     cat("Normal VaR 95%: highest =", max_VaR_norm_asset,
+     ", lowest =", min_VaR_norm_asset, "\n")
+     cat("Normal ES 95%: highest =", max_ES_norm_asset,
+     ", lowest =", min_ES_norm_asset, "\n")
+     
+     cat("Historical VaR 95%: highest =", max_VaR_hist_asset,
+     ", lowest =", min_VaR_hist_asset, "\n")
+     cat("Historical ES 95%: highest =", max_ES_hist_asset,
+     ", lowest =", min_ES_hist_asset, "\n")
+     
+     ## Print the full table
+     results
+	\end{lstlisting}
+		
+		\subsection{Bootstrapping}
+		
+		\subsubsection{Descriptions}
+		
+		
+		The bootstrap is a resampling-based statistical technique used to approximate the
+		sampling distribution of an estimator when its analytical distribution is difficult
+		or intractable. The central idea is to treat the observed sample as an empirical
+		approximation of the unknown data-generating process and to assess estimator
+		variability by repeatedly resampling from this empirical distribution.
+		
+		Let $\{X_t\}_{t=1}^n$ denote an observed sample and let $\hat{\theta} = T(X_1,\dots,X_n)$
+		be an estimator of a parameter $\theta$. In the bootstrap framework, an empirical
+		distribution $\hat{F}_n$ is constructed that places probability mass $1/n$ at each
+		observation. Bootstrap samples
+		\[
+		(X_1^{*(b)}, \dots, X_n^{*(b)}), \qquad b = 1,\dots,B,
+		\]
+		are generated by sampling from $\hat{F}_n$, and the estimator is recomputed on each
+		resample,
+		\[
+		\hat{\theta}^{*(b)} = T\!\left(X_1^{*(b)}, \dots, X_n^{*(b)}\right).
+		\]
+		The empirical distribution of $\{\hat{\theta}^{*(b)}\}_{b=1}^B$ then serves as an
+		approximation to the sampling distribution of $\hat{\theta}$.
+		
+		For time-series data such as asset returns, the independence assumption underlying
+		the standard bootstrap is violated due to serial dependence and volatility
+		clustering. To address this issue, a block bootstrap is employed. In the moving block
+		bootstrap, contiguous blocks of observations of length $L$ are resampled with
+		replacement and concatenated to form bootstrap samples of length $n$. This procedure
+		preserves the local dependence structure of the original series while still allowing
+		for consistent inference.
+		
+		In the present application, bootstrap samples are used to estimate the sampling
+		distributions of risk measures such as Value-at-Risk (VaR) and Expected Shortfall
+		(ES). Given portfolio returns $\{R_t\}_{t=1}^n$, the historical VaR at level $\alpha$
+		is defined as the empirical $\alpha$-quantile, and the corresponding ES is defined as
+		the conditional mean of returns below this quantile. Recomputing these risk measures
+		across bootstrap samples yields bootstrap estimates of their standard errors and
+		confidence intervals.
+		
+		Confidence intervals are constructed using the percentile method. Specifically, if
+		$\hat{\theta}^{*(\alpha/2)}$ and $\hat{\theta}^{*(1-\alpha/2)}$ denote the empirical
+		$\alpha/2$ and $1-\alpha/2$ quantiles of the bootstrap distribution, then a
+		$(1-\alpha)$ confidence interval for $\theta$ is given by
+		\[
+		\left[
+		\hat{\theta}^{*(\alpha/2)},\;
+		\hat{\theta}^{*(1-\alpha/2)}
+		\right].
+		\]
+		
+		The bootstrap provides a flexible and data-driven approach to inference that is
+		particularly well suited for nonlinear, non-smooth statistics such as VaR and ES,
+		for which classical asymptotic approximations are often unreliable.
+		
+		
+		First, for two (three) portfolios we did in Part 3 (Portfolio Theory), we have:
+		
+	\begin{table}[htbp]
+		\centering
+		\caption{Bootstrap Estimates, Standard Errors, and 95\% Confidence Intervals for VaR and ES (Dollar Units)}
+		\label{tab:bootstrap_var_es_dollar}
+		\begin{tabular}{lccccc}
+			\toprule
+			Portfolio & Measure & Estimate & SE & CI$_L$ & CI$_U$ \\
+			\midrule
+			MVP (No short) & VaR & -4860.042 & 697.3866 & -5997.9928 & -3712.239 \\
+			MVP (No short) & ES  & -6164.466 & 900.6877 & -7771.265 & -4326.829 \\
+			\midrule
+			MVP (Short) & VaR & -4378.347 & 965.8988 & -8161.158 & -3302.252 \\
+			MVP (Short) & ES  & -6275.710 & 1044.2080 & -8398.878 & -4355.215 \\
+			\midrule
+			Tangency & VaR & -15840.95 & 2805.507 & -18453.33 & -7725.755 \\
+			Tangency & ES  & -18668.30 & 2021.857 & -21400.02 & -12942.08 \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+	
+	Then, for the two portfolios we got from Part 4 (Asset Allocation)
+	
+	\begin{table}[htbp]
+		\centering
+		\caption{Bootstrap Estimates, Standard Errors, and 95\% Confidence Intervals for VaR and ES}
+		\label{tab:bootstrap_var_es_dollar}
+		\begin{tabular}{lccccc}
+			\toprule
+			Portfolio & Measure & Estimate & SE & CI$_L$ & CI$_U$ \\
+			\midrule
+			All Risky 
+			& VaR & 4860.04 & 702.56 & 3311.12 & 6047.72 \\
+			All Risky 
+			& ES  & 6164.47 & 725.50 & 4419.72 & 7242.58 \\
+			\midrule
+			Risky + Risk-Free
+			& VaR & 838.06 & 382.46 & 162.57 & 1617.90 \\
+			Risky + Risk-Free
+			& ES  & 1145.96 & 386.00 & 332.37 & 1876.02 \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	
+		
+		
+		
+		\subsubsection{Codes}
+		
+		For Part 3.
+		
+		\begin{lstlisting}
+     # Safe portfolio return calculator (static weights)
+     port_ret <- function(R, w) {
+     	R <- na.omit(R)
+     	w <- as.numeric(w[colnames(R)])     # align by asset names
+     	stopifnot(length(w) == ncol(R))
+     	as.numeric(coredata(R) %*% w)       # vector of portfolio returns
+     }
+     
+     ## Historical VaR/ES (left tail) 
+     var_es_hist <- function(x, p = 0.95) {
+     	q  <- as.numeric(quantile(x, probs = 1 - p, na.rm = TRUE))
+     	es <- mean(x[x <= q], na.rm = TRUE)
+     	c(VaR = q, ES = es)
+     }
+     
+     ## Moving block bootstrap indices
+     mbb_indices <- function(n, block_len) {
+     	stopifnot(block_len >= 1, block_len <= n)
+     	k <- ceiling(n / block_len)
+     	starts <- sample.int(n - block_len + 1, k, replace = TRUE)
+     	idx <- unlist(lapply(starts, function(s) s:(s + block_len - 1)))
+     	idx[1:n]
+     }
+     
+     ## Bootstrap SE + 95% CI for VaR/ES
+     boot_var_es_portfolio <- function(R, weights, p = 0.95, B = 2000,
+     block_len = 6, conf = 0.95, seed = 123) {
+     	set.seed(seed)
+     	R <- na.omit(R)
+     	n <- nrow(R)
+     	
+     	# baseline
+     	Rp0  <- port_ret(R, weights)
+     	base <- var_es_hist(Rp0, p = p)
+     	
+     	boot_mat <- matrix(NA_real_, nrow = B, ncol = 2)
+     	colnames(boot_mat) <- c("VaR", "ES")
+     	
+     	for (b in 1:B) {
+     		idx <- mbb_indices(n, block_len)
+     		Rb  <- R[idx, , drop = FALSE]
+     		Rp  <- port_ret(Rb, weights)
+     		boot_mat[b, ] <- var_es_hist(Rp, p = p)
+     	}
+     	
+     	alpha <- 1 - conf
+     	se <- apply(boot_mat, 2, sd, na.rm = TRUE)
+     	
+     	ci_pct <- apply(boot_mat, 2, quantile,
+     	probs = c(alpha/2, 1 - alpha/2), na.rm = TRUE)
+     	
+     	list(base = base, boot = boot_mat, se = se, ci_percentile = ci_pct)
+     }
+     
+
+     ## Run bootstrap for your portfolios
+
+     
+     B <- 2000
+     block_len <- 6   # try 3, 6, 12 (months)
+     
+     boot_mvp_noshort <- boot_var_es_portfolio(R, w_mvp_noshort, p=0.95, B=B, block_len=block_len, seed=1)
+     boot_mvp_short   <- boot_var_es_portfolio(R, w_mvp_short,   p=0.95, B=B, block_len=block_len, seed=2)
+     boot_tan_short   <- boot_var_es_portfolio(R, w_tan_short,   p=0.95, B=B, block_len=block_len, seed=3)
+     
+     ## Summary tables (returns)
+
+     
+     summarize_boot <- function(obj) {
+     	data.frame(
+     	Estimate = obj$base,
+     	SE       = obj$se,
+     	CI_L     = obj$ci_percentile[1, ],
+     	CI_U     = obj$ci_percentile[2, ]
+     	)
+     }
+     
+     tab_mvp_noshort <- summarize_boot(boot_mvp_noshort)
+     tab_mvp_short   <- summarize_boot(boot_mvp_short)
+     tab_tan_short   <- summarize_boot(boot_tan_short)
+     
+     tab_mvp_noshort
+     tab_mvp_short
+     tab_tan_short
+     
+     ## Dollar loss VaR/ES for V0 (loss positive)
+
+     
+     V0 <- 100000
+     
+     to_dollar_loss <- function(tab) {
+     	tab_d <- tab
+     	tab_d["VaR", ] <- -V0 * tab_d["VaR", ]
+     	tab_d["ES",  ] <- -V0 * tab_d["ES",  ]
+     	tab_d
+     }
+     
+     tab_mvp_noshort_d <- to_dollar_loss(tab_mvp_noshort)
+     tab_mvp_short_d   <- to_dollar_loss(tab_mvp_short)
+     tab_tan_short_d   <- to_dollar_loss(tab_tan_short)
+     
+     tab_mvp_noshort_d
+     tab_mvp_short_d
+     tab_tan_short_d
+     
+		\end{lstlisting}
+	
+	For Part 4.
+	
+	\begin{lstlisting}
+     library(quadprog)
+     library(Rsolnp)
+     
+     alpha <- 0.05
+     W0    <- 100000
+     B     <- 2000
+     block_len <- 6    
+     set.seed(1)
+     
+     mbb_indices <- function(n, block_len) {
+     	k <- ceiling(n / block_len)
+     	starts <- sample.int(n - block_len + 1, k, replace = TRUE)
+     	idx <- unlist(lapply(starts, function(s) s:(s + block_len - 1)))
+     	idx[1:n]
+     }
+     
+     var_es_hist_dollar <- function(rp, alpha = 0.05, W0 = 100000) {
+     	q <- as.numeric(quantile(rp, probs = alpha, na.rm = TRUE, type = 7))
+     	VaR <- -W0 * q
+     	ES  <- -W0 * mean(rp[rp <= q], na.rm = TRUE)
+     	c(VaR = VaR, ES = ES)
+     }
+     
+     ##  portfolio constructors (recompute inside bootstrap) 
+     
+     # (1) risky-only efficient: min var s.t. sum w = 1, mu'w >= target_m, w>=0
+     get_w_risky_efficient <- function(mu_m, Sigma, target_m) {
+     	n <- length(mu_m)
+     	one <- rep(1, n)
+     	
+     	Dmat <- 2 * Sigma
+     	dvec <- rep(0, n)
+     	
+     	Amat <- cbind(one, mu_m, diag(n))
+     	bvec <- c(1, target_m, rep(0, n))
+     	
+     	sol <- solve.QP(Dmat = Dmat, dvec = dvec, Amat = Amat, bvec = bvec, meq = 1)
+     	w <- sol$solution
+     	names(w) <- names(mu_m)
+     	w
+     }
+     
+     # (2) tangency (no short) + rf: maximize Sharpe of risky-only, sum w=1, w>=0
+     get_w_tan_noshort <- function(mu_m, Sigma, rf_m_bar, seed_inner = NULL) {
+     	if (!is.null(seed_inner)) set.seed(seed_inner)
+     	n <- length(mu_m)
+     	excess_m <- mu_m - rf_m_bar
+     	
+     	sharpe_obj <- function(w) {
+     		mu_p <- sum(excess_m * w)
+     		sd_p <- sqrt(as.numeric(t(w) %*% Sigma %*% w))
+     		-mu_p / sd_p
+     	}
+     	eqfun <- function(w) sum(w)
+     	
+     	LB <- rep(0, n); UB <- rep(1, n)
+     	
+     	sol <- solnp(
+     	par = rep(1/n, n),
+     	fun = sharpe_obj,
+     	eqfun = eqfun, eqB = 1,
+     	LB = LB, UB = UB,
+     	control = list(trace = 0)
+     	)
+     	
+     	w <- sol$pars
+     	names(w) <- names(mu_m)
+     	w
+     }
+     
+     # y_star to hit target: clamp to [0,1]
+     get_y_star <- function(mu_tan_m, rf_m_bar, target_m) {
+     	denom <- mu_tan_m - rf_m_bar
+     	if (!is.finite(denom) || abs(denom) < 1e-8) return(NA_real_)
+     	y <- (target_m - rf_m_bar) / denom
+     	max(min(y, 1), 0)
+     }
+     
+
+     ## Prepare aligned data (you already did this)
+     ## assets : xts monthly returns, rf_m : xts monthly rf (same dates)
+
+     
+     dat_all <- merge(assets, rf_m, join = "inner")
+     A <- na.omit(dat_all[, colnames(assets)])
+     rf_vec_xts <- na.omit(dat_all[, ncol(dat_all)])
+     
+     nT <- nrow(A)
+     asset_names <- colnames(A)
+     
+     ## Baseline (original sample) estimates
+     mu_m0    <- colMeans(A)
+     Sigma0   <- cov(A)
+     rf_bar0  <- mean(as.numeric(rf_vec_xts))
+     target_a <- 0.06
+     target_m <- target_a / 12
+     
+     w_risky0 <- get_w_risky_efficient(mu_m0, Sigma0, target_m)
+     ret_risky0 <- as.numeric(coredata(A) %*% w_risky0)
+     
+     w_tan0 <- get_w_tan_noshort(mu_m0, Sigma0, rf_bar0, seed_inner = 123)
+     ret_tan0 <- as.numeric(coredata(A) %*% w_tan0)
+     y0 <- get_y_star(mean(ret_tan0), rf_bar0, target_m)
+     ret_rf_tan0 <- y0 * ret_tan0 + (1 - y0) * as.numeric(rf_vec_xts)
+     
+     base_risky <- var_es_hist_dollar(ret_risky0, alpha, W0)
+     base_rf_tan <- var_es_hist_dollar(ret_rf_tan0, alpha, W0)
+     
+
+     ## Bootstrap
+     
+     boot_risky <- matrix(NA_real_, nrow = B, ncol = 2, dimnames = list(NULL, c("VaR","ES")))
+     boot_rf_tan <- matrix(NA_real_, nrow = B, ncol = 2, dimnames = list(NULL, c("VaR","ES")))
+     
+     for (b in 1:B) {
+     	idx <- mbb_indices(nT, block_len)
+     	
+     	Ab  <- A[idx, , drop = FALSE]
+     	rfb <- rf_vec_xts[idx]
+     	
+     	mu_b   <- colMeans(Ab)
+     	Sigma_b<- cov(Ab)
+     	rf_bar_b <- mean(as.numeric(rfb))
+     	
+     	## risky-only efficient: re-estimate weights
+     	w_rb <- try(get_w_risky_efficient(mu_b, Sigma_b, target_m), silent = TRUE)
+     	if (!inherits(w_rb, "try-error")) {
+     		ret_rb <- as.numeric(coredata(Ab) %*% w_rb)
+     		boot_risky[b, ] <- var_es_hist_dollar(ret_rb, alpha, W0)
+     	}
+     	
+     	##  rf + tangency: re-estimate tangency, recompute y_star 
+     	w_tb <- try(get_w_tan_noshort(mu_b, Sigma_b, rf_bar_b), silent = TRUE)
+     	if (!inherits(w_tb, "try-error")) {
+     		ret_tb <- as.numeric(coredata(Ab) %*% w_tb)
+     		yb <- get_y_star(mean(ret_tb), rf_bar_b, target_m)
+     		if (is.finite(yb)) {
+     			ret_pb <- yb * ret_tb + (1 - yb) * as.numeric(rfb)
+     			boot_rf_tan[b, ] <- var_es_hist_dollar(ret_pb, alpha, W0)
+     		}
+     	}
+     }
+     
+     ## Summaries: SE + 95% percentile CI
+     
+     summ_boot <- function(boot_mat, base_vec, conf = 0.95) {
+     	a <- 1 - conf
+     	se <- apply(boot_mat, 2, sd, na.rm = TRUE)
+     	ci <- apply(boot_mat, 2, quantile, probs = c(a/2, 1-a/2), na.rm = TRUE)
+     	out <- data.frame(
+     	Estimate = base_vec,
+     	SE = se,
+     	CI_L = ci[1, ],
+     	CI_U = ci[2, ]
+     	)
+     	out
+     }
+     
+     tab_risky   <- summ_boot(boot_risky, base_risky, conf = 0.95)
+     tab_rf_tan  <- summ_boot(boot_rf_tan, base_rf_tan, conf = 0.95)
+     
+     tab_risky
+     tab_rf_tan
+	\end{lstlisting}
+		
+		\section{Copulas}
+		\subsection{Run Different Corpulas}
+		\subsubsection{Descriptions}
+		
+		In multivariate portfolio analysis, we are interested in the joint
+		distribution of asset returns,
+		\[
+		F_{R_1, R_2, \ldots, R_n}(r_1, r_2, \ldots, r_n),
+		\]
+		since it determines how assets co-move, how diversification behaves, and
+		how portfolio risk (such as VaR and ES) is transmitted across markets.
+		Real-world return distributions, however, are typically non-normal: they
+		exhibit skewness, heavy tails, and nonlinear dependence that cannot be
+		captured using linear correlation alone.
+		
+		Copulas provide a flexible framework for modeling multivariate dependence
+		by separating the marginal distributions from the dependence structure.
+		By Sklar's Theorem, any joint distribution can be written as
+		\[
+		F_{R_1,\ldots,R_n}(r_1,\ldots,r_n)
+		= C\!\left( F_1(r_1), \ldots, F_n(r_n) \right),
+		\]
+		where $F_i$ are the marginal distributions and
+		$C:[0,1]^n \to [0,1]$ is a copula that captures the dependence among the
+		uniform variables $U_i = F_i(R_i)$.
+		
+		This decomposition has several advantages in financial modeling:
+		\begin{itemize}
+			\item {Flexible marginals:}
+			each asset's return distribution can be modeled using an appropriate
+			parametric family (e.g., normal, $t$, skew-$t$, Laplace), while the
+			copula combines them into a coherent multivariate structure.
+			
+			\item {Nonlinear dependence:}
+			copulas allow dependence beyond linear correlation, capturing
+			asymmetric relationships and regimes in which assets move together more
+			strongly.
+			
+			\item {Tail dependence:}
+			certain copulas, such as the $t$-copula or Archimedean copulas,
+			capture the increased probability of joint crashes that is observed
+			empirically but missed by the Gaussian copula.
+			
+			\item {Improved risk estimation:}
+			modeling realistic joint behavior produces more accurate estimates of
+			portfolio VaR and ES, particularly during stressed market conditions.
+		\end{itemize}
+		
+		In summary, using copulas for the joint distribution of returns allows
+		the analyst to model each asset's distribution separately while capturing
+		the complex dependence structure observed in financial markets. This
+		approach is especially valuable for representing nonlinear co-movements
+		and joint tail risk that traditional multivariate normal models cannot
+		adequately describe.
+		
+		
+		
+		\subsubsection{Codes}
+\begin{lstlisting}
+     library(copula)
+     # Merge all assets
+     rets <- do.call(merge, lapply(symbols, function(sym) {
+     	monthlyReturn(Cl(get(sym)))
+     }))
+     colnames(rets) <- symbols
+     
+     
+     # Transfer to normal matrix
+     R_mat <- coredata(rets)          
+     colnames(R_mat) <- symbols
+     d <- ncol(R_mat)                  # dimension = 12
+     
+     # pseudo-observations: U ~ U(0,1)
+     U <- pobs(R_mat)                  # Matrix with same dimensions
+     
+     # Gaussian copula
+     cop_norm <- normalCopula(dim = d, dispstr = "un") 
+     fit_norm <- fitCopula(cop_norm, U, method = "ml")
+     
+     # t copula
+     cop_t <- tCopula(dim = d, dispstr = "un")
+     fit_t  <- fitCopula(cop_t, U, method = "ml")
+     
+     # Clayton copula (lower tail related)
+     cop_clay <- claytonCopula(dim = d)
+     fit_clay <- fitCopula(cop_clay, U, method = "ml")
+     
+     # Gumbel copula (upper tail related)
+     cop_gum  <- gumbelCopula(dim = d)
+     fit_gum  <- fitCopula(cop_gum, U, method = "ml")
+     
+     # Frank copula (symmetric)
+     cop_frank <- frankCopula(dim = d)
+     fit_frank <- fitCopula(cop_frank, U, method = "ml")
+\end{lstlisting}
+		
+		
+		\subsection{Find the Best Fit}
+		\subsubsection{Descriptions}
+		To determine which probability distribution provides the best fit for the
+		return series of each asset, we compare several candidate models using
+		information criteria.  Let $\ell(\hat{\theta})$ denote the maximized
+		log-likelihood of a fitted model, $k$ the number of parameters, and $n$
+		the sample size.  The Akaike Information Criterion (AIC) and the Bayesian
+		Information Criterion (BIC) are defined respectively as
+		\[
+		\mathrm{AIC}
+		= -2\,\ell(\hat{\theta}) + 2k,
+		\qquad
+		\mathrm{BIC}
+		= -2\,\ell(\hat{\theta}) + k \log n.
+		\]
+		
+		Both criteria penalize model complexity: the first term rewards models
+		with higher likelihood, whereas the second term penalizes additional
+		parameters in order to avoid overfitting.  The BIC imposes a stronger
+		penalty than the AIC, especially for large sample sizes.
+		
+		When comparing competing models fitted to the same dataset, the preferred
+		model is the one that minimizes either AIC or BIC.  More formally, for a
+		set of fitted distributions $\{M_1, M_2, \ldots, M_m\}$ with information
+		criteria $\{\mathrm{AIC}_1, \mathrm{AIC}_2, \ldots, \mathrm{AIC}_m\}$,
+		the best-fitting model under the AIC is
+		\[
+		M^{\ast}_{\mathrm{AIC}}
+		= \arg\min_{M_j} \; \mathrm{AIC}_j,
+		\]
+		and similarly for the BIC:
+		\[
+		M^{\ast}_{\mathrm{BIC}}
+		= \arg\min_{M_j} \; \mathrm{BIC}_j.
+		\]
+		
+		In our analysis, each asset's return distribution was fitted using several
+		candidate models (e.g., normal, Student's $t$, logistic, etc.), and the
+		corresponding AIC and BIC values were computed.  The model with the
+		smallest AIC/BIC for that asset is therefore selected as the best
+		representation of its marginal return distribution, balancing goodness of
+		fit and model complexity.
+		
+		\begin{minipage}{\linewidth}
+			\begin{Verbatim}
+      Gaussian         t   Clayton    Gumbel     Frank 
+     -471.3619 -495.7822 -270.2687 -208.7697 -211.9376 
+     Gaussian         t   Clayton    Gumbel     Frank 
+     -312.5184 -334.5320 -267.8620 -206.3629 -209.5309 
+     Gaussian        t  Clayton   Gumbel    Frank 
+     301.6809 314.8911 136.1343 105.3848 106.9688 
+			\end{Verbatim}
+		\end{minipage}
+	
+	\subsubsection{Codes}
+\begin{lstlisting}
+     cop_fits <- list(
+     Gaussian = fit_norm,
+     t        = fit_t,
+     Clayton  = fit_clay,
+     Gumbel   = fit_gum,
+     Frank    = fit_frank
+     )
+     
+     AIC_values <- sapply(cop_fits, AIC)
+     BIC_values <- sapply(cop_fits, BIC)
+     logLik_values <- sapply(cop_fits, logLik)
+     
+     AIC_values
+     BIC_values
+     logLik_values
+     
+     # Find the smallest AIC/BIC
+     best_AIC_copula <- names(which.min(AIC_values))
+     best_BIC_copula <- names(which.min(BIC_values))
+\end{lstlisting}
+	\end{document}
+	
