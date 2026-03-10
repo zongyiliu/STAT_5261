@@ -1,0 +1,2171 @@
+\documentclass[letterpaper]{article} 
+\usepackage[utf8]{inputenc}
+\linespread{0.85}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{fontspec}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage[version=4]{mhchem}
+\usepackage{stmaryrd}
+\usepackage[dvipsnames]{xcolor}
+\colorlet{LightRubineRed}{RubineRed!70}
+\colorlet{Mycolor1}{green!10!orange}
+\definecolor{Mycolor2}{HTML}{00F9DE}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{lipsum}
+\usepackage{fancyvrb}
+\usepackage{tabularx}
+\usepackage{listings}
+\usepackage[export]{adjustbox}
+\graphicspath{ {./images/} }
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{float}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage[margin=0.7in]{geometry}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{capt-of}
+\usepackage{tcolorbox}
+\usepackage{lipsum}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{listings}
+\definecolor{deepred}{RGB}{139,0,0}
+\usepackage{hyperref} 
+\usepackage{xcolor} % For custom colors
+\lstset{
+	language=Python,                % Choose the language (e.g., Python, C, R)
+	basicstyle=\ttfamily\small, % Font size and type
+	keywordstyle=\color{blue},  % Keywords color
+	commentstyle=\color{gray},  % Comments color
+	stringstyle=\color{red},    % String color
+	numbers=left,               % Line numbers
+	numberstyle=\tiny\color{gray}, % Line number style
+	stepnumber=1,               % Numbering step
+	breaklines=true,            % Auto line break
+	backgroundcolor=\color{black!5}, % Light gray background
+	frame=single,               % Frame around the code
+}
+\usepackage{float}
+\usepackage[]{amsthm} %lets us use \begin{proof}
+	\usepackage[]{amssymb} %gives us the character \varnothing
+
+\title{Homework 2, STAT 5291}
+\author{Zongyi Liu}
+\date{Mon, Mar 2, 2026}
+\begin{document}
+	\maketitle
+	
+	\section{Question 1}
+	
+	{\color{deepred}\fontspec{Georgia} Literature Review for the Final Project}
+	
+	
+	\emph{Perform the following task}
+	
+	Present the following tasks in a meaningful order so that you can start including sections in your write-up. Students must review one paper for every group member. For example, if students are working in a group of three members, then students must review three papers and consequently submit three one-page write-ups. If students are working in a group of five members, then students must review five papers and consequently submit five one-page write-ups.
+	
+	\begin{enumerate}
+		\item[i] List out your project teammates (names and UNIs).
+		
+		\item[ii] Find a relevant research paper related to your project topic.
+		
+		\item[iii] Write up a one page document summarizing the paper.
+		
+		\item[iv] Write a bibliography including your chosen papers.
+		
+		\item[v] Write an introduction section in your paper that ties in the relevant papers with your project goals and/or research question(s). This introduction can be used in your paper and will likely be edited a few times before final submission.
+	\end{enumerate}
+	
+	\textbf{Answer}
+	
+	\subsection{Part I}
+	
+	Project team-members:
+	
+	\begin{enumerate}
+		\item Elden Griggs (eg3203)
+		\item Jiaming Luo (jl7310)
+		\item Yingfu Xu (yx2995)
+		\item Zongyi Liu (zl3554)
+		\item Keyan Su (ks4384)
+		
+	\end{enumerate}
+	
+	\subsection{Part II}
+	
+	\subsection{Article 1}
+	
+	{\color{deepred}\fontspec{Georgia} by Zongyi Liu}
+	
+	
+	\textit{Introduction}
+	
+	The paper I chose was titled \textit{Granular Credit Risk} written by four economists (Sigurd Galaasen, Rustam Jamilov, Ragnar Juelsrud, and H\'{e}l\`{e}ne Rey) from Norway. This paper studies how large individual loans (``granular exposures'') in bank portfolios can generate macroeconomic effects, challenging the traditional view that idiosyncratic credit risk disappears through diversification. It used detailed loan-level administrative data from Norway, and the result was that shocks to large borrowers can significantly affect banks and the broader economy.
+	
+	\medskip
+	
+	\textit{Motivation}
+	
+	Traditional banking theory (e.g., Diamond 1984) argues that when banks hold many small loans, idiosyncratic borrower risk averages out through diversification. But in reality bank portfolios are highly concentrated, with a fat-tailed distribution of loan sizes, meaning a few large borrowers account for a substantial share of lending. The paper investigates whether shocks to such large borrowers can survive aggregation and influence bank outcomes and the real economy. This idea is connected to the ``granular hypothesis'' in macroeconomics (Gabaix 2011), which argues that shocks to large economic agents can generate aggregate fluctuations.
+	
+	\medskip
+	
+	\textit{Data and Setup}
+	
+	The authors use a matched bank-firm dataset from Norway containing detailed information on bank lending relationships. Their empirical strategy exploits the fat-tailed distribution of loan shares and applies a granular instrumental variable (GIV) approach to isolate exogenous shocks to large borrowers. The identification strategy allows them to measure how shocks to specific borrowers propagate through banks and ultimately affect other firms.
+	
+	\medskip
+	
+	\textit{Main Findings}
+	
+	The paper documents three key results.
+	\begin{enumerate}
+		\item \textit{Idiosyncratic borrower shocks affect bank outcomes.} Negative shocks to large borrowers reduce loan returns and affect banks' balance sheets. Because some exposures are large relative to the bank's portfolio, these shocks do not wash out through diversification.
+		\item \textit{Granular credit risk survives portfolio aggregation.} Even though banks hold many loans, the presence of large exposures means that idiosyncratic shocks remain economically significant at the bank level.
+		\item \textit{Credit shocks spill over to other firms and the macroeconomy.} Banks affected by granular shocks adjust their lending behavior, generating spillovers to other firms that were not directly exposed to the original shock. The authors find that these spillovers reduce firms' investment, increase default risk, and affect broader economic activity. Thus shocks originating from a few large borrowers can propagate through the financial system and have macroeconomic consequences.
+	\end{enumerate}
+	
+	\medskip
+	
+	\textit{Implications}
+	
+	The results support the rationale behind large exposure regulations in banking (such as Basel rules limiting concentration risk). The authors estimate that reducing credit concentration beyond what is justified by firm size could reduce the macroeconomic pass-through of granular credit shocks by about 40\%, with further reductions possible through better portfolio diversification. Overall, the study demonstrates that micro-level borrower shocks can have macroeconomic consequences when financial exposures are concentrated, highlighting the importance of monitoring large credit exposures in banking systems.
+	
+	\medskip
+	
+	\textit{Intro Section (tentative)}
+	
+	Accurate prediction of borrower default helps banks reduce potential losses and improve credit allocation decisions. Recent research highlights that borrower-level credit risk can have broader implications for the financial system. For example, the NBER working paper \textit{Granular Credit Risk} studies how shocks to individual borrowers affect banks and the broader economy. Using detailed loan-level data, the authors show that idiosyncratic borrower shocks can survive diversification within bank portfolios and propagate through the banking system, reducing investment and increasing default risk among other firms.
+	
+	Motivated by this literature, we hope to work on the borrower-level component of credit risk by analyzing a public credit dataset from Kaggle. The dataset contains simulated credit bureau information, including borrower characteristics such as age, income, employment length, loan amount, interest rate, and credit history, along with a binary indicator of loan default. In this project, credit risk prediction is formulated as a binary classification problem in which the goal is to estimate whether a borrower will default on a loan. By applying statistical or machine learning models to this dataset, we aim to examine how borrower characteristics relate to default risk and evaluate the effectiveness of predictive models for credit risk assessment. With the results from the Kaggle dataset, we also want to further utilize the methodology on real data from banks or other financial institutions to study the issues addressed in the paper and develop ideas to optimize banking portfolios.
+	
+	
+	\subsection{Article 2}
+	
+	{\color{deepred}\fontspec{Georgia} by Zongyi Liu}
+	
+	
+	\textit{Motivation}
+	
+	Credit risk management is a pivotal task for financial institutions. Banks must evaluate whether a borrower is likely to repay a loan or default. Here I chose a paper written by several master and doctoral students from the U.K.\ on the topic of \textit{Credit Risk Prediction Using Machine Learning and Deep Learning}. Traditional credit scoring methods typically rely on statistical models such as logistic regression. However, these models may fail to capture complex nonlinear relationships in financial data. With the increasing availability of large datasets and computational power, machine learning methods have become an important alternative for predicting borrower default risk. This study investigates whether modern machine learning algorithms can improve the accuracy of credit risk prediction compared with traditional statistical approaches.
+	
+	\medskip
+	
+	\textit{Data and Setup}
+	
+	The paper analyzes a borrower-level credit dataset containing various features describing the financial and demographic characteristics of loan applicants, including variables related to income, employment history, loan characteristics, and credit history. The objective is to predict whether a borrower will default on a loan, treated as a binary classification problem. The target variable indicates the loan outcome (default or non-default), while the explanatory variables represent borrower characteristics and loan attributes.
+	
+	\medskip
+	
+	\textit{Methodology}
+	
+	To address this prediction task, the authors implement several classification models commonly used in credit risk analysis. Logistic regression is used as a benchmark because it is widely adopted in traditional credit scoring systems. In addition, the study applies more advanced machine learning models, including neural networks, AdaBoost, XGBoost, and LightGBM. These models are trained on the dataset to learn patterns between borrower features and loan repayment outcomes. The performance of each model is evaluated using standard classification metrics such as accuracy, precision, recall, F1-score, and the area under the ROC curve (AUC).
+	
+	\medskip
+	
+	\textit{Main Findings}
+	
+	The empirical results show that machine learning algorithms outperform traditional statistical models in predicting credit risk. In particular, gradient boosting models such as XGBoost and LightGBM achieve the best predictive performance. These models are able to capture complex interactions among variables and nonlinear relationships in borrower data, which improves the ability to identify high-risk borrowers. Logistic regression, while still useful due to its interpretability, generally produces lower predictive accuracy compared with the more advanced machine learning methods.
+	
+	\medskip
+	
+	\textit{Implications}
+	
+	The findings suggest that incorporating machine learning techniques into credit risk assessment can significantly improve the accuracy of default prediction. More accurate credit scoring models allow financial institutions to make better lending decisions, reduce default-related losses, and allocate credit more efficiently. The study highlights the potential benefits of adopting data-driven approaches in modern financial risk management.
+	
+	\medskip
+	
+	\textit{Intro Section (tentative)}
+	
+	Traditional credit scoring methods often rely on statistical models such as logistic regression to estimate the probability of default. However, recent research suggests that machine learning methods can improve prediction accuracy by capturing nonlinear relationships and complex interactions among borrower characteristics. For example, recent studies compare several machine learning algorithms---including neural networks, boosting methods, and other classifiers---for credit risk prediction and find that advanced models such as gradient boosting often outperform traditional statistical approaches.
+	
+	Motivated by this literature, this project studies the problem of borrower default prediction using a publicly available credit risk dataset from Kaggle. The dataset contains borrower-level information such as age, income, employment length, loan amount, interest rate, and credit history, along with an indicator of whether the loan defaulted. In this project, we treat credit risk prediction as a binary classification problem and evaluate several predictive models using standard metrics such as accuracy and ROC-AUC. The goal is to examine how borrower characteristics influence default risk and to evaluate the effectiveness of machine learning methods for credit risk prediction.
+	
+	\bigskip
+	
+	\textit{Bibliography}
+	
+	\hangindent=1.5em
+	Galaasen, S., Jamilov, R., Juelsrud, R., \& Rey, H. (2020). Granular credit risk (NBER Working Paper No.\ 27994). \textit{National Bureau of Economic Research}. \texttt{https://doi.org/10.3386/w27994}
+	\hangindent=1.5em
+	Chang, V., Sivakulasingam, S., Wang, H., Wong, S.~T., Ganatra, M.~A., \& Luo, J. (2024). Credit risk prediction using machine learning and deep learning: A study on credit card customers. \textit{Risks}, \textit{12}(11), 174. \texttt{https://doi.org/10.3390/risks12110174}
+	
+	\subsection{Article 3}
+	
+	{\color{deepred}\fontspec{Georgia} by Yingfu Xu}
+	
+	
+	\textit{Introduction}
+	
+	The models used to predict the default rate are various, while stakeholders can only see the prediction results instead of the procedures, leading to a lack of trust in the prediction model. The paper \textit{Explainable Prediction of Loan Default Based on Machine Learning Models} analyzed and compared four main prediction models: Logistic Regression, Decision Tree, XGBoost, and LightGBM. The authors then leverage the LIME (Local Interpretable Model-Agnostic Explanations) technique to explain the model results and relevant factors, finding that prediction results are influenced by the amount, time, level of the loan, and the borrower's credit rating.
+	
+	\medskip
+	
+	\textit{Data and Setup}
+	
+	The data used for this paper is provided by Datawhale, extracted from a competition website held by ALIYUN. The raw data contains 800,000 entries; the analysis selected 46 variables, including 15 anonymous variables ($n_0$ to $n_{14}$), covering all related variables centered around borrowers' financial condition, credit profile, and loan-related information, with \texttt{isDefault} as the dependent variable coded with binary indicators. For the data preprocessing phase, the authors filled all missing values with the median, deleted all outliers on a $3\sigma$ basis, and reduced the data entries to 612,742 for final modeling.
+	
+	For model training, the project performed an 80/20 train-test split, randomly assigning 80\% of the data for training and 20\% for testing. The authors also utilized five-fold cross-validation for the LightGBM model after rating it as the best-performing model, examining its stability with a classification threshold of 0.5.
+	
+	\medskip
+	
+	\textit{Methodology}
+	
+	The project can be divided into two phases: model comparison and best-performing model explanation.
+	
+	For the model comparison stage, four classification models are evaluated: Logistic Regression as the traditional baseline examining linear relationships, Decision Tree as a classical tree model, and XGBoost and LightGBM as tree-based ensemble boosting models studying complicated nonlinear relationships. During data preprocessing, the authors utilized multiple techniques including data deletion, IV (information value) for variable filtering, PCA for highly correlated variables, and PSI to test stability.
+	
+	For model evaluation, the paper used AUC (area under the ROC curve), precision, accuracy, and KS (Kolmogorov--Smirnov) statistic to assess each model from different perspectives. To provide interpretability, the authors applied the LIME technique to the best-performing LightGBM model to explain how individual predictions were made.
+	
+	\medskip
+	
+	\textit{Main Findings}
+	
+	All examined models performed strongly with an AUC larger than 0.7, with XGBoost and LightGBM slightly outperforming the two more traditional models (Logistic Regression and Decision Tree). LightGBM also demonstrated higher accuracy and precision compared to the other models across additional metrics, leading the authors to conclude that tree-based boosting models perform better for default prediction than traditional linear models, with LightGBM being the best among them.
+	
+	To further investigate model interpretability, five-fold cross-validation on LightGBM yielded an average AUC of 0.7206 and accuracy of 0.8086, along with small variance, demonstrating stability and a low level of overfitting. LIME identified several notable variables from the default sample, including loan term, loan grade, DTI (debt-to-income ratio), home ownership status, and credit score, which the authors identify as the key attributes affecting loan default risk.
+	
+	\medskip
+	
+	\textit{Bibliography}
+	
+	\hangindent=1.5em
+	Zhu, X., Chu, Q., Song, X., Hu, P., \& Peng, L. (2023). Explainable prediction of loan default based on machine learning models. \textit{Data Science and Management}, \textit{6}(3), 123--133. \texttt{https://doi.org/10.1016/j.dsm.2023.04.003}
+	
+	
+	\subsection{Article 4}
+	
+	{\color{deepred}\fontspec{Georgia} by Jiaming Luo}
+	
+	
+	\textit{Introduction}
+	
+	The paper I chose is titled \textit{Understanding the Performance of Machine Learning Models to Predict Credit Default: A Novel Approach for Supervisory Evaluation} by Andr\'{e}s Alonso and Jos\'{e} Manuel Carb\'{o}. The paper studies how different machine learning (ML) methods perform in credit default prediction using a unique, anonymized dataset from a major Spanish bank. The authors compare a traditional benchmark---logistic regression (Logit)---with a set of widely used ML models: Lasso-penalized logistic regression, CART, Random Forest, XGBoost, and Deep Neural Networks. Importantly, they evaluate models the way a regulator or supervisor would validate an Internal Ratings-Based (IRB) system, focusing on both classification (discriminating default vs.\ non-default) and calibration (whether predicted probabilities match observed default rates).
+	
+	\medskip
+	
+	\textit{Motivation}
+	
+	ML models are increasingly used in credit risk management---covering credit scoring, provisioning, monitoring, and regulatory capital calculation---but from a supervisory perspective they raise concerns around interpretability, stability, and governance. The paper argues that before supervisors can decide how to regulate ML, it is important to understand the size of the potential benefit in practical business terms. The authors frame a key tradeoff: ML can improve predictive performance, but may also increase ``supervisory cost'' (difficulty of evaluation and approval). They therefore aim to quantify not only predictive gains, but also the economic impact of improved prediction---especially in the form of regulatory capital savings under Basel IRB rules.
+	
+	\medskip
+	
+	\textit{Data and Setup}
+	
+	The authors use an anonymized dataset from Banco Santander with more than 75,000 consumer credit operations. The dataset includes up to 370 risk factors per loan, but feature labels are intentionally not disclosed to preserve anonymization. The observed default rate is approximately 3.95\%. The data has no time dimension, so the study focuses on point-in-time default prediction rather than through-the-cycle modeling.
+	
+	Six models are trained and compared: Logit, Lasso-logit, CART, Random Forest, XGBoost, and Deep Neural Networks. The workflow uses standard validation practice: an 80/20 train-test split, out-of-sample evaluation, and standardized inputs (mean 0, variance 1). To separate ``information advantage'' (more data or features) from ``model advantage'' (algorithmic power), the authors run simulation exercises varying sample size and number of features, tracking how performance changes in each case.
+	
+	\medskip
+	
+	\textit{Main Findings}
+	
+	The paper documents three key results.
+	\begin{enumerate}
+		\item \textit{ML models outperform traditional Logit in classification.} Using AUC-ROC as the main discrimination metric, Logit performs worst and advanced ML models perform better, with XGBoost and Random Forest ranking best. The reported AUCs are approximately: Logit 0.79, Lasso 0.80, CART 0.81, Deep Neural Network 0.81, Random Forest 0.83, and XGBoost 0.84.
+		\item \textit{Calibration matters, and ML improves calibration.} The paper uses the Brier score and reliability curves to assess calibration. Differences in Brier score are numerically small due to the low default rate, but XGBoost and Random Forest again perform best. Traditional models such as Logit and Lasso can systematically under- or over-estimate the probability of default (PD) in certain probability ranges, while XGBoost and Random Forest stay closer to the 45-degree perfect calibration line.
+		\item \textit{More complex algorithms do not automatically predict better.} Deep Neural Networks are not consistently superior to tree-based ensembles. In both discrimination and calibration, tree-based methods often win despite neural networks being architecturally more complex.
+	\end{enumerate}
+	
+	\medskip
+	
+	\textit{Intro Section (tentative)}
+	
+	Credit default prediction is a core component of modern credit risk management because it supports decisions about loan approval, pricing, provisioning, and capital planning. Recent work emphasizes that model quality should be evaluated not only by how well a model ranks borrowers by risk, but also by how accurately it estimates default probabilities, since PD is directly used in risk systems such as Basel's IRB framework. Alonso and Carb\'{o} study this issue by comparing traditional logistic regression with modern machine learning approaches---including Lasso-logit, CART, Random Forest, XGBoost, and Deep Neural Networks---using an anonymized dataset of more than 75,000 consumer loans from a major Spanish bank. Their results show that ML models typically outperform Logit in both discrimination and calibration, but that more complex algorithms do not necessarily predict better: tree-based ensemble methods, especially XGBoost and Random Forest, achieve the strongest overall performance. Importantly, the authors translate predictive gains into business impact by showing that improved PD estimation can lead to meaningful reductions in regulatory capital requirements under IRB-style calculations. Motivated by this literature, our project analyzes a public credit risk dataset and formulates default prediction as a binary classification problem using borrower and loan characteristics as predictors. We aim to compare baseline statistical models with machine learning methods, evaluate both discrimination and calibration performance, and identify the most important drivers of default risk, with the broader goal of building a model that is both accurate and practically useful for credit risk assessment and decision-making.
+	
+	\medskip
+	
+	\textit{Bibliography}
+	
+	\hangindent=1.5em
+	Alonso, A., \& Carb\'{o}, J.~M. (2020). Understanding the performance of machine learning models to predict credit default: A novel approach for supervisory evaluation (Preliminary draft). \texttt{https://www.eba.europa.eu/sites/default/files/document\_library/About\%20Us/EBA\%20Research\%20Workshops/2020/Papers/936774/2.2\%20Understanding\%20the\%20performance\%20of\%20machine\%20learning\%20models.pdf}
+	
+	\subsection{Article 5}
+	
+	{\color{deepred}\fontspec{Georgia} by Keyan Su}
+	
+	
+	\textit{Introduction}
+	
+	This paper provides a comprehensive update to the influential 2003 benchmarking study by Baesens et al.\ on classification algorithms for credit scoring.
+	
+	\medskip
+	
+	\textit{Methodology}
+	
+	The study compares 41 classification algorithms across eight real-world retail credit scoring datasets. The classifiers span three categories: individual classifiers, homogeneous ensembles, and heterogeneous ensembles that combine multiple algorithm types. Using $N\times 2$ cross-validation, the authors evaluate performance using six measures. Non-parametric statistical tests (Friedman test with post-hoc procedures) ensure robust comparisons.
+	
+	\medskip
+	
+	\textit{Key Findings}
+	
+	Heterogeneous ensemble classifiers dominate the top rankings, securing the first 11 positions overall. The best-performing classifier is HCES-Bag, followed by weighted averaging ensembles. Random forest emerges as the strongest homogeneous ensemble (ranked 12th), while logistic regression---the industry standard---ranks only 24th.
+	
+	\medskip
+	
+	\textit{Financial Implications}
+	
+	The authors use a cost-sensitive analysis with varying misclassification cost ratios and find that advanced classifiers can reduce error costs by 3--6\% compared to logistic regression. However, the most statistically accurate classifier (HCES-Bag) does not always yield the highest cost savings, particularly when the cost of misclassifying bad risks is very high.
+	
+	\medskip
+	
+	\textit{Performance Measure Analysis}
+	
+	Correlation analysis reveals that AUC, H-measure, PCC, and KS produce highly similar classifier rankings. However, the Brier Score and partial Gini index capture distinct performance aspects, leading the authors to recommend using at least three measures: AUC (or H-measure), partial Gini, and Brier Score.
+	
+	\medskip
+	
+	\textit{Conclusions}
+	
+	The authors recommend random forest as a minimum benchmark for future studies and caution against using logistic regression as the sole comparator. Research attention might usefully shift toward data quality, variable selection, and LGD/EAD modeling.
+	
+	\medskip
+	
+	\textit{Bibliography}
+	
+	\hangindent=1.5em
+	Lessmann, S., Baesens, B., Seow, H.-V., \& Thomas, L.~C. (2015). Benchmarking state-of-the-art classification algorithms for credit scoring: An update of research. \textit{European Journal of Operational Research}, \textit{247}(1), 124--136.
+	
+	
+	\subsection{Article 6}
+	
+	{\color{deepred}\fontspec{Georgia} by Elden Griggs}
+	
+	\textit{Summary on ``Credit Risk Scoring Analysis Based on Machine Learning Models''}
+	
+	
+	\textit{Introduction}
+	
+	This paper examines the Home Credit Default Risk Kaggle dataset and evaluates several different feature engineering techniques and machine learning models. The techniques and models were compared on the basis of AUC score. The results suggest that a LightGBM model trained on expert-crafted feature datasets can achieve the best results on their dataset, which is conceptually similar to ours but considerably larger in size.
+	
+	\medskip
+	
+	\textit{Methodology}
+	
+	The authors first preprocess their data by discarding features that contain over 70\% null values and apply three methods of imputation. They one-hot encode categorical variables and use label encoding for features with fewer than two categories. Features are constructed using both a polynomial approach and an expert-crafted approach. Three model types are then compared: logistic regression, random forest, and LightGBM.
+	
+	\medskip
+	
+	\textit{Conclusions}
+	
+	LightGBM performs the best based on AUC score. There are some similarities between their dataset and ours in terms of outcome, but major differences exist in the number of features and sample size $N$. Given our smaller feature set, it is likely that we will not need to construct polynomial features.
+	
+	\medskip
+	
+	\textit{Bibliography}
+	
+	\hangindent=1.5em
+	Qiu, Z., Li, Y., Ni, P., \& Li, G. (2019). Credit risk scoring analysis based on machine learning models. In \textit{2019 6th International Conference on Information Science and Control Engineering (ICISCE)} (pp.\ 220--223). IEEE. \texttt{https://doi.org/10.1109/ICISCE48695.2019.00052}
+	
+	\clearpage
+	
+	\section{Question 2}
+	{\color{deepred}\fontspec{Georgia} Wilcoxon Sum-Rank Test}
+	
+	\medskip
+	
+	Recall the Wilcoxon Sum-Rank Test Procedure:
+	
+	\medskip
+	
+	\emph{Assumptions}
+	
+	\medskip
+	
+	Assume that $\{X_1,\dots,X_m\}$ and $\{Y_1,\dots,Y_n\}$ are independent samples from different distributions with respective means $\mu_1$ and $\mu_2$. The distributions of $X$ and $Y$ have the same shape and differ only in location, i.e., by means $\mu_1$ and $\mu_2$. Note that the distributions do not have to be symmetric.
+	
+	\medskip
+	
+	\underline{Construction of the Wilcoxon Sum-Rank test statistic}
+	
+	\begin{enumerate}
+		\item[a] Combine the two samples, and rank the observations.
+		
+		\item[b] Let $T_1$ be the sum of the ranks for observations in the first group, and $T_2$ be the sum of the ranks for observations in the second group.
+	\end{enumerate}
+	
+	\medskip
+	
+	\emph{Perform the following tasks}
+	
+	\begin{enumerate}
+		\item[i] Suppose that $m=n=2$. Derive the sampling distribution of $T_1$ under $H_0$. Also compute $E[T_1]$ and $Var[T_1]$ based on the derived sampling distribution.
+		
+		\item[ii] Suppose that $m=3$ and $n=4$. Derive the sampling distribution of $T_1$ under $H_0$. Also compute $E[T_1]$ and $Var[T_1]$ based on the derived sampling distribution.
+		
+		\item[iii] Now for any $m,n>0$, show that under $H_0$,
+		\[
+		E[T_1]=\frac{m(m+n+1)}{2}
+		\]
+		
+		and
+		
+		\[
+		Var[T_1]=\frac{mn(m+n+1)}{12}.
+		\]
+		
+		\emph{Hint} Under $H_0$, the rank $R_i$ of $X_i$ is equally likely to be any one of the possible values $1,2,\dots,m+n$.
+		
+		\item[iv] Consider the following toy dataset which consists of a continuous response variable split by the respective groups. Equivalently, each group represents a realization from a continuous population. We are interested in the one-tailed test:
+		
+		\[
+		H_0:\ \mu_1-\mu_2=0
+		\text{versus} 
+		H_A:\ \mu_1-\mu_2<0.
+		\]
+		
+		\begin{center}
+			\begin{tabular}{lcccccccc}
+				Group1 & 1.9168 & 3.5102 & 3.4567 & 2.7052 & 1.3366 & 2.7654 & 2.9780 & 2.8394 \\
+				& 2.1455 & 1.7992 \\
+				\hline
+				Group2 & 2.9204 & 3.1500 & 3.3405 & 2.7374 & 4.0499 & 3.8547 & 4.1359 & 4.0159 \\
+				& 3.4328 & 2.0894 & 3.7789 & 4.2853 & 2.8724 & 3.0208 & 3.1968
+			\end{tabular}
+		\end{center}
+		
+		Manually code up a function called \texttt{my\_wilcoxon()} which computes $T_1$ based on generic datasets \texttt{data\_1} and \texttt{data\_2}. Test your function on the above dataset, i.e.,
+		
+		\[
+		\texttt{my\_wilcoxon(Group1,Group2)}.
+		\]
+		
+		\emph{Note} To check if your function is returning the correct value, the R function
+		
+		\[
+		\texttt{wilcox.test(Group1,Group2)}
+		\]
+		
+		is technically computing the Mann-Whitney $U$ statistic.
+		
+		\item[v] Simulate the sampling distribution of $T_1$ under $H_0$ using
+		
+		\[
+		X_1,\dots,X_m \sim f
+		(\text{ Some Continuous Distribution})
+		\]
+		
+		and
+		
+		\[
+		Y_1,\dots,Y_n \sim f
+		(\text{ Some Continuous Distribution})
+		\]
+		
+		and computing each $T_1$ based on your function
+		
+		\[
+		T_1=\texttt{my\_wilcoxon(Group1,Group2)}.
+		\]
+		
+		You can choose any continuous distribution $f$ for Group1 or Group2 as long as they are the same under $H_0$. Simulate 10,000 draws from the sampling distribution of $T_1$ and plot a histogram of your results.
+		
+		
+		\item[vi] Run the Wilcoxon sum-rank procedure to test the one-tailed hypothesis
+		
+		\[
+		H_0 : \mu_1 - \mu_2 = 0 
+		\text{versus} 
+		H_A : \mu_1 - \mu_2 < 0.
+		\]
+		
+		Compute the p-value using the Monte Carlo sampling distribution from Part 2.v. Also compute the large sample p-value and compare the results. Note that the large sample test statistic is:
+		
+		\[
+		z_{calc}=
+		\frac{
+			T_1-\dfrac{m(m+n+1)}{2}
+		}{
+			\sqrt{\dfrac{mn(m+n+1)}{12}}
+		}.
+		\]
+	\end{enumerate}
+	
+	\textbf{Answer}
+	
+	\subsection{Part I}
+	
+	
+	Under $H_0:\mu_1=\mu_2$, the two samples come from the same continuous distribution.
+	Thus after combining the four observations, every assignment of two of the four
+	ranks to the first sample is equally likely.
+	
+	Since $m=n=2$, the possible ranks are $1,2,3,4$, and $T_1$ is the sum of the two
+	ranks assigned to group 1.
+	
+	There are $\binom{4}{2}=6$ equally likely ways to choose the two ranks for the
+	first sample:
+	\[
+	\{1,2\},\ \{1,3\},\ \{1,4\},\ \{2,3\},\ \{2,4\},\ \{3,4\}.
+	\]
+	
+	The corresponding values of $T_1$ are
+	\[
+	3,\ 4,\ 5,\ 5,\ 6,\ 7.
+	\]
+	
+	Hence the sampling distribution of $T_1$ under $H_0$ is
+	
+	\[
+	\begin{array}{c|ccccc}
+		t & 3 & 4 & 5 & 6 & 7\\
+		\hline
+		\mathbb{P}(T_1=t) & \frac16 & \frac16 & \frac13 & \frac16 & \frac16
+	\end{array}
+	\]
+	
+	Next,
+	$E[T_1] = \sum t\,\mathbb{P}(T_1=t)
+	= 3\cdot\frac16 + 4\cdot\frac16 + 5\cdot\frac13 + 6\cdot\frac16 + 7\cdot\frac16
+	= \frac{30}{6} = 5$.
+	
+	To compute the variance, first calculate
+	$E[T_1^2] =
+	3^2\cdot\frac16 + 4^2\cdot\frac16 + 5^2\cdot\frac13 + 6^2\cdot\frac16 + 7^2\cdot\frac16
+	= \frac{80}{3}$.
+	
+	Therefore
+	$\operatorname{Var}(T_1)
+	= E[T_1^2] - (E[T_1])^2
+	= \frac{80}{3} - 25
+	= \frac{5}{3}$.
+	
+	Thus,
+	\[
+	E[T_1] = 5,  \operatorname{Var}(T_1) = \frac{5}{3}.
+	\] 
+	
+	\clearpage
+	
+	\subsection{Part II}
+	
+	Under $H_0$, all $\binom{7}{3}=35$ ways of assigning $3$ of the ranks
+	$1,2,\dots,7$ to the first sample are equally likely. Thus $T_1$ is the sum of
+	$3$ distinct ranks chosen uniformly from $\{1,2,\dots,7\}$.
+	
+	The possible rank triples for group 1 are
+	\[
+	\begin{aligned}
+		&(1,2,3),(1,2,4),(1,2,5),(1,2,6),(1,2,7),\\
+		&(1,3,4),(1,3,5),(1,3,6),(1,3,7),\\
+		&(1,4,5),(1,4,6),(1,4,7),\\
+		&(1,5,6),(1,5,7),(1,6,7),\\
+		&(2,3,4),(2,3,5),(2,3,6),(2,3,7),\\
+		&(2,4,5),(2,4,6),(2,4,7),\\
+		&(2,5,6),(2,5,7),(2,6,7),\\
+		&(3,4,5),(3,4,6),(3,4,7),\\
+		&(3,5,6),(3,5,7),(3,6,7),\\
+		&(4,5,6),(4,5,7),(4,6,7),(5,6,7).
+	\end{aligned}
+	\]
+	
+	Their sums are:
+	\[
+	\begin{array}{c|cccccccccccccc}
+		T_1 & 6&7&8&9&10&11&12&13&14&15&16&17&18\\
+		\hline
+		\# & 1&1&2&3&4&4&5&4&4&3&2&1&1
+	\end{array}
+	\]
+	
+	Hence the sampling distribution of $T_1$ under $H_0$ is
+	\[
+	\begin{array}{c|ccccccccccccc}
+		t & 6&7&8&9&10&11&12&13&14&15&16&17&18\\
+		\hline
+		\mathbb P(T_1=t)
+		& \frac1{35}&\frac1{35}&\frac2{35}&\frac3{35}&\frac4{35}&\frac4{35}&\frac5{35}
+		&\frac4{35}&\frac4{35}&\frac3{35}&\frac2{35}&\frac1{35}&\frac1{35}
+	\end{array}
+	\]
+	
+	Now
+	$E[T_1]
+	= \sum_t t\,\mathbb P(T_1=t)
+	= \frac{1}{35}\bigl(
+	6+7+2\cdot 8+3\cdot 9+4\cdot 10+4\cdot 11+5\cdot 12+4\cdot 13+4\cdot 14+3\cdot 15+2\cdot 16+17+18
+	\bigr)
+	= 12$.
+	
+	Also,
+	\[
+	E[T_1^2]
+	= \frac{1}{35}\bigl(
+	6^2+7^2+2\cdot 8^2+3\cdot 9^2+4\cdot 10^2+4\cdot 11^2+5\cdot 12^2
+	+4\cdot 13^2+4\cdot 14^2+3\cdot 15^2+2\cdot 16^2+17^2+18^2
+	\bigr)
+	= 152.
+	\]
+	
+	Therefore
+	$\operatorname{Var}(T_1)=E[T_1^2]-(E[T_1])^2 = 152-12^2 = 8$.
+	
+	So the final answers are
+	\[
+	E[T_1]=12,
+	\operatorname{Var}(T_1)=8.
+	\]
+	
+	\clearpage
+	
+	\subsection{Part III}
+	Under $H_0$, the combined sample of size $m+n$ comes from the same continuous distribution, so the ranks $1,2,\dots,m+n$ are randomly assigned to the observations. Let $R_i$ denote the rank of $X_i$. Then $T_1=\sum_{i=1}^m R_i$.
+	
+	\medskip
+	\noindent\emph{Expected Value.}
+	By the hint, each $R_i$ is equally likely to be any value in $\{1,2,\dots,m+n\}$, so $E[R_i]=\frac{1+2+\cdots+(m+n)}{m+n}=\frac{m+n+1}{2}$. Therefore, by linearity of expectation,
+	$$E[T_1]=E\!\left[\sum_{i=1}^m R_i\right]=\sum_{i=1}^m E[R_i]=m\cdot\frac{m+n+1}{2}=\frac{m(m+n+1)}{2}.$$
+	
+	\medskip
+	\noindent\emph{Variance.}
+	Write $N=m+n$. Then
+	$\operatorname{Var}(T_1)=\sum_{i=1}^m \operatorname{Var}(R_i)+2\sum_{1\le i<j\le m}\operatorname{Cov}(R_i,R_j).$ Since $R_i$ is uniform on $\{1,\dots,N\}$, we have $E[R_i]=\frac{N+1}{2}$ and $E[R_i^2]=\frac{1^2+2^2+\cdots+N^2}{N}=\frac{(N+1)(2N+1)}{6}$, so
+	$$\operatorname{Var}(R_i)=E[R_i^2]-(E[R_i])^2=\frac{(N+1)(2N+1)}{6}-\frac{(N+1)^2}{4}=\frac{N^2-1}{12}.$$
+	
+	For $i\neq j$, $(R_i,R_j)$ is a uniformly random ordered pair of distinct values from $\{1,\dots,N\}$, so there are $N(N-1)$ equally likely outcomes. Using the identity
+	$$\sum_{\substack{a,b=1\\a\neq b}}^{N}ab=\left(\sum_{a=1}^N a\right)^{\!2}-\sum_{a=1}^N a^2=\frac{N^2(N+1)^2}{4}-\frac{N(N+1)(2N+1)}{6},$$
+	we compute
+	\begin{align*}
+		E[R_iR_j]
+		&=\frac{1}{N(N-1)}\left[\frac{N^2(N+1)^2}{4}-\frac{N(N+1)(2N+1)}{6}\right]
+		=\frac{N(N+1)}{N(N-1)}\left[\frac{N(N+1)}{4}-\frac{2N+1}{6}\right]\\
+		&=\frac{N+1}{N-1}\cdot\frac{3N(N+1)-2(2N+1)}{12}
+		=\frac{N+1}{N-1}\cdot\frac{3N^2-N-2}{12}
+		=\frac{N+1}{N-1}\cdot\frac{(N-1)(3N+2)}{12}
+		=\frac{(N+1)(3N+2)}{12}.
+	\end{align*}
+	Hence
+	\begin{align*}
+		\operatorname{Cov}(R_i,R_j)
+		&=E[R_iR_j]-E[R_i]\,E[R_j]
+		=\frac{(N+1)(3N+2)}{12}-\left(\frac{N+1}{2}\right)^{\!2}
+		=(N+1)\left[\frac{3N+2}{12}-\frac{N+1}{4}\right]
+		=(N+1)\cdot\frac{-1}{12}
+	\end{align*} =$-\frac{N+1}{12}.$ Then substituting back and using $2\binom{m}{2}=m(m-1)$, we have
+	$\operatorname{Var}(T_1)=m\cdot\frac{N^2-1}{12}+m(m-1)\!\left(-\frac{N+1}{12}\right)=\frac{m(N^2-1)-m(m-1)(N+1)}{12}=\frac{m(N+1)\bigl[(N-1)-(m-1)\bigr]}{12}=\frac{m(N+1)(N-m)}{12}.$
+	
+	Since $N=m+n$ gives $N-m=n$, we conclude that
+	$$E[T_1]=\frac{m(m+n+1)}{2},  \operatorname{Var}(T_1)=\frac{mn(m+n+1)}{12}$$
+	
+	\clearpage
+	
+	\subsection{Part IV}
+	
+	First I need to pool and rank all $m+n=25$ observations. Here we combine Group 1 ($m=10$) and Group 2 ($n=15$) and sorting gives the following ranks:
+	
+	\begin{center}
+		\begin{tabular}{cccc}
+			\hline
+			Rank & Value & Group & \\
+			\hline
+			1  & 1.3366 & G1 \\
+			2  & 1.7992 & G1 \\
+			3  & 1.9168 & G1 \\
+			4  & 2.0894 & G2 \\
+			5  & 2.1455 & G1 \\
+			6  & 2.7052 & G1 \\
+			7  & 2.7374 & G2 \\
+			8  & 2.7654 & G1 \\
+			9  & 2.8394 & G1 \\
+			10 & 2.8724 & G2 \\
+			11 & 2.9204 & G2 \\
+			12 & 2.9780 & G1 \\
+			13 & 3.0208 & G2 \\
+			14 & 3.1500 & G2 \\
+			15 & 3.1968 & G2 \\
+			16 & 3.3405 & G2 \\
+			17 & 3.4328 & G2 \\
+			18 & 3.4567 & G1 \\
+			19 & 3.5102 & G1 \\
+			20 & 3.7789 & G2 \\
+			21 & 3.8547 & G2 \\
+			22 & 4.0159 & G2 \\
+			23 & 4.0499 & G2 \\
+			24 & 4.1359 & G2 \\
+			25 & 4.2853 & G2 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	Then we compute $T_1$ by summing the ranks assigned to Group 1 observations (ranks 1, 2, 3, 5, 6, 8, 9, 12, 18, 19):
+	$$T_1 = 1+2+3+5+6+8+9+12+18+19 = 83.$$
+	
+	For the Mann-Whitney $U$ statistic, which is related to $T_1$, we can get as
+	$$U = T_1 - \frac{m(m+1)}{2} = 83 - \frac{10\cdot 11}{2} = 83 - 55 = 28.$$
+	
+	Also the hint below gives a reexamine tool by using R-package, but I manually coded up the function in Python as below, as it might be more sophisticated and useful than R. However, I also put the R code for this assignment in my \href{https://github.com/zongyiliu/STAT_5291/tree/main/Homework/Homework_2}{Github repository}.
+	\begin{lstlisting}
+		def my_wilcoxon(data_1, data_2):
+		combined = [(x, 1) for x in data_1] + [(y, 2) for y in data_2]
+		combined.sort(key=lambda z: z[0])  # sort by observed value
+		
+		n = len(combined)
+		ranks = [0.0] * n
+		
+		# assign ranks, using average ranks for ties
+		i = 0
+		while i < n:
+		j = i
+		while j < n and combined[j][0] == combined[i][0]:
+		j += 1
+		
+		# observations i, ..., j-1 are tied
+		avg_rank = (i + 1 + j) / 2.0
+		for k in range(i, j):
+		ranks[k] = avg_rank
+		
+		i = j
+		
+		# sum ranks for group 1
+		T1 = sum(ranks[idx] for idx in range(n) if combined[idx][1] == 1)
+		return T1
+		
+		
+		# test on the given dataset
+		Group1 = [1.9168, 3.5102, 3.4567, 2.7052, 1.3366,
+		2.7654, 2.9780, 2.8394, 2.1455, 1.7992]
+		
+		Group2 = [2.9204, 3.1500, 3.3405, 2.7374, 4.0499,
+		3.8547, 4.1359, 4.0159, 3.4328, 2.0894,
+		3.7789, 4.2853, 2.8724, 3.0208, 3.1968]
+		
+		T1 = my_wilcoxon(Group1, Group2)
+		print("T1 =", T1)
+		
+		m = len(Group1)
+		U1 = T1 - m * (m + 1) / 2
+		print("U1 =", U1)
+	\end{lstlisting}
+	
+	Under $H_0$, the expected value of $T_1$ is
+	$E[T_1] = \frac{m(m+n+1)}{2} = \frac{10\times 26}{2} = 130.$ The observed value $T_1=83$ is considerably smaller than $130$, which provides evidence in favour of $H_A: \mu_1-\mu_2 < 0$.
+	\clearpage
+	
+	\subsection{Part V}
+	
+	To simulate the sampling distribution of $T_1$ under $H_0$, I generated
+	$X_1,\dots,X_{10}$ and $Y_1,\dots,Y_{15}$ independently from the same continuous
+	distribution, chosen here as normal distribution with $N(0,1)$. For each simulated dataset, I computed
+	$T_1$ using the function $\texttt{my\_wilcoxon(Group1,Group2)}$. Repeating this
+	procedure $10{,}000$ times gives an empirical approximation to the null sampling
+	distribution of $T_1$.
+	
+	\begin{lstlisting}
+		import numpy as np
+		import matplotlib.pyplot as plt
+		
+		def my_wilcoxon(data_1, data_2):
+		combined = [(x, 1) for x in data_1] + [(y, 2) for y in data_2]
+		combined.sort(key=lambda z: z[0])  # sort by value
+		
+		n = len(combined)
+		ranks = [0.0] * n
+		
+		i = 0
+		while i < n:
+		j = i
+		while j < n and combined[j][0] == combined[i][0]:
+		j += 1
+		
+		# average rank for ties from positions i,...,j-1
+		avg_rank = (i + 1 + j) / 2.0
+		for k in range(i, j):
+		ranks[k] = avg_rank
+		
+		i = j
+		
+		# sum ranks for group 1
+		T1 = sum(ranks[idx] for idx in range(n) if combined[idx][1] == 1)
+		return T1
+		
+		
+		# sample sizes from the toy dataset
+		m = 10
+		n = 15
+		
+		# number of simulations
+		B = 10000
+		
+		# store simulated T1 values
+		T1_sim = np.zeros(B)
+		
+		# simulate under H0: both groups from the same continuous distribution
+		# here I choose N(0,1)
+		np.random.seed(123)
+		
+		for b in range(B):
+		group1 = np.random.normal(loc=0, scale=1, size=m)
+		group2 = np.random.normal(loc=0, scale=1, size=n)
+		T1_sim[b] = my_wilcoxon(group1, group2)
+		
+		# theoretical mean and variance under H0
+		theory_mean = m * (m + n + 1) / 2
+		theory_var = m * n * (m + n + 1) / 12
+		
+		print("Simulated mean of T1:", np.mean(T1_sim))
+		print("Theoretical mean of T1:", theory_mean)
+		print("Simulated variance of T1:", np.var(T1_sim, ddof=1))
+		print("Theoretical variance of T1:", theory_var)
+		
+		# plot histogram
+		plt.figure(figsize=(8, 5))
+		plt.hist(T1_sim, bins=range(int(T1_sim.min()), int(T1_sim.max()) + 2),
+		edgecolor='black', alpha=0.7)
+		plt.axvline(theory_mean, linestyle='-', linewidth=2, label=f"Theoretical mean")
+		plt.xlabel("T1")
+		plt.ylabel("Frequency")
+		plt.title("Simulated Sampling Distribution of T1 under H0")
+		plt.legend()
+		plt.tight_layout()
+		plt.show()
+	\end{lstlisting}
+	
+	Under $H_0$, the theoretical mean and variance are
+	$E[T_1]=\frac{m(m+n+1)}{2}=130$ and
+	$\operatorname{Var}(T_1)=\frac{mn(m+n+1)}{12}=325$.
+	The simulated histogram is centered near $130$, matching the theoretical result.
+	
+	\includegraphics[max width=0.8\textwidth, center]{Q2_P5}
+	
+	\clearpage
+	
+	\subsection{Part VI}
+	
+	For the observed data, $m=10$, $n=15$, and the Wilcoxon rank-sum statistic for
+	Group 1 is $T_1=83$. Because the alternative is $H_A:\mu_1-\mu_2<0$, smaller values of $T_1$ provide
+	evidence against $H_0$. Thus the p-value is the left-tail probability
+	$P(T_1\le 83\mid H_0)$.
+	
+	Using the Monte Carlo null distribution from 10{,}000 simulated values of $T_1$,
+	the Monte Carlo p-value is
+	$p_{\mathrm{MC}}\approx 0.0031$. For the large-sample approximation,
+	$E[T_1]=\frac{m(m+n+1)}{2}=\frac{10(26)}{2}=130$
+	and
+	$\operatorname{Var}(T_1)=\frac{mn(m+n+1)}{12}
+	=\frac{10\cdot 15\cdot 26}{12}=325$.
+	
+	Hence
+	$z_{\mathrm{calc}}
+	=\frac{T_1-\frac{m(m+n+1)}{2}}{\sqrt{\frac{mn(m+n+1)}{12}}}
+	=\frac{83-130}{\sqrt{325}}
+	\approx -2.6071$. Therefore, the large-sample one-sided p-value is
+	$p_{\mathrm{large}}=P(Z\le -2.6071)\approx 0.00457$. The two p-values are very close:
+	$p_{\mathrm{MC}}\approx 0.0031$
+	and
+	$p_{\mathrm{large}}\approx 0.00457$.
+	Both are much smaller than $0.05$, so we reject $H_0$ and conclude that there is
+	strong evidence that $\mu_1-\mu_2<0$.
+	
+	The codes are shown as below:
+	
+	\begin{lstlisting}
+		import numpy as np
+		import math
+		
+		def my_wilcoxon(data_1, data_2):
+		"""
+		Compute the Wilcoxon rank-sum statistic T1:
+		the sum of the ranks for observations in data_1.
+		"""
+		combined = [(x, 1) for x in data_1] + [(y, 2) for y in data_2]
+		combined.sort(key=lambda z: z[0])
+		
+		n = len(combined)
+		ranks = [0.0] * n
+		
+		i = 0
+		while i < n:
+		j = i
+		while j < n and combined[j][0] == combined[i][0]:
+		j += 1
+		
+		avg_rank = (i + 1 + j) / 2.0
+		for k in range(i, j):
+		ranks[k] = avg_rank
+		
+		i = j
+		
+		T1 = sum(ranks[idx] for idx in range(n) if combined[idx][1] == 1)
+		return T1
+		
+		
+		# observed data
+		Group1 = [1.9168, 3.5102, 3.4567, 2.7052, 1.3366,
+		2.7654, 2.9780, 2.8394, 2.1455, 1.7992]
+		
+		Group2 = [2.9204, 3.1500, 3.3405, 2.7374, 4.0499,
+		3.8547, 4.1359, 4.0159, 3.4328, 2.0894,
+		3.7789, 4.2853, 2.8724, 3.0208, 3.1968]
+		
+		m = len(Group1)
+		n = len(Group2)
+		
+		# observed Wilcoxon statistic
+		T1_obs = my_wilcoxon(Group1, Group2)
+		
+		# Monte Carlo p-value under H0
+		# under H0, both groups come from the same continuous distribution
+		# choose N(0,1) for both
+		np.random.seed(123)
+		B = 10000
+		T1_sim = np.zeros(B)
+		
+		for b in range(B):
+		sim_g1 = np.random.normal(loc=0, scale=1, size=m)
+		sim_g2 = np.random.normal(loc=0, scale=1, size=n)
+		T1_sim[b] = my_wilcoxon(sim_g1, sim_g2)
+		
+		# left-tailed p-value
+		p_mc = np.mean(T1_sim <= T1_obs)
+		
+		# Large-sample p-value
+		mean_T1 = m * (m + n + 1) / 2
+		var_T1 = m * n * (m + n + 1) / 12
+		sd_T1 = math.sqrt(var_T1)
+		
+		z_calc = (T1_obs - mean_T1) / sd_T1
+		
+		# standard normal CDF using erf
+		p_large = 0.5 * (1 + math.erf(z_calc / math.sqrt(2)))
+		
+		print("Observed T1 =", T1_obs)
+		print("Monte Carlo p-value =", p_mc)
+		print("z_calc =", z_calc)
+		print("Large-sample p-value =", p_large)
+	\end{lstlisting}
+	
+	\clearpage
+	
+	\section{Question 3}
+	
+	{\color{deepred}\fontspec{Georgia} Parametric and Nonparametric Two-sample Procedures}
+	
+	
+	Consider the toy dataset from Problem 2, which consists of a continuous response variable split by the respective groups. Equivalently, each group represents a realization from a continuous population. We are interested in the two-tailed test:
+	
+	\[
+	H_0 : \mu_1 - \mu_2 = 0
+	\text{versus} 
+	H_A : \mu_1 - \mu_2 \ne 0.
+	\]
+	
+	\begin{center}
+		\begin{tabular}{lcccccccc}
+			\hline
+			Group1 & 1.9168 & 3.5102 & 3.4567 & 2.7052 & 1.3366 & 2.7654 & 2.9780 & 2.8394 \\
+			& 2.1455 & 1.7992\\
+			\hline
+			Group2 & 2.9204 & 3.1500 & 3.3405 & 2.7374 & 4.0499 & 3.8547 & 4.1359 & 4.0159 \\
+			& 3.4328 & 2.0894 & 3.7789 & 4.2853 & 2.8724 & 3.0208 & 3.1968
+		\end{tabular}
+	\end{center}
+	
+	\medskip
+	
+	\emph{Perform the following tasks}
+	
+	\begin{enumerate}
+		
+		\item[i] Construct a multiple box-plot to investigate the research question of interest. Also construct qqplots of each dataset and comment on the respective distributions.
+		
+		\item[ii] Run the relevant test to check if the population variances differ per group, i.e.,
+		
+		\[
+		H_0 : \sigma_1^2 = \sigma_2^2
+		\text{versus} 
+		H_A : \sigma_1^2 \ne \sigma_2^2.
+		\]
+		
+		Use $\alpha = .10$ for this test.
+		
+		\item[iii] Based on Problem 3.ii, run a two-sample t-test or pooled two-sample t-test on the null alternative pair
+		
+		\[
+		H_0 : \mu_1 - \mu_2 = 0
+		\text{versus} 
+		H_A : \mu_1 - \mu_2 \ne 0.
+		\]
+		
+		Use $\alpha = .05$ for this test. Make sure to include all relevant steps in the testing procedure for full credit.
+		
+		\item[iv] Run a bootstrap procedure to test the hypothesis
+		
+		\[
+		H_0 : \mu_1 - \mu_2 = 0
+		\text{versus} 
+		H_A : \mu_1 - \mu_2 \ne 0.
+		\]
+		
+		Make sure to include all relevant steps in the testing procedure for full credit.
+		
+		\item[v] Run a permutation test procedure to test the hypothesis
+		
+		\[
+		H_0 : \mu_1 - \mu_2 = 0
+		\text{versus} 
+		H_A : \mu_1 - \mu_2 \ne 0.
+		\]
+		
+		Make sure to include all relevant steps in the testing procedure for full credit.
+		
+	\end{enumerate}
+	
+	\textbf{Answer}
+	
+	Full codes are put in my \href{https://github.com/zongyiliu/STAT_5291/tree/main/Homework/Homework_2}{Github repository}.
+	
+	\subsection{Part I}
+	
+	The multiple boxplot indicates that Group 2 tends to have larger
+	values than Group 1, as the median of Group 2 is noticeably higher.
+	The spreads of the two samples appear comparable, suggesting that
+	the population variances may be similar.
+	
+	There are no obvious outliers in either group, and the overall shapes
+	of the distributions appear reasonably symmetric. Thus, the boxplot
+	does not indicate any severe violations of the assumptions required
+	for the two-sample $t$-test.
+	
+	Also, we can see that the orange line (median) is more centered in Group 2 than in Group 1, suggesting a smaller variance. I also calculated this in Python and found that Group 2 has variance 0.385 whereas Group 1 has variance 0.520, which verifies our observation in the boxplot.
+	
+	\includegraphics[max width=0.6\textwidth, center]{Q3_P1}
+	
+	
+	The QQ-plots for both groups show that the sample quantiles lie
+	approximately along a straight line. Although there are mild
+	deviations in the tails due to the small sample sizes
+	($n_1=10$, $n_2=15$), there is no strong evidence of severe
+	non-normality.
+	
+	Therefore, the normality assumption required for the two-sample
+	$t$-test appears reasonable for these data.
+	
+	\includegraphics[max width=0.6\textwidth, center]{Q3_P2}
+	
+	\begin{lstlisting}
+		import numpy as np
+		import matplotlib.pyplot as plt
+		from scipy import stats
+		
+		
+		group1 = np.array([
+		1.9168, 3.5102, 3.4567, 2.7052, 1.3366,
+		2.7654, 2.9780, 2.8394, 2.1455, 1.7992
+		])
+		
+		group2 = np.array([
+		2.9204, 3.1500, 3.3405, 2.7374, 4.0499,
+		3.8547, 4.1359, 4.0159, 3.4328, 2.0894,
+		3.7789, 4.2853, 2.8724, 3.0208, 3.1968
+		])
+		
+		n1 = len(group1)
+		n2 = len(group2)
+		
+		
+		# descriptive statistics
+		
+		xbar1 = np.mean(group1)
+		xbar2 = np.mean(group2)
+		s1_sq = np.var(group1, ddof=1)
+		s2_sq = np.var(group2, ddof=1)
+		
+		print("Group 1 mean =", xbar1)
+		print("Group 2 mean =", xbar2)
+		print("Group 1 variance =", s1_sq)
+		print("Group 2 variance =", s2_sq)
+		print("Observed difference (xbar1 - xbar2) =", xbar1 - xbar2)
+		
+		
+		plt.figure(figsize=(7, 5))
+		plt.boxplot([group1, group2], labels=["Group 1", "Group 2"])
+		plt.title("Multiple Boxplot")
+		plt.ylabel("Response")
+		plt.tight_layout()
+		plt.show()
+		
+		plt.figure(figsize=(10, 4))
+		
+		plt.subplot(1, 2, 1)
+		stats.probplot(group1, dist="norm", plot=plt)
+		plt.title("QQ-Plot: Group 1")
+		
+		plt.subplot(1, 2, 2)
+		stats.probplot(group2, dist="norm", plot=plt)
+		plt.title("QQ-Plot: Group 2")
+		
+		plt.tight_layout()
+		plt.show()
+	\end{lstlisting}
+	\clearpage
+	
+	\subsection{Part II}
+	
+	To test
+	$H_0:\sigma_1^2=\sigma_2^2$
+	versus
+	$H_A:\sigma_1^2\ne\sigma_2^2$,
+	we use the two-sided $F$-test. The test statistic is
+	$F=\frac{s_1^2}{s_2^2}=1.3503$
+	with degrees of freedom $df_1=9$ and $df_2=14$.
+	The corresponding two-sided p-value is
+	$p=0.5928$. Since $p=0.5928>0.10$, we fail to reject $H_0$ at significance level
+	$\alpha=0.10$.
+	Therefore, there is no statistically significant evidence that the two
+	population variances differ.
+	
+	Hence, the assumption of equal population variances appears reasonable,
+	so it is appropriate to proceed with the pooled two-sample $t$-test in
+	the next part.
+	
+	\begin{lstlisting}
+		F = s1_sq / s2_sq
+		df1 = n1 - 1
+		df2 = n2 - 1
+		
+		cdf_F = stats.f.cdf(F, df1, df2)
+		p_F = 2 * min(cdf_F, 1 - cdf_F)
+		
+		print("\nVariance test (F-test)")
+		print("F statistic =", F)
+		print("df1 =", df1, "df2 =", df2)
+		print("Two-sided p-value =", p_F)
+	\end{lstlisting}
+	
+	\clearpage
+	
+	\subsection{Part III}
+	
+	Based on Problem 3.ii, we failed to reject
+	$H_0:\sigma_1^2=\sigma_2^2$
+	at level $\alpha=0.10$, since the p-value of the variance test was
+	$p=0.5928>0.10$.
+	Therefore, it is reasonable to assume equal population variances, and we use the pooled two-sample $t$-test.
+	
+	We test
+	$H_0:\mu_1-\mu_2=0$
+	versus
+	$H_A:\mu_1-\mu_2\neq0$
+	at significance level $\alpha=0.05$. The pooled variance is
+	$s_p^2=0.4381$. The test statistic is
+	$t_{\text{calc}}=-3.1338$,
+	with degrees of freedom
+	$df=23$. The corresponding two-sided p-value is
+	$p=0.00466$. Since $p=0.00466<0.05$, we reject $H_0$. Therefore, there is statistically significant evidence at the 5\% level
+	that $\mu_1-\mu_2\neq0$.
+	Since the observed sample difference is
+	$\bar x_1-\bar x_2=-0.8468<0$,
+	the data suggest that Group 1 has a smaller mean than Group 2.
+	
+	\begin{lstlisting}
+		sp_sq = ((n1 - 1) * s1_sq + (n2 - 1) * s2_sq) / (n1 + n2 - 2)
+		sp = np.sqrt(sp_sq)
+		
+		t_pooled = (xbar1 - xbar2) / (sp * np.sqrt(1/n1 + 1/n2))
+		df_t = n1 + n2 - 2
+		p_t = 2 * stats.t.cdf(t_pooled, df_t) if t_pooled < 0 else 2 * (1 - stats.t.cdf(t_pooled, df_t))
+		
+		print("\nPooled two-sample t-test")
+		print("Pooled variance =", sp_sq)
+		print("t statistic =", t_pooled)
+		print("df =", df_t)
+		print("Two-sided p-value =", p_t)
+		
+		# compare with Welch
+		t_welch, p_welch = stats.ttest_ind(group1, group2, equal_var=False)
+		print("\nWelch t-test (reference)")
+		print("t statistic =", t_welch)
+		print("Two-sided p-value =", p_welch)
+	\end{lstlisting}
+	
+	
+	\clearpage
+	
+	\subsection{Part IV}
+	
+	
+	We test
+	$H_0:\mu_1-\mu_2=0$
+	versus
+	$H_A:\mu_1-\mu_2\neq0$
+	using the bootstrap procedure. We use the difference in sample means
+	$T=\bar X-\bar Y$. From the observed data, $\bar x_1=2.5453, \quad \bar x_2=3.3921$, so $T_{\text{obs}}=\bar x_1-\bar x_2=-0.8468$.
+	
+	Under $H_0$, the two population means are equal. To enforce the null hypothesis, both samples are shifted to the common
+	grand mean $\bar x=\frac{n_1\bar x_1+n_2\bar x_2}{n_1+n_2}$.
+	
+	Define $X_i^{(0)}=X_i-\bar x_1+\bar x,$ $Y_j^{(0)}=Y_j-\bar x_2+\bar x.$ We generate $B=100{,}000$ bootstrap samples.  
+	For each bootstrap sample, we draw with replacement from
+	$\{X_1^{(0)},\dots,X_{n_1}^{(0)}\}$ and
+	$\{Y_1^{(0)},\dots,Y_{n_2}^{(0)}\}$,
+	and compute $T^*=\bar X^*-\bar Y^*$.
+	
+	This produces an empirical bootstrap distribution of the test statistic
+	under $H_0$. The two-sided bootstrap p-value is $p_{\text{boot}}
+	=\frac{\#\{|T^*|\ge |T_{\text{obs}}|\}}{B}$.
+	
+	Using the bootstrap distribution we obtain $p_{\text{boot}}\approx0.00118$. Since $0.00118<0.05$, we reject $H_0$. There is strong statistical evidence that the two population means differ.
+	Because the observed difference is negative
+	$(\bar x_1-\bar x_2=-0.8468)$,
+	the data suggest that Group 1 has a smaller mean than Group 2.
+	
+	\includegraphics[max width=0.6\textwidth, center]{Q3_P3}
+	
+	\begin{lstlisting}
+		
+		rng = np.random.default_rng(123)
+		B = 100000
+		
+		obs_stat = xbar1 - xbar2
+		grand_mean = np.mean(np.concatenate([group1, group2]))
+		
+		g1_null = group1 - xbar1 + grand_mean
+		g2_null = group2 - xbar2 + grand_mean
+		
+		boot_stats = np.empty(B)
+		
+		for b in range(B):
+		b1 = rng.choice(g1_null, size=n1, replace=True)
+		b2 = rng.choice(g2_null, size=n2, replace=True)
+		boot_stats[b] = np.mean(b1) - np.mean(b2)
+		
+		p_boot = np.mean(np.abs(boot_stats) >= abs(obs_stat))
+		
+		print("Observed statistic =", obs_stat)
+		print("Bootstrap p-value =", p_boot)
+		
+		plt.figure(figsize=(7, 5))
+		plt.hist(boot_stats, bins=40, edgecolor="black")
+		plt.axvline(obs_stat, linestyle="-", linewidth=2, label="Observed statistic")
+		plt.axvline(-obs_stat, linestyle="-", linewidth=2)
+		plt.title("Bootstrap Null Distribution")
+		plt.xlabel("Mean difference")
+		plt.ylabel("Frequency")
+		plt.legend()
+		plt.tight_layout()
+		plt.show()
+		
+	\end{lstlisting}
+	
+	
+	\clearpage
+	
+	\subsection{Part V}
+	
+	
+	We test
+	$H_0:\mu_1-\mu_2=0$
+	versus
+	$H_A:\mu_1-\mu_2\neq0$
+	using a permutation test. We use the difference in sample means
+	$T=\bar X-\bar Y$.
+	
+	From the observed data, $\bar x_1=2.5453, \bar x_2=3.3921,$ so the observed test statistic is $T_{\mathrm{obs}}=\bar x_1-\bar x_2=-0.8468$.
+	
+	
+	Under $H_0$, the two groups come from populations with the same mean, so
+	the group labels are exchangeable. Therefore, we pool all $n_1+n_2=25$
+	observations together and repeatedly reassign $10$ observations to Group 1
+	and the remaining $15$ observations to Group 2.
+	
+	For each permutation, we compute the statistic $T^\pi=\bar X^\pi-\bar Y^\pi$. This produces the permutation distribution of the test statistic under $H_0$. Because the alternative is two-sided, the permutation p-value is $p_{\mathrm{perm}}
+	=
+	P\bigl(|T^\pi|\ge |T_{\mathrm{obs}}|\bigr)$.
+	
+	Using the exact permutation test, the p-value is $p_{\mathrm{perm}}\approx 0.00566$. A Monte Carlo permutation approximation with $100{,}000$ random
+	permutations gives a very similar result (0.00527).
+	
+	
+	Since $0.00566<0.05$, we reject $H_0$. There is statistically significant evidence that the two population means
+	differ. Since the observed difference is negative
+	$(\bar x_1-\bar x_2=-0.8468)$,
+	the sample suggests that Group 1 has a smaller mean than Group 2.
+	
+	\includegraphics[max width=0.6\textwidth, center]{Q3_P4}
+	
+	\begin{lstlisting}
+		# permutation test
+		# exact two-sided permutation test for difference in means
+		perm_res = stats.permutation_test(
+		data=(group1, group2),
+		statistic=lambda x, y: np.mean(x) - np.mean(y),
+		vectorized=False,
+		n_resamples=np.inf,   # exact permutation test
+		alternative='two-sided'
+		)
+		
+		print("\nPermutation test")
+		print("Observed statistic =", perm_res.statistic)
+		print("Exact permutation p-value =", perm_res.pvalue)
+		
+		# also we can try Monte Carlo permutation
+		B_perm = 100000
+		all_data = np.concatenate([group1, group2])
+		perm_stats = np.empty(B_perm)
+		
+		for b in range(B_perm):
+		shuffled = rng.permutation(all_data)
+		perm_stats[b] = np.mean(shuffled[:n1]) - np.mean(shuffled[n1:])
+		
+		p_perm_mc = np.mean(np.abs(perm_stats) >= abs(obs_stat))
+		
+		print("Monte Carlo permutation p-value =", p_perm_mc)
+		
+		plt.figure(figsize=(7, 5))
+		plt.hist(perm_stats, bins=40, edgecolor="black")
+		plt.axvline(obs_stat, linestyle="-", linewidth=2, label="Observed statistic")
+		plt.axvline(-obs_stat, linestyle="-", linewidth=2)
+		plt.title("Permutation Null Distribution")
+		plt.xlabel("Mean difference")
+		plt.ylabel("Frequency")
+		plt.legend()
+		plt.tight_layout()
+		plt.show()
+	\end{lstlisting}
+	
+	\clearpage
+	
+	\section{Question 4}
+	
+	{\color{deepred}\fontspec{Georgia} Power and Sample Size Determination}
+	
+	Consider the two-sample pooled t-procedure for testing the upper tailed hypothesis:
+	
+	\[
+	H_0 : \mu_1 - \mu_2 = \Delta_0
+	\text{versus} 
+	H_A : \mu_1 - \mu_2 > \Delta_0.
+	\]
+	
+	\medskip
+	
+	\emph{Perform the following tasks}
+	
+	\begin{enumerate}
+		
+		\item[i] Derive an expression for the power of the upper tailed test as a function of the non-centrality parameter $\delta$. The power derivation should be similar to the class example for the one-sample t-test. Students should also identify the correct expression for $\delta$.
+		
+		\item[ii] Suppose that the experimenter would like to determine the minimal sample size required of the pooled two-sample t-test in order to achieve a pre-specified power $1-\beta$. More specifically, the experimenter uses a pilot study to estimate the effect size
+		
+		\[
+		d=\frac{\mu_2-\mu_1}{\sigma},
+		\]
+		
+		and the non-centrality parameter $\delta$ from Problem 4.i. For simplicity, we also assume a balanced design $(m=n)$.
+		
+	\end{enumerate}
+	
+	\medskip
+	
+	\emph{Required task}
+	
+	\medskip
+	
+	For fixed $\alpha$ and fixed effect size $d$ (or fixed non-centrality parameter $\delta$), compute the power curve as a function of the sample size $n$, i.e., construct the curve
+	
+	\[
+	\text{power}(n),  \text{for } n=2,3,\dots,200,
+	\]
+	
+	where $\alpha$ and $d$ are fixed.
+	
+	Students are required to compute power curves related to three different pilot studies provided in the files \texttt{HW2\_P4\_data1.csv}, \texttt{HW2\_P4\_data2.csv} and \texttt{HW2\_P4\_data3.csv}. Further, students should compute the power curves for two significance levels $\alpha=.05$ and $\alpha=.10$. Your final answer should be summarized in one elegant plot showing six power curves. Please label the legend appropriately to clearly identify which curve corresponds to the $d$ (or $\delta$) and $\alpha$.
+	
+	\medskip
+	
+	\emph{Note} maybe write a loop in R or Python to compute these curves?
+	
+	\textbf{Answer}
+	
+	Full codes are put in my \href{https://github.com/zongyiliu/STAT_5291/tree/main/Homework/Homework_2}{Github repository}.
+	
+	\subsection{Part I}
+	
+	We test
+	$H_0:\mu_1-\mu_2=\Delta_0$
+	versus
+	$H_A:\mu_1-\mu_2>\Delta_0$,
+	assuming both populations are normal with common variance $\sigma^2$. Let $\bar X$ and $\bar Y$ denote the sample means from samples of sizes
+	$m$ and $n$, and define the pooled variance estimator
+	$S_p^2=\frac{(m-1)S_1^2+(n-1)S_2^2}{m+n-2}$. The pooled two-sample $t$ statistic is
+	$T=\frac{(\bar X-\bar Y)-\Delta_0}{S_p\sqrt{\frac1m+\frac1n}}$. Under $H_0$, $T\sim t_\nu$ with $\nu=m+n-2$ degrees of freedom.  
+	Thus the rejection region for a level $\alpha$ upper-tailed test is
+	$T>t_{\alpha,\nu}$ where $P(t_\nu>t_{\alpha,\nu})=\alpha$.
+	
+	Under a true difference $\mu_1-\mu_2=\Delta$, the statistic has a
+	noncentral $t$ distribution with noncentrality parameter $\delta=\frac{(\mu_1-\mu_2)-\Delta_0}{\sigma\sqrt{\frac1m+\frac1n}}
+	=\frac{\Delta-\Delta_0}{\sigma\sqrt{\frac1m+\frac1n}}$.
+	
+	Thus $T\sim t_\nu(\delta)$. The power function is therefore $\pi(\Delta)
+	=P_\Delta(T>t_{\alpha,\nu})
+	=1-F_{t_\nu(\delta)}(t_{\alpha,\nu})$, where $F_{t_\nu(\delta)}$ is the CDF of the noncentral $t$ distribution. Hence the noncentrality parameter is ${\delta=\frac{(\mu_1-\mu_2)-\Delta_0}{\sigma\sqrt{\frac1m+\frac1n}}}$.
+	
+	\clearpage
+	
+	\subsection{Part II}
+	
+	
+	Assume a balanced design with $m=n$, so that $\nu=2n-2$ degrees of freedom and
+	$\delta=\frac{(\mu_1-\mu_2)-\Delta_0}{\sigma\sqrt{2/n}}=d_0\sqrt{\frac{n}{2}},$
+	where $d_0=\frac{(\mu_1-\mu_2)-\Delta_0}{\sigma}$ is the standardized effect relative to the null value.
+	
+	The pilot study estimates the effect size $d=\frac{\mu_2-\mu_1}{\sigma}$, so that $\frac{\mu_1-\mu_2}{\sigma}=-d$. When $\Delta_0=0$, we have $d_0=-d$, and hence
+	$\delta = -d\sqrt{\frac{n}{2}}.$
+	
+	The power of the upper-tailed test at sample size $n$ is
+	$$\text{power}(n) = P(t_{2n-2}(\delta) > t_{\alpha,\,2n-2}) = 1 - F_{t_{2n-2}(\delta)}(t_{\alpha,\,2n-2}),$$
+	where $F_{t_{2n-2}(\delta)}$ denotes the CDF of the noncentral $t$ distribution with $2n-2$ degrees of freedom and noncentrality parameter $\delta=d_0\sqrt{n/2}$.
+	
+	To find the minimal sample size achieving pre-specified power $1-\beta$, we require the smallest $n$ such that
+	$$1 - F_{t_{2n-2}(d_0\sqrt{n/2})}(t_{\alpha,\,2n-2}) \geq 1-\beta.$$
+	
+	For a large-sample approximation, we replace the noncentral $t$ by a normal distribution. The upper-tailed test rejects when $T > t_{\alpha,\nu} \approx z_{1-\alpha}$, and the power condition becomes approximately
+	$$\delta \approx z_{1-\alpha} + z_{1-\beta},$$
+	where $z_{1-\alpha}$ and $z_{1-\beta}$ are the $(1-\alpha)$- and $(1-\beta)$-quantiles of the standard normal distribution. Substituting $\delta = d_0\sqrt{n/2}$ and solving for $n$ gives
+	$$d_0\sqrt{\frac{n}{2}} \approx z_{1-\alpha}+z_{1-\beta} \implies n \approx \frac{2(z_{1-\alpha}+z_{1-\beta})^2}{d_0^2}.$$
+	
+	Since $n$ must be a positive integer, the approximate minimal sample size per group is
+	$n_{\min} = \left\lceil \frac{2(z_{1-\alpha}+z_{1-\beta})^2}{d_0^2} \right\rceil.$
+	
+	When $\Delta_0=0$, we have $d_0^2=d^2$, so
+	$n_{\min} = \left\lceil \frac{2(z_{1-\alpha}+z_{1-\beta})^2}{d^2} \right\rceil.$ The power curve $\text{power}(n)$ for $n=2,3,\dots,200$ is computed exactly using the noncentral $t$ CDF for fixed $\alpha$ and fixed effect size $d$ (or equivalently fixed $\delta$).
+	
+	\clearpage
+	
+	\subsection{Part III}
+	
+	
+	Assume a balanced design with $m=n$. Under $H_A:\mu_1-\mu_2>0$ with $\Delta_0=0$, the noncentrality parameter is
+	$$\delta = \frac{\mu_1-\mu_2}{\sigma}\sqrt{\frac{n}{2}} = -d\sqrt{\frac{n}{2}},$$
+	where $d=(\mu_2-\mu_1)/\sigma$ is estimated from each pilot study via the pooled estimator
+	$\hat d = \frac{\bar Y - \bar X}{S_p}, \qquad S_p = \sqrt{\frac{(n_1-1)S_1^2+(n_2-1)S_2^2}{n_1+n_2-2}}.$
+	
+	For a fixed $\alpha$ and fixed $d$, the power at balanced sample size $n$ is
+	$\text{power}(n) = 1 - F_{t_{2n-2}(\delta)}(t_{\alpha,\,2n-2}),$
+	where $F_{t_{2n-2}(\delta)}$ is the CDF of the noncentral $t$ distribution with $2n-2$ degrees of freedom and noncentrality parameter $\delta = -d\sqrt{n/2}$, and $t_{\alpha,\,2n-2}$ is the upper-$\alpha$ critical value of the central $t_{2n-2}$ distribution.
+	
+	The three pilot studies yield the following estimated effect sizes:
+	
+	\begin{center}
+		\begin{tabular}{cc}
+			\hline
+			Pilot Study & $\hat d$ \\
+			\hline
+			Dataset 1 & $0.21$ \\
+			Dataset 2 & $0.31$ \\
+			Dataset 3 & $0.44$ \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	For each dataset and each $\alpha\in\{0.05,0.10\}$, the power curve $\text{power}(n)$ for $n=2,3,\dots,200$ is computed using the noncentral $t$ CDF. The six resulting curves are shown below.
+	
+	As expected, power increases with $n$ for all curves. Larger effect sizes (Dataset 3, $\hat d=0.44$) reach the target power of $0.80$ at a smaller sample size than smaller effect sizes (Dataset 1, $\hat d=0.21$). Similarly, a larger significance level $\alpha=0.10$ yields higher power than $\alpha=0.05$ for any fixed $n$ and $d$.
+	
+	\includegraphics[width=0.85\textwidth]{Q4_P1_2.png}
+	
+	
+	
+	\clearpage
+	
+	\section{Question 5}
+	{\color{deepred}\fontspec{Georgia} Two-Sample Pooled Test and Likelihood Ratio}
+	
+	Recall the pooled two-sample t-procedure, which assumes the model:
+	
+	\medskip
+	
+	\underline{Assumptions}
+	
+	\begin{enumerate}
+		\item $X_1, X_2, \ldots, X_m$ is a random sample from a normal distribution with mean $\mu_1$ and variance $\sigma^2$. The variance $\sigma^2$ is unknown.
+		
+		\item $Y_1, Y_2, \ldots, Y_n$ is a random sample from a normal distribution with mean $\mu_2$ and variance $\sigma^2$. The variance $\sigma^2$ is unknown.
+		
+		\item The $X$ and $Y$ samples are independent of one another.
+	\end{enumerate}
+	
+	\medskip
+	
+	Consider the two tailed hypothesis
+	\[
+	H_0 : \mu_1 - \mu_2 = 0 
+	\text{versus} 
+	H_A : \mu_1 - \mu_2 \neq 0 .
+	\]
+	
+	\medskip
+	
+	\emph{Perform the following tasks}
+	
+	\begin{enumerate}
+		
+		\item[i] Derive an expression for the likelihood
+		\[
+		\mathcal{L}(\theta) = \mathcal{L}(\mu_1,\mu_2,\sigma^2).
+		\]
+		
+		\item[ii] Find the maximum likelihood estimator of
+		\[
+		\theta = (\mu_1,\mu_2,\sigma^2).
+		\]
+		
+		Note that you are not required to perform the \emph{second derivative test} for this problem.
+		
+		\item[iii] Derive the likelihood ratio test statistic $\lambda$. Note that you are not required to perform the \emph{second derivative test} for this problem.
+		
+		\item[iv] Show that the likelihood ratio test can be expressed in terms of the t-statistic $(T)$, i.e., there exists a function $f$ such that
+		\[
+		\lambda = f(T).
+		\]
+		
+	\end{enumerate}
+	
+	\textbf{Answer}
+	
+	\subsection{Part I}
+	
+	Let $x_1,\dots,x_m$ be the observed $X$-sample and $y_1,\dots,y_n$ the observed $Y$-sample. Under the model,
+	$
+	X_i \stackrel{iid}{\sim} N(\mu_1,\sigma^2), 
+	Y_j \stackrel{iid}{\sim} N(\mu_2,\sigma^2),
+	$
+	with the two samples independent.
+	
+	Define
+	$
+	\bar X=\frac1m\sum_{i=1}^m X_i, 
+	\bar Y=\frac1n\sum_{j=1}^n Y_j,
+	$
+	and let
+	$
+	SSE_1=\sum_{i=1}^m (X_i-\bar X)^2, 
+	SSE_2=\sum_{j=1}^n (Y_j-\bar Y)^2.
+	$
+	
+	
+	By independence,
+	$
+	\mathcal L(\mu_1,\mu_2,\sigma^2)
+	=
+	\prod_{i=1}^m \frac{1}{\sqrt{2\pi\sigma^2}}
+	\exp\!\left(-\frac{(x_i-\mu_1)^2}{2\sigma^2}\right)
+	\prod_{j=1}^n \frac{1}{\sqrt{2\pi\sigma^2}}
+	\exp\!\left(-\frac{(y_j-\mu_2)^2}{2\sigma^2}\right).
+	$
+	Thus
+	$
+	\mathcal L(\mu_1,\mu_2,\sigma^2)
+	=
+	(2\pi\sigma^2)^{-(m+n)/2}
+	\exp\!\left(
+	-\frac{1}{2\sigma^2}
+	\left[
+	\sum_{i=1}^m (x_i-\mu_1)^2+\sum_{j=1}^n (y_j-\mu_2)^2
+	\right]
+	\right).
+	$
+	Equivalently, the log-likelihood is
+	$
+	\ell(\mu_1,\mu_2,\sigma^2)
+	=
+	-\frac{m+n}{2}\log(2\pi)
+	-\frac{m+n}{2}\log(\sigma^2)
+	-\frac{1}{2\sigma^2}
+	\left[
+	\sum_{i=1}^m (x_i-\mu_1)^2+\sum_{j=1}^n (y_j-\mu_2)^2
+	\right].
+	$
+	
+	\clearpage
+	
+	\subsection{Part II}
+	
+	To maximize $\mathcal L$, equivalently maximize $\ell$. Differentiating with respect to $\mu_1$ and $\mu_2$ gives
+	$
+	\hat\mu_1=\bar X,  \hat\mu_2=\bar Y.
+	$ Substituting these into the log-likelihood, we maximize in $\sigma^2$:
+	$$
+	\ell(\bar X,\bar Y,\sigma^2)
+	=
+	-\frac{m+n}{2}\log(2\pi)
+	-\frac{m+n}{2}\log(\sigma^2)
+	-\frac{1}{2\sigma^2}
+	\left[
+	\sum_{i=1}^m (x_i-\bar X)^2+\sum_{j=1}^n (y_j-\bar Y)^2
+	\right].
+	$$
+	Hence
+	$
+	\hat\sigma^2
+	=
+	\frac{1}{m+n}
+	\left[
+	\sum_{i=1}^m (x_i-\bar X)^2+\sum_{j=1}^n (y_j-\bar Y)^2
+	\right]
+	=
+	\frac{SSE_1+SSE_2}{m+n}.
+	$ Therefore the unrestricted MLE is
+	$
+	\hat\theta=
+	\left(
+	\bar X,\bar Y,\frac{SSE_1+SSE_2}{m+n}
+	\right).
+	$
+	
+	\clearpage
+	
+	\subsection{Part III}
+	
+	Under $H_0:\mu_1-\mu_2=0$, we write $\mu_1=\mu_2=\mu$. Then the likelihood becomes $
+	\mathcal L_0(\mu,\sigma^2)$\\
+	$
+	=
+	(2\pi\sigma^2)^{-(m+n)/2}
+	\exp\!\left(
+	-\frac{1}{2\sigma^2}
+	\left[
+	\sum_{i=1}^m (x_i-\mu)^2+\sum_{j=1}^n (y_j-\mu)^2
+	\right]
+	\right).
+	$ The MLE of $\mu$ under $H_0$ is the combined sample mean
+	$
+	\hat\mu_0=\bar Z=\frac{m\bar X+n\bar Y}{m+n}.
+	$
+	
+	The constrained MLE of $\sigma^2$ is
+	$
+	\hat\sigma_0^2
+	=
+	\frac{1}{m+n}
+	\left[
+	\sum_{i=1}^m (x_i-\bar Z)^2+\sum_{j=1}^n (y_j-\bar Z)^2
+	\right].
+	$ Using the identity
+	$
+	\sum_{i=1}^m (x_i-\bar Z)^2+\sum_{j=1}^n (y_j-\bar Z)^2$$
+	=
+	SSE_1+SSE_2+\frac{mn}{m+n}(\bar X-\bar Y)^2,
+	$
+	we get
+	$
+	\hat\sigma_0^2
+	=
+	\frac{1}{m+n}
+	\left[
+	SSE_1+SSE_2+\frac{mn}{m+n}(\bar X-\bar Y)^2
+	\right].
+	$
+	
+	The likelihood ratio statistic is
+	$
+	\lambda
+	=
+	\frac{\sup_{H_0}\mathcal L}{\sup_{\Theta}\mathcal L}.
+	$
+	Since at the maximizers the exponential term becomes $e^{-(m+n)/2}$ in both numerator and denominator, we obtain
+	$
+	\lambda
+	=
+	\left(\frac{\hat\sigma^2}{\hat\sigma_0^2}\right)^{(m+n)/2}.
+	$
+	Thus
+	$
+	\lambda
+	=
+	\left(
+	\frac{SSE_1+SSE_2}
+	{SSE_1+SSE_2+\frac{mn}{m+n}(\bar X-\bar Y)^2}
+	\right)^{(m+n)/2}.
+	$
+	
+	\clearpage
+	
+	\subsection{Part IV}
+	
+	Recall the pooled variance
+	$
+	S_p^2=\frac{SSE_1+SSE_2}{m+n-2},
+	$
+	and the pooled two-sample $t$-statistic
+	$
+	T
+	=
+	\frac{\bar X-\bar Y}
+	{S_p\sqrt{\frac1m+\frac1n}}.
+	$
+	Then
+	$
+	T^2
+	=
+	\frac{(\bar X-\bar Y)^2}
+	{S_p^2\left(\frac1m+\frac1n\right)}
+	=
+	\frac{(\bar X-\bar Y)^2}
+	{\frac{SSE_1+SSE_2}{m+n-2}\cdot \frac{m+n}{mn}}
+	=
+	\frac{mn}{m+n}\cdot \frac{(m+n-2)(\bar X-\bar Y)^2}{SSE_1+SSE_2}.
+	$
+	Hence
+	$
+	\frac{mn}{m+n}(\bar X-\bar Y)^2
+	=
+	\frac{SSE_1+SSE_2}{m+n-2}\,T^2.
+	$
+	
+	Substitute this into the formula for $\lambda$:
+	$
+	\lambda
+	=
+	\left(
+	\frac{SSE_1+SSE_2}
+	{SSE_1+SSE_2+\frac{SSE_1+SSE_2}{m+n-2}T^2}
+	\right)^{(m+n)/2}.
+	$
+	Factor out $SSE_1+SSE_2$ from the denominator:
+	$
+	\lambda
+	=
+	\left(
+	\frac{1}
+	{1+\frac{T^2}{m+n-2}}
+	\right)^{(m+n)/2}.
+	$
+	
+	Therefore $\lambda=f(T)$ with
+	$
+	f(t)=\left(1+\frac{t^2}{m+n-2}\right)^{-(m+n)/2}.
+	$
+	
+	So the likelihood ratio test is an equivalent test to the pooled two-sample $t$-test, since $\lambda$ is a monotone decreasing function of $|T|$.
+	
+	
+	
+	
+	\clearpage
+	
+	
+	\section{Question 6}
+	
+	{\color{deepred}\fontspec{Georgia} Parametric and Non-parametric Paired Procedures}
+	
+	Consider testing the stopping distance [ft] of two types of tires on 6 different cars. 
+	The response variable is the stopping distance of the car after the brakes are applied 
+	at 60 mph. The two types of tires are: Winter and High Performance. 
+	Does the data set indicate that the stopping distance differs between the two tire types?
+	
+	\medskip
+	
+	\begin{center}
+		\begin{tabular}{ccc}
+			\hline
+			Car & High Performance & Winter \\
+			\hline
+			1 & 226.6 & 239.5 \\
+			2 & 230.5 & 257.5 \\
+			3 & 220.0 & 236.8 \\
+			4 & 215.9 & 223.9 \\
+			5 & 231.5 & 248.0 \\
+			6 & 235.5 & 253.6 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	\medskip
+	
+	\emph{Perform the following tasks}
+	
+	\begin{enumerate}
+		
+		\item[i] Assuming the stopping distance for both tire types are approximately normally distributed, run the paired two-sample t-procedure to test the claim
+		
+		\[
+		H_0 : \mu_D = 0 
+		\text{ versus } 
+		H_A : \mu_D \neq 0 .
+		\]
+		
+		Make sure to include all relevant steps in the testing procedure for full credit.
+		
+		\item[ii] Assuming the stopping distance for $D = X - Y$ is symmetric, run the Wilcoxon signed-rank procedure to test the claim
+		
+		\[
+		H_0 : \mu_D = 0 
+		\text{ versus } 
+		H_A : \mu_D \neq 0 .
+		\]
+		
+		Make sure to include all relevant steps in the testing procedure for full credit.
+		
+	\end{enumerate}
+	
+	
+	\textbf{Answer}
+	
+	
+	
+	
+	\subsection{Part I}
+	Let $X$ denote the stopping distance for High Performance tires and $Y$ the stopping distance for Winter tires. Define paired differences
+	$
+	D_i = X_i - Y_i,  i=1,\dots,6.
+	$
+	From the data we obtain
+	$
+	D = (-12.9,-27.0,-16.8,-8.0,-16.5,-18.1).
+	$
+	
+	We test
+	$
+	H_0:\mu_D=0
+	\text{ vs } 
+	H_A:\mu_D\ne 0.
+	$ 
+	
+	First compute the sample mean. The sample mean is
+	$\bar D=\frac{1}{6}\sum_{i=1}^6 D_i=-16.55$.
+	
+	The sample standard deviation is
+	$s_D\approx 6.29$.
+	
+	Hence the test statistic is
+	$t=\frac{\bar D-0}{s_D/\sqrt{6}}
+	=\frac{-16.55}{6.29/\sqrt{6}}
+	\approx -6.44$,
+	with $df=5$.
+	
+	For a two–sided test, the critical value at $\alpha=0.05$ is approximately
+	$
+	t_{0.025,5}\approx 2.571.$ Since $|t|=6.25>2.571$, we reject $H_0$. The $p$–value is very small ($p<0.01$).
+	
+	There is strong evidence that the mean stopping distance differs between the two tire types. Because $\bar D<0$, High Performance tires tend to have shorter stopping distances than Winter tires.
+	
+	\clearpage
+	
+	\subsection{Part II}
+	
+	Again test $H_0:\mu_D=0$ vs $H_A:\mu_D\ne 0$.
+	
+	Compute the absolute differences $|D|=(12.9,27.0,16.8,8.0,16.5,18.1)$ and rank them from smallest to largest:
+	
+	\begin{center}
+		\begin{tabular}{ccc}
+			\hline
+			$D_i$ & $|D_i|$ & Rank \\
+			\hline
+			$-8.0$  & 8.0  & 1 \\
+			$-12.9$ & 12.9 & 2 \\
+			$-16.5$ & 16.5 & 3 \\
+			$-16.8$ & 16.8 & 4 \\
+			$-18.1$ & 18.1 & 5 \\
+			$-27.0$ & 27.0 & 6 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	
+	Since all differences are negative, the positive and negative rank sums are
+	$$W_+ = 0, \qquad W_- = 1+2+3+4+5+6 = 21.$$
+	The Wilcoxon signed-rank statistic is $W = \min(W_+, W_-) = 0$.
+	
+	To compute the exact two-sided $p$-value, note that under $H_0$ each of the $2^6 = 64$ sign assignments is equally likely. The value $W_+ = 0$ occurs only when all six differences are assigned a negative sign, which corresponds to exactly $1$ out of $64$ arrangements. For a two-sided test we double this probability, giving
+	$$p = \frac{2 \times 1}{2^6} = \frac{2}{64} = 0.03125.$$
+	Since $p = 0.03125 < 0.05$, we reject $H_0$ and conclude that the stopping distance differs significantly between the two tire types.
+	\clearpage
+	
+	\section{Question 7}
+	
+	{\color{deepred}\fontspec{Georgia} Categorical Hypothesis Testing}
+	
+	\medskip
+	
+	Binomial data gathered from more than one population are often presented in a contingency table. 
+	For the case of two populations, the table might look like
+	
+	\begin{center}
+		\begin{tabular}{c|c|c|c}
+			& Population 1 & Population 2 & Total \\
+			\hline
+			Successes & $S_1$ & $S_2$ & $S = S_1 + S_2$ \\
+			Failures & $F_1$ & $F_2$ & $F = F_1 + F_2$ \\
+			\hline
+			Total & $m$ & $n$ & $N = m + n$
+		\end{tabular}
+	\end{center}
+	
+	where Population 1 is $\text{Binomial}(m,p_1)$, with $S_1$ successes and $F_1$ failures, and Population 2 is $\text{Binomial}(n,p_2)$, with $S_2$ successes and $F_2$ failures. 
+	We will motivate both the two-sample $z$-test for proportions and the chi-squared test for association based on the $2\times2$ contingency table. 
+	The hypothesis of interest is:
+	
+	\[
+	H_0: p_1 = p_2
+	\text{versus} 
+	H_A: p_1 \neq p_2
+	\]
+	
+	\emph{Perform the following tasks}
+	
+	\begin{enumerate}
+		
+		\item[i] Show that a test can be based on the statistic
+		\[
+		W = \frac{(\hat p_1 - \hat p_2)^2}{\left(\frac{1}{m} + \frac{1}{n}\right)\left(\hat p (1-\hat p)\right)},
+		\]
+		where $\hat p_1 = S_1/m$, $\hat p_2 = S_2/n$, and
+		\[
+		\hat p = \frac{S_1 + S_2}{m+n}.
+		\]
+		Also show that as $m,n \to \infty$, the distribution of $W$ approaches $\chi^2_1$.
+		
+		\item[ii] Another way of measuring the departure from $H_0$ is by calculating the expected frequency table. 
+		This table is constructed by conditioning on the marginal totals and filling in the table according to $H_0: p_1=p_2$, that is,
+		
+		\medskip
+		
+		\begin{center}
+			Expected Frequencies
+			
+			\begin{tabular}{c|c|c|c}
+				& Population 1 & Population 2 & Total \\
+				\hline
+				Successes & $\frac{mS}{m+n}$ & $\frac{nS}{m+n}$ & $S = S_1 + S_2$ \\
+				Failures & $\frac{mF}{m+n}$ & $\frac{nF}{m+n}$ & $F = F_1 + F_2$ \\
+				\hline
+				Total & $m$ & $n$ & $N = m+n$
+			\end{tabular}
+		\end{center}
+		
+		Using the expected frequency table, a statistic $W^*$ is computed by going through the cells of the tables and computing
+		
+		\[
+		W^* =
+		\sum \frac{(\text{observed} - \text{expected})^2}{\text{expected}}
+		\]
+		
+		\[
+		=
+		\frac{\left(S_1 - \frac{mS}{m+n}\right)^2}{\frac{mS}{m+n}}
+		+
+		\frac{\left(S_2 - \frac{nS}{m+n}\right)^2}{\frac{nS}{m+n}}
+		+
+		\frac{\left(F_1 - \frac{mF}{m+n}\right)^2}{\frac{mF}{m+n}}
+		+
+		\frac{\left(F_2 - \frac{nF}{m+n}\right)^2}{\frac{nF}{m+n}}.
+		\]
+		
+		Show, algebraically, that $W = W^*$ and hence that $W^*$ is asymptotically chi-squared.
+		
+		\item[iii] A famous medical experiment was conducted by Joseph Lister in the late 1800s. 
+		Mortality associated with surgery was quite high, and Lister conjectured that the use of disinfectant, carbolic acid, would help. 
+		Over a period of several years Lister performed 75 amputations with and without carbonic acid. 
+		The data are given here:
+		
+		\begin{center}
+			Carbolic acid Used?
+			
+			\begin{tabular}{c|c|c}
+				& Yes & No \\
+				\hline
+				Patient lived & 34 & 19 \\
+				Patient died & 6 & 16
+			\end{tabular}
+		\end{center}
+		
+		Use these data to test whether the use of carbolic acid is associated with patient mortality.
+		
+	\end{enumerate}
+	
+	
+	\textbf{Answer}
+	
+	
+	\subsection{Part I}
+	Under $H_0:p_1=p_2=:p$, we have $\hat p_1=S_1/m$ and $\hat p_2=S_2/n$ with
+	$\mathbb E(\hat p_1-\hat p_2)=0$ and
+	$\mathrm{Var}(\hat p_1-\hat p_2)=p(1-p)\left(\frac1m+\frac1n\right)$.
+	By the central limit theorem,
+	$
+	\frac{\hat p_1-\hat p_2}
+	{\sqrt{p(1-p)\left(\frac1m+\frac1n\right)}}
+	\Rightarrow N(0,1)
+	$
+	as $m,n\to\infty$.
+	Replacing $p$ by the pooled estimator
+	$
+	\hat p=\frac{S_1+S_2}{m+n},
+	$
+	the large-sample statistic becomes
+	$
+	Z=\frac{\hat p_1-\hat p_2}
+	{\sqrt{\hat p(1-\hat p)\left(\frac1m+\frac1n\right)}}.
+	$
+	Hence
+	$
+	W=Z^2=\frac{(\hat p_1-\hat p_2)^2}
+	{\left(\frac1m+\frac1n\right)\hat p(1-\hat p)}.
+	$
+	Since $Z\Rightarrow N(0,1)$, it follows that $W\Rightarrow\chi^2_1$.
+	\clearpage
+	\subsection{Part II}
+	
+	Define $N=m+n$, $S=S_1+S_2$, and $F=F_1+F_2$.
+	Let $A=S_1-\frac{mS}{N}$. Then
+	$
+	S_2-\frac{nS}{N}=-A,
+	$
+	$
+	F_1-\frac{mF}{N}=-A,
+	$
+	$
+	F_2-\frac{nF}{N}=A.
+	$
+	Hence
+	$
+	W^*=A^2\!\left(\frac{N}{mS}+\frac{N}{nS}+\frac{N}{mF}+\frac{N}{nF}\right)
+	= A^2N\!\left(\frac1m+\frac1n\right)\!\left(\frac1S+\frac1F\right).
+	$
+	Since $\frac1S+\frac1F=\frac{N}{SF}$,
+	$
+	W^*=A^2\frac{N^2}{SF}\left(\frac1m+\frac1n\right).
+	$
+	Now
+	$
+	A=S_1-\frac{mS}{N}=\frac{mS_2-nS_1}{N},
+	$
+	so
+	$
+	A^2=\frac{(mS_2-nS_1)^2}{N^2}.
+	$
+	Therefore
+	$
+	W^*=\frac{(mS_2-nS_1)^2}{SF}\left(\frac1m+\frac1n\right).
+	$
+	Also
+	$
+	\hat p_1-\hat p_2=\frac{S_1}{m}-\frac{S_2}{n}
+	=\frac{nS_1-mS_2}{mn}.
+	$
+	Since $\hat p(1-\hat p)=\frac{SF}{N^2}$ and
+	$\frac1m+\frac1n=\frac{N}{mn}$, substituting into
+	$
+	W=\frac{(\hat p_1-\hat p_2)^2}
+	{\left(\frac1m+\frac1n\right)\hat p(1-\hat p)}
+	$
+	gives
+	$
+	W=\frac{(mS_2-nS_1)^2}{SF}\left(\frac1m+\frac1n\right)=W^*.
+	$
+	Thus $W^*$ is also asymptotically $\chi^2_1$.
+	\clearpage
+	\subsection{Part III}
+	From the table we take “success’’ to mean death, giving
+	$m=40$, $n=35$, $S_1=6$, $S_2=16$.
+	Then $\hat p_1=6/40=0.15$, $\hat p_2=16/35\approx0.4571$, and
+	$\hat p=22/75\approx0.2933$.
+	The statistic is
+	$
+	W=\frac{(\hat p_1-\hat p_2)^2}
+	{\left(\frac1{40}+\frac1{35}\right)\hat p(1-\hat p)}
+	\approx 8.49.
+	$
+	Under $H_0$, $W\sim\chi^2_1$ asymptotically, giving
+	$p\approx0.0036$.
+	We therefore reject $H_0$ and conclude that use of carbolic acid is
+	associated with mortality; the mortality rate is about $15\%$ with
+	carbolic acid versus $45.7\%$ without it.
+	
+	
+	\clearpage
+	
+	
+	\section{Question 8}
+	
+	{\color{deepred}\fontspec{Georgia} Goodness-of-fit}
+	
+	\medskip
+	
+	Construct a Chi-squared goodness-of-fit test to assess whether or not a dataset $(X)$ is normally distributed, i.e., test the null alternative pair:
+	
+	\[
+	H_0 : X \sim \text{Normal}
+	\text{versus} 
+	H_A : X \text{ is not Normal}.
+	\]
+	
+	To accomplish this task, you must first convert the continuous observed data into a frequency table, i.e., the heights of the bars on a histogram. 
+	Then apply the goodness-of-fit test based on the observed and expected counts assuming the null hypothesis $H_0: X\sim\text{Normal}$ is true.
+	
+	Some considerations follow:
+	
+	\begin{itemize}
+		
+		\item Let $K$ be the number of \emph{bins} in the histogram. Note that changing the number of bins will consequently change the degrees of freedom of the chi-squared distribution.
+		
+		\item Don't forget that you have to estimate both $\mu$ and $\sigma^2$ in order to compute the expected counts, which also impacts the degrees of freedom of the chi-squared distribution.
+		
+		\item If you are successful in solving this problem, maybe simulate a few normal and non-normal datasets and compare the qqplots with the goodness-of-fit outcomes of the simulated data.
+		
+	\end{itemize}
+	
+	\textbf{Answer}
+	
+	We construct a Pearson chi-squared goodness-of-fit test for
+	$$H_0: X\sim \text{Normal} \quad \text{versus} \quad H_A: X \text{ is not Normal}.$$
+	Suppose we observe an i.i.d.\ sample $X_1,\dots,X_n$ from the distribution of $X$.
+	
+	\begin{enumerate}
+		\item \textit{Estimate the normal parameters.}
+		Under $H_0$, the data should come from some normal distribution $N(\mu,\sigma^2)$, where both $\mu$ and $\sigma^2$ are unknown. We estimate them by
+		$$\hat\mu=\bar X=\frac{1}{n}\sum_{i=1}^n X_i, \qquad \hat\sigma^2=\frac{1}{n}\sum_{i=1}^n (X_i-\bar X)^2$$
+		(or one may use the unbiased variance estimator; asymptotically this makes no difference for the test).
+		
+		\item \textit{Partition the real line into $K$ bins.}
+		Choose cutpoints $-\infty=a_0<a_1<\cdots<a_{K-1}<a_K=\infty$ and define the bins $B_j=(a_{j-1},a_j]$ for $j=1,\dots,K$. Let the observed count in bin $j$ be
+		$$O_j=\sum_{i=1}^n \mathbf{1}_{\{X_i\in B_j\}}, \qquad \text{so that} \qquad \sum_{j=1}^K O_j=n.$$
+		A common practical choice is to select the bins so that, under $H_0$, the expected counts are roughly equal; for example, one may take $a_j$ to be the estimated normal quantiles satisfying
+		$$\mathbb{P}_{\hat\mu,\hat\sigma}(X\le a_j)=\frac{j}{K},$$
+		so that each expected count is about $n/K$.
+		
+		\item \textit{Compute the expected counts under $H_0$.}
+		Under the fitted normal model $N(\hat\mu,\hat\sigma^2)$, the probability of bin $j$ is
+		$$p_j=\mathbb{P}_{\hat\mu,\hat\sigma}(X\in B_j)=\Phi\!\left(\frac{a_j-\hat\mu}{\hat\sigma}\right)-\Phi\!\left(\frac{a_{j-1}-\hat\mu}{\hat\sigma}\right),$$
+		where $\Phi$ is the standard normal cdf. Hence the expected count in bin $j$ is $E_j=np_j$. For the chi-squared approximation to be reliable, one usually requires all expected counts to be at least about $5$; if some $E_j$ are too small, adjacent bins should be merged.
+		
+		\item \textit{Form the chi-squared statistic.}
+		The Pearson statistic is
+		$$Q=\sum_{j=1}^K \frac{(O_j-E_j)^2}{E_j}.$$
+		
+		\item \textit{Determine the degrees of freedom.}
+		If the bin probabilities were fully specified in advance, the statistic would have approximately a $\chi^2_{K-1}$ distribution, since the counts satisfy one constraint $\sum_{j=1}^K O_j=n$. However, since we estimate two parameters $\mu$ and $\sigma^2$ from the data, the degrees of freedom are reduced by $2$. Therefore, under $H_0$,
+		$$Q \approx \chi^2_{K-3},$$
+		and the test requires $K\ge 4$.
+		
+		\item \textit{Decision rule.}
+		At significance level $\alpha$, reject $H_0$ if $Q>\chi^2_{K-3,\,1-\alpha}$, the $(1-\alpha)$-quantile of the $\chi^2_{K-3}$ distribution. Equivalently, the $p$-value is
+		$$p\text{-value}=\mathbb{P}\!\left(\chi^2_{K-3}\ge Q_{\mathrm{obs}}\right),$$
+		and we reject when this is less than $\alpha$.
+	\end{enumerate}
+	
+	To compare this test with Q-Q plots, one could simulate:
+	\begin{itemize}
+		\item Normal data, e.g.\ $X_i\sim N(0,1)$;
+		\item Heavy-tailed data, e.g.\ $X_i\sim t_3$;
+		\item Skewed data, e.g.\ $X_i\sim \mathrm{Exp}(1)$;
+		\item Mixture data, e.g.\ $X_i\sim 0.8\,N(0,1)+0.2\,N(3,1)$.
+	\end{itemize}
+	For each dataset, draw the Q-Q plot and compute the statistic $Q$. Typically, normal samples produce roughly linear Q-Q plots and non-significant chi-squared tests, while non-normal samples show curvature or tail deviations in the Q-Q plot and tend to produce significant goodness-of-fit statistics.
+	
+	
+	\clearpage
+	
+\end{document}
